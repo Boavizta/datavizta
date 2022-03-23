@@ -1,183 +1,199 @@
 <script lang="ts">
+    import { _ } from 'svelte-i18n';
     import AgGrid from "@budibase/svelte-ag-grid";
 //    import csv from "../../static/boavizta-data-us.csv"
     import Papa from "papaparse";
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
 
-    let data = [];
-    let api;
-    const columnDefs = [{
-        field: "Manufacturer",
-        width: 150
-    },
-        {
-            field: "Name",
+    let dataInit = [];
+    let _filterApi;
+    const dispatcher = createEventDispatcher();
+
+    function updateDataGrid(rows){
+        dispatcher('updateDataGrid',rows)
+    }
+
+    const columnDefs    = [{
+            headerName: $_('datagrid.manufacturer'),
+            field: "manufacturer",
             width: 150
         },
         {
-            field: "Category",
-            width: 100
+            headerName: $_('datagrid.name'),
+            field: "name",
+            width: 300
         },
         {
-            field: "SubCategory",
-            width: 100
+            headerName: $_('datagrid.category'),
+            field: "category",
+            width: 120
         },
         {
-            field: "Total (kgCO2eq)",
-            filter: 'agNumberColumnFilter',
-            width: 80
+            headerName: $_('datagrid.subcategory'),
+            field: "subcategory",
+            width: 120
         },
         {
-            field: "Use",
-            filter: 'agNumberColumnFilter',
-            width: 80
+            headerName: $_('datagrid.total'),
+            field: "gwp_total",
+            filter: false,
+            width: 150
         },
         {
-            field: "Yearly TEC (kWh)",
+            headerName: $_('datagrid.use'),
+            field: "gwp_use_ratio",
+            filter: false,
+            width: 120
+        },
+        {
+            headerName: $_('datagrid.manufacturing'),
+            field: "gwp_manufacturing_ratio",
+            filter: false,
+            width: 150
+        },
+        {
+            headerName: $_('datagrid.yearlyTec'),
+            field: "yearly_tec",
             hide: true,
-            width: 80
+            filter: false,
+            width: 150
         },
         {
-            field: "Lifetime",
-            filter: 'agNumberColumnFilter',
-            width: 50
+            headerName: $_('datagrid.lifetime'),
+            field: "lifetime",
+            //hide: true,
+            filter: false,
+            width: 120,
         },
         {
-            field: "Use Location",
-            width: 100
-        },
-        {
-            field: "Date",
+            field: "use_location",
             hide: true,
             width: 100
         },
+
         {
-            field: "Sources",
-            hide: true,
-            width: 100
-        },
-        {
-            field: "Error",
-            hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
-        },
-        {
-            field: "Manufacturing",
-            filter: 'agNumberColumnFilter',
-            width: 100
-        },
-        {
-            field: "Weight",
-            hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
-        },
-        {
-            field: "Assembly Location",
-            width: 100
-        },
-        {
-            field: "Screen size",
-            hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
-        },
-        {
-            field: "Server Type",
-            width: 100
-        },
-        {
-            field: "HDD/SSD",
+            field: "added_date",
             hide: true,
             width: 100
         },
         {
-            field: "RAM",
+            field: "sources",
+            hide: true,
+            width: 100
+        },
+        {
+            field: "gwp_error_ratio",
             hide: true,
             filter: 'agNumberColumnFilter',
             width: 100
         },
         {
-            field: "CPU",
+            field: "weight",
             hide: true,
             filter: 'agNumberColumnFilter',
             width: 100
         },
         {
-            field: "U",
-            filter: 'agNumberColumnFilter',
-            width: 50
+            field: "assembly_location",
+            hide: true,
+            width: 100
         },
+        {
+            field: "screen_size",
+            hide: true,
+            filter: 'agNumberColumnFilter',
+            width: 100
+        },
+        {
+            field: "server_type",
+            hide: true,
+            width: 100
+        },
+        {
+            field: "hard_drive",
+            hide: true,
+            width: 100
+        },
+        {
+            field: "memory",
+            hide: true,
+            filter: 'agNumberColumnFilter',
+            width: 100
+        },
+        {
+            field: "number_cpu",
+            hide: true,
+            filter: 'agNumberColumnFilter',
+            width: 100
+        }
     ];
 
     let options = {
         defaultColDef: {
-            sortable: true,
+            sortable: false,
             filter: true,
-            resizable: true,
+            resizable: false,
         },
         //columnDefs: columnDefs,
-        rowSelection: 'multiple',
-        //onSelectionChanged: onSelectionChanged,
+        rowSelection: 'single',
+        //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
         pagination: true,
+        paginationPageSize:10,
         //rowData: data,
         onFilterChanged: onFilterChanged
     };
 
-    function onFilterChanged(e){
-        let rowData = [];
-        api.forEachNodeAfterFilter(node => {
-            rowData.push(node.data);
-        });
-        console.log(rowData)
+    function getFilterRows(filterApi){
+        if(filterApi != undefined){
+            _filterApi = filterApi
+        }
+
+        if(_filterApi != undefined){
+            let rowData = [];
+            //get selected row
+            _filterApi.forEachNodeAfterFilter(node => {
+                rowData.push(node.data);
+            });
+            //console.log(rowData)
+            return rowData;
+        }else{
+            //no filter has been applied return all set
+            return dataInit
+        }
     }
 
-    function gridit(csv) {
-        const csvParsed = Papa.parse(csv)
+    function onFilterChanged(e){
+        //console.log(e)
+        let filterRows = getFilterRows(e.api)
+        updateDataGrid(filterRows);
+    }
 
+    function toRows(csv) {
+        const csvParsed = Papa.parse(csv,{header:true, dynamicTyping: true})
         const rowData = csvParsed.data;
-
-        const objectsData = rowData.map((row, i) => {
-            return {
-                'Manufacturer': row[0],
-                'Name': row[1],
-                'Category': row[2],
-                'SubCategory': row[3],
-                'Total (kgCO2eq)': row[4],
-                'Use': row[5],
-                'Yearly TEC (kWh)': row[6],
-                'Lifetime': row[7],
-                'Use Location': row[8],
-                'Date': row[9],
-                'Sources': row[10],
-                'Error': row[11],
-                'Manufacturing': row[12],
-                'Weight': row[13],
-                'Assembly Location': row[14],
-                'Screen size': row[15],
-                'Server Type': row[16],
-                'HDD/SSD': row[17],
-                'RAM': row[18],
-                'CPU': row[19],
-                'U': row[20],
-            }
-        })
-
-        objectsData.shift();
-        return objectsData;
+        console.log(rowData)
+        rowData.shift();
+        return rowData;
     }
 
     onMount(async () => {
         const res = await fetch("./boavizta-data-us.csv");
         const text = await res.text();
-        data = gridit(text)
+        dataInit = toRows(text)
+        updateDataGrid(dataInit)
     });
 
     function onSelect(e){
-        console.log(e)
+        //console.log(e)
+        if(e.detail.length == 0){
+            //selection is empty, return full data
+            updateDataGrid(getFilterRows(e.api))
+        }else{
+            //return selection
+            updateDataGrid(e.detail)
+        }
     }
 </script>
 
-<AgGrid {options} bind:data {columnDefs} on:select={onSelect} bind:api/>
+<AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect}/>

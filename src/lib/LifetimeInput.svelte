@@ -1,5 +1,11 @@
 <script lang="ts">
-    let lifetime=3
-</script>
+    export let lifetime=3;
+    import { _ } from 'svelte-i18n';
 
-<input value="{lifetime}" name="lifetime" type="text">
+</script>
+<div>
+    {$_('index.lifetime')}
+</div>
+<div>
+    <input bind:value="{lifetime}" name="lifetime">
+</div>
