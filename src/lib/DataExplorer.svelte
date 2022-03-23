@@ -7,6 +7,7 @@
     import RequestButton from "./RequestButton.svelte";
     import EquivalentImpacts from "./EquivalentImpacts.svelte";
     import ImpactsPieChart from "./ImpactsPieChart.svelte";
+    import PieChart from "./PieChart.svelte";
 
     let datagrid;
     let lifetime;
@@ -15,6 +16,17 @@
     let scope2;
     let scope3;
     let selectedRows =[];
+    let rows_selection;
+    const data = {
+      labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+      datasets: [
+        {
+          label: 'Dataset',
+          data: [3,4,5,6,7],
+          backgroundColor: ['red', 'orange', 'yellow', 'green', 'blue'],
+        }
+      ]
+    }
 
     function impactScope3(rows_selection):{result:number, lines:number}{
         let scope3 = 0;
@@ -108,6 +120,12 @@
         <ImpactsPieChart {scope2} {scope3} selectedRowsNumber={selectedRows?selectedRows.length:0}/>
         <EquivalentImpacts gwpImpactTotal="--"/>
     </div>
+  <DataGrid bind:datagrid/>
+  <RegionPicker bind:selectedRegion/>
+  <LifetimeInput bind:lifetime/>
+  <RequestButton bind:disabledSearchButton/>
+  <EquivalentImpacts gwpImpactTotal="200"/>
+  <PieChart {data}/>
 </div>
 
 <style>

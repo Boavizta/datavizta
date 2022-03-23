@@ -1,8 +1,6 @@
 <script lang="ts">
-
-		import { _ } from 'svelte-i18n';
+	import { _ } from 'svelte-i18n';
 	import DataExplorer from "../lib/DataExplorer.svelte";
-
 </script>
 
 <div id="navbar">
@@ -18,6 +16,12 @@
 <h3 class="title-second title-left">{$_('index.search')}</h3>
 
 <DataExplorer />
+<h3 class="title-second">Ratio Scope 2 / Scope 3</h3>
+<div id="stats">
+	<div class="camembert-left">
+		<h4>{$_('index.global-mean')}</h4>
+	</div>
+</div>
 
 <style>
     :global(:root) {
