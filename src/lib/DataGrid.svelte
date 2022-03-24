@@ -172,7 +172,7 @@
     function toRows(csv) {
         const csvParsed = Papa.parse(csv,{header:true, dynamicTyping: true})
         const rowData = csvParsed.data;
-        console.log(rowData)
+        //console.log(rowData)
         rowData.shift();
         return rowData;
     }
@@ -194,6 +194,14 @@
             updateDataGrid(e.detail)
         }
     }
+
 </script>
 
+<!--<AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect} theme="material" /> does not work, bug?-->
 <AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect}/>
+
+<style>
+    :global(:root) {
+        --grid-height: 550px;
+    }
+</style>

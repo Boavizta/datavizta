@@ -43,6 +43,7 @@ body {
  display:flex;
 }
 /* Page */
+
 #navbar {
   border-bottom: 2px solid #01acaf;
   box-sizing: border-box;
@@ -66,17 +67,3 @@ body {
   text-align: center;
 }
 
-#camembert {
-  grid-row-start: 1;
-  grid-row-end: 1;
-}
-
-.camember-left {
-  grid-column-start: 1;
-  grid-column-end: 1;
-}
-
-.camembert-right {
-  grid-column-start: 2;
-  grid-column-end: 2;
-}
