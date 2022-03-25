@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
-	import DataExplorer from "../lib/DataExplorer.svelte";
+	import DataExplorer from "$lib/DataExplorer.svelte";
 </script>
 
 <div id="navbar">
