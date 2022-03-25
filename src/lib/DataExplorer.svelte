@@ -187,7 +187,7 @@
                     <small>
                         scope 3 : {scope3.median} kgCO2 sur {scope3.lines} équipement(s)</small>
                 {:else}
-                    <small> scope 2 : valeurs d'entrée insuffisantes</small>
+                    <small> scope 3 : valeurs d'entrée insuffisantes</small>
                 {/if}
             </div>
             </div>
