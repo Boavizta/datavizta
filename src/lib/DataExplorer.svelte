@@ -36,8 +36,8 @@
         let unProcessedLines = 0//not used
         rows_selection.forEach(row => {
             if (row["gwp_total"] != undefined) {
-                if (row["gwp_total"] != undefined && row["gwp_manufacturing_ratio"] != undefined) {
-                    scope3 += row["gwp_total"] * row["gwp_manufacturing_ratio"];
+                if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
+                    scope3 += row["gwp_total"] * (1 - row["gwp_use_ratio"]);
                     processedLines++
                 } else {
                     unProcessedLines++
