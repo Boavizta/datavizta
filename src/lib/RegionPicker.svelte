@@ -34,9 +34,16 @@
 
 </script>
 
-<div >
-    {$_('index.select_country_elec_impact')}
-    <Select  {items} bind:value={value} ></Select>
+<div class="">
+    <div class="flex">
+        <span class="text-sm 
+            border border-1 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
+                {$_('index.select_country_elec_impact')}
+        </span>
+        <Select  {items} bind:value={value} containerClasses="border border-1 rounded-r px-2 py-2 w-full"></Select>
+    
+    </div>
+    
+    <small id="regionHelp" class="block mt-1 text-xs text-gray-600">affine l'impact electrique</small>    
 </div>
-
 

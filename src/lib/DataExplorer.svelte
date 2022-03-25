@@ -14,7 +14,7 @@
     }
 
     /* Default value */
-    const regionDefaultValue = {label: 'Aucun', value: -1};
+    const regionDefaultValue = {label: 'Utiliser la valeur par défaut', value: -1};
     const lifetimeDefaultValue = 3;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
@@ -46,7 +46,8 @@
                 }
             }
         });
-        return {result: scope3, lines: processedLines, median: scope3 / processedLines}
+        const median = Math.round(scope3 / processedLines);
+        return {result: scope3, lines: processedLines, median: median}
     }
 
     /* calculate scope 2 impacts */
@@ -94,7 +95,8 @@
                 }
             })
         }
-        return {result: scope2, lines: processedLines, median: scope2 / processedLines}
+        const median = Math.round(scope2 / processedLines);
+        return {result: scope2, lines: processedLines, median: median}
     }
 
     function calculateImpacts() {
@@ -118,48 +120,76 @@
     }
 
 </script>
-<div class="data-explorer-container">
+<div class="flex flex-col">
     <div>
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
     </div>
-    <div class="calculator-container">
-        <div class="calculator">
-            <RegionPicker bind:value={selectedRegion} {regionDefaultValue}/>
-            <div>
-                {$_('index.lifetime')}
-                <input
-                        bind:value={lifetime}
-                        label=""
-                        suffix="years"
-                        type="text"
-                />
-            </div>
-            <div>
+    
+    <div class="flex flex-row flex-wrap mt-10 justify-around">
+        <div id="form-container" class="flex flex-col rounded-lg max-w-l 
+                px-10 py-5 mb-5 bg-teal-500 bg-opacity-20" >
+            <div id="title" class="text-xl mb-5 font-medium">Customize value</div>
+            
+            <div class="mb-10">
                 {$_('index.selected_rows', {values: {n: selectedRows.length}})}
             </div>
-            <div>
-                <button disabled="{disabledSearchButton}" on:click={calculateImpacts} variant="raised">
+
+            <div class="mb-10">
+                <RegionPicker bind:value={selectedRegion} {regionDefaultValue}/>
+            </div>
+            
+            <div class="mb-10">
+                <div class="flex">
+                    <span class="text-sm border-2 rounded-l px-4 py-2 bg-gray-300 
+                    whitespace-no-wrap">
+                        {$_('index.lifetime')}
+                    </span>
+                    <input
+                            id="lifetime"
+                            bind:value={lifetime}
+                            label=""
+                            type="text"
+                            class="border-2 px-4 py-2"
+                    />
+                    <span class="text-sm border-2 rounded-r px-4 py-2 bg-gray-300 whitespace-no-wrap">
+                        years
+                    </span>
+                </div>
+                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">appliquée pour les équipements selectionnés</small>
+            </div>
+        
+            
+            <div class="myt-2 mx-auto">
+                <button disabled="{disabledSearchButton}" on:click={calculateImpacts} class="bg-teal-600 hover:bg-teal-800 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
             </div>
         </div>
-        <div class="result-container">
-            <PieChart {ratioScope}/>
-            <div class="explanation-container">
+        <div id="result-container" class="flex flex-col rounded-lg content-center 
+        py-5 px-10 border-2 max-w-l mb-5">
+            <div id="result-title" class="text-xl mb-5 font-medium text-center">Ratio scope2/scope3</div>
+            <div id="pie-container" class="">
+                <PieChart  {ratioScope}/>
+            </div>
+            <div id="explanation-container" class="text-center mt-5">
+                <div>
+
+                
                 {#if scope2.lines > 0}
-                    <p>
-                        moyenne du scope 2 : {scope2.median} sur {scope2.lines} ligne(s)</p>
+                    <small>
+                        scope 2 : {scope2.median} kgCO2 sur {scope2.lines} équipement(s)</small>
                 {:else}
-                    <p> valeurs d'entrée insuffisantes</p>
+                    <small> scope 2 : valeurs d'entrée insuffisantes</small>
                 {/if}
-
+            </div>
+            <div>
                 {#if scope3.lines > 0}
-                    <p>
-                        moyenne du scope 3 : {scope3.median} sur {scope3.lines} ligne(s)</p>
+                    <small>
+                        scope 3 : {scope3.median} kgCO2 sur {scope3.lines} équipement(s)</small>
                 {:else}
-                    <p> valeurs d'entrée insuffisantes</p>
+                    <small> scope 2 : valeurs d'entrée insuffisantes</small>
                 {/if}
-
+            </div>
             </div>
 
             <div>
@@ -171,14 +201,5 @@
 
 
 <style>
-    .data-explorer-container {
-        display: flex;
-        flex-direction: column;
-    }
 
-    .calculator-container {
-        display: flex;
-        flex-direction: row;
-
-    }
 </style>

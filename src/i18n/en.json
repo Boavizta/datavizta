@@ -12,7 +12,7 @@
     "label_equivalent": "Thermal car",
     "calculate": "Calculate",
     "select_country_elec_impact": "Select country (to refine electrical impact)",
-    "lifetime": "Lifetime (applied to all selected equipments)"
+    "lifetime": "Lifetime"
   },
   "datagrid": {
     "lifetime": "Lifetime",

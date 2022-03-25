@@ -35,12 +35,13 @@
     data: getDataFormat(ratioScope),
     options: {
       responsive: true,
+      maintainAspectRatio : true,
       plugins: {
         legend: {
           position: 'top',
         },
         title: {
-          display: true,
+          display: false,
           text: 'Ratio scope2 / scope3'
         }
       }
@@ -54,4 +55,5 @@
   })
 </script>
 
-<canvas bind:this={portfolio}/>
+  <canvas bind:this={portfolio} height="{400}" width="{400}"/>  
+  

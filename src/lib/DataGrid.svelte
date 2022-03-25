@@ -54,7 +54,7 @@
         {
             headerName: $_('datagrid.yearlyTec'),
             field: "yearly_tec",
-            hide: true,
+            hide: false,
             filter: false,
             width: 150
         },
