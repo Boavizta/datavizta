@@ -12,7 +12,7 @@
         {
           label: 'Dataset',
           data: [ratioScope.scope2.median, ratioScope.scope3.median],
-          backgroundColor: ['red', 'orange', 'yellow', 'green', 'blue'],
+          backgroundColor: ['#008a8c', '#003964'],
         }
       ]
     }
