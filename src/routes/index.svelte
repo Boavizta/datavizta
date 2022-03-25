@@ -11,9 +11,6 @@
 <div id="content" class="mx-5">
 	<h1 class="title-main">{$_('index.title')}</h1>
 	<h3 class="title-second">{$_('index.sub-title')}</h3>
-	<p class="text mb-1">{$_('index.statement')}</p>
-	<p class="text mb-1">{$_('index.impact-measure')}</p>
-	<p class="text mb-1">{$_('index.approach')}</p>
 	<h3 class="title-second title-left">{$_('index.search')}</h3>
 <DataExplorer />
 </div>
