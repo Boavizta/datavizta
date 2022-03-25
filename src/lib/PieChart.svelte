@@ -1,31 +1,20 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import {onMount} from 'svelte';
   import Chart from 'chart.js/auto/auto.js';
 
   export let ratioScope;
   let myChart;
 
-  $: {
-      updateChart(myChart, ratioScope)//reactive on ratioScope object
-  }
-
-  function updateChart(chart, ratioScope) {
-      if(chart != undefined){
-          chart.data= getDataFormat(ratioScope)
-          chart.update();
-      }
-  }
-
-  function getDataFormat(ratioScope){
-      return {
-          labels: ['Scope 2', 'Scope 3'],
-              datasets: [
-                  {
-                      label: 'Dataset',
-                      data: [ratioScope.scope2.median,ratioScope.scope3.median],
-                      backgroundColor: ['red', 'orange', 'yellow', 'green', 'blue'],
-                  }
-                ]
+  function getDataFormat(ratioScope) {
+    return {
+      labels: ['Scope 2', 'Scope 3'],
+      datasets: [
+        {
+          label: 'Dataset',
+          data: [ratioScope.scope2.median, ratioScope.scope3.median],
+          backgroundColor: ['red', 'orange', 'yellow', 'green', 'blue'],
+        }
+      ]
     }
   }
 
@@ -35,7 +24,7 @@
     data: getDataFormat(ratioScope),
     options: {
       responsive: true,
-      maintainAspectRatio : true,
+      maintainAspectRatio: true,
       plugins: {
         legend: {
           position: 'top',
@@ -43,17 +32,37 @@
         title: {
           display: false,
           text: 'Ratio scope2 / scope3'
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              let total = context.dataset.data.reduce((a, b) => a + b);
+              let percentage = Math.round(context.raw * 100 / total);
+              return `${context.label}: ${percentage}% (${context.raw})`
+            }
+          }
         }
-      }
-    },
+      },
+    }
   };
 
-  onMount(()=> {
+  onMount(() => {
     const ctx = portfolio.getContext('2d');
     myChart = new Chart(ctx, config);
 
   })
+
+  function updateChart(chart, ratioScope) {
+    if (chart != undefined) {
+      chart.data = getDataFormat(ratioScope)
+      chart.update();
+    }
+  }
+
+  $: {
+    updateChart(myChart, ratioScope)//reactive on ratioScope object
+  }
 </script>
 
-  <canvas bind:this={portfolio} height="{400}" width="{400}"/>  
+<canvas bind:this={portfolio} height="{400}" width="{400}"/>
   
