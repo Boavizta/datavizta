@@ -14,9 +14,8 @@
     }
 
     /* Default value */
-    const regionDefaultValue = {label: 'Utiliser la valeur par défaut', value: -1};
+    const regionDefaultValue = {label: $_('region-picker.default'), value: -1};
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
-
     /* Innert state */
     let selectedRows = [];
     let lifetime;
@@ -134,27 +133,26 @@
             </div>
 
             <div class="mb-10">
-                <RegionPicker bind:value={selectedRegion} {regionDefaultValue}/>
+                <div class="flex">
+                    <span class="text-sm border border-1 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
+                            {$_('index.select_country_elec_impact')}
+                    </span>
+                    <RegionPicker bind:value={selectedRegion} {regionDefaultValue}/>
+                </div>
+                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
             </div>
             
             <div class="mb-10">
                 <div class="flex">
-                    <span class="text-sm border-2 rounded-l px-4 py-2 bg-gray-300 
-                    whitespace-no-wrap">
+                    <span class="text-sm border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
                         {$_('index.lifetime')}
                     </span>
-                    <input
-                            id="lifetime"
-                            bind:value={lifetime}
-                            label=""
-                            type="text"
-                            class="border-2 px-4 py-2"
-                    />
+                    <input id="lifetime" bind:value={lifetime} label="" type="text" class="border-2 px-4 py-2"/>
                     <span class="text-sm border-2 rounded-r px-4 py-2 bg-gray-300 whitespace-no-wrap">
                         years
                     </span>
                 </div>
-                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">appliquée pour les équipements selectionnés</small>
+                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
             </div>
         
             
