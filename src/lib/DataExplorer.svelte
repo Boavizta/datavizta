@@ -15,12 +15,11 @@
 
     /* Default value */
     const regionDefaultValue = {label: 'Utiliser la valeur par défaut', value: -1};
-    const lifetimeDefaultValue = 3;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* Innert state */
     let selectedRows = [];
-    let lifetime = lifetimeDefaultValue;
+    let lifetime;
     let selectedRegion = regionDefaultValue;
     let disabledSearchButton;//not used
     let scope2: ScopeResult = scopeDefaultvalue;
