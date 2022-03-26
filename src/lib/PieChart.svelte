@@ -7,7 +7,7 @@
 
   function getDataFormat(ratioScope) {
     return {
-      labels: ['Scope 2', 'Scope 3'],
+      labels: ['Scope 2 : émissions lors de l\'utilisation', 'Scope 3 : émissions lors de la fabrication'],
       datasets: [
         {
           label: 'Dataset',
@@ -31,7 +31,7 @@
         },
         title: {
           display: false,
-          text: 'Ratio scope2 / scope3'
+          text: ''
         },
         tooltip: {
           callbacks: {

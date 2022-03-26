@@ -11,7 +11,8 @@
     "select_country_elec_impact": "Région",
     "select_country_elec_impact_tooltip": "Pays",
     "years_tooltip": "appliquée pour les équipements selectionnés",
-    "lifetime": "Durée de vie"
+    "lifetime": "Durée de vie",
+    "custom_values": "Valeurs personnalisées"
   },
   "datagrid" : {
     "lifetime": "Durée de vie",

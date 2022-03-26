@@ -11,7 +11,8 @@
     "select_country_elec_impact": "Region",
     "select_country_elec_impact_tooltip": "refines electrical impact",
     "years_tooltip": "applied to selected devices",
-    "lifetime": "Lifetime"
+    "lifetime": "Lifetime",
+    "custom_values": "Custom values"
   },
   "datagrid": {
     "lifetime": "Lifetime",

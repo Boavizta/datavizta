@@ -53,6 +53,8 @@
         let scope2 = 0;
         let processedLines = 0
         let unProcessedLines = 0//not used
+        lifetime = lifetime > 0 ? lifetime : undefined
+
         if (lifetime == undefined && electricalImpactFactor == -1) {
             rows_selection.forEach(row => {
                 if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
@@ -62,7 +64,7 @@
                     unProcessedLines++
                 }
             })
-        } else if (lifetime != undefined && electricalImpactFactor == -1) {
+        } else if (lifetime != undefined  && electricalImpactFactor == -1) {
             rows_selection.forEach(row => {
                 if (row["gwp_total"] != undefined
                     && row["gwp_use_ratio"] != undefined
@@ -74,7 +76,7 @@
                     unProcessedLines++
                 }
             });
-        } else if (lifetime == undefined && electricalImpactFactor !== -1) {
+        } else if (lifetime == undefined  && electricalImpactFactor !== -1) {
             rows_selection.forEach(row => {
                 if (row["yearly_tec"] != undefined) {
                     scope2 += row["yearly_tec"] * row["lifetime"] * electricalImpactFactor
@@ -83,7 +85,7 @@
                     unProcessedLines++
                 }
             });
-        } else if (lifetime != undefined && electricalImpactFactor !== -1) {
+        } else if (lifetime != undefined  && electricalImpactFactor !== -1) {
             rows_selection.forEach(row => {
                 if (row["yearly_tec"] != undefined) {
                     scope2 += row["yearly_tec"] * lifetime * electricalImpactFactor;
@@ -122,75 +124,75 @@
     <div>
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
     </div>
-    
-    <div class="flex flex-row flex-wrap mt-10 justify-around">
-        <div id="form-container" class="flex flex-col rounded-lg max-w-l 
-                px-10 py-5 mb-5 bg-teal-500 bg-opacity-20" >
-            <div id="title" class="text-xl mb-5 font-medium">Customize value</div>
+
+<!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
+
+    <div class="flex flex-row flex-wrap-reverse md:mt-10 justify-center">
+        <div id="pie-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20 b mb-5">
+            <div id="result-title" class="text-xl font-medium text-center">Ratio scope2 / scope3</div>
+            <div id="pie-container" class="">
+                <PieChart  {ratioScope}/>
+            </div>
+            <div id="explanation-container" class="text-center mt-5">
+                <div>
+                    {#if scope2.lines > 0}
+                        <small>
+                            scope 2 : {scope2.median} kgCO2 sur {scope2.lines} équipement(s)</small>
+                    {:else}
+                        <small> scope 2 : valeurs d'entrée insuffisantes</small>
+                    {/if}
+                </div>
+                <div>
+                    {#if scope3.lines > 0}
+                        <small>
+                            scope 3 : {scope3.median} kgCO2 sur {scope3.lines} équipement(s)</small>
+                    {:else}
+                        <small> scope 3 : valeurs d'entrée insuffisantes</small>
+                    {/if}
+                </div>
+            </div>
+
+            <div>
+                <!--                <EquivalentImpacts gwpImpactTotal="&#45;&#45;"/>-->
+            </div>
+        </div>
+
+        <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 mt-5 md:my-5 bg-opacity-20 max-w-sm bg-teal-500" >
+            <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
             
-            <div class="mb-10">
+            <div class="mb-5">
                 {$_('index.selected_rows', {values: {n: selectedRows.length}})}
             </div>
 
-            <div class="mb-10">
+            <p>
+                {$_('index.select_country_elec_impact')}
+            </p>
+            <!-- select region -->
+            <div class="mb-5">
                 <div class="flex">
-                    <span class="text-sm border border-1 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
-                            {$_('index.select_country_elec_impact')}
-                    </span>
                     <RegionPicker bind:value={selectedRegion} {regionDefaultValue}/>
                 </div>
                 <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
             </div>
             
-            <div class="mb-10">
+            <!-- input lifetime -->
+            <div class="mb-5">
+                <p class="block">{$_('index.lifetime')}</p>
                 <div class="flex">
-                    <span class="text-sm border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
-                        {$_('index.lifetime')}
-                    </span>
-                    <input id="lifetime" bind:value={lifetime} label="" type="text" class="border-2 px-4 py-2"/>
-                    <span class="text-sm border-2 rounded-r px-4 py-2 bg-gray-300 whitespace-no-wrap">
+                    
+                    <input id="lifetime" bind:value={lifetime} label="" type="number" class="border-2 pl-2  w-auto" min="0.1" max="100" step="0.1"/>
+                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
                         years
                     </span>
                 </div>
                 <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
             </div>
         
-            
+            <!-- button calculate -->
             <div class="myt-2 mx-auto">
                 <button disabled="{disabledSearchButton}" on:click={calculateImpacts} class="bg-teal-600 hover:bg-teal-800 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
-            </div>
-        </div>
-        <div id="result-container" class="flex flex-col rounded-lg content-center 
-        py-5 px-10 border-2 max-w-l mb-5">
-            <div id="result-title" class="text-xl mb-5 font-medium text-center">Ratio scope2/scope3</div>
-            <div id="pie-container" class="">
-                <PieChart  {ratioScope}/>
-            </div>
-            <div id="explanation-container" class="text-center mt-5">
-                <div>
-
-                
-                {#if scope2.lines > 0}
-                    <small>
-                        scope 2 : {scope2.median} kgCO2 sur {scope2.lines} équipement(s)</small>
-                {:else}
-                    <small> scope 2 : valeurs d'entrée insuffisantes</small>
-                {/if}
-            </div>
-            <div>
-                {#if scope3.lines > 0}
-                    <small>
-                        scope 3 : {scope3.median} kgCO2 sur {scope3.lines} équipement(s)</small>
-                {:else}
-                    <small> scope 3 : valeurs d'entrée insuffisantes</small>
-                {/if}
-            </div>
-            </div>
-
-            <div>
-                <!--                <EquivalentImpacts gwpImpactTotal="&#45;&#45;"/>-->
             </div>
         </div>
     </div>
