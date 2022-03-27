@@ -67,3 +67,15 @@ body {
   text-align: center;
 }
 
+div.ag-cell {
+  font-size: 10px !important;
+  text-align: center;
+}
+
+div.ag-header-cell {
+  font-size: 9px !important;
+  text-align: center;
+}
+span.ag-header-cell-text {
+  width: 100%;
+}

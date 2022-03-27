@@ -20,6 +20,8 @@
     "name": "Nom",
     "category" : "Catégorie",
     "subcategory": "Sous-catégorie",
+    "use_location": "Lieu d'utilisation",
+    "report_date": "Date Fabricaton",
     "use": "Utilisation (%)",
     "yearlyTec" : "TEC annuel (kWh)",
     "manufacturing": "Fabrication (%)",

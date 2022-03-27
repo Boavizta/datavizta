@@ -16,7 +16,7 @@
     const columnDefs    = [{
             headerName: $_('datagrid.manufacturer'),
             field: "manufacturer",
-            width: 150
+            width: 100
         },
         {
             headerName: $_('datagrid.name'),
@@ -26,37 +26,49 @@
         {
             headerName: $_('datagrid.category'),
             field: "category",
-            width: 120
+            width: 100
         },
         {
             headerName: $_('datagrid.subcategory'),
             field: "subcategory",
-            width: 120
+            width: 100
+        },
+        {
+            headerName: $_('datagrid.report_date'),
+            field: "report_date",
+            hide: false,
+            width: 140
         },
         {
             headerName: $_('datagrid.total'),
             field: "gwp_total",
             filter: false,
-            width: 150
+            width: 100
         },
         {
             headerName: $_('datagrid.use'),
             field: "gwp_use_ratio",
             filter: false,
-            width: 120
+            width: 100
         },
         {
             headerName: $_('datagrid.manufacturing'),
             field: "gwp_manufacturing_ratio",
             filter: false,
-            width: 150
+            width: 100
         },
         {
             headerName: $_('datagrid.yearlyTec'),
             field: "yearly_tec",
             hide: false,
             filter: false,
-            width: 150
+            width: 100
+        },
+        {
+            headerName: $_('datagrid.use_location'),
+            field: "use_location",
+            hide: false,
+            width: 100
         },
         {
             headerName: $_('datagrid.lifetime'),
@@ -65,12 +77,6 @@
             filter: false,
             width: 120,
         },
-        {
-            field: "use_location",
-            hide: true,
-            width: 100
-        },
-
         {
             field: "added_date",
             hide: true,
@@ -130,9 +136,9 @@
 
     let options = {
         defaultColDef: {
-            sortable: false,
+            sortable: true,
             filter: true,
-            resizable: false,
+            resizable: true,
         },
         //columnDefs: columnDefs,
         rowSelection: 'single',

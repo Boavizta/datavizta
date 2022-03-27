@@ -20,6 +20,8 @@
     "name": "Name",
     "category" : "Category",
     "subcategory": "Subcategory",
+    "use_location": "Use Location",
+    "report_date": "Manuf. Date",
     "use": "Use (%)",
     "yearlyTec" : "Yearly TEC (kWh)",
     "manufacturing": "Manufacturing (%)",
