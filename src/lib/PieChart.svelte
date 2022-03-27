@@ -7,7 +7,7 @@
 
   function getDataFormat(ratioScope) {
     return {
-      labels: ['Scope 2 : émissions lors de l\'utilisation', 'Scope 3 : émissions lors de la fabrication'],
+      labels: ['Scope 2 : émissions lors de l\'utilisation', 'Scope 3 : émissions cumulées de la fabrication, du transport et de la fin de vie'],
       datasets: [
         {
           label: 'Dataset',
