@@ -128,9 +128,9 @@
 <!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
 
     <div class="flex flex-row flex-wrap-reverse md:mt-10 justify-center">
-        <div id="pie-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20 b mb-5">
+        <div class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
             <div id="result-title" class="text-xl font-medium text-center">Ratio scope2 / scope3</div>
-            <div id="pie-container" class="">
+            <div>
                 <PieChart  {ratioScope}/>
             </div>
             <div id="explanation-container" class="text-center mt-5">
@@ -157,7 +157,7 @@
             </div>
         </div>
 
-        <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 mt-5 md:my-5 bg-opacity-20 max-w-sm bg-teal-500" >
+        <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
             <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
             
             <div class="mb-5">
