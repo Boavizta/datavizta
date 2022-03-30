@@ -120,6 +120,7 @@
     }
 
 </script>
+
 <div class="flex flex-col">
     <div>
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>

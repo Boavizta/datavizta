@@ -79,3 +79,20 @@ div.ag-header-cell {
 span.ag-header-cell-text {
   width: 100%;
 }
+
+li{
+  list-style: square;
+}
+
+.link {
+  color: #008a8c;
+  text-decoration : underline;
+}
+
+.explanation_block {
+  width: 48%;
+  margin: 1% auto;
+  border: solid #008a8c;
+  padding: 2%;
+  border-radius: 6px;
+}

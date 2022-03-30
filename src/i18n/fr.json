@@ -14,6 +14,15 @@
     "lifetime": "Durée de vie",
     "custom_values": "Valeurs personnalisées"
   },
+  "explanation": {
+    "1": "Au travers de cette page Boavizta a cherché à atteindre plusieurs objectifs complémentaires :",
+    "2": "Pouvoir rechercher facilement les facteurs d'impact carbone pour les équipements numériques présents dans ",
+    "3": "la base de données ouverte de Boavizta",
+    "4": "Pouvoir visualiser la répartition des impacts par étape du cycle de vie des équipements en différenciant la phase d'utilisation (scope 2), des phases de fabrication, transport et fin de vie (scope 3)",
+    "5": "Pouvoir évaluer les impacts du prolongement de la durée de vie ou bien de l'utilisation dans une zone géographique plutôt qu'une autre. ",
+    "6": "Le tableau suivant affiche les principales données d'impact carbone pour tous les équipements présents dans la base de données Boavizta. Le graphique sous forme de camembert, en dessous du tableau, affiche la répartition des impacts par étape du cycle de vie des équipements en question. Vous pouvez effectuer des recherches sur chacune des colonnes du tableau pour trouver l'équipement précis ou le type d'équipement (Monitor, Laptop, Smartphone, Server…) qui vous intéresse.Une fois le filtre de recherche appliqué ou la ligne d'un équipement sélectionnée, le graphique est mis à jour pour afficher les impacts de l'ensemble des équipements sélectionnés.",
+    "7": "Nous vous invitons, par exemple, à comparer les impacts par catégorie d'équipements (Workplace et Datacenter) pour vous rendre compte : de la part importante de la phase de fabrication par rapport à la phase d'utilisation pour les terminaux et écrans & de l'importance de la phase d'utilisation pour les équipements présents dans les datacenters. A l'aide du formulaire situé à droite du graphique, vous pouvez ensuite faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser, sur le graphique, comment cela influe sur l'impact global et surtout sur la répartition par phase du cycle de vie. A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne."
+  },
   "datagrid" : {
     "lifetime": "Durée de vie",
     "manufacturer": "Fabricant",
