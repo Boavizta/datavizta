@@ -18,6 +18,7 @@
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
     /* Innert state */
     let selectedRows = [];
+    let selectedCategories = new Set();    
     let lifetime;
     let selectedRegion = regionDefaultValue;
     let disabledSearchButton;//not used
@@ -115,26 +116,46 @@
         //console.log("DataExplorer:onDataGridUpdate")
         //console.log(e.detail)
         selectedRows = e.detail
+        
+        //re-init categories
+        selectedCategories = new Set();    
+        selectedRows.forEach((r)=>{selectedCategories.add(r.subcategory)})
+
         console.log("DataExplorer:onDataGridUpdate:", selectedRows.length)
         calculateImpacts()
     }
 
+
+
 </script>
 
 <div class="flex flex-col">
-    <div>
+
+    
+
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
-    </div>
 
 <!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
 
-    <div class="flex flex-row flex-wrap-reverse md:mt-10 justify-center">
+<div class="flex flex-row flex-wrap md:mt-10 justify-around">
+
+    <p class="w-80 text-sm px-2 pt-10">
+        {$_('explanation.7')}
+    </p>
+
+    <div class="flex flex-row flex-wrap-reverse justify-center">
+    
         <div class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
             <div id="result-title" class="text-xl font-medium text-center">Ratio scope2 / scope3</div>
+            <div class="text-lg font-light text-center mb-2">
+                {selectedRows.length === 1 ?
+                    (selectedRows[0].manufacturer +', ' + selectedRows[0].name).substring(0,50) : 
+                    selectedRows.length + " équipements" + (selectedCategories.size < 3 ? " de type : " + new Array(...selectedCategories).join(', ') : " de multiples catégories")}
+            </div>
             <div>
                 <PieChart  {ratioScope}/>
             </div>
-            <div id="explanation-container" class="text-center mt-5">
+             <!-- <div id="explanation-container" class="text-center mt-5">
                 <div>
                     {#if scope2.lines > 0}
                         <small>
@@ -151,7 +172,7 @@
                         <small> scope 3 : valeurs d'entrée insuffisantes</small>
                     {/if}
                 </div>
-            </div>
+            </div> -->
 
             <div>
                 <!--                <EquivalentImpacts gwpImpactTotal="&#45;&#45;"/>-->
@@ -161,9 +182,9 @@
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
             <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
             
-            <div class="mb-5">
+            <!-- <div class="mb-5">
                 {$_('index.selected_rows', {values: {n: selectedRows.length}})}
-            </div>
+            </div> -->
 
             <p>
                 {$_('index.select_country_elec_impact')}
@@ -181,7 +202,7 @@
                 <p class="block">{$_('index.lifetime')}</p>
                 <div class="flex">
                     
-                    <input id="lifetime" bind:value={lifetime} label="" type="number" class="border-2 pl-2  w-auto" min="0.1" max="100" step="0.1"/>
+                    <input id="lifetime" bind:value={lifetime} label="" type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5"/>
                     <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
                         years
                     </span>
@@ -196,6 +217,7 @@
                 </button>
             </div>
         </div>
+    </div>
     </div>
 </div>
 

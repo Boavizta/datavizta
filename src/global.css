@@ -38,16 +38,16 @@ body {
 #logo {
  width: 3em;
  height: 4em;
- margin-left:10em;
- margin-right:2em;
- display:flex;
+ /*margin-left:10em;*/
+ /*margin-right:2em;*/
+ /*display:flex;*/
 }
 /* Page */
 
 #navbar {
   border-bottom: 2px solid #01acaf;
   box-sizing: border-box;
-  padding:3em;
+  padding: 3em 1em 3em 1em;
   display:flex;
   flex-direction: start;
   align-items: center;
@@ -90,9 +90,9 @@ li{
 }
 
 .explanation_block {
-  width: 48%;
-  margin: 1% auto;
-  border: solid #008a8c;
-  padding: 2%;
+  /*width: 48%;*/
+  /*margin: 1% auto;*/
+  /*border: solid #008a8c;*/
+  /*padding: 2%;*/
   border-radius: 6px;
 }

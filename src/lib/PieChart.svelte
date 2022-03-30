@@ -7,7 +7,8 @@
 
   function getDataFormat(ratioScope) {
     return {
-      labels: ['Scope 2 : Phase d\'utilisation', 'Scope 3 : Phases de fabrication, transport et fin de vie'],
+      labels: [`Scope 2 : ${ratioScope.scope2.median?ratioScope.scope2.median +'kgCO2, (phase d\'utilisation)':'données manquantes'} `, 
+                `Scope 3 : ${ratioScope.scope3.median} kgCO2, (phases de fabrication, transport et fin de vie)`],
       datasets: [
         {
           label: 'Dataset',
@@ -27,7 +28,7 @@
       maintainAspectRatio: true,
       plugins: {
         legend: {
-          position: 'top',
+          position: 'bottom',
         },
         title: {
           display: false,
