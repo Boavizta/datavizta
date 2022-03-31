@@ -8,8 +8,9 @@ body {
   display:flex;
   color: #008a8c;
   font-weight: 800;
-  font-size: 5rem;
+  font-size: 4rem;
   font-family: 'Maven Pro',sans-serif;
+  margin-left: 15px;
 }
 .title-second {
   display:flex;
