@@ -18,7 +18,8 @@
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
     /* Innert state */
     let selectedRows = [];
-    let selectedCategories = new Set();    
+    let selectedSubCategories = new Set();    
+    let selectedCategories = new Set(); 
     let lifetime;
     let selectedRegion = regionDefaultValue;
     let disabledSearchButton;//not used
@@ -118,8 +119,10 @@
         selectedRows = e.detail
         
         //re-init categories
+        selectedSubCategories = new Set();    
+        selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)})
         selectedCategories = new Set();    
-        selectedRows.forEach((r)=>{selectedCategories.add(r.subcategory)})
+        selectedRows.forEach((r)=>{selectedCategories.add(r.category)})
 
         console.log("DataExplorer:onDataGridUpdate:", selectedRows.length)
         calculateImpacts()
@@ -150,7 +153,11 @@
             <div class="text-lg font-light text-center mb-2">
                 {selectedRows.length === 1 ?
                     (selectedRows[0].manufacturer +', ' + selectedRows[0].name).substring(0,50) : 
-                    selectedRows.length + " équipements" + (selectedCategories.size < 3 ? " de type : " + new Array(...selectedCategories).join(', ') : " de multiples catégories")}
+                    selectedRows.length + " équipements" + (selectedSubCategories.size < 3 ?
+                        " de type : " + new Array(...selectedSubCategories).join(', ') :
+                        selectedCategories.size < 2 ?
+                            " de catégorie : " + [...selectedCategories] : 
+                            " de multiples catégories")}
             </div>
             <div>
                 <PieChart  {ratioScope}/>
