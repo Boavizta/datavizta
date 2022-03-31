@@ -142,9 +142,7 @@
 
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
 
-    <p class="w-80 text-sm px-2 pt-10">
-        {$_('explanation.7')}
-    </p>
+    
 
     <div class="flex flex-row flex-wrap-reverse justify-center">
     
@@ -189,6 +187,12 @@
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
             <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
             
+            <p class="text-xs mb-2 font-light">
+                {$_('explanation.8')}
+            </p>
+            <p class="text-xs mb-2 font-light">
+                {$_('explanation.9')}
+            </p>
             <!-- <div class="mb-5">
                 {$_('index.selected_rows', {values: {n: selectedRows.length}})}
             </div> -->
@@ -224,6 +228,7 @@
                 </button>
             </div>
         </div>
+
     </div>
     </div>
 </div>
