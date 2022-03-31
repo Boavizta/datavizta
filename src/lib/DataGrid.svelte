@@ -1,16 +1,31 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
-    import AgGrid from "@budibase/svelte-ag-grid";
-//    import csv from "../../static/boavizta-data-us.csv"
+    import AgGrid from "./_AgGrid.svelte";
     import Papa from "papaparse";
     import {createEventDispatcher, onMount} from "svelte";
-
-    let dataInit = [];
+    let dataInit;
     let _filterApi;
     const dispatcher = createEventDispatcher();
 
     function updateDataGrid(rows){
         dispatcher('updateDataGrid',rows)
+    }
+
+    const loadDataGridAsync = async () => {
+        try {
+    
+            const res = await fetch("/boavizta-data-us.csv");
+            console.log(`loadDataGrid, res ${JSON.stringify(res).slice(0,10)}`)
+            const text = await res.text();
+            console.log(`loadDataGrid, text ${JSON.stringify(text).slice(0,10)}`)
+            const csvParsed = Papa.parse(text,{header:true, dynamicTyping: true})
+            const rowData = csvParsed.data;
+            rowData.shift();
+            return rowData;
+        } catch (error) {
+            console.error(error)
+            return [];
+        }
     }
 
     const columnDefs    = [{
@@ -175,18 +190,11 @@
         updateDataGrid(filterRows);
     }
 
-    function toRows(csv) {
-        const csvParsed = Papa.parse(csv,{header:true, dynamicTyping: true})
-        const rowData = csvParsed.data;
-        //console.log(rowData)
-        rowData.shift();
-        return rowData;
-    }
 
+    
     onMount(async () => {
-        const res = await fetch("./boavizta-data-us.csv");
-        const text = await res.text();
-        dataInit = toRows(text)
+        dataInit = await loadDataGridAsync()
+        console.log(`onMount, dataInit ${JSON.stringify(dataInit).slice(0,10)}`)
         updateDataGrid(dataInit)
     });
 
