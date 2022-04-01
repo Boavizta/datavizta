@@ -84,9 +84,9 @@
 </script>
 
 <style>
-  .container {
+  .ag_container {
     width: 100%;
-    height: var(--grid-height, 800px);
+    height: var(--grid-height, 500px);
   }
 </style>
 
@@ -97,9 +97,10 @@
       href={themeUrl} />
   {/if}
 </svelte:head>
-<div class="container">
+<div class="ag_container">
   <div
     bind:this={ref}
     style="height: 100%; width:100%"
     class="ag-theme-{theme}" />
 </div>
+

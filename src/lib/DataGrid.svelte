@@ -52,7 +52,7 @@
             headerName: $_('datagrid.report_date'),
             field: "report_date",
             hide: false,
-            width: 140
+            width: 120
         },
         {
             headerName: $_('datagrid.total'),
@@ -155,12 +155,15 @@
             filter: true,
             resizable: true,
         },
+        // Label columns
+        headerHeight: 25,
         //columnDefs: columnDefs,
         rowSelection: 'single',
+        rowHeight: 25,
         //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
         pagination: true,
-        paginationPageSize:10,
+        paginationPageSize:15,
         //rowData: data,
         onFilterChanged: onFilterChanged
     };
@@ -211,11 +214,8 @@
 
 </script>
 
+
 <!--<AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect} theme="material" /> does not work, bug?-->
 <AgGridWrapper {options} data="{dataInit}" columnDefs="{columnDefs}" on:select={onSelect}/>
 
-<style>
-    :global(:root) {
-        --grid-height: 550px;
-    }
-</style>
+
