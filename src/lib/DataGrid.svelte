@@ -1,6 +1,6 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
-    import AgGrid from "./_AgGrid.svelte";
+    import AgGridWrapper from "./AgGridWrapper.svelte";
     import Papa from "papaparse";
     import {createEventDispatcher, onMount} from "svelte";
     let dataInit;
@@ -28,7 +28,7 @@
         }
     }
 
-    const columnDefs    = [{
+    const columnDefs = [{
             headerName: $_('datagrid.manufacturer'),
             field: "manufacturer",
             width: 100
@@ -212,7 +212,7 @@
 </script>
 
 <!--<AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect} theme="material" /> does not work, bug?-->
-<AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect}/>
+<AgGridWrapper {options} data="{dataInit}" columnDefs="{columnDefs}" on:select={onSelect}/>
 
 <style>
     :global(:root) {
