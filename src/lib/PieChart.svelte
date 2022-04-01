@@ -67,5 +67,5 @@
   }
 </script>
 
-<canvas bind:this={portfolio} height="{400}" width="{450}"/>
+<canvas bind:this={portfolio} height="{400}" width="95%"/>
   
