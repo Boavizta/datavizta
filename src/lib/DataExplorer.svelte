@@ -26,6 +26,7 @@
     let scope2: ScopeResult = scopeDefaultvalue;
     let scope3: ScopeResult = scopeDefaultvalue;
     let rows_selection;
+    let total;
     let ratioScope = {
         scope2: scope2,
         scope3: scope3
@@ -108,6 +109,7 @@
         console.log("region ", selectedRegion)
         scope2 = impactScope2(selectedRows, lifetime, selectedRegion.value);
         scope3 = impactScope3(selectedRows);
+        total = scope2.median + scope3.median;
         ratioScope = {scope2: scope2, scope3: scope3}
         console.log("scope2 ", scope2)
         console.log("scope3 ", scope3)
@@ -147,8 +149,8 @@
     <div class="flex flex-row flex-wrap-reverse justify-center">
     
         <div class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
-            <div id="result-title" class="text-xl font-medium text-center">Ratio scope2 / scope3</div>
-            <div class="text-lg font-light text-center mb-2">
+            <div id="result-title" class="text-xl font-medium text-center">Total: {total} kgCO2eq</div>
+            <div class="text-m font-light text-center mb-2">
                 {selectedRows.length === 1 ?
                     (selectedRows[0].manufacturer +', ' + selectedRows[0].name).substring(0,50) : 
                     selectedRows.length + " équipements" + (selectedSubCategories.size < 3 ?
