@@ -164,7 +164,7 @@
                 <div>
                     {#if scope2.lines > 0}
                         <small>
-                            scope 2 : {scope2.median} kgCO2 sur {scope2.lines} équipement(s)</small>
+                            scope 2 : {scope2.median} kgCO2eq sur {scope2.lines} équipement(s)</small>
                     {:else}
                         <small> scope 2 : valeurs d'entrée insuffisantes</small>
                     {/if}
@@ -172,7 +172,7 @@
                 <div>
                     {#if scope3.lines > 0}
                         <small>
-                            scope 3 : {scope3.median} kgCO2 sur {scope3.lines} équipement(s)</small>
+                            scope 3 : {scope3.median} kgCO2eq sur {scope3.lines} équipement(s)</small>
                     {:else}
                         <small> scope 3 : valeurs d'entrée insuffisantes</small>
                     {/if}
