@@ -13,7 +13,7 @@
 
     const loadDataGridAsync = async () => {
         try {
-    
+
             const res = await fetch("/boavizta-data-us.csv");
             console.log(`loadDataGrid, res ${JSON.stringify(res).slice(0,10)}`)
             const text = await res.text();
@@ -99,8 +99,11 @@
         },
         {
             field: "sources",
-            hide: true,
-            width: 100
+            //hide: true,
+            width: 100,
+            cellRenderer: function(params){
+                return '<a target="_blank" href="'+params.value+'">'+params.value+'</a>';
+            }
         },
         {
             field: "gwp_error_ratio",
@@ -163,7 +166,7 @@
         //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
         pagination: true,
-        paginationPageSize:15,
+        paginationPageSize:20,
         //rowData: data,
         onFilterChanged: onFilterChanged
     };
@@ -194,7 +197,7 @@
     }
 
 
-    
+
     onMount(async () => {
         dataInit = await loadDataGridAsync()
         console.log(`onMount, dataInit ${JSON.stringify(dataInit).slice(0,10)}`)
