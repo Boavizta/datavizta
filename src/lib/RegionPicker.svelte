@@ -25,7 +25,7 @@
     selectItems.push(regionDefaultValue)
     return selectItems.concat(rowData.map((row) => {
       return {
-        label: row['country'],
+        label: row['country'] + " - " + row['year']+ " - " + row['gwp_emission_factor'] + "kgCO2e/kWh",
         value: row['gwp_emission_factor']
       }
     }))
