@@ -6,6 +6,7 @@
   let items;
   export let value;
   export let regionDefaultValue;
+  export let isDisabled;
 
   onMount(async () => {
     //console.log("RegionPicker onMount")
@@ -31,5 +32,5 @@
   }
 </script>
 
-<Select {items} bind:value={value} containerClasses="border border-1 rounded-r px-2 py-2 w-full"></Select>
+<Select {items} bind:value={value} containerClasses="border border-1 rounded-r px-2 py-2 w-full" isDisabled="{isDisabled}" />
 
