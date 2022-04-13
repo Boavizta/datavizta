@@ -168,8 +168,9 @@
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
-            <div id="result-title" class="text-xl font-medium text-center">{$_('pie.title')}</div>
-            <div id="result-subtitle" class="text-m font-light text-center">
+            <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
+            <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-emerald-700">{total} kgCO2eq</div>
+            <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
                 {#if selectedRows.length === 1}
                     {$_('pie.subtitle_unique_equipment',{values: {total:total, name:(selectedRows[0].manufacturer +' ' + selectedRows[0].name).substring(0,50)}})}
                 {:else}

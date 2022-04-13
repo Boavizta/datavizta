@@ -7,7 +7,7 @@
 
   function getDataFormat(ratioScope) {
     return {
-      labels: [`Scope 2 : ${ratioScope.scope2.median?ratioScope.scope2.median +' kgCO2eq (phase d\'utilisation)':'données manquantes'} `, 
+      labels: [`Scope 2 : ${ratioScope.scope2.median?ratioScope.scope2.median +' kgCO2eq (phase d\'utilisation)':'données manquantes'} `,
                 `Scope 3 : ${ratioScope.scope3.median} kgCO2eq (phases de fabrication, transport et fin de vie)`],
       datasets: [
         {
@@ -30,7 +30,7 @@
         legend: {
           position: 'bottom',
           align: 'start',
-          fullSize : 'true'
+          fullSize : 'false'
         },
         title: {
           display: false,
@@ -68,4 +68,4 @@
 </script>
 
 <canvas bind:this={portfolio} height="{400}" width="95%"/>
-  
+
