@@ -10,6 +10,7 @@
     "calculate": "Calculer",
     "select_country_elec_impact": "Région",
     "select_country_elec_impact_tooltip": "Région ou pays, remplace la valeur constructeur",
+    "years": "années",
     "years_tooltip": "remplace la valeur constructeur",
     "lifetime": "Durée de vie",
     "custom_values": "Personnaliser"
@@ -22,7 +23,7 @@
     "5": "Evaluer les impacts du prolongement de la durée de vie ou bien de l'utilisation dans une zone géographique plutôt qu'une autre. ",
     "6": "Le tableau suivant affiche les principales données d'impact carbone pour tous les équipements présents dans la base de données Boavizta. Le graphique sous forme de camembert, en dessous du tableau, affiche la répartition des impacts par étape du cycle de vie des équipements en question. Vous pouvez effectuer des recherches sur chacune des colonnes du tableau pour trouver l'équipement précis ou le type d'équipement (Monitor, Laptop, Smartphone, Server…) qui vous intéresse. Une fois le filtre de recherche appliqué ou la ligne d'un équipement sélectionnée, le graphique est mis à jour pour afficher les impacts de l'ensemble des équipements sélectionnés.",
     "7": "A l'aide du formulaire situé à droite du graphique, vous pouvez ensuite faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser, sur le graphique, comment cela influe sur l'impact global et surtout sur la répartition par phase du cycle de vie. A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne.",
-    "8": "A l'aide de ce formulaire, vous pouvez faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser comment cela influe sur l'impact global et sur la répartition par phase du cycle de vie.",
+    "8": "Lorsque les données constructeurs sont suffisantes, vous pouvez faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser comment cela influe sur l'impact global et sur la répartition par phase du cycle de vie.",
     "9": "A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne."
   },
   "datagrid" : {
@@ -37,6 +38,13 @@
     "yearlyTec" : "TEC annuel (kWh)",
     "manufacturing": "Fabrication (%)",
     "total": "Total (kgCO2eq)"
+  },
+  "pie": {
+    "title": "Moyenne des émissions de GES",
+    "subtitle_unique_equipment" : "{total} kgCO2eq sur {name}",
+    "subtitle_multiple_equipment_categories_details" : "{total} kgCO2eq sur {number} équipements de catégorie : {categories}",
+    "subtitle_multiple_equipment_categories" : "{total} kgCO2eq sur {number} équipements de multiples catégories",
+    "subtitle_multiple_equipment_types_details" : "{total} kgCO2eq sur {number} équipements de type : {types}"
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"
