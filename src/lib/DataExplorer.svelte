@@ -212,13 +212,18 @@
 
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
             <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
-
+            {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
                 {$_('explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
                 {$_('explanation.9')}
             </p>
+            {:else}
+            <p class="text-xs mb-2 font-light">
+                {$_('explanation.error')}
+            </p>
+            {/if}
             <!-- <div class="mb-5">
                 {$_('index.selected_rows', {values: {n: selectedRows.length}})}
             </div> -->
