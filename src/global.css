@@ -31,6 +31,9 @@ body {
   font-size: 18px;
   font-family: 'Karla',Arial,sans-serif;
 }
+.text-green {
+  color: #008a8c;
+}
 .text-legend {
   display: flex;
   flex-direction: column;
