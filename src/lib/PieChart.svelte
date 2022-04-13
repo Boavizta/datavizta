@@ -1,14 +1,15 @@
 <script lang="ts">
   import {onMount} from 'svelte';
   import Chart from 'chart.js/auto/auto.js';
+  import {_} from 'svelte-i18n';
 
   export let ratioScope;
   let myChart;
 
   function getDataFormat(ratioScope) {
     return {
-      labels: [`Scope 2 : ${ratioScope.scope2.median?ratioScope.scope2.median +' kgCO2eq (phase d\'utilisation)':'données manquantes'} `,
-                `Scope 3 : ${ratioScope.scope3.median} kgCO2eq (phases de fabrication, transport et fin de vie)`],
+      labels: [$_('pie.legend_scope2', {values:{median:ratioScope.scope2.median}}),
+            $_('pie.legend_scope3', {values:{median:ratioScope.scope3.median}})],
       datasets: [
         {
           label: 'Dataset',

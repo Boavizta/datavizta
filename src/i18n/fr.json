@@ -44,7 +44,9 @@
     "subtitle_unique_equipment" : "{name}",
     "subtitle_multiple_equipment_categories_details" : "Moyenne calculée sur {number} équipements de catégorie : {categories}",
     "subtitle_multiple_equipment_categories" : "Moyenne calculée sur {number} équipements de multiples catégories",
-    "subtitle_multiple_equipment_types_details" : "Moyenne calculée sur {number} équipements de type : {types}"
+    "subtitle_multiple_equipment_types_details" : "Moyenne calculée sur {number} équipements de type : {types}",
+    "legend_scope2" : "Scope 2 : {median} kgCO2eq (phase d'utilisation)",
+    "legend_scope3" : "Scope 3 : {median} kgCO2eq (phases de fabrication, transport et fin de vie)"
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"
