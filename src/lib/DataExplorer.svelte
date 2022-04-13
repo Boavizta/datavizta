@@ -182,7 +182,7 @@
                     {/if}
                 {/if}
             </div>
-            <div>
+            <div class="mt-2">
                 <PieChart  {ratioScope}/>
             </div>
              <!-- <div id="explanation-container" class="text-center mt-5">

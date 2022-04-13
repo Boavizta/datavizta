@@ -40,11 +40,11 @@
     "total": "Total (kgCO2eq)"
   },
   "pie": {
-    "title": "Moyenne des émissions de GES",
+    "title": "Emissions de GES par équipement",
     "subtitle_unique_equipment" : "{total} kgCO2eq sur {name}",
-    "subtitle_multiple_equipment_categories_details" : "{total} kgCO2eq sur {number} équipements de catégorie : {categories}",
-    "subtitle_multiple_equipment_categories" : "{total} kgCO2eq sur {number} équipements de multiples catégories",
-    "subtitle_multiple_equipment_types_details" : "{total} kgCO2eq sur {number} équipements de type : {types}"
+    "subtitle_multiple_equipment_categories_details" : "En moyenne : {total} kgCO2eq sur {number} équipements de catégorie : {categories}",
+    "subtitle_multiple_equipment_categories" : "En moyenne : {total} kgCO2eq sur {number} équipements de multiples catégories",
+    "subtitle_multiple_equipment_types_details" : "En moyenne : {total} kgCO2eq sur {number} équipements de type : {types}"
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"
