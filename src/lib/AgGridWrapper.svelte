@@ -86,7 +86,7 @@
 <style>
   .ag_container {
     width: 100%;
-    height: var(--grid-height, 500px);
+    height: var(--grid-height, 580px);
   }
 </style>
 
