@@ -1,6 +1,15 @@
-# Data Explorer
+# Boavizta-front
 
-## Developing
+## Data Explorer
+
+This educational frontend intends to achieve several complementary objectives:
+- Being able to search easily for carbon impact factors for digital equipment in [Boavizta environmental footprint open database](https://github.com/Boavizta/environmental-footprint-data)
+- Being able to visualize the impacts repartition by stages of the life cycle of equipment by differentiating the use phase (scope 2) from the manufacturing, transport and end-of-life phases (scope 3)
+- Being able to assess the impacts of extending the life of the product or using it in one geographical area rather than another.
+
+You can try it on https://dataviz.boavizta.org
+
+### Developing
 
 It needs node 16. see [this url](https://github.com/nodesource/distributions/blob/master/README.md) for installing.
 
@@ -13,7 +22,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+### Building
 
 To create a production version of your app:
 
