@@ -165,7 +165,7 @@
         rowHeight: 25,
         //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
-        pagination: true,
+        pagination: false,
         paginationPageSize:20,
         //rowData: data,
         onFilterChanged: onFilterChanged
