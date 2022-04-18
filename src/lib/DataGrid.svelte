@@ -58,24 +58,27 @@
             headerName: $_('datagrid.total'),
             field: "gwp_total",
             filter: false,
+            hide: true,
             width: 100
         },
         {
             headerName: $_('datagrid.use'),
             field: "gwp_use_ratio",
             filter: false,
+            hide: true,
             width: 100
         },
         {
             headerName: $_('datagrid.manufacturing'),
             field: "gwp_manufacturing_ratio",
             filter: false,
+            hide: true,
             width: 100
         },
         {
             headerName: $_('datagrid.yearlyTec'),
             field: "yearly_tec",
-            hide: false,
+            hide: true,
             filter: false,
             width: 100
         },
@@ -100,7 +103,7 @@
         {
             field: "sources",
             //hide: true,
-            width: 100,
+            width: 400,
             cellRenderer: function(params){
                 return '<a target="_blank" href="'+params.value+'">'+params.value+'</a>';
             }
