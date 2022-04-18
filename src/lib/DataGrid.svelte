@@ -163,6 +163,7 @@
         },
         // Label columns
         headerHeight: 25,
+        enableCellTextSelection: true,
         //columnDefs: columnDefs,
         rowSelection: 'single',
         rowHeight: 25,
