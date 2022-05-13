@@ -5,115 +5,39 @@
     import DataGrid from "./DataGrid.svelte";
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
+    import * as Scope from "./impacts"
 
-    type ScopeResult = {
-        result: number,
-        lines: number,
-        median: number
-    }
 
     /* Default value */
     const lifetimeDefaultValue = undefined;
     const regionDefaultValue = {label: $_('region-picker.default'), value: -1};
-    const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
+    const scopeDefaultvalue: Scope.ScopeResult = {result: 1, lines: 1, median: 1};
 
 
     /* input values */
     let lifetime = lifetimeDefaultValue;//custom lifetime (opt)
     let selectedRegion = regionDefaultValue;
-    let disabledCustomValue=false;//not used
+    let disabledCustomValue=false;
 
     /* Inner state */
     let selectedRows = [];
     let selectedSubCategories = new Set();
     let selectedCategories = new Set();
-    let scope2: ScopeResult = scopeDefaultvalue;
-    let scope3: ScopeResult = scopeDefaultvalue;
-    let rows_selection;
+    let scope2: Scope.ScopeResult = scopeDefaultvalue;
+    let scope3: Scope.ScopeResult = scopeDefaultvalue;
     let total;
     let ratioScope = {
         scope2: scope2,
         scope3: scope3
     };
 
-
-    /* calculate scope 3 impacts */
-    function impactScope3(rows_selection): ScopeResult {
-        let scope3 = 0;
-        let processedLines = 0;
-        let unProcessedLines = 0//not used
-        rows_selection.forEach(row => {
-            if (row["gwp_total"] != undefined) {
-                if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
-                    scope3 += row["gwp_total"] * (1 - row["gwp_use_ratio"]);
-                    processedLines++
-                } else {
-                    unProcessedLines++
-                }
-            }
-        });
-        const median = Math.round(scope3 / processedLines);
-        return {result: scope3, lines: processedLines, median: median}
-    }
-
-    /* calculate scope 2 impacts */
-    function impactScope2(rows_selection, lifetime, electricalImpactFactor): ScopeResult {
-        let scope2 = 0;
-        let processedLines = 0
-        let unProcessedLines = 0//not used
-        lifetime = lifetime > 0 ? lifetime : undefined
-
-        if (lifetime == undefined && electricalImpactFactor == -1) {
-            rows_selection.forEach(row => {
-                if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
-                    scope2 += row["gwp_total"] * row["gwp_use_ratio"];
-                    processedLines++;
-                } else {
-                    unProcessedLines++
-                }
-            })
-        } else if (lifetime != undefined  && electricalImpactFactor == -1) {
-            rows_selection.forEach(row => {
-                if (row["gwp_total"] != undefined
-                    && row["gwp_use_ratio"] != undefined
-                    && row["lifetime"] != undefined
-                    && row["lifetime"] != 0) {
-                    scope2 += ((row["gwp_total"] * row["gwp_use_ratio"]) / row["lifetime"]) * lifetime
-                    processedLines++;
-                } else {
-                    unProcessedLines++
-                }
-            });
-        } else if (lifetime == undefined  && electricalImpactFactor !== -1) {
-            rows_selection.forEach(row => {
-                if (row["yearly_tec"] != undefined) {
-                    scope2 += row["yearly_tec"] * row["lifetime"] * electricalImpactFactor
-                    processedLines++;
-                } else {
-                    unProcessedLines++
-                }
-            });
-        } else if (lifetime != undefined  && electricalImpactFactor !== -1) {
-            rows_selection.forEach(row => {
-                if (row["yearly_tec"] != undefined) {
-                    scope2 += row["yearly_tec"] * lifetime * electricalImpactFactor;
-                    processedLines++;
-                } else {
-                    unProcessedLines++
-                }
-            })
-        }
-        const median = Math.round(scope2 / processedLines);
-        return {result: scope2, lines: processedLines, median: median}
-    }
-
     function calculateImpacts() {
         console.log("calculateImpacts")
         console.log("lifetime ", lifetime)
         console.log("selectedRowsNumber ", selectedRows.length)
         console.log("region ", selectedRegion)
-        scope2 = impactScope2(selectedRows, lifetime, selectedRegion.value);
-        scope3 = impactScope3(selectedRows);
+        scope2 = Scope.impactScope2(selectedRows, lifetime, selectedRegion.value);
+        scope3 = Scope.impactScope3(selectedRows);
         total = scope2.median + scope3.median;
         console.log("total ", total)
         ratioScope = {scope2: scope2, scope3: scope3}
