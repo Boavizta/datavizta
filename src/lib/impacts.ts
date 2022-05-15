@@ -3,6 +3,21 @@ export type ScopeResult = {
     lines: number,
     median: number
 }
+
+export function calculateImpacts(selectedRows, lifetime, regionValue) {
+    //console.log("calculateImpacts")
+    //console.log("lifetime ", lifetime)
+    //console.log("selectedRowsNumber ", selectedRows.length)
+    const scope2 = impactScope2(selectedRows, lifetime, regionValue);
+    const scope3 = impactScope3(selectedRows);
+    const total = scope2.median + scope3.median;
+    //console.log("total ", total)
+    //console.log("scope2 ", scope2)
+    //console.log("scope3 ", scope3)
+    return {scope2: scope2, scope3: scope3, total: total}
+    
+}
+
 /* calculate scope 3 impacts */
 export function impactScope3(rows_selection): ScopeResult {
     let scope3 = 0;

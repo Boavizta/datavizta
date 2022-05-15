@@ -1,95 +1,109 @@
 <script lang="ts">
-    import { _ } from 'svelte-i18n';
+    import { _ } from "svelte-i18n";
     import AgGridWrapper from "./AgGridWrapper.svelte";
     import Papa from "papaparse";
-    import {createEventDispatcher, onMount} from "svelte";
-    let dataInit;
+    import { createEventDispatcher, onMount } from "svelte";
+    import FilterButton from "./FilterButton.svelte";
+
+    /*internal state*/
+    let rows;
+
+    /*pointer to internal datagrid api*/
     let _filterApi;
+    const filterCategories = ["Workplace", "Datacenter"];
+    const filterSubcategories = ["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"];
+
+    let selectedCategories = new Set();
+    let selectedSubcategories = new Set();
+
     const dispatcher = createEventDispatcher();
 
-    function updateDataGrid(rows){
-        dispatcher('updateDataGrid',rows)
+    function updateDataGrid(rows) {
+        dispatcher("updateDataGrid", rows);
     }
 
     const loadDataGridAsync = async () => {
         try {
-
             const res = await fetch("/boavizta-data-us.csv");
-            console.log(`loadDataGrid, res ${JSON.stringify(res).slice(0,10)}`)
+            //console.log(`loadDataGrid, res ${JSON.stringify(res).slice(0,10)}`)
             const text = await res.text();
-            console.log(`loadDataGrid, text ${JSON.stringify(text).slice(0,10)}`)
-            const csvParsed = Papa.parse(text,{header:true, dynamicTyping: true})
+            //console.log(`loadDataGrid, text ${JSON.stringify(text).slice(0,10)}`)
+            const csvParsed = Papa.parse(text, {
+                header: true,
+                dynamicTyping: true,
+            });
             const rowData = csvParsed.data;
             rowData.shift();
             return rowData;
         } catch (error) {
-            console.error(error)
+            console.error(error);
             return [];
         }
-    }
+    };
 
-    const columnDefs = [{
-            headerName: $_('datagrid.manufacturer'),
+    const columnDefs = [
+        {
+            headerName: $_("datagrid.manufacturer"),
             field: "manufacturer",
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.name'),
+            headerName: $_("datagrid.name"),
             field: "name",
-            width: 300
+            width: 300,
         },
         {
-            headerName: $_('datagrid.category'),
+            headerName: $_("datagrid.category"),
             field: "category",
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.subcategory'),
+            headerName: $_("datagrid.subcategory"),
             field: "subcategory",
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.report_date'),
+            headerName: $_("datagrid.report_date"),
             field: "report_date",
             hide: false,
-            width: 120
+            width: 120,
         },
         {
-            headerName: $_('datagrid.total'),
+            headerName: $_("datagrid.total"),
             field: "gwp_total",
             filter: false,
             hide: true,
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.use'),
+            headerName: $_("datagrid.use"),
             field: "gwp_use_ratio",
             filter: false,
             hide: true,
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.manufacturing'),
+            headerName: $_("datagrid.manufacturing"),
             field: "gwp_manufacturing_ratio",
             filter: false,
             hide: true,
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.yearlyTec'),
+            headerName: $_("datagrid.yearlyTec"),
             field: "yearly_tec",
             hide: true,
             filter: false,
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.use_location'),
+            headerName: $_("datagrid.use_location"),
             field: "use_location",
             hide: false,
-            width: 100
+            width: 100,
         },
         {
-            headerName: $_('datagrid.lifetime'),
+            headerName: $_("datagrid.lifetime"),
             field: "lifetime",
             //hide: true,
             filter: false,
@@ -98,61 +112,67 @@
         {
             field: "added_date",
             hide: true,
-            width: 100
+            width: 100,
         },
         {
             field: "sources",
             //hide: true,
             width: 400,
-            cellRenderer: function(params){
-                return '<a target="_blank" href="'+params.value+'">'+params.value+'</a>';
-            }
+            cellRenderer: function (params) {
+                return (
+                    '<a target="_blank" href="' +
+                    params.value +
+                    '">' +
+                    params.value +
+                    "</a>"
+                );
+            },
         },
         {
             field: "gwp_error_ratio",
             hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
+            filter: "agNumberColumnFilter",
+            width: 100,
         },
         {
             field: "weight",
             hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
+            filter: "agNumberColumnFilter",
+            width: 100,
         },
         {
             field: "assembly_location",
             hide: true,
-            width: 100
+            width: 100,
         },
         {
             field: "screen_size",
             hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
+            filter: "agNumberColumnFilter",
+            width: 100,
         },
         {
             field: "server_type",
             hide: true,
-            width: 100
+            width: 100,
         },
         {
             field: "hard_drive",
             hide: true,
-            width: 100
+            width: 100,
         },
         {
             field: "memory",
             hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
+            filter: "agNumberColumnFilter",
+            width: 100,
         },
         {
             field: "number_cpu",
             hide: true,
-            filter: 'agNumberColumnFilter',
-            width: 100
-        }
+            filter: "agNumberColumnFilter",
+            width: 100,
+        },
     ];
 
     let options = {
@@ -165,64 +185,117 @@
         headerHeight: 25,
         enableCellTextSelection: true,
         //columnDefs: columnDefs,
-        rowSelection: 'single',
+        rowSelection: "single",
         rowHeight: 25,
         //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
         pagination: false,
-        paginationPageSize:20,
+        paginationPageSize: 20,
         //rowData: data,
-        onFilterChanged: onFilterChanged
+        onFilterChanged: onFilterChanged,
     };
 
-    function getFilterRows(filterApi){
-        if(filterApi != undefined){
-            _filterApi = filterApi
+    function getFilterRows(filterApi) {
+        //workaround because filterAPI can be unset
+        if (filterApi != undefined) {
+            _filterApi = filterApi;
         }
 
-        if(_filterApi != undefined){
+        if (_filterApi != undefined) {
             let rowData = [];
             //get selected row
-            _filterApi.forEachNodeAfterFilter(node => {
+            _filterApi.forEachNodeAfterFilter((node) => {
                 rowData.push(node.data);
             });
             //console.log(rowData)
             return rowData;
-        }else{
+        } else {
             //no filter has been applied return all set
-            return dataInit
+            return rows;
         }
     }
 
-    function onFilterChanged(e){
+    function onFilterChanged(e) {
         //console.log(e)
-        let filterRows = getFilterRows(e.api)
+        let filterRows = getFilterRows(e.api);
         updateDataGrid(filterRows);
     }
 
+    const updateCategoryFilter = (category) => {
+        selectedCategories.has(category)
+            ? selectedCategories.delete(category)
+            : selectedCategories.add(category);
+        //trigger reactivity
+        selectedCategories = selectedCategories;
+    };
 
+    const updateSubcategoryFilter = (subcategory) => {
+        selectedSubcategories.has(subcategory)
+            ? selectedSubcategories.delete(subcategory)
+            : selectedSubcategories.add(subcategory);
+
+        const values = selectedSubcategories[Symbol.iterator]();
+
+        //remove first element to keep only two elements
+        if (selectedSubcategories.size > 2) {
+            //remove first element
+            const pop = values.next().value;
+            selectedSubcategories.delete(pop);
+        }
+        //trigger reactivity
+        selectedSubcategories = selectedSubcategories;
+    };
 
     onMount(async () => {
-        dataInit = await loadDataGridAsync()
-        console.log(`onMount, dataInit ${JSON.stringify(dataInit).slice(0,10)}`)
-        updateDataGrid(dataInit)
+        rows = await loadDataGridAsync();
+        console.log(`onMount, rows ${JSON.stringify(rows).slice(0, 10)}`);
+        updateDataGrid(rows);
     });
 
-    function onSelect(e){
+    function onSelect(e) {
         //console.log(e)
-        if(e.detail.length == 0){
+        if (e.detail.length == 0) {
             //selection is empty, return full data
-            updateDataGrid(getFilterRows(e.api))
-        }else{
+            updateDataGrid(getFilterRows(e.api));
+        } else {
             //return selection
-            updateDataGrid(e.detail)
+            updateDataGrid(e.detail);
         }
     }
-
 </script>
 
+<div class="flex-row">
+    {#each filterCategories as filterCategory}
+        <FilterButton
+            filterText={filterCategory}
+            active={selectedCategories.has(filterCategory)}
+            onButtonClick={() => {
+                updateCategoryFilter(filterCategory);
+            }}
+        />
+    {/each}
+</div>
+<div class="flex-row">
+    {#each filterSubcategories as subcategoryFilter}
+        <FilterButton
+            filterText={subcategoryFilter}
+            active={selectedSubcategories.has(subcategoryFilter)}
+            onButtonClick={() => {
+                updateSubcategoryFilter(subcategoryFilter);
+            }}
+        />
+    {/each}
 
-<!--<AgGrid {options} data="{dataInit}" {columnDefs} on:select={onSelect} theme="material" /> does not work, bug?-->
-<AgGridWrapper {options} data="{dataInit}" columnDefs="{columnDefs}" on:select={onSelect}/>
-
-
+<!--     {new Array(...selectedCategories).join(" ")}, {new Array(
+        ...selectedSubcategories
+    ).join(" ")} -->
+</div>
+<!--<AgGrid {options} data="{rows}" {columnDefs} on:select={onSelect} theme="material" /> does not work, bug?-->
+<AgGridWrapper
+    {options}
+    data={rows}
+    {columnDefs}
+    on:select={onSelect}
+    {selectedCategories}
+    {selectedSubcategories}
+/>

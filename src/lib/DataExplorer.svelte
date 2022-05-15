@@ -1,11 +1,14 @@
 <script lang="ts">
     import {_} from 'svelte-i18n';
+    import {onMount} from "svelte";
 
+    import { page } from '$app/stores';
 
     import DataGrid from "./DataGrid.svelte";
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"
+    //import {location, querystring} from 'svelte-spa-router'
 
 
     /* Default value */
@@ -18,55 +21,45 @@
     let lifetime = lifetimeDefaultValue;//custom lifetime (opt)
     let selectedRegion = regionDefaultValue;
     let disabledCustomValue=false;
-
+    
     /* Inner state */
-    let selectedRows = [];
-    let selectedSubCategories = new Set();
-    let selectedCategories = new Set();
-    let scope2: Scope.ScopeResult = scopeDefaultvalue;
-    let scope3: Scope.ScopeResult = scopeDefaultvalue;
-    let total;
+    let state = {
+        selectedRows : [],
+        selectedSubCategories : new Set(),
+        selectedCategories : new Set(),
+    }
+    
     let ratioScope = {
-        scope2: scope2,
-        scope3: scope3
-    };
+        scope2: scopeDefaultvalue,
+        scope3: scopeDefaultvalue,
+        total:0
+    };  
 
-    function calculateImpacts() {
-        console.log("calculateImpacts")
-        console.log("lifetime ", lifetime)
-        console.log("selectedRowsNumber ", selectedRows.length)
+    function onUpdateImpacts(){
         console.log("region ", selectedRegion)
-        scope2 = Scope.impactScope2(selectedRows, lifetime, selectedRegion.value);
-        scope3 = Scope.impactScope3(selectedRows);
-        total = scope2.median + scope3.median;
-        console.log("total ", total)
-        ratioScope = {scope2: scope2, scope3: scope3}
-        console.log("scope2 ", scope2)
-        console.log("scope3 ", scope3)
+        ratioScope = Scope.calculateImpacts(state.selectedRows, lifetime, selectedRegion.value)
     }
 
     function onDataGridUpdate(e) {
-        //console.log("DataExplorer:onDataGridUpdate")
-        //console.log(e.detail)
-        selectedRows = e.detail
+        state.selectedRows = e.detail
 
         //re-init categories
-        selectedSubCategories = new Set();
-        selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)})
-        selectedCategories = new Set();
-        selectedRows.forEach((r)=>{selectedCategories.add(r.category)})
+        state.selectedSubCategories = new Set();
+        state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)})
+        state.selectedCategories = new Set();
+        state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)})
 
-        console.log("DataExplorer:onDataGridUpdate:", selectedRows.length)
-        disabledCustomValue = disableCustomValues(selectedRows)
+        console.log("DataExplorer:onDataGridUpdate:", state.selectedRows.length)
+        disabledCustomValue = disableCustomValues(state.selectedRows)
         if(disabledCustomValue){
             resetRegionPicker()
             resetLifetimeValue()
         }
-        calculateImpacts()
+        onUpdateImpacts()
     }
 
     function disableCustomValues(selectedRows):boolean{
-        console.log(selectedRows)
+        //console.log(selectedRows)
         return selectedRows.length == 1 &&
             (selectedRows[0]["yearly_tec"] == undefined || selectedRows[0]["gwp_use_ratio"] == undefined)
     }
@@ -79,10 +72,33 @@
         lifetime = lifetimeDefaultValue
     }
 
+    function getShareLink(){
+        const baseUrl= $page.url.toString().split("#")[0];
+        const stateStringify = JSON.stringify(state)
+        const stateBase64 = btoa(stateStringify);
+        
+        console.log("baseUrl : " +  baseUrl)
+        console.log("stateStringify : " +  stateStringify)
+        console.log("stateBase64 : " +  stateBase64)
+
+        const shareLink = baseUrl+"#/?state="+ btoa(stateBase64)
+        console.log("shareLink : " +  shareLink)
+    }
+
+    onMount(async () => {
+           /*  console.log("location: " + $location);
+            console.log("queryString: " + $querystring);
+            if($querystring.includes("state")){
+                const encodedState = new URLSearchParams($querystring).get("state");
+                state = JSON.parse(atob(encodedState));
+            } */
+
+    })
+
 </script>
 
-<div class="flex flex-col">
 
+<div class="flex flex-col">
 
 
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
@@ -93,17 +109,17 @@
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
             <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
-            <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{total} kgCO2eq</div>
+            <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq</div>
             <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
-                {#if selectedRows.length === 1}
-                    {$_('pie.subtitle_unique_equipment',{values: {total:total, name:(selectedRows[0].manufacturer +' ' + selectedRows[0].name).substring(0,50)}})}
+                {#if state.selectedRows.length === 1}
+                    {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name).substring(0,50)}})}
                 {:else}
-                    {#if selectedSubCategories.size < 3}
-                        {$_('pie.subtitle_multiple_equipment_categories_details', {values:{total:total, number:selectedRows.length, categories:new Array(...selectedSubCategories).join(', ')}})}
-                    {:else if selectedCategories.size < 2}
-                        {$_('pie.subtitle_multiple_equipment_types_details', {values:{total:total, number:selectedRows.length, types:new Array(...selectedCategories).join(', ')}})}
+                    {#if state.selectedSubCategories.size < 3}
+                        {$_('pie.subtitle_multiple_equipment_categories_details', {values:{total:ratioScope.total, number:state.selectedRows.length, categories:new Array(...state.selectedSubCategories).join(', ')}})}
+                    {:else if state.selectedCategories.size < 2}
+                        {$_('pie.subtitle_multiple_equipment_types_details', {values:{total:ratioScope.total, number:state.selectedRows.length, types:new Array(...state.selectedCategories).join(', ')}})}
                     {:else}
-                        {$_('pie.subtitle_multiple_equipment_categories', {values:{total:total, number:selectedRows.length}})}
+                        {$_('pie.subtitle_multiple_equipment_categories', {values:{total:ratioScope.total, number:state.selectedRows.length}})}
                     {/if}
                 {/if}
             </div>
@@ -178,7 +194,10 @@
 
             <!-- button calculate -->
             <div class="myt-2 mx-auto">
-                <button disabled="{disabledCustomValue}" on:click={calculateImpacts} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                    <span>{$_('index.link')}</span>
+                </button>
+                <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
             </div>
