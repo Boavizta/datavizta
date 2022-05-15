@@ -237,7 +237,7 @@
         const values = selectedSubcategories[Symbol.iterator]();
 
         //remove first element to keep only two elements
-        if (selectedSubcategories.size > 2) {
+        if (selectedSubcategories.size > 1) {
             //remove first element
             const pop = values.next().value;
             selectedSubcategories.delete(pop);
@@ -264,7 +264,7 @@
     }
 </script>
 
-<div class="flex-row">
+<!-- <div class="flex-row">
     {#each filterCategories as filterCategory}
         <FilterButton
             filterText={filterCategory}
@@ -274,8 +274,8 @@
             }}
         />
     {/each}
-</div>
-<div class="flex-row">
+</div> -->
+<div class="flex-row my-2">
     {#each filterSubcategories as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
