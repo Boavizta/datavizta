@@ -11,3 +11,4 @@ node_modules
 pnpm-lock.yaml
 yarn-error.log
 .pnpm-debug.log
+/.vscode
