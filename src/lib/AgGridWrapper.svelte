@@ -18,10 +18,10 @@
     suppressFieldDotNotation: true,
     rowSelection: "multiple",
   };
-  export let selectedCategories;
+  //export let selectedCategories;
   export let selectedSubcategories;
 
-  $: filterByCategories(selectedCategories);
+  //$: filterByCategories(selectedCategories);
   $: filterBySubcategories(selectedSubcategories);
 
   function filterBySubcategories(subcategories) {
@@ -59,7 +59,7 @@
     api.onFilterChanged();
   }
 
-  function filterByCategories(categories) {
+  /* function filterByCategories(categories) {
     if(api == undefined){
       return;
     }
@@ -94,7 +94,7 @@
 
     // refresh rows based on the filter (not automatic to allow for batching multiple filters)
     api.onFilterChanged();
-  }
+  } */
 
   export let loading = false;
 
@@ -107,12 +107,6 @@
     const selectedRows = api.getSelectedRows();
     dispatch("select", selectedRows);
   };
-
-/*   const onCellValueChanged = (e) => {
-    console.log("onCellValueChanged", e.data);
-    data[e.rowIndex] = e.data;
-    dispatch("update", { row: e.rowIndex, data: e.data });
-  }; */
 
   const onGridReady = () => {
     console.log("onGridReady", grid);
@@ -152,15 +146,6 @@
     });
   });
 
-  /* 
-  function onQuickFilterChanged() {
-    api.setQuickFilter(document.getElementById('quickFilter').value);
-  } */
-
-/*   function clearFilter() {
-    api.setFilterModel(null);
-  } */
-
   onDestroy(() => {
     if (grid) {
       grid.destroy();
@@ -176,15 +161,6 @@
   {/if}
 </svelte:head>
 
-<!-- <button
-  on:click={() => {
-    clearFilter();
-  }}
->
-  <span>reset</span>
-</button> -->
-<!-- <input type="text" on:input="{onQuickFilterChanged}" id="quickFilter" placeholder="quick filter...">
--->
 <div class="ag_container">
   <div
     bind:this={ref}

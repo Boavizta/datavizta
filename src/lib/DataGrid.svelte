@@ -10,10 +10,10 @@
 
     /*pointer to internal datagrid api*/
     let _filterApi;
-    const filterCategories = ["Workplace", "Datacenter"];
+    //const filterCategories = ["Workplace", "Datacenter"];
     const filterSubcategories = ["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"];
 
-    let selectedCategories = new Set();
+    //let selectedCategories = new Set();
     let selectedSubcategories = new Set();
 
     const dispatcher = createEventDispatcher();
@@ -221,13 +221,13 @@
         updateDataGrid(filterRows);
     }
 
-    const updateCategoryFilter = (category) => {
+    /* const updateCategoryFilter = (category) => {
         selectedCategories.has(category)
             ? selectedCategories.delete(category)
             : selectedCategories.add(category);
         //trigger reactivity
         selectedCategories = selectedCategories;
-    };
+    }; */
 
     const updateSubcategoryFilter = (subcategory) => {
         selectedSubcategories.has(subcategory)
@@ -285,17 +285,11 @@
             }}
         />
     {/each}
-
-<!--     {new Array(...selectedCategories).join(" ")}, {new Array(
-        ...selectedSubcategories
-    ).join(" ")} -->
 </div>
-<!--<AgGrid {options} data="{rows}" {columnDefs} on:select={onSelect} theme="material" /> does not work, bug?-->
 <AgGridWrapper
     {options}
     data={rows}
     {columnDefs}
     on:select={onSelect}
-    {selectedCategories}
     {selectedSubcategories}
 />

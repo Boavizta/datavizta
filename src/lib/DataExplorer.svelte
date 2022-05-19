@@ -86,7 +86,9 @@
     }
 
     onMount(async () => {
-           /*  console.log("location: " + $location);
+           /*  
+           WIP
+           console.log("location: " + $location);
             console.log("queryString: " + $querystring);
             if($querystring.includes("state")){
                 const encodedState = new URLSearchParams($querystring).get("state");
@@ -194,9 +196,9 @@
 
             <!-- button calculate -->
             <div class="myt-2 mx-auto">
-                <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                <!-- <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.link')}</span>
-                </button>
+                </button> -->
                 <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
