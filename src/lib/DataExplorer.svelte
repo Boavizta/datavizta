@@ -1,6 +1,7 @@
 <script lang="ts">
     import {_} from 'svelte-i18n';
     import {onMount} from "svelte";
+    import html2canvas from 'html2canvas';
 
     import DataGrid from "./DataGrid.svelte";
     import RegionPicker from "./RegionPicker.svelte";
@@ -16,24 +17,27 @@
     /* input values */
     let lifetime = lifetimeDefaultValue;//custom lifetime (opt)
     let selectedRegion = regionDefaultValue;
-    let disabledCustomValue=false;
-    
+    let disabledCustomValue = false;
+    let hasCustomValues = false;
+
     /* Inner state */
     let state = {
         selectedRows : [],
         selectedSubCategories : new Set(),
         selectedCategories : new Set(),
     }
-    
+
     let ratioScope = {
         scope2: scopeDefaultvalue,
         scope3: scopeDefaultvalue,
         total:0
-    };  
+    };
 
     function onUpdateImpacts(){
         console.log("region ", selectedRegion)
         ratioScope = Scope.calculateImpacts(state.selectedRows, lifetime, selectedRegion.value)
+        imageUrlData = null;
+        hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
     }
 
     function onDataGridUpdate(e) {
@@ -52,6 +56,7 @@
             resetLifetimeValue()
         }
         onUpdateImpacts()
+        imageUrlData = null;
     }
 
     function disableCustomValues(selectedRows):boolean{
@@ -69,24 +74,30 @@
     }
 
 
+    let imageUrlData = null;
+
     onMount(async () => {
-        /* retrieve lifetime from queryparam */ 
+        /* retrieve lifetime from queryparam */
         lifetime = new URLSearchParams(window.location.search).get('lifetime');
     });
 
+    async function downloadImage() {
+        const canvas = await html2canvas(document.getElementById('viz-container'));
+        imageUrlData = canvas.toDataURL("image/png");
+    }
 </script>
 
 
 <div class="flex flex-col">
 
 
-        <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 
 <!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
 
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
-        <div class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
+        <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
             <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
             <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq</div>
             <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
@@ -102,6 +113,19 @@
                     {/if}
                 {/if}
             </div>
+
+            {#if hasCustomValues}
+                <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
+                    <strong>{$_('index.custom_values')}</strong>:
+                    {#if selectedRegion !== regionDefaultValue}
+                    {selectedRegion.label}
+                    {/if}
+                    {#if lifetime}
+                    {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                    {lifetime} {$_('index.years')}
+                    {/if}
+                </div>
+            {/if}
             <div class="mt-2">
                 <PieChart  {ratioScope}/>
             </div>
@@ -183,10 +207,17 @@
         </div>
 
     </div>
-    </div>
+</div>
 </div>
 
-
-<style>
-
-</style>
+<div class="my-10 text-center">
+    {#if imageUrlData}
+        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+            {$_('pie.download')}
+        </a>
+    {:else}
+        <button on:click={downloadImage} class="inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+            {$_('pie.export')}
+        </button>
+    {/if}
+</div>
