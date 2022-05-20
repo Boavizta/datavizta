@@ -116,7 +116,6 @@
 
             {#if hasCustomValues}
                 <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
-                    <strong>{$_('index.custom_values')}</strong>:
                     {#if selectedRegion !== regionDefaultValue}
                     {selectedRegion.label}
                     {/if}
