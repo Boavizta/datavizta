@@ -275,7 +275,7 @@
         />
     {/each}
 </div> -->
-<div class="flex-row my-2">
+<div class="flex-row my-2 space-x-0.5 > * + *	">
     {#each filterSubcategories as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
