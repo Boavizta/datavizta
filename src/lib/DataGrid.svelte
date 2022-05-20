@@ -25,8 +25,8 @@
     const dispatcher = createEventDispatcher();
 
     function updateDataGrid(rows) {
-        dispatcher("updateDataGrid", rows);
         filteredRows=rows;
+        dispatcher("updateDataGrid", rows);
     }
 
     const loadDataGridAsync = async () => {
@@ -41,6 +41,7 @@
             });
             const rowData = csvParsed.data;
             rowData.shift();
+            filteredRows=rowData;
             return rowData;
         } catch (error) {
             console.error(error);
