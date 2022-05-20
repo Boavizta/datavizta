@@ -119,7 +119,7 @@ import { query_selector_all } from 'svelte/internal';
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
             <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
             <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq</div>
-            <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
+            <div id="result-subtitle" class="text-sm font-light text-center text-gray-800 pl-2">
                 {#if state.selectedRows.length === 1}
                     {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name).substring(0,50)}})}
                 {:else}
@@ -135,7 +135,6 @@ import { query_selector_all } from 'svelte/internal';
 
             {#if hasCustomValues}
                 <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
-                    <strong>{$_('index.custom_values')}</strong>:
                     {#if selectedRegion !== regionDefaultValue}
                     {selectedRegion.label}
                     {/if}
@@ -219,7 +218,7 @@ import { query_selector_all } from 'svelte/internal';
                 <!-- <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.link')}</span>
                 </button> -->
-                <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
             </div>
@@ -231,11 +230,11 @@ import { query_selector_all } from 'svelte/internal';
 
 <div class="my-10 text-center">
     {#if imageUrlData}
-        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="blue-button inline-block hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
             {$_('pie.download')}
         </a>
     {:else}
-        <button on:click={downloadImage} class="inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+        <button on:click={downloadImage} class="inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
             {$_('pie.export')}
         </button>
     {/if}
