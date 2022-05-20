@@ -7,6 +7,7 @@
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"
+import { query_selector_all } from 'svelte/internal';
 
     /* Default value */
     const lifetimeDefaultValue = undefined;
@@ -19,6 +20,7 @@
     let selectedRegion = regionDefaultValue;
     let disabledCustomValue = false;
     let hasCustomValues = false;
+    let shareLink;
 
     /* Inner state */
     let state = {
@@ -84,6 +86,30 @@
     async function downloadImage() {
         const canvas = await html2canvas(document.getElementById('viz-container'));
         imageUrlData = canvas.toDataURL("image/png");
+    }
+
+
+    function buildLink(){
+        let link = window.location.origin;
+        let query = ""
+        if(lifetime){
+            query += "lifetime=" + lifetime + "&"
+        }
+        if(state.selectedSubCategories.size>0){
+            query += "subcategory=" + state.selectedSubCategories.values().next().value + "&"
+        }
+        if(selectedRegion && selectedRegion.value != -1){
+            query += "region=" + selectedRegion.id + "&"
+        }
+        query = query.slice(0, -1)
+        shareLink = link + "?" + query;
+    }
+
+    function selectShareLinkInput(){
+        //does not work
+        let input = document.getElementById('shareLinkInput');
+        input.focus();
+        input.select();
     }
 </script>
 
@@ -195,28 +221,31 @@
             </div>
 
             <!-- button calculate -->
-            <div class="myt-2 mx-auto">
+            <div class="flex-row mx-auto">
                 <!-- <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     <span>{$_('index.link')}</span>
                 </button> -->
                 <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
+                {#if imageUrlData}
+                    <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="my-2 inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                        {$_('pie.download')}
+                    </a>
+                {:else}
+                    <button on:click={downloadImage} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                        {$_('pie.export')}
+                    </button>
+                {/if}
+                <button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                    {$_('pie.share')}
+                </button>
+                {#if shareLink}
+                    <input id="shareLinkInput" class="" value={shareLink} on:change={selectShareLinkInput}/>
+                {/if}
             </div>
         </div>
 
     </div>
 </div>
-</div>
-
-<div class="my-10 text-center">
-    {#if imageUrlData}
-        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="blue-button inline-block hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
-            {$_('pie.download')}
-        </a>
-    {:else}
-        <button on:click={downloadImage} class="inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
-            {$_('pie.export')}
-        </button>
-    {/if}
 </div>
