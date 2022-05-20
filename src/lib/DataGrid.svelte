@@ -4,6 +4,11 @@
     import Papa from "papaparse";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./FilterButton.svelte";
+    import * as Utils from "./utils";
+    import * as Scope from "./impacts";
+
+    export let lifetime;
+    export let selectedRegion;
 
     /*internal state*/
     let rows;
@@ -274,36 +279,43 @@
 
     function exportCurrentView() {
         let csvContent = "data:text/csv;charset=utf-8,";
-        const headers = Object.keys(rows[0]);
-        csvContent += headers.join(',')+"\r\n";
-        csvContent += convertToCSV(filteredRows);
-
-        //Source https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
-        var encodedUri = encodeURI(csvContent);
-        var link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "baovizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv");
-        document.body.appendChild(link); // Required for FF
-
-        link.click(); 
-    }
-
-    //Source https://stackoverflow.com/questions/11257062/converting-json-object-to-csv-format-in-javascript
-    function convertToCSV(objArray) {
-        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-        var str = '';
-
-        for (var i = 0; i < array.length; i++) {
-            var line = '';
-            for (var index in array[i]) {
-                if (line != '') line += ','
-
-                line += array[i][index];
+        
+        filteredRows.forEach(row => {
+            let scope3 = Scope.impactScope3byRow(row).scope3;
+            if (scope3 != 0) {
+                row.scope3=scope3;
+            } else {
+                row.scope3='';
             }
-            str += line + '\r\n';
-        }
-        return str;
+            let scope2=Scope.impactScope2ByRow(row,lifetime,selectedRegion.value);
+            if (scope2 != 0) {
+                row.scope2=scope2;
+            } else {
+                row.scope2='';
+            }
+            if (lifetime != undefined) {
+                row.lifetimeoverride=lifetime;
+            } else {
+                row.lifetimeoverride='';
+            }
+            if (selectedRegion.value !== -1) {
+                row.regionlabel=selectedRegion.label;
+                row.electricalImpactFactor=selectedRegion.value;
+            } else {
+                row.regionlabel='';
+                row.electricalImpactFactor='';
+            }
+        });
+
+        const headers = Object.keys(filteredRows[0]);
+        csvContent += headers.join(',')+"\r\n";
+        csvContent += Utils.convertToCSV(filteredRows);
+
+        Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
+
     }
+
+
 
 </script>
 
@@ -333,7 +345,6 @@
     </div>
     <div class="flex shrink">
         <button class="link my-4 ml-2" on:click={() => {exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
-        <a href="/boavizta-data-us.csv" class="link my-4 ml-2">{$_('datagrid.export_all')}</a>
     </div>
 </div>
 

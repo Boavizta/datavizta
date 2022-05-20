@@ -39,8 +39,7 @@
     "yearlyTec" : "TEC annuel (kWh)",
     "manufacturing": "Fabrication (%)",
     "total": "Total (kgCO2eq)",
-    "export_all": "Export All",
-    "export_filtered": "Export view"
+    "export_filtered": "Exporter la vue en CSV (beta)"
   },
   "pie": {
     "title": "Emissions de GES",
