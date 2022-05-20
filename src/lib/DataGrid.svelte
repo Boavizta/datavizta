@@ -229,6 +229,14 @@
         selectedCategories = selectedCategories;
     }; */
 
+    onMount(async () => {
+        rows = await loadDataGridAsync();
+        //console.log(`onMount, rows ${JSON.stringify(rows).slice(0, 10)}`);
+        /* retrieve subcategory from query param*/
+        const subcategory = new URLSearchParams(window.location.search).get('subcategory');
+        updateSubcategoryFilter(subcategory);
+    });
+
     const updateSubcategoryFilter = (subcategory) => {
         selectedSubcategories.has(subcategory)
             ? selectedSubcategories.delete(subcategory)
@@ -246,12 +254,6 @@
         selectedSubcategories = selectedSubcategories;
     };
 
-    onMount(async () => {
-        rows = await loadDataGridAsync();
-        console.log(`onMount, rows ${JSON.stringify(rows).slice(0, 10)}`);
-        updateDataGrid(rows);
-    });
-
     function onSelect(e) {
         //console.log(e)
         if (e.detail.length == 0) {
@@ -262,6 +264,7 @@
             updateDataGrid(e.detail);
         }
     }
+
 </script>
 
 <!-- <div class="flex-row">
