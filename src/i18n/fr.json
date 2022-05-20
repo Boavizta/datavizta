@@ -25,7 +25,10 @@
     "6": "Le tableau suivant affiche les principales données d'impact carbone pour tous les équipements présents dans la base de données Boavizta. Le graphique sous forme de camembert, en dessous du tableau, affiche la répartition des impacts par étape du cycle de vie des équipements en question. Vous pouvez effectuer des recherches sur chacune des colonnes du tableau pour trouver l'équipement précis ou le type d'équipement (Monitor, Laptop, Smartphone, Server…) qui vous intéresse. Une fois le filtre de recherche appliqué ou la ligne d'un équipement sélectionnée, le graphique est mis à jour pour afficher les impacts de l'ensemble des équipements sélectionnés.",
     "7": "A l'aide du formulaire situé à droite du graphique, vous pouvez ensuite faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser, sur le graphique, comment cela influe sur l'impact global et surtout sur la répartition par phase du cycle de vie. A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne.",
     "8": "Vous pouvez faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser comment cela influe sur l'impact global et sur la répartition par phase du cycle de vie.",
-    "9": "A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne."
+    "9": "A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne.",
+    "10": "Pour plus de détails sur l'outil Dataviz vous pouvez consulter",
+    "11": "cet article.",
+    "12": "https://boavizta.org/blog/dataviz"
   },
   "datagrid" : {
     "lifetime": "Durée de vie",
