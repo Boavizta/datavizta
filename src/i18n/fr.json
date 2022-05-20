@@ -38,7 +38,8 @@
     "use": "Utilisation (%)",
     "yearlyTec" : "TEC annuel (kWh)",
     "manufacturing": "Fabrication (%)",
-    "total": "Total (kgCO2eq)"
+    "total": "Total (kgCO2eq)",
+    "export_all": "Export All"
   },
   "pie": {
     "title": "Emissions de GES",

@@ -283,8 +283,10 @@
         />
     {/each}
 </div> -->
-<div class="flex-row my-2 space-x-0.5 > * + *	">
-    {#each Array.from(filterSubcategories) as subcategoryFilter}
+
+<div class="flex justify-between">
+    <div class="flex grow  my-2 space-x-0.5 > * + *	">
+        {#each Array.from(filterSubcategories) as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
             active={selectedSubcategories.has(subcategoryFilter)}
@@ -293,7 +295,12 @@
             }}
         />
     {/each}
+    </div>
+    <div class="flex shrink">
+        <a href="/boavizta-data-us.csv" class="link my-4">{$_('datagrid.export_all')}</a>
+    </div>
 </div>
+
 <AgGridWrapper
     {options}
     data={rows}
