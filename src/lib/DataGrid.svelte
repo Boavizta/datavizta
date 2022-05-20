@@ -7,6 +7,7 @@
 
     /*internal state*/
     let rows;
+    let filteredRows;
 
     /*pointer to internal datagrid api*/
     let _filterApi;
@@ -20,6 +21,7 @@
 
     function updateDataGrid(rows) {
         dispatcher("updateDataGrid", rows);
+        filteredRows=rows;
     }
 
     const loadDataGridAsync = async () => {
@@ -217,8 +219,8 @@
 
     function onFilterChanged(e) {
         //console.log(e)
-        let filterRows = getFilterRows(e.api);
-        updateDataGrid(filterRows);
+        filteredRows = getFilterRows(e.api);
+        updateDataGrid(filteredRows);
     }
 
     /* const updateCategoryFilter = (category) => {
@@ -270,6 +272,39 @@
         }
     }
 
+    function exportCurrentView() {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        const headers = Object.keys(rows[0]);
+        csvContent += headers.join(',')+"\r\n";
+        csvContent += convertToCSV(filteredRows);
+
+        //Source https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "baovizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv");
+        document.body.appendChild(link); // Required for FF
+
+        link.click(); 
+    }
+
+    //Source https://stackoverflow.com/questions/11257062/converting-json-object-to-csv-format-in-javascript
+    function convertToCSV(objArray) {
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+
 </script>
 
 <!-- <div class="flex-row">
@@ -297,7 +332,8 @@
     {/each}
     </div>
     <div class="flex shrink">
-        <a href="/boavizta-data-us.csv" class="link my-4">{$_('datagrid.export_all')}</a>
+        <button class="link my-4 ml-2" on:click={() => {exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
+        <a href="/boavizta-data-us.csv" class="link my-4 ml-2">{$_('datagrid.export_all')}</a>
     </div>
 </div>
 
