@@ -271,6 +271,8 @@
 
     function resetDataGrid(e) {
         updateDataGrid(getFilterRows(e.api));
+        selectedSubcategories.clear();
+        selectedSubcategories = selectedSubcategories;
     }
 
     function onSelect(e) {
@@ -320,18 +322,6 @@
 
 
 </script>
-
-<!-- <div class="flex-row">
-    {#each filterCategories as filterCategory}
-        <FilterButton
-            filterText={filterCategory}
-            active={selectedCategories.has(filterCategory)}
-            onButtonClick={() => {
-                updateCategoryFilter(filterCategory);
-            }}
-        />
-    {/each}
-</div> -->
 
 <div class="flex flex-wrap justify-between">
     <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
