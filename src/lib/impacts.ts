@@ -18,15 +18,27 @@ export function impactScope3(rows_selection): ScopeResult {
     let scope3 = 0;
     let processedLines = 0;
     rows_selection.forEach(row => {
-        if (row["gwp_total"] != undefined) {
-            if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
-                scope3 += row["gwp_total"] * (1 - row["gwp_use_ratio"]);
-                processedLines++
-            }
-        }
+        let result = impactScope3byRow(row);
+        scope3 += result.scope3;
+        processedLines +=result.inc;
     });
     const median = Math.round(scope3 / processedLines);
     return {result: scope3, lines: processedLines, median: median}
+}
+
+export function impactScope3byRow(row) {
+    let inc= 0;
+    let scope3= 0;
+    if (row["gwp_total"] != undefined) {
+        if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
+            scope3 = row["gwp_total"] * (1 - row["gwp_use_ratio"]);
+            inc = 1;
+        }
+    }
+    return {
+        "scope3":scope3,
+        "inc": inc
+    }
 }
 
 /* calculate scope 2 impacts */
@@ -69,4 +81,34 @@ export function impactScope2(rows_selection, lifetime, electricalImpactFactor): 
     }
     const median = Math.round(scope2 / processedLines);
     return {result: scope2, lines: processedLines, median: median}
+}
+
+
+/* calculate scope 2 impacts */
+export function impactScope2ByRow(row, lifetime, electricalImpactFactor) {
+    let scope2 = 0;
+    lifetime = lifetime > 0 ? lifetime : undefined
+
+    if (lifetime == undefined && electricalImpactFactor == -1) {
+            if (row["gwp_total"] != undefined && row["gwp_use_ratio"] != undefined) {
+                scope2 += row["gwp_total"] * row["gwp_use_ratio"];
+            }
+    } else if (lifetime != undefined  && electricalImpactFactor == -1) {
+            if (row["gwp_total"] != undefined
+                && row["gwp_use_ratio"] != undefined
+                && row["lifetime"] != undefined
+                && row["lifetime"] != 0) {
+                scope2 += ((row["gwp_total"] * row["gwp_use_ratio"]) / row["lifetime"]) * lifetime
+            }
+    } else if (lifetime == undefined  && electricalImpactFactor !== -1) {
+            if (row["yearly_tec"] != undefined) {
+                scope2 += row["yearly_tec"] * row["lifetime"] * electricalImpactFactor
+            }
+    } else if (lifetime != undefined  && electricalImpactFactor !== -1) {
+            if (row["yearly_tec"] != undefined) {
+                scope2 += row["yearly_tec"] * lifetime * electricalImpactFactor;
+            }
+    }
+   
+    return scope2;
 }

@@ -91,7 +91,7 @@
 <div class="flex flex-col">
 
 
-    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
 
 <!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
 
