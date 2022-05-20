@@ -230,10 +230,12 @@
     }; */
 
     onMount(async () => {
+        console.log("onMount Datagrid");
         rows = await loadDataGridAsync();
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
         updateSubcategoryFilter(subcategory);
+        updateDataGrid(rows)
     });
 
     const updateSubcategoryFilter = (subcategory) => {

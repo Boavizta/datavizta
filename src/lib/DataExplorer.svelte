@@ -10,7 +10,7 @@
 
     /* Default value */
     const lifetimeDefaultValue = undefined;
-    const regionDefaultValue = {label: $_('region-picker.default'), value: -1};
+    const regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
     const scopeDefaultvalue: Scope.ScopeResult = {result: 1, lines: 1, median: 1};
 
 

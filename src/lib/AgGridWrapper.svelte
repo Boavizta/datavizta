@@ -135,7 +135,7 @@
     } else {
       dataInit = data;
     }
-    console.log("onMount AgGrid", dataInit);
+    console.log("onMount AgGridWrapper", dataInit);
     grid = new Grid(ref, {
       ...options,
       columnDefs,
