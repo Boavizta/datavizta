@@ -43,7 +43,8 @@
     "yearlyTec" : "Yearly TEC (kWh)",
     "manufacturing": "Manufacturing (%)",
     "total": "Total (kgCO2eq)",
-    "export_filtered": "Export view to CSV (beta)"
+    "export_filtered": "Export view to CSV (beta)",
+    "filter_reset": "Reset filters"
   },
   "pie": {
     "title": "GWP emissions",

@@ -269,13 +269,12 @@
         selectedSubcategories = selectedSubcategories;
     };
 
+    function resetDataGrid(e) {
+        updateDataGrid(getFilterRows(e.api));
+    }
+
     function onSelect(e) {
-        //console.log(e)
-        if (e.detail.length == 0) {
-            //selection is empty, return full data
-            updateDataGrid(getFilterRows(e.api));
-        } else {
-            //return selection
+        if (e.detail.length > 0) {
             updateDataGrid(e.detail);
         }
     }
@@ -336,6 +335,8 @@
 
 <div class="flex flex-wrap justify-between">
     <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
+        <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-1 px-4 border border-teal-600 rounded" on:click={resetDataGrid}>{$_('datagrid.filter_reset')}
+        </button>
         {#each Array.from(filterSubcategories) as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
