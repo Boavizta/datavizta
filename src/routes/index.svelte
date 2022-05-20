@@ -18,7 +18,7 @@
 			</p>
 			
 			<ul class="text-sm pl-4">
-				<li>{$_('explanation.2')} <a class="link" href="https://github.com/Boavizta/environmental-footprint-data">{$_('explanation.3')}</a></li>
+				<li>{$_('explanation.2')} <a class="link" href="https://github.com/Boavizta/environmental-footprint-data" target="_blank">{$_('explanation.3')}</a></li>
 				<li>{$_('explanation.4')}</li>
 				<li>{$_('explanation.5')}</li>
 			</ul>
