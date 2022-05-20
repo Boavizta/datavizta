@@ -4,9 +4,15 @@
     import Papa from "papaparse";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./FilterButton.svelte";
+    import * as Utils from "./utils";
+    import * as Scope from "./impacts";
+
+    export let lifetime;
+    export let selectedRegion;
 
     /*internal state*/
     let rows;
+    let filteredRows;
 
     /*pointer to internal datagrid api*/
     let _filterApi;
@@ -19,6 +25,7 @@
     const dispatcher = createEventDispatcher();
 
     function updateDataGrid(rows) {
+        filteredRows=rows;
         dispatcher("updateDataGrid", rows);
     }
 
@@ -34,6 +41,7 @@
             });
             const rowData = csvParsed.data;
             rowData.shift();
+            filteredRows=rowData;
             return rowData;
         } catch (error) {
             console.error(error);
@@ -217,8 +225,8 @@
 
     function onFilterChanged(e) {
         //console.log(e)
-        let filterRows = getFilterRows(e.api);
-        updateDataGrid(filterRows);
+        filteredRows = getFilterRows(e.api);
+        updateDataGrid(filteredRows);
     }
 
     /* const updateCategoryFilter = (category) => {
@@ -270,6 +278,46 @@
         }
     }
 
+    function exportCurrentView() {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        
+        filteredRows.forEach(row => {
+            let scope3 = Scope.impactScope3byRow(row).scope3;
+            if (scope3 != 0) {
+                row.scope3=scope3;
+            } else {
+                row.scope3='';
+            }
+            let scope2=Scope.impactScope2ByRow(row,lifetime,selectedRegion.value);
+            if (scope2 != 0) {
+                row.scope2=scope2;
+            } else {
+                row.scope2='';
+            }
+            if (lifetime != undefined) {
+                row.lifetimeoverride=lifetime;
+            } else {
+                row.lifetimeoverride='';
+            }
+            if (selectedRegion.value !== -1) {
+                row.regionlabel=selectedRegion.label;
+                row.electricalImpactFactor=selectedRegion.value;
+            } else {
+                row.regionlabel='';
+                row.electricalImpactFactor='';
+            }
+        });
+
+        const headers = Object.keys(filteredRows[0]);
+        csvContent += headers.join(',')+"\r\n";
+        csvContent += Utils.convertToCSV(filteredRows);
+
+        Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
+
+    }
+
+
+
 </script>
 
 <!-- <div class="flex-row">
@@ -283,8 +331,10 @@
         />
     {/each}
 </div> -->
-<div class="flex-row my-2 space-x-0.5 > * + *	">
-    {#each Array.from(filterSubcategories) as subcategoryFilter}
+
+<div class="flex justify-between">
+    <div class="flex grow  my-2 space-x-0.5 > * + *	">
+        {#each Array.from(filterSubcategories) as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
             active={selectedSubcategories.has(subcategoryFilter)}
@@ -293,7 +343,12 @@
             }}
         />
     {/each}
+    </div>
+    <div class="flex shrink">
+        <button class="link my-4 ml-2" on:click={() => {exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
+    </div>
 </div>
+
 <AgGridWrapper
     {options}
     data={rows}
