@@ -2,14 +2,10 @@
     import {_} from 'svelte-i18n';
     import {onMount} from "svelte";
 
-    import { page } from '$app/stores';
-
     import DataGrid from "./DataGrid.svelte";
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"
-    //import {location, querystring} from 'svelte-spa-router'
-
 
     /* Default value */
     const lifetimeDefaultValue = undefined;
@@ -72,30 +68,11 @@
         lifetime = lifetimeDefaultValue
     }
 
-    function getShareLink(){
-        const baseUrl= $page.url.toString().split("#")[0];
-        const stateStringify = JSON.stringify(state)
-        const stateBase64 = btoa(stateStringify);
-        
-        console.log("baseUrl : " +  baseUrl)
-        console.log("stateStringify : " +  stateStringify)
-        console.log("stateBase64 : " +  stateBase64)
-
-        const shareLink = baseUrl+"#/?state="+ btoa(stateBase64)
-        console.log("shareLink : " +  shareLink)
-    }
 
     onMount(async () => {
-           /*  
-           WIP
-           console.log("location: " + $location);
-            console.log("queryString: " + $querystring);
-            if($querystring.includes("state")){
-                const encodedState = new URLSearchParams($querystring).get("state");
-                state = JSON.parse(atob(encodedState));
-            } */
-
-    })
+        /* retrieve lifetime from queryparam */ 
+        lifetime = new URLSearchParams(window.location.search).get('lifetime');
+    });
 
 </script>
 

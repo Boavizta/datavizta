@@ -11,7 +11,7 @@
     /*pointer to internal datagrid api*/
     let _filterApi;
     //const filterCategories = ["Workplace", "Datacenter"];
-    const filterSubcategories = ["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"];
+    const filterSubcategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"]);
 
     //let selectedCategories = new Set();
     let selectedSubcategories = new Set();
@@ -229,7 +229,20 @@
         selectedCategories = selectedCategories;
     }; */
 
+    onMount(async () => {
+        rows = await loadDataGridAsync();
+        /* retrieve subcategory from query param*/
+        const subcategory = new URLSearchParams(window.location.search).get('subcategory');
+        updateSubcategoryFilter(subcategory);
+    });
+
     const updateSubcategoryFilter = (subcategory) => {
+        //if subcategory is not part of the defined filter
+         if(!filterSubcategories.has(subcategory)){
+            console.log("unknow subcategory : ", subcategory)
+            return;
+        }
+
         selectedSubcategories.has(subcategory)
             ? selectedSubcategories.delete(subcategory)
             : selectedSubcategories.add(subcategory);
@@ -246,12 +259,6 @@
         selectedSubcategories = selectedSubcategories;
     };
 
-    onMount(async () => {
-        rows = await loadDataGridAsync();
-        console.log(`onMount, rows ${JSON.stringify(rows).slice(0, 10)}`);
-        updateDataGrid(rows);
-    });
-
     function onSelect(e) {
         //console.log(e)
         if (e.detail.length == 0) {
@@ -262,6 +269,7 @@
             updateDataGrid(e.detail);
         }
     }
+
 </script>
 
 <!-- <div class="flex-row">
@@ -276,7 +284,7 @@
     {/each}
 </div> -->
 <div class="flex-row my-2 space-x-0.5 > * + *	">
-    {#each filterSubcategories as subcategoryFilter}
+    {#each Array.from(filterSubcategories) as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
             active={selectedSubcategories.has(subcategoryFilter)}
