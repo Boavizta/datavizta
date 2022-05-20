@@ -54,7 +54,8 @@
     "legend_scope2" : "Scope 2 : {median} kgCO2eq (use phase)",
     "legend_scope3" : "Scope 3 : {median} kgCO2eq (manufacturing, transport and end-of-life phases)",
     "export" : "Export to PNG",
-    "download" : "Download"
+    "download" : "Download",
+    "share" : "Share"
   },
   "region-picker": {
     "default": "Use default value"

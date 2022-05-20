@@ -7,6 +7,7 @@
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"
+import { query_selector_all } from 'svelte/internal';
 
     /* Default value */
     const lifetimeDefaultValue = undefined;
@@ -19,6 +20,7 @@
     let selectedRegion = regionDefaultValue;
     let disabledCustomValue = false;
     let hasCustomValues = false;
+    let shareLink;
 
     /* Inner state */
     let state = {
@@ -84,6 +86,23 @@
     async function downloadImage() {
         const canvas = await html2canvas(document.getElementById('viz-container'));
         imageUrlData = canvas.toDataURL("image/png");
+    }
+
+
+    function buildLink(){
+        let link = window.location.origin;
+        let query = ""
+        if(lifetime){
+            query += "lifetime=" + lifetime + "&"
+        }
+        if(state.selectedSubCategories.size>0){
+            query += "subcategory=" + state.selectedSubCategories.values().next().value + "&"
+        }
+        if(selectedRegion && selectedRegion.value != -1){
+            query += "region=" + selectedRegion.id + "&"
+        }
+        query = query.slice(0, -1)
+        shareLink = link + "?" + query;
     }
 </script>
 
@@ -219,5 +238,13 @@
         <button on:click={downloadImage} class="inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
             {$_('pie.export')}
         </button>
+    {/if}
+</div>
+<div class="my-10">
+    <button on:click={buildLink} class="inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+        {$_('pie.share')}
+    </button>
+    {#if shareLink}
+        <span class="">{shareLink}</span>
     {/if}
 </div>
