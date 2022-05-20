@@ -4,8 +4,8 @@
 </script>
 
 <div id="navbar">
-	<img id="logo" src="./boavizta-logo-4.png" alt="Boavizta">
-	<h1 class="title-main">Boavizta</h1>
+	<a href="https://boavizta.org"><img id="logo" src="./boavizta-logo-4.png" alt="Boavizta"></a>
+	<h1 class="title-main">Boavizta Dataviz</h1>
 
 </div>
 <div id="content" class="px-4">

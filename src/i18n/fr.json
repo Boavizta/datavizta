@@ -17,7 +17,7 @@
   },
   "explanation": {
     "error": "Les données fournies par le constructeur pour ce(s) équipement(s) ne sont pas suffisantes pour que vous puissiez personnaliser la durée de vie et le lieu d'utilisation.",
-    "1": "Au travers de cette page Boavizta vous propose de :",
+    "1": "Au travers de cette page, Boavizta vous propose de :",
     "2": "Rechercher facilement les facteurs d'impact carbone pour les équipements numériques présents dans ",
     "3": "la base de données ouverte de Boavizta",
     "4": "Visualiser la répartition des impacts par étape du cycle de vie des équipements en différenciant la phase d'utilisation (scope 2), des phases de fabrication, transport et fin de vie (scope 3)",
