@@ -6,7 +6,7 @@ body {
 }
 .title-main {
   display:flex;
-  color: #008a8c;
+  color: #008A8C;
   font-weight: 800;
   font-size: 4rem;
   font-family: 'Maven Pro',sans-serif;
@@ -14,7 +14,7 @@ body {
 }
 .title-second {
   display:flex;
-  color: #008a8c;
+  color: #003864;
   font-weight: 800;
   font-size:2rem;
   font-family: 'Maven Pro',sans-serif;
@@ -32,7 +32,7 @@ body {
   font-family: 'Karla',Arial,sans-serif;
 }
 .text-green {
-  color: #008a8c;
+  color: #003864;
 }
 .text-legend {
   display: flex;
@@ -89,7 +89,7 @@ li{
 }
 
 .link {
-  color: #008a8c;
+  color: #003864;
   text-decoration : underline;
 }
 
@@ -99,4 +99,8 @@ li{
   /*border: solid #008a8c;*/
   /*padding: 2%;*/
   border-radius: 6px;
+}
+
+.blue-button {
+  background: #003864;
 }
