@@ -334,8 +334,8 @@
     {/each}
 </div> -->
 
-<div class="flex justify-between">
-    <div class="flex grow  my-2 space-x-0.5 > * + *	">
+<div class="flex flex-wrap justify-between">
+    <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
         {#each Array.from(filterSubcategories) as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
