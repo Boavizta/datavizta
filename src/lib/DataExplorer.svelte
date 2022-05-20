@@ -228,21 +228,24 @@ import { query_selector_all } from 'svelte/internal';
                 <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
                     <span>{$_('index.calculate')}</span>
                 </button>
-                {#if imageUrlData}
-                    <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="my-2 inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                        {$_('pie.download')}
-                    </a>
-                {:else}
-                    <button on:click={downloadImage} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                        {$_('pie.export')}
-                    </button>
-                {/if}
-                <button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+            </div>
+            <div class="flex-row mx-auto">
+                    <div id="title export" class="text-xl mt-5 font-medium text-center">{$_('pie.export')}</div>
+                    {#if imageUrlData}
+                        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="my-2 inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                            {$_('pie.download')}
+                        </a>
+                    {:else}
+                        <button on:click={downloadImage} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+                            {$_('pie.exportPNG')}
+                        </button>
+                    {/if}
+                <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     {$_('pie.share')}
                 </button>
                 {#if shareLink}
                     <input id="shareLinkInput" class="" value={shareLink} on:change={selectShareLinkInput}/>
-                {/if}
+                {/if}-->
             </div>
         </div>
 

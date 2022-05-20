@@ -52,7 +52,8 @@
     "subtitle_multiple_equipment_types_details" : "Moyenne calculée sur {number} équipements de type : {types}",
     "legend_scope2" : "Scope 2 : {median} kgCO2eq (phase d'utilisation)",
     "legend_scope3" : "Scope 3 : {median} kgCO2eq (phases de fabrication, transport et fin de vie)",
-    "export" : "Exporter en PNG",
+    "export" : "Export",
+    "exportPNG" : "Exporter en PNG",
     "download" : "Télécharger",
     "share" : "Partager"
   },
