@@ -281,7 +281,7 @@
         }
     }
 
-    function exportCurrentView() {
+    export function exportCurrentView() {
         let csvContent = "data:text/csv;charset=utf-8,";
         
         filteredRows.forEach(row => {
@@ -336,9 +336,6 @@
             }}
         />
     {/each}
-    </div>
-    <div class="flex shrink">
-        <button class="link my-4 ml-2" on:click={() => {exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
     </div>
 </div>
 

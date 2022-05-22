@@ -7,8 +7,9 @@
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"
-import { query_selector_all } from 'svelte/internal';
-
+    import { query_selector_all } from 'svelte/internal';
+    
+    let datagrid
     /* Default value */
     const lifetimeDefaultValue = undefined;
     const regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
@@ -117,7 +118,7 @@ import { query_selector_all } from 'svelte/internal';
 <div class="flex flex-col">
 
 
-        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
+        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:this={datagrid} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
 
 <!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
 
@@ -240,6 +241,8 @@ import { query_selector_all } from 'svelte/internal';
                             {$_('pie.exportPNG')}
                         </button>
                     {/if}
+                    <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded" on:click={() => {datagrid.exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
+   
                 <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     {$_('pie.share')}
                 </button>
