@@ -16,11 +16,13 @@
 
     /*pointer to internal datagrid api*/
     let _filterApi;
-    //const filterCategories = ["Workplace", "Datacenter"];
-    const filterSubcategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"]);
+    const filterCategories = new Set(["Workplace", "Datacenter"]);
+    const filterSubCategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"]);
+    const filterManufacturers = new Set(["Apple", "Dell", "Lenovo", "HP"]);
 
-    //let selectedCategories = new Set();
-    let selectedSubcategories = new Set();
+    let selectedCategories = new Set();
+    let selectedSubCategories = new Set();
+    let selectedManufacturers = new Set();
 
     const dispatcher = createEventDispatcher();
 
@@ -229,54 +231,116 @@
         updateDataGrid(filteredRows);
     }
 
-    /* const updateCategoryFilter = (category) => {
-        selectedCategories.has(category)
-            ? selectedCategories.delete(category)
-            : selectedCategories.add(category);
-        //trigger reactivity
-        selectedCategories = selectedCategories;
-    }; */
-
     onMount(async () => {
         console.log("onMount Datagrid");
         rows = await loadDataGridAsync();
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
         updateSubcategoryFilter(subcategory);
+        /* retrieve category from query param*/
+        const category = new URLSearchParams(window.location.search).get('category');
+        updateCategoryFilter(category);
+        /* retrieve manufacturer from query param*/
+        const manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
+        updateManufacturerFilter(manufacturer);
         updateDataGrid(rows)
     });
 
     const updateSubcategoryFilter = (subcategory) => {
         //if subcategory is not part of the defined filter
-         if(!filterSubcategories.has(subcategory)){
+         if(!filterSubCategories.has(subcategory)){
             console.log("unknow subcategory : ", subcategory)
             return;
         }
 
-        selectedSubcategories.has(subcategory)
-            ? selectedSubcategories.delete(subcategory)
-            : selectedSubcategories.add(subcategory);
+        selectedSubCategories.has(subcategory)
+            ? selectedSubCategories.delete(subcategory)
+            : selectedSubCategories.add(subcategory);
 
-        const values = selectedSubcategories[Symbol.iterator]();
+        const values = selectedSubCategories[Symbol.iterator]();
 
         //remove first element to keep only two elements
-        if (selectedSubcategories.size > 1) {
+        if (selectedSubCategories.size > 2) {
             //remove first element
             const pop = values.next().value;
-            selectedSubcategories.delete(pop);
+            selectedSubCategories.delete(pop);
         }
         //trigger reactivity
-        selectedSubcategories = selectedSubcategories;
+        selectedSubCategories = selectedSubCategories;
+        console.log(selectedSubCategories)
+    };
+    const updateCategoryFilter = (category) => {
+        //if category is not part of the defined filter
+         if(!filterCategories.has(category)){
+            console.log("unknow category : ", category)
+            return;
+        }
+
+        selectedCategories.has(category)
+            ? selectedCategories.delete(category)
+            : selectedCategories.add(category);
+
+        const values = selectedCategories[Symbol.iterator]();
+
+        //remove first element to keep only two elements
+        if (selectedCategories.size > 2) {
+            //remove first element
+            const pop = values.next().value;
+            selectedCategories.delete(pop);
+        }
+        //trigger reactivity
+        selectedCategories = selectedCategories;
+        console.log(selectedCategories)
+    };
+
+    const updateManufacturerFilter = (manufacturer) => {
+        //if subcategory is not part of the defined filter
+         if(!filterManufacturers.has(manufacturer)){
+            console.log("unknow manufacturer : ", manufacturer)
+            return;
+        }
+
+        selectedManufacturers.has(manufacturer)
+            ? selectedManufacturers.delete(manufacturer)
+            : selectedManufacturers.add(manufacturer);
+
+        const values = selectedManufacturers[Symbol.iterator]();
+
+        //remove first element to keep only two elements
+        if (selectedManufacturers.size > 2) {
+            //remove first element
+            const pop = values.next().value;
+            selectedManufacturers.delete(pop);
+        }
+        //trigger reactivity
+        selectedManufacturers = selectedManufacturers;
+        console.log(selectedManufacturers)
     };
 
     function resetDataGrid(e) {
         updateDataGrid(getFilterRows(e.api));
-        selectedSubcategories.clear();
-        selectedSubcategories = selectedSubcategories;
+        selectedSubCategories.clear();
+        selectedSubCategories = selectedSubCategories;
+        selectedCategories.clear();
+        selectedCategories = selectedCategories;
+        selectedManufacturers.clear();
+        selectedManufacturers = selectedManufacturers;
     }
 
     function onSelect(e) {
         if (e.detail.length > 0) {
+            if (selectedSubCategories.size > 0) {
+                selectedSubCategories.clear();
+                selectedSubCategories = selectedSubCategories;
+            }
+            if (selectedCategories.size > 0) {
+                selectedCategories.clear();
+                selectedCategories = selectedCategories;
+            }
+            if (selectedManufacturers.size > 0) {
+                selectedManufacturers.clear();
+                selectedManufacturers = selectedManufacturers;
+            }
             updateDataGrid(e.detail);
         }
     }
@@ -327,15 +391,36 @@
     <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
         <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-1 px-4 border rounded" on:click={resetDataGrid}>{$_('datagrid.filter_reset')}
         </button>
-        {#each Array.from(filterSubcategories) as subcategoryFilter}
+        <div class="space"></div>
+        {#each Array.from(filterManufacturers) as ManufacturerFilter}
+        <FilterButton
+            filterText={ManufacturerFilter}
+            active={selectedManufacturers.has(ManufacturerFilter)}
+            onButtonClick={() => {
+                updateManufacturerFilter(ManufacturerFilter);
+            }}
+        />
+        {/each}
+        <div class="space"></div>
+        {#each Array.from(filterCategories) as categoryFilter}
+        <FilterButton
+            filterText={categoryFilter}
+            active={selectedCategories.has(categoryFilter)}
+            onButtonClick={() => {
+                updateCategoryFilter(categoryFilter);
+            }}
+        />
+        {/each}
+        <div class="space"></div>
+        {#each Array.from(filterSubCategories) as subcategoryFilter}
         <FilterButton
             filterText={subcategoryFilter}
-            active={selectedSubcategories.has(subcategoryFilter)}
+            active={selectedSubCategories.has(subcategoryFilter)}
             onButtonClick={() => {
                 updateSubcategoryFilter(subcategoryFilter);
             }}
         />
-    {/each}
+        {/each}
     </div>
     <div class="flex shrink">
         <button class="link my-4 ml-2" on:click={() => {exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
@@ -347,5 +432,7 @@
     data={rows}
     {columnDefs}
     on:select={onSelect}
-    {selectedSubcategories}
+    {selectedSubCategories}
+    {selectedManufacturers}
+    {selectedCategories}
 />
