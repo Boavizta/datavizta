@@ -17,8 +17,8 @@
     /*pointer to internal datagrid api*/
     let _filterApi;
     const filterCategories = new Set(["Workplace", "Datacenter"]);
-    const filterSubCategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Thin Client", "Tablet", "Hard drive", "SAN/NAS", "Printer", "Workstation"]);
-    const filterManufacturers = new Set(["Apple", "Dell", "Lenovo", "HP"]);
+    const filterSubCategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Tablet", "Printer"]);
+    const filterManufacturers = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Seagate"]);
 
     let selectedCategories = new Set();
     let selectedSubCategories = new Set();
