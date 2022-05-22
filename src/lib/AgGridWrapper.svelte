@@ -18,12 +18,10 @@
     suppressFieldDotNotation: true,
     rowSelection: "multiple",
   };
-  //export let selectedCategories;
-  export let selectedSubcategories;
-
+  
+  export let selectedSubCategories;
   //$: filterByCategories(selectedCategories);
-  $: filterBySubcategories(selectedSubcategories);
-
+  $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
     if(api == undefined){
       return;
@@ -31,7 +29,6 @@
     const values = subcategories[Symbol.iterator]();
     const text1 = values.next().value;
 
-    console.log(text1);
     const containsOr = {
       filterType: "text",
       operator: "OR",
@@ -40,11 +37,10 @@
         type: "contains",
         filter: text1,
       },
-      condition2: {},
+      condition2: {}
     };
     if (subcategories.size > 1) {
       const text2 = values.next().value;
-      console.log(text2);
 
       containsOr.condition2 = {
         filterType: "text",
@@ -59,15 +55,14 @@
     api.onFilterChanged();
   }
 
-  /* function filterByCategories(categories) {
+  export let selectedCategories;
+  $: filterBycategories(selectedCategories);
+  function filterBycategories(categories) {
     if(api == undefined){
       return;
     }
-    //console.log(selectedCategories.keys())
     const values = categories[Symbol.iterator]();
-
     const text1 = values.next().value;
-    console.log(text1);
 
     const containsOr = {
       filterType: "text",
@@ -77,11 +72,10 @@
         type: "contains",
         filter: text1,
       },
-      condition2: {},
+      condition2: {}
     };
     if (categories.size > 1) {
       const text2 = values.next().value;
-      console.log(text2);
 
       containsOr.condition2 = {
         filterType: "text",
@@ -94,7 +88,42 @@
 
     // refresh rows based on the filter (not automatic to allow for batching multiple filters)
     api.onFilterChanged();
-  } */
+  }
+
+  export let selectedManufacturers;
+  $: filterByManufacturers(selectedManufacturers);
+  function filterByManufacturers(manufacturers) {
+    if(api == undefined){
+      return;
+    }
+    const values = manufacturers[Symbol.iterator]();
+    const text1 = values.next().value;
+
+    const containsOr = {
+      filterType: "text",
+      operator: "OR",
+      condition1: {
+        filterType: "text",
+        type: "contains",
+        filter: text1,
+      },
+      condition2: {}
+    };
+    if (manufacturers.size > 1) {
+      const text2 = values.next().value;
+
+      containsOr.condition2 = {
+        filterType: "text",
+        type: "contains",
+        filter: text2,
+      };
+    }
+    // get filter instance
+    api.getFilterInstance("manufacturer").setModel(containsOr);
+
+    // refresh rows based on the filter (not automatic to allow for batching multiple filters)
+    api.onFilterChanged();
+  }
 
   export let loading = false;
 

@@ -26,6 +26,7 @@ import { query_selector_all } from 'svelte/internal';
     let state = {
         selectedRows : [],
         selectedSubCategories : new Set(),
+        selectedManufacturers : new Set(),
         selectedCategories : new Set(),
     }
 
@@ -50,7 +51,9 @@ import { query_selector_all } from 'svelte/internal';
         state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)})
         state.selectedCategories = new Set();
         state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)})
-
+        state.selectedManufacturers = new Set();
+        state.selectedRows.forEach((r)=>{state.selectedManufacturers.add(r.manufacturer)})
+       
         console.log("DataExplorer:onDataGridUpdate:", state.selectedRows.length)
         disabledCustomValue = disableCustomValues(state.selectedRows)
         if(disabledCustomValue){
@@ -98,6 +101,12 @@ import { query_selector_all } from 'svelte/internal';
         if(state.selectedSubCategories.size>0){
             query += "subcategory=" + state.selectedSubCategories.values().next().value + "&"
         }
+        if(state.selectedCategories.size>0){
+            query += "category=" + state.selectedCategories.values().next().value + "&"
+        }
+        if(state.selectedManufacturers.size>0){
+            query += "manufacturer=" + state.selectedManufacturers.values().next().value + "&"
+        }
         if(selectedRegion && selectedRegion.value != -1){
             query += "region=" + selectedRegion.id + "&"
         }
@@ -131,11 +140,11 @@ import { query_selector_all } from 'svelte/internal';
                     {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name).substring(0,50)}})}
                 {:else}
                     {#if state.selectedSubCategories.size < 3}
-                        {$_('pie.subtitle_multiple_equipment_categories_details', {values:{total:ratioScope.total, number:state.selectedRows.length, categories:new Array(...state.selectedSubCategories).join(', ')}})}
-                    {:else if state.selectedCategories.size < 2}
-                        {$_('pie.subtitle_multiple_equipment_types_details', {values:{total:ratioScope.total, number:state.selectedRows.length, types:new Array(...state.selectedCategories).join(', ')}})}
+                        {$_('pie.subtitle_multiple_equipment_categories_details', {values:{number:state.selectedRows.length, categories:new Array(...state.selectedSubCategories).join(', ')}})}
+                    {:else if state.selectedCategories.size < 3}
+                        {$_('pie.subtitle_multiple_equipment_types_details', {values:{number:state.selectedRows.length, types:new Array(...state.selectedCategories).join(', ')}})}
                     {:else}
-                        {$_('pie.subtitle_multiple_equipment_categories', {values:{total:ratioScope.total, number:state.selectedRows.length}})}
+                        {$_('pie.subtitle_multiple_equipment_categories', {values:{number:state.selectedRows.length}})}
                     {/if}
                 {/if}
             </div>
