@@ -47,7 +47,7 @@
     "filter_reset": "Reset filters"
   },
   "pie": {
-    "title": "GWP emissions",
+    "title": "Global Warming Potential",
     "subtitle_unique_equipment" : "{name}",
     "subtitle_multiple_equipment_categories_details" : "Median value calculated on {number} equipments from categories : {categories}",
     "subtitle_multiple_equipment_categories" : "Median value calculated on {number} equipments from multiple categories",
