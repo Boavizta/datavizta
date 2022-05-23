@@ -403,8 +403,8 @@
                     }}
                 />
                 {/each}
+                <div class="inline-block space"></div>
             </div>
-            <div class="inline-block space"></div>
         </div>
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.category')}</div>
@@ -418,8 +418,8 @@
                     }}
                 />
                 {/each}
+                <div class="inline-block space"></div>
             </div>
-            <div class="inline-block space"></div>
         </div>
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.subcategory')}</div>
