@@ -391,36 +391,50 @@
     <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
         <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-1 px-4 border rounded" on:click={resetDataGrid}>{$_('datagrid.filter_reset')}
         </button>
-        <div class="space"></div>
-        {#each Array.from(filterManufacturers) as ManufacturerFilter}
-        <FilterButton
-            filterText={ManufacturerFilter}
-            active={selectedManufacturers.has(ManufacturerFilter)}
-            onButtonClick={() => {
-                updateManufacturerFilter(ManufacturerFilter);
-            }}
-        />
-        {/each}
-        <div class="space"></div>
-        {#each Array.from(filterCategories) as categoryFilter}
-        <FilterButton
-            filterText={categoryFilter}
-            active={selectedCategories.has(categoryFilter)}
-            onButtonClick={() => {
-                updateCategoryFilter(categoryFilter);
-            }}
-        />
-        {/each}
-        <div class="space"></div>
-        {#each Array.from(filterSubCategories) as subcategoryFilter}
-        <FilterButton
-            filterText={subcategoryFilter}
-            active={selectedSubCategories.has(subcategoryFilter)}
-            onButtonClick={() => {
-                updateSubcategoryFilter(subcategoryFilter);
-            }}
-        />
-        {/each}
+        <div class="inline-block flex-wrap">
+            <div class="w-full text-xs pl-2 ">{$_('datagrid.manufacturer')}</div>
+            <div class="inline-block flex-wrap">
+                {#each Array.from(filterManufacturers) as ManufacturerFilter}
+                <FilterButton
+                    filterText={ManufacturerFilter}
+                    active={selectedManufacturers.has(ManufacturerFilter)}
+                    onButtonClick={() => {
+                        updateManufacturerFilter(ManufacturerFilter);
+                    }}
+                />
+                {/each}
+            </div>
+            <div class="inline-block space"></div>
+        </div>
+        <div class="inline-block flex-wrap">
+            <div class="w-full text-xs pl-2 ">{$_('datagrid.category')}</div>
+            <div class="inline-block flex-wrap">
+                {#each Array.from(filterCategories) as categoryFilter}
+                <FilterButton
+                    filterText={categoryFilter}
+                    active={selectedCategories.has(categoryFilter)}
+                    onButtonClick={() => {
+                        updateCategoryFilter(categoryFilter);
+                    }}
+                />
+                {/each}
+            </div>
+            <div class="inline-block space"></div>
+        </div>
+        <div class="inline-block flex-wrap">
+            <div class="w-full text-xs pl-2 ">{$_('datagrid.subcategory')}</div>
+            <div class="inline-block flex-wrap">
+                {#each Array.from(filterSubCategories) as subcategoryFilter}
+                <FilterButton
+                    filterText={subcategoryFilter}
+                    active={selectedSubCategories.has(subcategoryFilter)}
+                    onButtonClick={() => {
+                        updateSubcategoryFilter(subcategoryFilter);
+                    }}
+                />
+                {/each}
+            </div>
+        </div>
     </div>
 </div>
 
