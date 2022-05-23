@@ -393,7 +393,7 @@
         </button>
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.manufacturer')}</div>
-            <div class="inline-block flex-wrap">
+            <div class="inline-flex flex-wrap">
                 {#each Array.from(filterManufacturers) as ManufacturerFilter}
                 <FilterButton
                     filterText={ManufacturerFilter}
@@ -408,7 +408,7 @@
         </div>
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.category')}</div>
-            <div class="inline-block flex-wrap">
+            <div class="inline-flex flex-wrap">
                 {#each Array.from(filterCategories) as categoryFilter}
                 <FilterButton
                     filterText={categoryFilter}
@@ -423,7 +423,7 @@
         </div>
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.subcategory')}</div>
-            <div class="inline-block flex-wrap">
+            <div class="inline-flex flex-wrap">
                 {#each Array.from(filterSubCategories) as subcategoryFilter}
                 <FilterButton
                     filterText={subcategoryFilter}
