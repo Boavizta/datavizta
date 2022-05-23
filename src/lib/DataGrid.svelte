@@ -347,7 +347,7 @@
 
     export function exportCurrentView() {
         let csvContent = "data:text/csv;charset=utf-8,";
-        
+
         filteredRows.forEach(row => {
             let scope3 = Scope.impactScope3byRow(row).scope3;
             if (scope3 != 0) {
