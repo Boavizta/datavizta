@@ -155,11 +155,11 @@
                         {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name).substring(0,50)}})}
                     {:else}
                         {#if state.selectedSubCategories.size < 3}
-                            {$_('pie.subtitle_multiple_equipment_categories_details', {values:{number:state.selectedRows.length, categories:new Array(...state.selectedSubCategories).join(', ')}})}
+                            {$_('pie.subtitle_multiple_equipment_categories_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), categories:new Array(...state.selectedSubCategories).join(', ')}})}
                         {:else if state.selectedCategories.size < 3}
-                            {$_('pie.subtitle_multiple_equipment_types_details', {values:{number:state.selectedRows.length, types:new Array(...state.selectedCategories).join(', ')}})}
+                            {$_('pie.subtitle_multiple_equipment_types_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), types:new Array(...state.selectedCategories).join(', ')}})}
                         {:else}
-                            {$_('pie.subtitle_multiple_equipment_categories', {values:{number:state.selectedRows.length}})}
+                            {$_('pie.subtitle_multiple_equipment_categories', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines)}})}
                         {/if}
                     {/if}
                 </div>

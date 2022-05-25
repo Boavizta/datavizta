@@ -69,7 +69,7 @@ export function impactScope2(rows_selection, yearly, lifetime, electricalImpactF
                 if (row["gwp_total"] != undefined
                     && row["gwp_use_ratio"] != undefined
                     && rowlifetime != undefined ) {
-                    scope2 += ((row["gwp_total"] * row["gwp_use_ratio"]) / lifetime)
+                    scope2 += ((row["gwp_total"] * row["gwp_use_ratio"]) / rowlifetime)
                     processedLines++;
                 }
             } else if (electricalImpactFactor !== -1) {
