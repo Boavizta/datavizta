@@ -56,7 +56,14 @@
     "export" : "Export",
     "exportPNG" : "Exporter en PNG",
     "download" : "Télécharger",
-    "share" : "Partager"
+    "share" : "Partager",
+    "year" : "an",
+    "impossible" : "Les données fournies par les constructeurs pour les équipements sélectionnés ne permettent pas d'afficher le détail de l'impact ou l'impact annuel.",
+    "yearly": "Annuel",
+    "total": "Total",
+    "lifetime": "Durée de vie",
+    "medianlifetime": "Durée de vie moyenne",
+    "year(s)" : "an(s)"
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"

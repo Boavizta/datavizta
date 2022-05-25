@@ -13,6 +13,7 @@
     "years_tooltip": "applied to selected devices",
     "years": "years",
     "lifetime": "Lifetime",
+    "medianlifetime": "Mean lifetime",
     "custom_values": "Custom values"
   },
   "explanation": {
@@ -57,7 +58,13 @@
     "export" : "Export",
     "exportPNG" : "Export to PNG",
     "download" : "Download",
-    "share" : "Share"
+    "share" : "Share",
+    "year" : "Year",
+    "impossible": "The data provided by the manufacturers for the selected equipment does not allow to show impact details or yearly impact.",
+    "yearly": "Yearly",
+    "total": "Total",
+    "lifetime": "Life span",
+    "year(s)" : "year(s)"
   },
   "region-picker": {
     "default": "Use default value"
