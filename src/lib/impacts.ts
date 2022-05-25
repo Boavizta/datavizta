@@ -13,12 +13,25 @@ export function calculateImpacts(selectedRows, yearly, lifetime, regionValue) {
     
 }
 
+/* calculate median lifetime */
+export function medianlifetime(rows_selection) {
+    let manuflifetime = 0;
+    let lineswithlifetime = 0;
+    rows_selection.forEach(row => {
+        if (row["lifetime"] != undefined) {
+                manuflifetime += row["lifetime"];
+                lineswithlifetime += 1;
+        }
+    });
+    const medianlife = Math.round(manuflifetime * 100 / lineswithlifetime) / 100;
+    return medianlife
+}
+
 /* calculate scope 3 impacts */
 export function impactScope3(rows_selection, yearly, lifetime): ScopeResult {
     let scope3 = 0;
     let processedLines = 0;
     rows_selection.forEach(row => {
-        //gérer le fait que le lifetime doit etre récupéré depuis le tableau (comme sur scope 2)
         let result = impactScope3byRow(row);
         if (yearly == true) {
             if (lifetime != undefined){

@@ -13,6 +13,7 @@
     "years_tooltip": "applied to selected devices",
     "years": "years",
     "lifetime": "Lifetime",
+    "medianlifetime": "Mean lifetime",
     "custom_values": "Custom values"
   },
   "explanation": {

@@ -38,9 +38,12 @@
         total:0
     };
 
+    let medianlifetime = 0;
+
     function onUpdateImpacts(){
         console.log("region ", selectedRegion)
         ratioScope = Scope.calculateImpacts(state.selectedRows, yearly, lifetime, selectedRegion.value)
+        medianlifetime = Scope.medianlifetime(state.selectedRows)
         imageUrlData = null;
         hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
     }
@@ -164,17 +167,20 @@
                     {/if}
                 </div>
 
-                {#if hasCustomValues}
+            
                     <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
                         {#if selectedRegion !== regionDefaultValue}
-                        {selectedRegion.label}
+                            {selectedRegion.label}
                         {/if}
                         {#if lifetime}
-                        {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
-                        {$_('pie.lifetime')}: {lifetime} {$_('pie.year(s)')}
+                            {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                            {$_('pie.lifetime')}: {lifetime} {$_('pie.year(s)')}
+                        {:else}
+                            {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                            {$_('pie.medianlifetime')}: {medianlifetime} {$_('pie.year(s)')}
                         {/if}
                     </div>
-                {/if}
+                
                 <div class="mt-2">
                     <PieChart  {ratioScope}/>
                 </div>
