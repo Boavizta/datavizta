@@ -171,7 +171,7 @@
                         {/if}
                         {#if lifetime}
                         {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
-                        {lifetime} {$_('index.years')}
+                        {$_('pie.lifetime')}: {lifetime} {$_('pie.year(s)')}
                         {/if}
                     </div>
                 {/if}

@@ -61,7 +61,9 @@
     "year" : "Year",
     "impossible": "The data provided by the manufacturers for the selected equipment does not allow for the calculation of the annual impact.",
     "yearly": "Yearly",
-    "total": "Total"
+    "total": "Total",
+    "lifetime": "Life span",
+    "year(s)" : "year(s)"
   },
   "region-picker": {
     "default": "Use default value"
