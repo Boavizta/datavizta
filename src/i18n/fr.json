@@ -58,7 +58,7 @@
     "download" : "Télécharger",
     "share" : "Partager",
     "year" : "an",
-    "impossible" : "Les données fournies par les constructeurs pour les équipements sélectionnés ne permettent pas de calculer l'impact annuel.",
+    "impossible" : "Les données fournies par les constructeurs pour les équipements sélectionnés ne permettent pas d'afficher le détail de l'impact ou l'impact annuel.",
     "yearly": "Annuel",
     "total": "Total",
     "lifetime": "Durée de vie",

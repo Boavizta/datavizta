@@ -60,7 +60,7 @@
     "download" : "Download",
     "share" : "Share",
     "year" : "Year",
-    "impossible": "The data provided by the manufacturers for the selected equipment does not allow for the calculation of the annual impact.",
+    "impossible": "The data provided by the manufacturers for the selected equipment does not allow to show impact details or yearly impact.",
     "yearly": "Yearly",
     "total": "Total",
     "lifetime": "Life span",

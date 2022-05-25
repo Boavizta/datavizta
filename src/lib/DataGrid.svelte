@@ -331,15 +331,12 @@
         if (e.detail.length > 0) {
             if (selectedSubCategories.size > 0) {
                 selectedSubCategories.clear();
-                selectedSubCategories = selectedSubCategories;
             }
             if (selectedCategories.size > 0) {
                 selectedCategories.clear();
-                selectedCategories = selectedCategories;
             }
             if (selectedManufacturers.size > 0) {
                 selectedManufacturers.clear();
-                selectedManufacturers = selectedManufacturers;
             }
             updateDataGrid(e.detail);
         }

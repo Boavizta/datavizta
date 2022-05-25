@@ -39,11 +39,13 @@
     };
 
     let medianlifetime = 0;
+    let impactTotal = 0;
 
     function onUpdateImpacts(){
         console.log("region ", selectedRegion)
         ratioScope = Scope.calculateImpacts(state.selectedRows, yearly, lifetime, selectedRegion.value)
         medianlifetime = Scope.medianlifetime(state.selectedRows)
+        impactTotal = Scope.impactTotal(state.selectedRows);
         imageUrlData = null;
         hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
     }
@@ -145,7 +147,9 @@
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
             {#if isNaN(ratioScope.total)}
-                <div id="result-title" class="max-w-sm text-xl font-normal text-center">{$_('pie.impossible')}</div>
+                <div id="result-title" class="max-w-sm text-xl font-normal text-center">{$_('pie.title')}</div>
+                <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{impactTotal} kgCO2eq</div>
+                <div id="result-impossible" class="max-w-sm text-m font-normal text-center">{$_('pie.impossible')}</div>
             {:else}
                 <div id="result-title" class="max-w-sm text-xl font-normal text-center">{$_('pie.title')}</div>
                 <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq

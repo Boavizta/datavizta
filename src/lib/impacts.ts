@@ -12,6 +12,16 @@ export function calculateImpacts(selectedRows, yearly, lifetime, regionValue) {
     return {scope2: scope2, scope3: scope3, total: total}
     
 }
+/* calculate total */
+export function impactTotal(rows_selection) {
+    let total = 0;
+    rows_selection.forEach(row => {
+        if (row["gwp_total"] != undefined) {
+                total += row["gwp_total"];
+        }
+    });
+    return total
+}
 
 /* calculate median lifetime */
 export function medianlifetime(rows_selection) {
