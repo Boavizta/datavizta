@@ -56,7 +56,11 @@
     "export" : "Export",
     "exportPNG" : "Exporter en PNG",
     "download" : "Télécharger",
-    "share" : "Partager"
+    "share" : "Partager",
+    "year" : "an",
+    "impossible" : "Les données fournies par les constructeurs pour les équipements sélectionnés ne permettent pas de calculer l'impact annuel.",
+    "yearly": "Annuel",
+    "total": "Total"
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"
