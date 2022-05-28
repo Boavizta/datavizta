@@ -215,6 +215,44 @@
 
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
             <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
+            <!-- button toggle yearly/total -->
+            <div class="flex mx-auto mt-1 mb-5">
+                <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
+                <label class="mw-1/3 switch">
+                    <input type="checkbox" id="yearlycheck" on:click={switchYearly}>
+                <span class="slider round"></span>
+                </label>
+                <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
+            </div>
+            
+            <!-- <div class="mb-5">
+                {$_('index.selected_rows', {values: {n: selectedRows.length}})}
+            </div> -->
+
+            <p>
+                {$_('index.select_country_elec_impact')}
+            </p>
+            <!-- select region -->
+            <div class="mt-2 mb-5">
+                <div class="flex">
+                    <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
+                </div>
+                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
+            </div>
+
+            <!-- input lifetime -->
+            <div class="mb-3">
+                <p class="block">{$_('index.lifetime')}</p>
+                <div class="flex">
+
+                    <input id="lifetime" bind:value={lifetime} on:input={onUpdateImpacts} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
+                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
+                        {$_('index.years')}
+                    </span>
+                </div>
+                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
+            </div>
+
             {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
                 {$_('explanation.8')}
@@ -227,52 +265,6 @@
                 {$_('explanation.error')}
             </p>
             {/if}
-            <!-- <div class="mb-5">
-                {$_('index.selected_rows', {values: {n: selectedRows.length}})}
-            </div> -->
-
-            <p>
-                {$_('index.select_country_elec_impact')}
-            </p>
-            <!-- select region -->
-            <div class="mb-5">
-                <div class="flex">
-                    <RegionPicker bind:value={selectedRegion} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
-                </div>
-                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
-            </div>
-
-            <!-- input lifetime -->
-            <div class="mb-5">
-                <p class="block">{$_('index.lifetime')}</p>
-                <div class="flex">
-
-                    <input id="lifetime" bind:value={lifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
-                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
-                        {$_('index.years')}
-                    </span>
-                </div>
-                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
-            </div>
-
-            <!-- button calculate -->
-            <div class="flex-row mx-auto">
-                <!-- <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                    <span>{$_('index.link')}</span>
-                </button> -->
-                <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
-                    <span>{$_('index.calculate')}</span>
-                </button>
-            </div>
-            <!-- button toggle yearly/total -->
-            <div class="flex mx-auto mt-5">
-                <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
-                <label class="mw-1/3 switch">
-                    <input type="checkbox" id="yearlycheck" on:click={switchYearly}>
-                <span class="slider round"></span>
-                </label>
-                <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
-            </div>
 
             <div class="flex-row mx-auto">
                     <div id="title export" class="text-xl mt-3 font-medium text-center">{$_('pie.export')}</div>
