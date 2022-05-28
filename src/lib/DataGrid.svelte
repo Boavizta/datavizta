@@ -29,6 +29,7 @@
     function updateDataGrid(rows) {
         filteredRows=rows;
         dispatcher("updateDataGrid", rows);
+        columnDefs=setColDefs();
     }
 
     const loadDataGridAsync = async () => {
@@ -51,7 +52,8 @@
         }
     };
 
-    const columnDefs = [
+    function setColDefs() {
+        let columnDefs = [
         {
             headerName: $_("datagrid.manufacturer"),
             field: "manufacturer",
@@ -184,6 +186,12 @@
             width: 100,
         },
     ];
+    console.log("setColdef")
+    return columnDefs;
+    }
+
+    let columnDefs=setColDefs();
+
 
     let options = {
         defaultColDef: {
@@ -223,6 +231,17 @@
             //no filter has been applied return all set
             return rows;
         }
+    }
+    let aggridUpdateHeadersChild;
+    
+    function aggridUpdateHeaders(columnDefs) {
+        aggridUpdateHeadersChild(columnDefs);
+    }
+
+    export function datagridUpdateHeaders() {
+        columnDefs=setColDefs()
+        console.log("Datagrid headers :",columnDefs)
+        aggridUpdateHeaders(columnDefs)
     }
 
     function onFilterChanged(e) {
@@ -331,23 +350,20 @@
         if (e.detail.length > 0) {
             if (selectedSubCategories.size > 0) {
                 selectedSubCategories.clear();
-                selectedSubCategories = selectedSubCategories;
             }
             if (selectedCategories.size > 0) {
                 selectedCategories.clear();
-                selectedCategories = selectedCategories;
             }
             if (selectedManufacturers.size > 0) {
                 selectedManufacturers.clear();
-                selectedManufacturers = selectedManufacturers;
             }
             updateDataGrid(e.detail);
         }
     }
 
-    function exportCurrentView() {
+    export function exportCurrentView() {
         let csvContent = "data:text/csv;charset=utf-8,";
-        
+
         filteredRows.forEach(row => {
             let scope3 = Scope.impactScope3byRow(row).scope3;
             if (scope3 != 0) {
@@ -391,39 +407,50 @@
     <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
         <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-1 px-4 border rounded" on:click={resetDataGrid}>{$_('datagrid.filter_reset')}
         </button>
-        <div class="space"></div>
-        {#each Array.from(filterManufacturers) as ManufacturerFilter}
-        <FilterButton
-            filterText={ManufacturerFilter}
-            active={selectedManufacturers.has(ManufacturerFilter)}
-            onButtonClick={() => {
-                updateManufacturerFilter(ManufacturerFilter);
-            }}
-        />
-        {/each}
-        <div class="space"></div>
-        {#each Array.from(filterCategories) as categoryFilter}
-        <FilterButton
-            filterText={categoryFilter}
-            active={selectedCategories.has(categoryFilter)}
-            onButtonClick={() => {
-                updateCategoryFilter(categoryFilter);
-            }}
-        />
-        {/each}
-        <div class="space"></div>
-        {#each Array.from(filterSubCategories) as subcategoryFilter}
-        <FilterButton
-            filterText={subcategoryFilter}
-            active={selectedSubCategories.has(subcategoryFilter)}
-            onButtonClick={() => {
-                updateSubcategoryFilter(subcategoryFilter);
-            }}
-        />
-        {/each}
-    </div>
-    <div class="flex shrink">
-        <button class="link my-4 ml-2" on:click={() => {exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
+        <div class="inline-block flex-wrap">
+            <div class="w-full text-xs pl-2 ">{$_('datagrid.manufacturer')}</div>
+            <div class="inline-flex flex-wrap">
+                {#each Array.from(filterManufacturers) as ManufacturerFilter}
+                <FilterButton
+                    filterText={ManufacturerFilter}
+                    active={selectedManufacturers.has(ManufacturerFilter)}
+                    onButtonClick={() => {
+                        updateManufacturerFilter(ManufacturerFilter);
+                    }}
+                />
+                {/each}
+                <div class="inline-block space"></div>
+            </div>
+        </div>
+        <div class="inline-block flex-wrap">
+            <div class="w-full text-xs pl-2 ">{$_('datagrid.category')}</div>
+            <div class="inline-flex flex-wrap">
+                {#each Array.from(filterCategories) as categoryFilter}
+                <FilterButton
+                    filterText={categoryFilter}
+                    active={selectedCategories.has(categoryFilter)}
+                    onButtonClick={() => {
+                        updateCategoryFilter(categoryFilter);
+                    }}
+                />
+                {/each}
+                <div class="inline-block space"></div>
+            </div>
+        </div>
+        <div class="inline-block flex-wrap">
+            <div class="w-full text-xs pl-2 ">{$_('datagrid.subcategory')}</div>
+            <div class="inline-flex flex-wrap">
+                {#each Array.from(filterSubCategories) as subcategoryFilter}
+                <FilterButton
+                    filterText={subcategoryFilter}
+                    active={selectedSubCategories.has(subcategoryFilter)}
+                    onButtonClick={() => {
+                        updateSubcategoryFilter(subcategoryFilter);
+                    }}
+                />
+                {/each}
+            </div>
+        </div>
     </div>
 </div>
 
@@ -432,6 +459,7 @@
     data={rows}
     {columnDefs}
     on:select={onSelect}
+    bind:aggridUpdateHeaders={aggridUpdateHeadersChild}
     {selectedSubCategories}
     {selectedManufacturers}
     {selectedCategories}

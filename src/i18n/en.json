@@ -13,6 +13,7 @@
     "years_tooltip": "applied to selected devices",
     "years": "years",
     "lifetime": "Lifetime",
+    "medianlifetime": "Mean lifetime",
     "custom_values": "Custom values"
   },
   "explanation": {
@@ -43,11 +44,11 @@
     "yearlyTec" : "Yearly TEC (kWh)",
     "manufacturing": "Manufacturing (%)",
     "total": "Total (kgCO2eq)",
-    "export_filtered": "Export view to CSV (beta)",
+    "export_filtered": "Export to CSV",
     "filter_reset": "Reset filters"
   },
   "pie": {
-    "title": "GWP emissions",
+    "title": "Global Warming Potential",
     "subtitle_unique_equipment" : "{name}",
     "subtitle_multiple_equipment_categories_details" : "Median value calculated on {number} equipments from categories : {categories}",
     "subtitle_multiple_equipment_categories" : "Median value calculated on {number} equipments from multiple categories",
@@ -57,7 +58,13 @@
     "export" : "Export",
     "exportPNG" : "Export to PNG",
     "download" : "Download",
-    "share" : "Share"
+    "share" : "Share",
+    "year" : "Year",
+    "impossible": "The data provided by the manufacturers for the selected equipment does not allow to show impact details or yearly impact.",
+    "yearly": "Yearly",
+    "total": "Total",
+    "lifetime": "Life span",
+    "year(s)" : "year(s)"
   },
   "region-picker": {
     "default": "Use default value"

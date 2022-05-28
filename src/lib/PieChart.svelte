@@ -55,8 +55,9 @@
     myChart = new Chart(ctx, config);
 
   })
-
-  function updateChart(chart, ratioScope) {
+  
+  export function updateChart(chart, ratioScope) {
+    console.log("updateChart")
     if (chart != undefined) {
       chart.data = getDataFormat(ratioScope)
       chart.update();

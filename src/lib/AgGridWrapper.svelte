@@ -20,7 +20,6 @@
   };
   
   export let selectedSubCategories;
-  //$: filterByCategories(selectedCategories);
   $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
     if(api == undefined){
@@ -180,7 +179,12 @@
       grid.destroy();
     }
   });
-
+  export function aggridUpdateHeaders(columnDefs) {
+    if (grid) {
+      grid.gridOptions.api.setColumnDefs(columnDefs);
+    }
+    console.log("Aggrid headers :",columnDefs)
+  }
   $: updateData(data);
 </script>
 

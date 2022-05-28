@@ -42,7 +42,7 @@
     "yearlyTec" : "TEC annuel (kWh)",
     "manufacturing": "Fabrication (%)",
     "total": "Total (kgCO2eq)",
-    "export_filtered": "Exporter la vue en CSV (beta)",
+    "export_filtered": "Exporter en CSV",
     "filter_reset": "Reset filtres"
   },
   "pie": {
@@ -56,7 +56,14 @@
     "export" : "Export",
     "exportPNG" : "Exporter en PNG",
     "download" : "Télécharger",
-    "share" : "Partager"
+    "share" : "Partager",
+    "year" : "an",
+    "impossible" : "Les données fournies par les constructeurs pour les équipements sélectionnés ne permettent pas d'afficher le détail de l'impact ou l'impact annuel.",
+    "yearly": "Annuel",
+    "total": "Total",
+    "lifetime": "Durée de vie",
+    "medianlifetime": "Durée de vie moyenne",
+    "year(s)" : "an(s)"
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"

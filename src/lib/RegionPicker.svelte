@@ -1,13 +1,27 @@
 <script lang="ts">
+  import {_} from 'svelte-i18n';
   import Select from "svelte-select"
   import {onMount} from "svelte";
   import Papa from "papaparse";
 
   let items;
-  export let regionDefaultValue;
-  export let value = regionDefaultValue;
+  
   export let isDisabled;
 
+  function setRegionDefaultValue() {
+        let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
+        return regionDefaultValue
+    } 
+  export let regionDefaultValue=setRegionDefaultValue()
+  export let selectedRegion = regionDefaultValue;
+  export let value = regionDefaultValue;
+  
+  export function updateRegionPicker() {
+    regionDefaultValue=setRegionDefaultValue()
+    selectedRegion = regionDefaultValue
+    value = regionDefaultValue
+  }
+  
   onMount(async () => {
     const res = await fetch("./electrical_foot_print.csv");
     const text = await res.text();
