@@ -12,13 +12,12 @@
     let datagrid
     /* Default value */
     const lifetimeDefaultValue = undefined;
-    
+    let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
     const scopeDefaultvalue: Scope.ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* input values */
     let lifetime = lifetimeDefaultValue;//custom lifetime (opt)
-    let selectedRegion
-    let regionDefaultValue
+    let selectedRegion = regionDefaultValue;
     let disabledCustomValue = false;
     let hasCustomValues = false;
     let shareLink;
@@ -59,6 +58,7 @@
     export function dataExplorerUpdate() {
         datagridUpdateHeaders();
         regionPickerUpdate();
+        pieChartUpdate();
     }
 
     function onUpdateImpacts(){
@@ -206,7 +206,7 @@
                     </div>
                 
                 <div class="mt-2">
-                    <PieChart  {ratioScope} bind:updateChart={pieChartUpdateChild}/>
+                    <PieChart  {ratioScope} bind:updatePieChart={pieChartUpdateChild}/>
                 </div>
                 <!-- <div id="explanation-container" class="text-center mt-5">
                     <div>
