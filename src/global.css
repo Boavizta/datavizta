@@ -171,3 +171,8 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.ag_container {
+  width: 100%;
+  height: var(--grid-height, 300px);
+}

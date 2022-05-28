@@ -35,9 +35,7 @@
     const loadDataGridAsync = async () => {
         try {
             const res = await fetch("/boavizta-data-us.csv");
-            //console.log(`loadDataGrid, res ${JSON.stringify(res).slice(0,10)}`)
             const text = await res.text();
-            //console.log(`loadDataGrid, text ${JSON.stringify(text).slice(0,10)}`)
             const csvParsed = Papa.parse(text, {
                 header: true,
                 dynamicTyping: true,
@@ -186,7 +184,6 @@
             width: 100,
         },
     ];
-    console.log("setColdef")
     return columnDefs;
     }
 
@@ -202,14 +199,12 @@
         // Label columns
         headerHeight: 25,
         enableCellTextSelection: true,
-        //columnDefs: columnDefs,
         rowSelection: "single",
         rowHeight: 25,
         //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
         pagination: false,
         paginationPageSize: 20,
-        //rowData: data,
         onFilterChanged: onFilterChanged,
     };
 
@@ -225,7 +220,6 @@
             _filterApi.forEachNodeAfterFilter((node) => {
                 rowData.push(node.data);
             });
-            //console.log(rowData)
             return rowData;
         } else {
             //no filter has been applied return all set
@@ -239,19 +233,16 @@
     }
 
     export function datagridUpdateHeaders() {
-        columnDefs=setColDefs()
-        console.log("Datagrid headers :",columnDefs)
-        aggridUpdateHeaders(columnDefs)
+        columnDefs=setColDefs();
+        aggridUpdateHeaders(columnDefs);
     }
 
     function onFilterChanged(e) {
-        //console.log(e)
         filteredRows = getFilterRows(e.api);
         updateDataGrid(filteredRows);
     }
 
     onMount(async () => {
-        console.log("onMount Datagrid");
         rows = await loadDataGridAsync();
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
@@ -286,7 +277,6 @@
         }
         //trigger reactivity
         selectedSubCategories = selectedSubCategories;
-        console.log(selectedSubCategories)
     };
     const updateCategoryFilter = (category) => {
         //if category is not part of the defined filter
@@ -309,7 +299,6 @@
         }
         //trigger reactivity
         selectedCategories = selectedCategories;
-        console.log(selectedCategories)
     };
 
     const updateManufacturerFilter = (manufacturer) => {
@@ -333,7 +322,6 @@
         }
         //trigger reactivity
         selectedManufacturers = selectedManufacturers;
-        console.log(selectedManufacturers)
     };
 
     function resetDataGrid(e) {

@@ -1,38 +1,36 @@
 <script lang="ts" xmlns="http://www.w3.org/1999/html">
     import { _, init } from "svelte-i18n";
     import DataExplorer from "$lib/DataExplorer.svelte";
-    let lang="EN"
+    let language="EN";
     let updateDataExplorerChild;
     function updateLanguage(){
-        if ( lang == "EN") {
+        if ( language == "EN") {
             init({
                 fallbackLocale: 'fr',
                 initialLocale: 'en'
             })
-            lang="FR"
+            language="FR";
         } else {
             init({
                 fallbackLocale: 'fr',
                 initialLocale: 'fr'
             })
-            lang="EN"
+            language="EN";
         }
-        updateDataExplorer()
+        updateDataExplorer();
     };
 
     function updateDataExplorer() {
         updateDataExplorerChild();
-    }
-
+    };
 
 </script>
 
 <div id="navbar">
     <a href="https://boavizta.org"><img id="logo" style="height: 47px;width: 32px;" src="./boavizta-logo-4.png" alt="Boavizta"></a>
     <h1 class="title-main">Boavizta Dataviz</h1>
-    <!-- button toggle yearly/total -->
-    <a class="text-right flex-auto mb-5" title="Choose language"  href on:click={updateLanguage} >{lang}</a>
-
+    <!--language switch-->
+    <a class="text-right flex-auto mb-5" title="Choose language"  href on:click={updateLanguage} >{language}</a>
 </div>
 <div id="content" class="px-4">
     <h2 class="title-second">{$_('index.title')}</h2>

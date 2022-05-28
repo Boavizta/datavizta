@@ -169,7 +169,6 @@
       columnDefs,
       rowData: dataInit,
       onGridReady,
-      //onCellValueChanged,
       onSelectionChanged,
     });
   });
@@ -183,7 +182,6 @@
     if (grid) {
       grid.gridOptions.api.setColumnDefs(columnDefs);
     }
-    console.log("Aggrid headers :",columnDefs)
   }
   $: updateData(data);
 </script>
@@ -201,10 +199,3 @@
     class="ag-theme-{theme}"
   />
 </div>
-
-<style>
-  .ag_container {
-    width: 100%;
-    height: var(--grid-height, 300px);
-  }
-</style>

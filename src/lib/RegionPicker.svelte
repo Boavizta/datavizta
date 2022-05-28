@@ -12,20 +12,20 @@
         let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
         return regionDefaultValue
     } 
-  export let regionDefaultValue=setRegionDefaultValue()
+  export let regionDefaultValue=setRegionDefaultValue();
   export let selectedRegion = regionDefaultValue;
   export let value = regionDefaultValue;
   
   export function updateRegionPicker() {
-    regionDefaultValue=setRegionDefaultValue()
-    selectedRegion = regionDefaultValue
-    value = regionDefaultValue
-  }
+    regionDefaultValue=setRegionDefaultValue();
+    selectedRegion = regionDefaultValue;
+    value = regionDefaultValue;
+  };
   
   onMount(async () => {
     const res = await fetch("./electrical_foot_print.csv");
     const text = await res.text();
-    items = toSelectItems(text)
+    items = toSelectItems(text);
     /* retrieve region from query param */ 
     const region = new URLSearchParams(window.location.search).get('region');
     value = items && items.find(o => o.id === region) || regionDefaultValue;
@@ -35,7 +35,7 @@
 
   function updateImpacts() {
     dispatcher("updateImpacts");
-  }
+  };
 
   function toSelectItems(csv) {
     const csvParsed = Papa.parse(csv, {header: true, dynamicTyping: true})
@@ -49,7 +49,7 @@
         value: row['gwp_emission_factor']
       }
     }))
-  }
+  };
 
 
 </script>

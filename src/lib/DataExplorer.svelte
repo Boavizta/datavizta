@@ -62,7 +62,6 @@
     }
 
     function onUpdateImpacts(){
-        console.log("region ", selectedRegion)
         ratioScope = Scope.calculateImpacts(state.selectedRows, yearly, lifetime, selectedRegion.value)
         medianlifetime = Scope.medianlifetime(state.selectedRows)
         impactTotal = Scope.impactTotal(state.selectedRows);
@@ -73,38 +72,35 @@
     export function onDataGridUpdate(e) {
         state.selectedRows = e.detail
 
-        //re-init categories
+        //re-init categories and manfufacturers
         state.selectedSubCategories = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)})
+        state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)});
         state.selectedCategories = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)})
+        state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)});
         state.selectedManufacturers = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedManufacturers.add(r.manufacturer)})
+        state.selectedRows.forEach((r)=>{state.selectedManufacturers.add(r.manufacturer)});
        
-        console.log("DataExplorer:onDataGridUpdate:", state.selectedRows.length)
-        disabledCustomValue = disableCustomValues(state.selectedRows)
+        disabledCustomValue = disableCustomValues(state.selectedRows);
         if(disabledCustomValue){
-            resetRegionPicker()
-            resetLifetimeValue()
+            resetRegionPicker();
+            resetLifetimeValue();
         }
-        onUpdateImpacts()
+        onUpdateImpacts();
         imageUrlData = null;
     }
 
     function disableCustomValues(selectedRows):boolean{
-        //console.log(selectedRows)
         return selectedRows.length == 1 &&
             (selectedRows[0]["yearly_tec"] == undefined || selectedRows[0]["gwp_use_ratio"] == undefined)
     }
 
     function resetRegionPicker(){
-        selectedRegion = regionDefaultValue
+        selectedRegion = regionDefaultValue;
     }
 
     function resetLifetimeValue(){
-        lifetime = lifetimeDefaultValue
+        lifetime = lifetimeDefaultValue;
     }
-
 
     let imageUrlData = null;
 
@@ -117,7 +113,6 @@
         const canvas = await html2canvas(document.getElementById('viz-container'));
         imageUrlData = canvas.toDataURL("image/png");
     }
-
 
     function buildLink(){
         let link = window.location.origin;
@@ -158,10 +153,7 @@
 
 <div class="flex flex-col">
 
-
         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild} bind:this={datagrid} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
-
-<!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
 
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
@@ -208,28 +200,6 @@
                 <div class="mt-2">
                     <PieChart  {ratioScope} bind:updatePieChart={pieChartUpdateChild}/>
                 </div>
-                <!-- <div id="explanation-container" class="text-center mt-5">
-                    <div>
-                        {#if scope2.lines > 0}
-                            <small>
-                                scope 2 : {scope2.median} kgCO2eq sur {scope2.lines} équipement(s)</small>
-                        {:else}
-                            <small> scope 2 : valeurs d'entrée insuffisantes</small>
-                        {/if}
-                    </div>
-                    <div>
-                        {#if scope3.lines > 0}
-                            <small>
-                                scope 3 : {scope3.median} kgCO2eq sur {scope3.lines} équipement(s)</small>
-                        {:else}
-                            <small> scope 3 : valeurs d'entrée insuffisantes</small>
-                        {/if}
-                    </div>
-                </div> -->
-
-                <div>
-                    <!--                <EquivalentImpacts gwpImpactTotal="&#45;&#45;"/>-->
-                </div>
             {/if}
         </div>
 
@@ -244,11 +214,6 @@
                 </label>
                 <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
             </div>
-            
-            <!-- <div class="mb-5">
-                {$_('index.selected_rows', {values: {n: selectedRows.length}})}
-            </div> -->
-
             <p>
                 {$_('index.select_country_elec_impact')}
             </p>
