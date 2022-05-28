@@ -64,6 +64,7 @@
     "yearly": "Yearly",
     "total": "Total",
     "lifetime": "Life span",
+    "medianlifetime": "Mean life span",
     "year(s)" : "year(s)"
   },
   "region-picker": {

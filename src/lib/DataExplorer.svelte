@@ -255,7 +255,7 @@
             <!-- select region -->
             <div class="mt-2 mb-5">
                 <div class="flex">
-                    <RegionPicker bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
+                    <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
                 </div>
                 <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
             </div>
