@@ -137,13 +137,11 @@
   };
 
   const onGridReady = () => {
-    console.log("onGridReady", grid);
     api = grid.gridOptions.api;
     if (loading) api.showLoadingOverlay();
   };
 
   const updateData = (data) => {
-    console.log("updateData", grid, api);
     /* 
     does not work on safari, onGridReady is launched after first update
     if (grid && api) {
@@ -163,7 +161,6 @@
     } else {
       dataInit = data;
     }
-    console.log("onMount AgGridWrapper", dataInit);
     grid = new Grid(ref, {
       ...options,
       columnDefs,

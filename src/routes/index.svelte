@@ -1,27 +1,35 @@
 <script lang="ts" xmlns="http://www.w3.org/1999/html">
-    import { _, init } from "svelte-i18n";
+    import { _, locale, getLocaleFromNavigator } from "svelte-i18n";
     import DataExplorer from "$lib/DataExplorer.svelte";
-    let language="EN";
+    
     let updateDataExplorerChild;
-    function updateLanguage(){
-        if ( language == "EN") {
-            init({
-                fallbackLocale: 'fr',
-                initialLocale: 'en'
-            })
-            language="FR";
-        } else {
-            init({
-                fallbackLocale: 'fr',
-                initialLocale: 'fr'
-            })
-            language="EN";
-        }
-        updateDataExplorer();
-    };
-
     function updateDataExplorer() {
         updateDataExplorerChild();
+    };
+    
+    function initLanguage() {
+        let language;
+        if (getLocaleFromNavigator()=="fr") {
+            locale.set("fr")
+            language="EN";
+        } else {
+            locale.set("en")
+            language="FR";
+        }
+        return language;
+    };
+    let language=initLanguage();
+
+    function updateLanguage(){
+        if ( language == "EN") {
+            locale.set("en")
+            language="FR";
+        } else {
+            locale.set("fr")
+            language="EN";
+        }
+        //workaround to avoid lauching update before locale is updated
+        setTimeout(updateDataExplorer,200);
     };
 
 </script>

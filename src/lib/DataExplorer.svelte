@@ -56,6 +56,7 @@
     }
 
     export function dataExplorerUpdate() {
+        console.log("changelagua Dataexplorer")
         datagridUpdateHeaders();
         regionPickerUpdate();
         pieChartUpdate();

@@ -7,5 +7,6 @@
     fallbackLocale: 'fr',
     initialLocale: getLocaleFromNavigator()
   })
+  
 
 

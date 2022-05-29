@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { _ } from "svelte-i18n";
+    import { _, locale } from "svelte-i18n";
     import AgGridWrapper from "./AgGridWrapper.svelte";
     import Papa from "papaparse";
     import { createEventDispatcher, onMount } from "svelte";
