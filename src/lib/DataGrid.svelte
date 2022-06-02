@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { _ } from "svelte-i18n";
+    import { _, locale } from "svelte-i18n";
     import AgGridWrapper from "./AgGridWrapper.svelte";
     import Papa from "papaparse";
     import { createEventDispatcher, onMount } from "svelte";
@@ -29,14 +29,13 @@
     function updateDataGrid(rows) {
         filteredRows=rows;
         dispatcher("updateDataGrid", rows);
+        columnDefs=setColDefs();
     }
 
     const loadDataGridAsync = async () => {
         try {
             const res = await fetch("/boavizta-data-us.csv");
-            //console.log(`loadDataGrid, res ${JSON.stringify(res).slice(0,10)}`)
             const text = await res.text();
-            //console.log(`loadDataGrid, text ${JSON.stringify(text).slice(0,10)}`)
             const csvParsed = Papa.parse(text, {
                 header: true,
                 dynamicTyping: true,
@@ -51,7 +50,8 @@
         }
     };
 
-    const columnDefs = [
+    function setColDefs() {
+        let columnDefs = [
         {
             headerName: $_("datagrid.manufacturer"),
             field: "manufacturer",
@@ -184,6 +184,11 @@
             width: 100,
         },
     ];
+    return columnDefs;
+    }
+
+    let columnDefs=setColDefs();
+
 
     let options = {
         defaultColDef: {
@@ -194,14 +199,12 @@
         // Label columns
         headerHeight: 25,
         enableCellTextSelection: true,
-        //columnDefs: columnDefs,
         rowSelection: "single",
         rowHeight: 25,
         //onSelectionChanged: onSelect,
         rowMultiSelectWithClick: true,
         pagination: false,
         paginationPageSize: 20,
-        //rowData: data,
         onFilterChanged: onFilterChanged,
     };
 
@@ -217,22 +220,29 @@
             _filterApi.forEachNodeAfterFilter((node) => {
                 rowData.push(node.data);
             });
-            //console.log(rowData)
             return rowData;
         } else {
             //no filter has been applied return all set
             return rows;
         }
     }
+    let aggridUpdateHeadersChild;
+    
+    function aggridUpdateHeaders(columnDefs) {
+        aggridUpdateHeadersChild(columnDefs);
+    }
+
+    export function datagridUpdateHeaders() {
+        columnDefs=setColDefs();
+        aggridUpdateHeaders(columnDefs);
+    }
 
     function onFilterChanged(e) {
-        //console.log(e)
         filteredRows = getFilterRows(e.api);
         updateDataGrid(filteredRows);
     }
 
     onMount(async () => {
-        console.log("onMount Datagrid");
         rows = await loadDataGridAsync();
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
@@ -267,7 +277,6 @@
         }
         //trigger reactivity
         selectedSubCategories = selectedSubCategories;
-        console.log(selectedSubCategories)
     };
     const updateCategoryFilter = (category) => {
         //if category is not part of the defined filter
@@ -290,7 +299,6 @@
         }
         //trigger reactivity
         selectedCategories = selectedCategories;
-        console.log(selectedCategories)
     };
 
     const updateManufacturerFilter = (manufacturer) => {
@@ -314,7 +322,6 @@
         }
         //trigger reactivity
         selectedManufacturers = selectedManufacturers;
-        console.log(selectedManufacturers)
     };
 
     function resetDataGrid(e) {
@@ -440,6 +447,7 @@
     data={rows}
     {columnDefs}
     on:select={onSelect}
+    bind:aggridUpdateHeaders={aggridUpdateHeadersChild}
     {selectedSubCategories}
     {selectedManufacturers}
     {selectedCategories}

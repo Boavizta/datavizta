@@ -12,9 +12,8 @@
     let datagrid
     /* Default value */
     const lifetimeDefaultValue = undefined;
-    const regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
+    let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
     const scopeDefaultvalue: Scope.ScopeResult = {result: 1, lines: 1, median: 1};
-
 
     /* input values */
     let lifetime = lifetimeDefaultValue;//custom lifetime (opt)
@@ -41,8 +40,29 @@
     let medianlifetime = 0;
     let impactTotal = 0;
 
+    let datagridUpdateHeadersChild;
+    function datagridUpdateHeaders() {
+        datagridUpdateHeadersChild();
+    }
+
+    let regionPickerUpdateChild;
+    function regionPickerUpdate() {
+        regionPickerUpdateChild();
+    }
+
+    let pieChartUpdateChild;
+    function pieChartUpdate() {
+        pieChartUpdateChild();
+    }
+
+    export function dataExplorerUpdate() {
+        console.log("changelagua Dataexplorer")
+        datagridUpdateHeaders();
+        regionPickerUpdate();
+        pieChartUpdate();
+    }
+
     function onUpdateImpacts(){
-        console.log("region ", selectedRegion)
         ratioScope = Scope.calculateImpacts(state.selectedRows, yearly, lifetime, selectedRegion.value)
         medianlifetime = Scope.medianlifetime(state.selectedRows)
         impactTotal = Scope.impactTotal(state.selectedRows);
@@ -50,41 +70,38 @@
         hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
     }
 
-    function onDataGridUpdate(e) {
+    export function onDataGridUpdate(e) {
         state.selectedRows = e.detail
 
-        //re-init categories
+        //re-init categories and manfufacturers
         state.selectedSubCategories = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)})
+        state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)});
         state.selectedCategories = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)})
+        state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)});
         state.selectedManufacturers = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedManufacturers.add(r.manufacturer)})
+        state.selectedRows.forEach((r)=>{state.selectedManufacturers.add(r.manufacturer)});
        
-        console.log("DataExplorer:onDataGridUpdate:", state.selectedRows.length)
-        disabledCustomValue = disableCustomValues(state.selectedRows)
+        disabledCustomValue = disableCustomValues(state.selectedRows);
         if(disabledCustomValue){
-            resetRegionPicker()
-            resetLifetimeValue()
+            resetRegionPicker();
+            resetLifetimeValue();
         }
-        onUpdateImpacts()
+        onUpdateImpacts();
         imageUrlData = null;
     }
 
     function disableCustomValues(selectedRows):boolean{
-        //console.log(selectedRows)
         return selectedRows.length == 1 &&
             (selectedRows[0]["yearly_tec"] == undefined || selectedRows[0]["gwp_use_ratio"] == undefined)
     }
 
     function resetRegionPicker(){
-        selectedRegion = regionDefaultValue
+        selectedRegion = regionDefaultValue;
     }
 
     function resetLifetimeValue(){
-        lifetime = lifetimeDefaultValue
+        lifetime = lifetimeDefaultValue;
     }
-
 
     let imageUrlData = null;
 
@@ -97,7 +114,6 @@
         const canvas = await html2canvas(document.getElementById('viz-container'));
         imageUrlData = canvas.toDataURL("image/png");
     }
-
 
     function buildLink(){
         let link = window.location.origin;
@@ -138,10 +154,7 @@
 
 <div class="flex flex-col">
 
-
-        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:this={datagrid} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
-
-<!--    <h3 class="title-second title-left">{$_('index.search')}</h3>-->
+        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild} bind:this={datagrid} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
 
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
@@ -186,35 +199,46 @@
                     </div>
                 
                 <div class="mt-2">
-                    <PieChart  {ratioScope}/>
-                </div>
-                <!-- <div id="explanation-container" class="text-center mt-5">
-                    <div>
-                        {#if scope2.lines > 0}
-                            <small>
-                                scope 2 : {scope2.median} kgCO2eq sur {scope2.lines} équipement(s)</small>
-                        {:else}
-                            <small> scope 2 : valeurs d'entrée insuffisantes</small>
-                        {/if}
-                    </div>
-                    <div>
-                        {#if scope3.lines > 0}
-                            <small>
-                                scope 3 : {scope3.median} kgCO2eq sur {scope3.lines} équipement(s)</small>
-                        {:else}
-                            <small> scope 3 : valeurs d'entrée insuffisantes</small>
-                        {/if}
-                    </div>
-                </div> -->
-
-                <div>
-                    <!--                <EquivalentImpacts gwpImpactTotal="&#45;&#45;"/>-->
+                    <PieChart  {ratioScope} bind:updatePieChart={pieChartUpdateChild}/>
                 </div>
             {/if}
         </div>
 
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
             <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
+            <!-- button toggle yearly/total -->
+            <div class="flex mx-auto mt-1 mb-5">
+                <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
+                <label class="mw-1/3 switch">
+                    <input type="checkbox" id="yearlycheck" on:click={switchYearly}>
+                <span class="slider round"></span>
+                </label>
+                <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
+            </div>
+            <p>
+                {$_('index.select_country_elec_impact')}
+            </p>
+            <!-- select region -->
+            <div class="mt-2 mb-5">
+                <div class="flex">
+                    <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
+                </div>
+                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
+            </div>
+
+            <!-- input lifetime -->
+            <div class="mb-3">
+                <p class="block">{$_('index.lifetime')}</p>
+                <div class="flex">
+
+                    <input id="lifetime" bind:value={lifetime} on:input={onUpdateImpacts} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
+                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
+                        {$_('index.years')}
+                    </span>
+                </div>
+                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
+            </div>
+
             {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
                 {$_('explanation.8')}
@@ -227,52 +251,6 @@
                 {$_('explanation.error')}
             </p>
             {/if}
-            <!-- <div class="mb-5">
-                {$_('index.selected_rows', {values: {n: selectedRows.length}})}
-            </div> -->
-
-            <p>
-                {$_('index.select_country_elec_impact')}
-            </p>
-            <!-- select region -->
-            <div class="mb-5">
-                <div class="flex">
-                    <RegionPicker bind:value={selectedRegion} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
-                </div>
-                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
-            </div>
-
-            <!-- input lifetime -->
-            <div class="mb-5">
-                <p class="block">{$_('index.lifetime')}</p>
-                <div class="flex">
-
-                    <input id="lifetime" bind:value={lifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
-                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
-                        {$_('index.years')}
-                    </span>
-                </div>
-                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
-            </div>
-
-            <!-- button calculate -->
-            <div class="flex-row mx-auto">
-                <!-- <button on:click={getShareLink} class="bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                    <span>{$_('index.link')}</span>
-                </button> -->
-                <button disabled="{disabledCustomValue}" on:click={onUpdateImpacts} class="blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 rounded">
-                    <span>{$_('index.calculate')}</span>
-                </button>
-            </div>
-            <!-- button toggle yearly/total -->
-            <div class="flex mx-auto mt-5">
-                <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
-                <label class="mw-1/3 switch">
-                    <input type="checkbox" id="yearlycheck" on:click={switchYearly}>
-                <span class="slider round"></span>
-                </label>
-                <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
-            </div>
 
             <div class="flex-row mx-auto">
                     <div id="title export" class="text-xl mt-3 font-medium text-center">{$_('pie.export')}</div>
