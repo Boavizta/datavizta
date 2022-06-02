@@ -6,7 +6,7 @@
   export let ratioScope;
   let myChart;
 
-  function getDataFormat(ratioScope) {
+  function getDataFormat() {
     return {
       labels: [$_('pie.legend_scope2', {values:{median:ratioScope.scope2.median}}),
             $_('pie.legend_scope3', {values:{median:ratioScope.scope3.median}})],
@@ -23,7 +23,7 @@
   let portfolio;
   const config = {
     type: 'pie',
-    data: getDataFormat(ratioScope),
+    data: getDataFormat(),
     options: {
       responsive: true,
       maintainAspectRatio: true,
@@ -55,16 +55,18 @@
     myChart = new Chart(ctx, config);
 
   })
-
-  function updateChart(chart, ratioScope) {
+  export function updatePieChart() {
+    updateChart(myChart,ratioScope)
+  }
+  function updateChart(chart,ratioScope) {
     if (chart != undefined) {
-      chart.data = getDataFormat(ratioScope)
+      chart.data = getDataFormat()
       chart.update();
     }
   }
 
   $: {
-    updateChart(myChart, ratioScope)//reactive on ratioScope object
+    updateChart(myChart,ratioScope)//reactive on ratioScope object
   }
 </script>
 

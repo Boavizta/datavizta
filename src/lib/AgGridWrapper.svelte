@@ -20,7 +20,6 @@
   };
   
   export let selectedSubCategories;
-  //$: filterByCategories(selectedCategories);
   $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
     if(api == undefined){
@@ -138,13 +137,11 @@
   };
 
   const onGridReady = () => {
-    console.log("onGridReady", grid);
     api = grid.gridOptions.api;
     if (loading) api.showLoadingOverlay();
   };
 
   const updateData = (data) => {
-    console.log("updateData", grid, api);
     /* 
     does not work on safari, onGridReady is launched after first update
     if (grid && api) {
@@ -164,13 +161,11 @@
     } else {
       dataInit = data;
     }
-    console.log("onMount AgGridWrapper", dataInit);
     grid = new Grid(ref, {
       ...options,
       columnDefs,
       rowData: dataInit,
       onGridReady,
-      //onCellValueChanged,
       onSelectionChanged,
     });
   });
@@ -180,7 +175,11 @@
       grid.destroy();
     }
   });
-
+  export function aggridUpdateHeaders(columnDefs) {
+    if (grid) {
+      grid.gridOptions.api.setColumnDefs(columnDefs);
+    }
+  }
   $: updateData(data);
 </script>
 
@@ -197,10 +196,3 @@
     class="ag-theme-{theme}"
   />
 </div>
-
-<style>
-  .ag_container {
-    width: 100%;
-    height: var(--grid-height, 300px);
-  }
-</style>

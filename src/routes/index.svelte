@@ -1,12 +1,44 @@
 <script lang="ts" xmlns="http://www.w3.org/1999/html">
-    import { _ } from "svelte-i18n";
+    import { _, locale, getLocaleFromNavigator } from "svelte-i18n";
     import DataExplorer from "$lib/DataExplorer.svelte";
+    
+    let updateDataExplorerChild;
+    function updateDataExplorer() {
+        updateDataExplorerChild();
+    };
+    
+    function initLanguage() {
+        let language;
+        if (getLocaleFromNavigator()=="fr") {
+            locale.set("fr")
+            language="EN";
+        } else {
+            locale.set("en")
+            language="FR";
+        }
+        return language;
+    };
+    let language=initLanguage();
+
+    function updateLanguage(){
+        if ( language == "EN") {
+            locale.set("en")
+            language="FR";
+        } else {
+            locale.set("fr")
+            language="EN";
+        }
+        //workaround to avoid lauching update before locale is updated
+        setTimeout(updateDataExplorer,200);
+    };
+
 </script>
 
 <div id="navbar">
     <a href="https://boavizta.org"><img id="logo" style="height: 47px;width: 32px;" src="./boavizta-logo-4.png" alt="Boavizta"></a>
     <h1 class="title-main">Boavizta Dataviz</h1>
-
+    <!--language switch-->
+    <a class="text-right flex-auto mb-5" title="Choose language"  href on:click={updateLanguage} >{language}</a>
 </div>
 <div id="content" class="px-4">
     <h2 class="title-second">{$_('index.title')}</h2>
@@ -38,5 +70,5 @@
     <div class="text-sm mb-2">
         {$_("explanation.6")}
     </div>
-    <DataExplorer />
+    <DataExplorer bind:dataExplorerUpdate={updateDataExplorerChild}/>
 </div>

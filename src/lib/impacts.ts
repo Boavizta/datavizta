@@ -8,9 +8,7 @@ export function calculateImpacts(selectedRows, yearly, lifetime, regionValue) {
     const scope2 = impactScope2(selectedRows, yearly, lifetime, regionValue);
     const scope3 = impactScope3(selectedRows, yearly, lifetime);
     const total = scope2.median + scope3.median;
-    //console.log("lifetime:", lifetime, " selectedRowsNumber:", selectedRows.length," total:", total,"scope2:", scope2,"scope3:", scope3)
-    return {scope2: scope2, scope3: scope3, total: total}
-    
+    return {scope2: scope2, scope3: scope3, total: total} 
 }
 /* calculate total */
 export function impactTotal(rows_selection) {
