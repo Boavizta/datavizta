@@ -55,7 +55,7 @@
                 <li>{$_('explanation.5')}</li>
             </ul>
             <p class="text-sm mb-2">
-                {$_('explanation.10')} <a class="link" href={$_('explanation.12')} target="_blank">{$_('explanation.11')}</a>
+                {$_('explanation.10')} <a class="link" href={$_('explanation.12')} target="_blank">{$_('explanation.11')}</a> {$_('explanation.13')}
             </p>
         </div>
 

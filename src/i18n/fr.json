@@ -28,7 +28,8 @@
     "9": "A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne.",
     "10": "Pour plus de détails sur l'outil Dataviz vous pouvez consulter",
     "11": "cet article.",
-    "12": "https://boavizta.org/blog/dataviz"
+    "12": "https://boavizta.org/blog/dataviz",
+    "13": "Notamment pour comprendre les limites d'utilisation de ces données fournies exclusivement par les fabriquants."
   },
   "datagrid" : {
     "lifetime": "Durée de vie",
