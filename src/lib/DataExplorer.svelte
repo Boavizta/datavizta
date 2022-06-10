@@ -188,7 +188,7 @@
                     </div>
                 <div id="result-subtitle" class="text-sm font-light text-center text-gray-800 pl-2">
                     {#if state.selectedRows.length === 1}
-                        {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name).substring(0,50)}})}
+                        {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name)}})}
                     {:else}
                         {#if state.selectedSubCategories.size < 3}
                             {$_('pie.subtitle_multiple_equipment_categories_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), categories:new Array(...state.selectedSubCategories).join(', ')}})}
