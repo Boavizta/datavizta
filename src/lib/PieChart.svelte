@@ -2,8 +2,9 @@
   import {onMount} from 'svelte';
   import Chart from 'chart.js/auto/auto.js';
   import {_} from 'svelte-i18n';
+  import type { ChartResult } from './customType';
 
-  export let ratioScope;
+  export let ratioScope:ChartResult;
   let myChart;
 
   function getDataFormat() {

@@ -3,20 +3,21 @@
   import Select from "svelte-select"
   import {createEventDispatcher, onMount} from "svelte";
   import Papa from "papaparse";
+  import type { RegionPickerItem } from './customType';
 
-  let items;
+  let items:RegionPickerItem[];
   
-  export let isDisabled;
+  export let isDisabled:boolean;
 
-  function setRegionDefaultValue() {
-        let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
+  function setRegionDefaultValue():RegionPickerItem {
+        let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:"-1"};
         return regionDefaultValue
     } 
-  export let regionDefaultValue=setRegionDefaultValue();
-  export let selectedRegion = regionDefaultValue;
-  export let value = regionDefaultValue;
+  export let regionDefaultValue:RegionPickerItem=setRegionDefaultValue();
+  export let selectedRegion:RegionPickerItem = regionDefaultValue;
+  export let value:RegionPickerItem = regionDefaultValue;
   
-  export function updateRegionPicker() {
+  export function updateRegionPicker():void {
     regionDefaultValue=setRegionDefaultValue();
     selectedRegion = regionDefaultValue;
     value = regionDefaultValue;

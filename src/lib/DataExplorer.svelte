@@ -8,20 +8,23 @@
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"
     import { query_selector_all } from 'svelte/internal';
+    import type { RegionPickerItem, ScopeResult, Row, ChartResult } from './customType';
     
-    let datagrid
+    //upper state of the grid
+    let datagrid:Row[];
+
     /* Default value */
-    const lifetimeDefaultValue = undefined;
-    let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:-1};
-    const scopeDefaultvalue: Scope.ScopeResult = {result: 1, lines: 1, median: 1};
+    const lifetimeDefaultValue:number = undefined;
+    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:-1};
+    const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* input values */
-    let lifetime = lifetimeDefaultValue;//custom lifetime (opt)
-    let selectedRegion = regionDefaultValue;
-    let disabledCustomValue = false;
-    let hasCustomValues = false;
-    let shareLink;
-    let yearly = false;
+    let lifetime:number = lifetimeDefaultValue;//custom lifetime (opt)
+    let selectedRegion:RegionPickerItem = regionDefaultValue;
+    let disabledCustomValue:boolean = false;
+    let hasCustomValues:boolean = false;
+    let shareLink:string ;
+    let yearly:boolean = false;
 
     /* Inner state */
     let state = {
@@ -31,15 +34,15 @@
         selectedCategories : new Set(),
     }
 
-    let ratioScope = {
+    let ratioScope:ChartResult = {
         scope2: scopeDefaultvalue,
         scope3: scopeDefaultvalue,
         total:0
     };
 
-    let medianlifetime = 0;
-    let customlifetime = false;
-    let impactTotal = 0;
+    let medianlifetime:number = 0;
+    let customlifetime:boolean = false;
+    let impactTotal:number = 0;
 
     let datagridUpdateHeadersChild;
     function datagridUpdateHeaders() {
@@ -112,7 +115,7 @@
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
-        lifetime = new URLSearchParams(window.location.search).get('lifetime');
+        lifetime = Number(new URLSearchParams(window.location.search).get('lifetime'));
     });
 
     async function downloadImage() {

@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { Grid } from "ag-grid-community";
   import "ag-grid-community/dist/styles/ag-grid.css";
   import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+  import type { Row } from "./customType";
 
   const dispatch = createEventDispatcher();
 
   export let columnDefs;
-  export let data;
-  export let theme = "alpine";
+  export let data:Row[];
   export let options = {
     defaultColDef: {
       flex: 1,
@@ -19,7 +19,10 @@
     rowSelection: "multiple",
   };
   
-  export let selectedSubCategories;
+  export let selectedSubCategories:string[];
+  export let selectedCategories:string[];
+  export let selectedManufacturers:string[];
+
   $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
     if(api == undefined){
@@ -54,7 +57,6 @@
     api.onFilterChanged();
   }
 
-  export let selectedCategories;
   $: filterBycategories(selectedCategories);
   function filterBycategories(categories) {
     if(api == undefined){
@@ -89,7 +91,6 @@
     api.onFilterChanged();
   }
 
-  export let selectedManufacturers;
   $: filterByManufacturers(selectedManufacturers);
   function filterByManufacturers(manufacturers) {
     if(api == undefined){
@@ -126,7 +127,6 @@
 
   export let loading = false;
 
-  let themeUrl = `https://unpkg.com/ag-grid-community/dist/styles/ag-theme-${theme}.css`;
   let ref;
   let grid;
   let api;
@@ -155,12 +155,13 @@
   };
 
   onMount(async () => {
-    let dataInit;
-    if (!!data && typeof data.then === "function") {
+    let dataInit:Row[];
+    /* if (!!data && typeof data.then === "function") {
       dataInit = await data();
     } else {
       dataInit = data;
-    }
+    } */
+    dataInit = data;
     grid = new Grid(ref, {
       ...options,
       columnDefs,
@@ -183,16 +184,10 @@
   $: updateData(data);
 </script>
 
-<svelte:head>
-  {#if theme !== "alpine" && !Object.values(document.styleSheets).some((styleSheet) => styleSheet.href === themeUrl)}
-    <link rel="stylesheet" href={themeUrl} />
-  {/if}
-</svelte:head>
-
 <div class="ag_container">
   <div
     bind:this={ref}
     style="height: 100%; width:100%"
-    class="ag-theme-{theme}"
+    class="ag-theme-alpine"
   />
 </div>

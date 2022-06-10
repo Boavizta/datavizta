@@ -1,6 +1,9 @@
 <script lang="ts">
+    /*
+     * Not used
+     */ 
     import { _ } from 'svelte-i18n';
-    export let gwpImpactTotal;
+    export let gwpImpactTotal:number;
     let gwpFactorThermalCar = 0.107;
     let gwpEquivalentThermalCar = gwpImpactTotal * gwpFactorThermalCar;
 </script>
