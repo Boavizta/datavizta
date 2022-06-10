@@ -8,6 +8,8 @@
     import * as Scope from "./impacts";
 
     export let lifetime;
+    export let customlifetime;
+    export let medianlifetime;
     export let selectedRegion;
 
     /*internal state*/
@@ -332,6 +334,9 @@
         selectedCategories = selectedCategories;
         selectedManufacturers.clear();
         selectedManufacturers = selectedManufacturers;
+        if (customlifetime == false){
+            lifetime = medianlifetime;
+        }
     }
 
     function onSelect(e) {
