@@ -1,18 +1,18 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
     import AgGridWrapper from "./AgGridWrapper.svelte";
-    import Papa from "papaparse";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./FilterButton.svelte";
-    import * as Utils from "./utils";
     import * as Scope from "./impacts";
+    import * as Utils from "./utils";
+    import type { RegionPickerItem, Row } from "./customType";
 
-    export let lifetime;
-    export let selectedRegion;
+    export let lifetime:number;
+    export let selectedRegion:RegionPickerItem;
 
     /*internal state*/
-    let rows;
-    let filteredRows;
+    let allRows:Row[];//initial state of the grid
+    let filteredRows:Row[];//filtered state of the grid
 
     /*pointer to internal datagrid api*/
     let _filterApi;
@@ -26,29 +26,13 @@
 
     const dispatcher = createEventDispatcher();
 
-    function updateDataGrid(rows) {
-        filteredRows=rows;
-        dispatcher("updateDataGrid", rows);
+    function updateDataGrid(updatedRows:Row[]) {
+        filteredRows=updatedRows;
+        dispatcher("updateDataGrid", updatedRows);
         columnDefs=setColDefs();
     }
 
-    const loadDataGridAsync = async () => {
-        try {
-            const res = await fetch("/boavizta-data-us.csv");
-            const text = await res.text();
-            const csvParsed = Papa.parse(text, {
-                header: true,
-                dynamicTyping: true,
-            });
-            const rowData = csvParsed.data;
-            rowData.shift();
-            filteredRows=rowData;
-            return rowData;
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    };
+    
 
     function setColDefs() {
         let columnDefs = [
@@ -223,7 +207,7 @@
             return rowData;
         } else {
             //no filter has been applied return all set
-            return rows;
+            return allRows;
         }
     }
     let aggridUpdateHeadersChild;
@@ -243,7 +227,9 @@
     }
 
     onMount(async () => {
-        rows = await loadDataGridAsync();
+        allRows = await Utils.loadDataGridAsync();
+        filteredRows=allRows;
+
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
         updateSubcategoryFilter(subcategory);
@@ -253,7 +239,7 @@
         /* retrieve manufacturer from query param*/
         const manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
         updateManufacturerFilter(manufacturer);
-        updateDataGrid(rows)
+        updateDataGrid(allRows)
     });
 
     const updateSubcategoryFilter = (subcategory) => {
@@ -349,43 +335,11 @@
         }
     }
 
-    export function exportCurrentView() {
-        let csvContent = "data:text/csv;charset=utf-8,";
-
-        filteredRows.forEach(row => {
-            let scope3 = Scope.impactScope3byRow(row).scope3;
-            if (scope3 != 0) {
-                row.scope3=scope3;
-            } else {
-                row.scope3='';
-            }
-            let scope2=Scope.impactScope2ByRow(row,lifetime,selectedRegion.value);
-            if (scope2 != 0) {
-                row.scope2=scope2;
-            } else {
-                row.scope2='';
-            }
-            if (lifetime != undefined) {
-                row.lifetimeoverride=lifetime;
-            } else {
-                row.lifetimeoverride='';
-            }
-            if (selectedRegion.value !== -1) {
-                row.regionlabel=selectedRegion.label;
-                row.electricalImpactFactor=selectedRegion.value;
-            } else {
-                row.regionlabel='';
-                row.electricalImpactFactor='';
-            }
-        });
-
-        const headers = Object.keys(filteredRows[0]);
-        csvContent += headers.join(',')+"\r\n";
-        csvContent += Utils.convertToCSV(filteredRows);
-
-        Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
-
-    }
+export function exportCurrentView() {
+    
+    const csvContent:String =  Scope.buildCsvFromFilterRows(filteredRows, lifetime, selectedRegion);
+    Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
+}
 
 
 
@@ -444,7 +398,7 @@
 
 <AgGridWrapper
     {options}
-    data={rows}
+    data={allRows}
     {columnDefs}
     on:select={onSelect}
     bind:aggridUpdateHeaders={aggridUpdateHeadersChild}
