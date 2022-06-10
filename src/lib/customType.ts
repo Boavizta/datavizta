@@ -44,8 +44,10 @@ export type Row = {
 }
 
 export type CalculatedScope = {
-    scope3?: string;
-    scope2?: string;
+    total_scope3?: string;
+    total_scope2?: string;
+    yearly_scope3?: string;
+    yearly_scope2?: string;
     lifetimeoverride?: string;
     regionlabel? : string;
     electricalImpactFactor?:string;

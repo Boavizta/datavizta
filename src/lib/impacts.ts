@@ -1,8 +1,6 @@
 import type { RegionPickerItem, ScopeResult, Row,RowWithScope } from "./customType";
 import * as Utils from "./utils";
 
-
-
 export function calculateImpacts(selectedRows:Row[], yearly:boolean, lifetime:number, electricalImpactFactor:number) {
     const scope2 = impactScope2(selectedRows, yearly, lifetime, electricalImpactFactor);
     const scope3 = impactScope3(selectedRows, yearly, lifetime);
@@ -159,29 +157,40 @@ export function impactScope2ByRow(row:Row, lifetime:number, electricalImpactFact
     return scope2;
 }
 
+export function lifetimebyRow(row:Row) {
+    if (row["lifetime"] != undefined) {
+        return row["lifetime"];
+    } else {
+        return '';
+    }
+}
 /*build csv content from rows and custom values*/
-export function buildCsvFromFilterRows(filteredRows:Row[], lifetime:number, selectedRegion:RegionPickerItem):String {
+export function buildCsvFromFilterRows(filteredRows:Row[], lifetime:number, hascustomlifetime:boolean, selectedRegion:RegionPickerItem):String {
     let csvContent = "data:text/csv;charset=utf-8,";
     let rowsWithScope:RowWithScope[]=new Array();
     filteredRows.forEach(row => {
         const rowWithScope:RowWithScope = row;
-        let scope3 = impactScope3byRow(row).scope3;
-        if (scope3 != 0) {
-            rowWithScope.scope3=scope3.toString();
-        } else {
-            rowWithScope.scope3='';
+        let totalscope3 = impactScope3byRow(row).scope3;
+        let totalscope2=impactScope2ByRow(row,lifetime,selectedRegion.value);
+        if ( hascustomlifetime == false ) {
+            lifetime=lifetimebyRow(row)
         }
-        let scope2=impactScope2ByRow(row,lifetime,selectedRegion.value);
-        if (scope2 != 0) {
-            rowWithScope.scope2=scope2.toString();
+        rowWithScope.lifetimeoverride=lifetime.toString()
+        if (totalscope2 != 0) {
+            rowWithScope.total_scope2=totalscope2.toString();
+            rowWithScope.yearly_scope2=(totalscope2 / lifetime).toString()
         } else {
-            rowWithScope.scope2='';
+            rowWithScope.total_scope2='';
+            rowWithScope.yearly_scope2='';
         }
-        if (lifetime != undefined) {
-            rowWithScope.lifetimeoverride=lifetime.toString();;
+        if (totalscope3 != 0) {
+            rowWithScope.total_scope3=totalscope3.toString();
+            rowWithScope.yearly_scope3=(totalscope3 / lifetime).toString()
         } else {
-            rowWithScope.lifetimeoverride='';
+            rowWithScope.total_scope3='';
+            rowWithScope.yearly_scope3='';
         }
+        
         if (selectedRegion.value !== -1) {
             rowWithScope.regionlabel=selectedRegion.label;
             rowWithScope.electricalImpactFactor=selectedRegion.value.toString();

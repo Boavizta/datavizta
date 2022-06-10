@@ -41,7 +41,7 @@
     };
 
     let medianlifetime:number = 0;
-    let customlifetime:boolean = false;
+    let hascustomlifetime:boolean = false;
     let impactTotal:number = 0;
 
     let datagridUpdateHeadersChild;
@@ -60,7 +60,6 @@
     }
 
     export function dataExplorerUpdate() {
-        console.log("changelagua Dataexplorer")
         datagridUpdateHeaders();
         regionPickerUpdate();
         pieChartUpdate();
@@ -72,7 +71,7 @@
         impactTotal = Scope.impactTotal(state.selectedRows);
         imageUrlData = null;
         hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
-        if (customlifetime == false){
+        if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
 
@@ -159,7 +158,7 @@
     }
 
     function changeLifetime() {
-        customlifetime = true;
+        hascustomlifetime = true;
         onUpdateImpacts();
         if (lifetime == 0){
             lifetime = medianlifetime;
@@ -279,7 +278,7 @@
                             {$_('pie.exportPNG')}
                         </button>
                     {/if}
-                    <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded" on:click={() => {datagrid.exportCurrentView()}}>{$_('datagrid.export_filtered')}</button>
+                    <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded" on:click={() => {datagrid.exportCurrentView(hascustomlifetime)}}>{$_('datagrid.export_filtered')}</button>
    
                 <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     {$_('pie.share')}

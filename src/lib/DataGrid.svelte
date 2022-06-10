@@ -6,9 +6,8 @@
     import * as Scope from "./impacts";
     import * as Utils from "./utils";
     import type { RegionPickerItem, Row } from "./customType";
-
+    
     export let lifetime:number;
-    export let customlifetime:boolean;
     export let medianlifetime:number;
     export let selectedRegion:RegionPickerItem;
 
@@ -320,7 +319,7 @@
         selectedCategories = selectedCategories;
         selectedManufacturers.clear();
         selectedManufacturers = selectedManufacturers;
-        if (customlifetime == false){
+        if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
     }
@@ -340,9 +339,9 @@
         }
     }
 
-export function exportCurrentView() {
+export function exportCurrentView(hascustomlifetime) {
     
-    const csvContent:String =  Scope.buildCsvFromFilterRows(filteredRows, lifetime, selectedRegion);
+    const csvContent:String =  Scope.buildCsvFromFilterRows(filteredRows, lifetime, hascustomlifetime, selectedRegion);
     Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
 }
 
