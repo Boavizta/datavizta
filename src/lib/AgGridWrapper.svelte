@@ -8,7 +8,6 @@
 
   export let columnDefs;
   export let data;
-  export let theme = "alpine";
   export let options = {
     defaultColDef: {
       flex: 1,
@@ -126,7 +125,6 @@
 
   export let loading = false;
 
-  let themeUrl = `https://unpkg.com/ag-grid-community/dist/styles/ag-theme-${theme}.css`;
   let ref;
   let grid;
   let api;
