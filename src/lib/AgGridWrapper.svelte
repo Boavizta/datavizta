@@ -183,16 +183,10 @@
   $: updateData(data);
 </script>
 
-<svelte:head>
-  {#if theme !== "alpine" && !Object.values(document.styleSheets).some((styleSheet) => styleSheet.href === themeUrl)}
-    <link rel="stylesheet" href={themeUrl} />
-  {/if}
-</svelte:head>
-
 <div class="ag_container">
   <div
     bind:this={ref}
     style="height: 100%; width:100%"
-    class="ag-theme-{theme}"
+    class="ag-theme-alpine"
   />
 </div>
