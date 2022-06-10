@@ -8,6 +8,8 @@
     import type { RegionPickerItem, Row } from "./customType";
 
     export let lifetime:number;
+    export let customlifetime:boolean;
+    export let medianlifetime:number;
     export let selectedRegion:RegionPickerItem;
 
     /*internal state*/
@@ -318,6 +320,9 @@
         selectedCategories = selectedCategories;
         selectedManufacturers.clear();
         selectedManufacturers = selectedManufacturers;
+        if (customlifetime == false){
+            lifetime = medianlifetime;
+        }
     }
 
     function onSelect(e) {

@@ -41,6 +41,7 @@
     };
 
     let medianlifetime:number = 0;
+    let customlifetime:boolean = false;
     let impactTotal:number = 0;
 
     let datagridUpdateHeadersChild;
@@ -71,6 +72,10 @@
         impactTotal = Scope.impactTotal(state.selectedRows);
         imageUrlData = null;
         hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
+        if (customlifetime == false){
+            lifetime = medianlifetime;
+        }
+
     }
 
     export function onDataGridUpdate(e) {
@@ -103,7 +108,7 @@
     }
 
     function resetLifetimeValue(){
-        lifetime = lifetimeDefaultValue;
+        lifetime = medianlifetime;
     }
 
     let imageUrlData = null;
@@ -151,6 +156,14 @@
         var checkBox = document.getElementById("yearlycheck");
         yearly = checkBox.checked;
         onUpdateImpacts();
+    }
+
+    function changeLifetime() {
+        customlifetime = true;
+        onUpdateImpacts();
+        if (lifetime == 0){
+            lifetime = medianlifetime;
+        }
     }
 </script>
 
@@ -234,7 +247,7 @@
                 <p class="block">{$_('index.lifetime')}</p>
                 <div class="flex">
 
-                    <input id="lifetime" bind:value={lifetime} on:input={onUpdateImpacts} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
+                    <input id="lifetime" bind:value={lifetime} on:input={changeLifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
                     <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
                         {$_('index.years')}
                     </span>
