@@ -1,13 +1,14 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { Grid } from "ag-grid-community";
   import "ag-grid-community/dist/styles/ag-grid.css";
   import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+  import type { Row } from "./customType";
 
   const dispatch = createEventDispatcher();
 
   export let columnDefs;
-  export let data;
+  export let data:Row[];
   export let options = {
     defaultColDef: {
       flex: 1,
@@ -18,7 +19,10 @@
     rowSelection: "multiple",
   };
   
-  export let selectedSubCategories;
+  export let selectedSubCategories:string[];
+  export let selectedCategories:string[];
+  export let selectedManufacturers:string[];
+
   $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
     if(api == undefined){
@@ -53,7 +57,6 @@
     api.onFilterChanged();
   }
 
-  export let selectedCategories;
   $: filterBycategories(selectedCategories);
   function filterBycategories(categories) {
     if(api == undefined){
@@ -88,7 +91,6 @@
     api.onFilterChanged();
   }
 
-  export let selectedManufacturers;
   $: filterByManufacturers(selectedManufacturers);
   function filterByManufacturers(manufacturers) {
     if(api == undefined){
@@ -153,12 +155,13 @@
   };
 
   onMount(async () => {
-    let dataInit;
-    if (!!data && typeof data.then === "function") {
+    let dataInit:Row[];
+    /* if (!!data && typeof data.then === "function") {
       dataInit = await data();
     } else {
       dataInit = data;
-    }
+    } */
+    dataInit = data;
     grid = new Grid(ref, {
       ...options,
       columnDefs,

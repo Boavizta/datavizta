@@ -3,7 +3,7 @@
 export type RegionPickerItem = {
     label: string, //label to show on the region picker 
     value: number, //value of the elect impact of the region
-    id: number //id of the region
+    id: string //id of the region
 }
 
 export type ScopeResult = {
