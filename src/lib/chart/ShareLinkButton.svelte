@@ -1,10 +1,12 @@
 <script lang="ts">
+import type { RegionPickerItem } from '$lib/customType';
+
     import {_} from 'svelte-i18n';
 
-    export let lifetime;
-    export let selectedRegion;
-    export let yearly;
-    export let filterModels; 
+    export let lifetime:number;
+    export let selectedRegion:RegionPickerItem;
+    export let yearly:boolean;
+    export let filterModels:object; 
     import * as paramParser from '../paramParser';
 
     let shareLink;
