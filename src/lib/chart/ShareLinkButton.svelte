@@ -1,37 +1,24 @@
 <script lang="ts">
+    import {_} from 'svelte-i18n';
 
     export let lifetime;
-    export let selectedSubCategories;
-    export let selectedCategories;
-    export let selectedManufacturers;
     export let selectedRegion;
+    export let yearly;
+    export let filterModels; 
+    import * as paramParser from '../paramParser';
 
     let shareLink;
+        
 
-    
-
-    function buildLink(){
-        let link = window.location.origin;
-        let query = ""
-        if(lifetime){
-            query += "lifetime=" + lifetime + "&"
-        }
-        if(selectedSubCategories.size>0){
-            query += "subcategory=" + selectedSubCategories.values().next().value + "&"
-        }
-        if(selectedCategories.size>0){
-            query += "category=" + selectedCategories.values().next().value + "&"
-        }
-        if(selectedManufacturers.size>0){
-            query += "manufacturer=" + selectedManufacturers.values().next().value + "&"
-        }
-        if(selectedRegion && selectedRegion.value != -1){
-            query += "region=" + selectedRegion.id + "&"
-        }
-        query = query.slice(0, -1)
-        shareLink = link + "?" + query;
+    function toUrl():void {
+        shareLink = window.location.origin +"?"+paramParser.buildLink(lifetime, selectedRegion, yearly, filterModels)
+        console.log(shareLink)
     }
 
+     function fromQueryParam(queryParam:string){
+
+    }
+    
     function selectShareLinkInput(){
         //does not work
         let input = document.getElementById('shareLinkInput');
@@ -40,3 +27,11 @@
     }
 
 </script>
+
+
+<button on:click={toUrl} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+    {$_('pie.share')}
+</button>
+{#if shareLink}
+    <input id="shareLinkInput" class="" value={shareLink} on:change={selectShareLinkInput}/>
+{/if}

@@ -7,6 +7,7 @@
     import PieChart from "./chart/PieChart.svelte";
     import ExportChartImage from './chart/ExportChartImageButton.svelte';
     import ExportCsv from './chart/ExportCSVButton.svelte';
+    import ShareLinkButton from './chart/ShareLinkButton.svelte';
     import * as Scope from "./impacts"
     import { query_selector_all } from 'svelte/internal';
     import type { RegionPickerItem, ScopeResult, ChartResult } from './customType';
@@ -24,6 +25,9 @@
     let selectedRegion:RegionPickerItem;
     //let hasCustomValues:boolean = false;
     let yearly:boolean = false;
+    let filterModels = {};
+
+    /* Inner state */
     let selectedRows = [];
     
     /* Inner state */
@@ -74,7 +78,10 @@
     }
 
     export function onDataGridUpdate(e) {
-        selectedRows = e.detail
+        console.log(e.detail)
+        selectedRows = e.detail.updatedRows
+        filterModels = e.detail.filterModels
+        //update median lifetime
         medianlifetime = Scope.medianlifetime(selectedRows)
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
@@ -241,13 +248,10 @@
                     <!-- export csv -->
                     <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
-                <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                    {$_('pie.share')}
-                </button>
-                {#if shareLink}
-                    <input id="shareLinkInput" class="" value={shareLink} on:change={selectShareLinkInput}/>
-                {/if}-->
-            </div>
+                    <!-- share permalink
+                    -->
+                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} />
+                </div> 
         </div>
 
     </div>
