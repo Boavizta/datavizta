@@ -4,8 +4,8 @@
     import html2canvas from 'html2canvas';
 
     import DataGrid from "./datagrid/DataGrid.svelte";
-    import RegionPicker from "./RegionPicker.svelte";
-    import PieChart from "./PieChart.svelte";
+    import RegionPicker from "./chart/RegionPicker.svelte";
+    import PieChart from "./chart/PieChart.svelte";
     import * as Scope from "./impacts"
     import { query_selector_all } from 'svelte/internal';
     import type { RegionPickerItem, ScopeResult, Row, ChartResult } from './customType';
