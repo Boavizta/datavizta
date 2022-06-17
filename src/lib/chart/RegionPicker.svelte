@@ -3,7 +3,7 @@
   import Select from "svelte-select"
   import {createEventDispatcher, onMount} from "svelte";
   import Papa from "papaparse";
-  import type { RegionPickerItem } from './customType';
+  import type { RegionPickerItem } from '../customType';
 
   let items:RegionPickerItem[];
   

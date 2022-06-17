@@ -1,38 +1,36 @@
 <script lang="ts">
     import {_} from 'svelte-i18n';
     import {onMount} from "svelte";
-    import html2canvas from 'html2canvas';
 
-    import DataGrid from "./DataGrid.svelte";
-    import RegionPicker from "./RegionPicker.svelte";
-    import PieChart from "./PieChart.svelte";
+    import DataGrid from "./datagrid/DataGrid.svelte";
+    import RegionPicker from "./chart/RegionPicker.svelte";
+    import PieChart from "./chart/PieChart.svelte";
+    import ExportChartImage from './chart/ExportChartImageButton.svelte';
+    import ExportCsv from './chart/ExportCSVButton.svelte';
     import * as Scope from "./impacts"
     import { query_selector_all } from 'svelte/internal';
-    import type { RegionPickerItem, ScopeResult, Row, ChartResult } from './customType';
-    
-    //upper state of the grid
-    let datagrid:Row[];
+    import type { RegionPickerItem, ScopeResult, ChartResult } from './customType';
+
+    //filter view of the grid
+    //let datagrid:Row[]; not used?
 
     /* Default value */
     const lifetimeDefaultValue:number = undefined;
-    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:-1};
+    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:"-1"};
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* input values */
     let lifetime:number = lifetimeDefaultValue;//custom lifetime (opt)
     let selectedRegion:RegionPickerItem = regionDefaultValue;
     let disabledCustomValue:boolean = false;
-    let hasCustomValues:boolean = false;
-    let shareLink:string ;
+    //let hasCustomValues:boolean = false;
     let yearly:boolean = false;
 
     /* Inner state */
-    let state = {
-        selectedRows : [],
-        selectedSubCategories : new Set(),
-        selectedManufacturers : new Set(),
-        selectedCategories : new Set(),
-    }
+    let selectedRows = [];
+    let selectedSubCategories = new Set();
+    let selectedManufacturers = new Set();
+    let selectedCategories = new Set();
 
     let ratioScope:ChartResult = {
         scope2: scopeDefaultvalue,
@@ -66,11 +64,10 @@
     }
 
     function onUpdateImpacts(){
-        ratioScope = Scope.calculateImpacts(state.selectedRows, yearly, lifetime, selectedRegion.value)
-        medianlifetime = Scope.medianlifetime(state.selectedRows)
-        impactTotal = Scope.impactTotal(state.selectedRows);
-        imageUrlData = null;
-        hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
+        ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
+        medianlifetime = Scope.medianlifetime(selectedRows)
+        impactTotal = Scope.impactTotal(selectedRows);
+        //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
@@ -78,23 +75,22 @@
     }
 
     export function onDataGridUpdate(e) {
-        state.selectedRows = e.detail
+        selectedRows = e.detail
 
         //re-init categories and manfufacturers
-        state.selectedSubCategories = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedSubCategories.add(r.subcategory)});
-        state.selectedCategories = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedCategories.add(r.category)});
-        state.selectedManufacturers = new Set();
-        state.selectedRows.forEach((r)=>{state.selectedManufacturers.add(r.manufacturer)});
+        selectedSubCategories = new Set();
+        selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)});
+        selectedCategories = new Set();
+        selectedRows.forEach((r)=>{selectedCategories.add(r.category)});
+        selectedManufacturers = new Set();
+        selectedRows.forEach((r)=>{selectedManufacturers.add(r.manufacturer)});
        
-        disabledCustomValue = disableCustomValues(state.selectedRows);
+        disabledCustomValue = disableCustomValues(selectedRows);
         if(disabledCustomValue){
             resetRegionPicker();
             resetLifetimeValue();
         }
         onUpdateImpacts();
-        imageUrlData = null;
     }
 
     function disableCustomValues(selectedRows):boolean{
@@ -110,46 +106,12 @@
         lifetime = medianlifetime;
     }
 
-    let imageUrlData = null;
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
         lifetime = Number(new URLSearchParams(window.location.search).get('lifetime'));
     });
 
-    async function downloadImage() {
-        const canvas = await html2canvas(document.getElementById('viz-container'));
-        imageUrlData = canvas.toDataURL("image/png");
-    }
-
-    function buildLink(){
-        let link = window.location.origin;
-        let query = ""
-        if(lifetime){
-            query += "lifetime=" + lifetime + "&"
-        }
-        if(state.selectedSubCategories.size>0){
-            query += "subcategory=" + state.selectedSubCategories.values().next().value + "&"
-        }
-        if(state.selectedCategories.size>0){
-            query += "category=" + state.selectedCategories.values().next().value + "&"
-        }
-        if(state.selectedManufacturers.size>0){
-            query += "manufacturer=" + state.selectedManufacturers.values().next().value + "&"
-        }
-        if(selectedRegion && selectedRegion.value != -1){
-            query += "region=" + selectedRegion.id + "&"
-        }
-        query = query.slice(0, -1)
-        shareLink = link + "?" + query;
-    }
-
-    function selectShareLinkInput(){
-        //does not work
-        let input = document.getElementById('shareLinkInput');
-        input.focus();
-        input.select();
-    }
 
     function switchYearly() {
         var checkBox = document.getElementById("yearlycheck");
@@ -159,17 +121,20 @@
 
     function changeLifetime() {
         hascustomlifetime = true;
-        onUpdateImpacts();
         if (lifetime == 0){
             lifetime = medianlifetime;
         }
+        onUpdateImpacts();
     }
+
+
+
 </script>
 
 
 <div class="flex flex-col">
 
-        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild} bind:this={datagrid} bind:lifetime={lifetime} bind:selectedRegion={selectedRegion}/>
+        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
 
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
@@ -186,13 +151,13 @@
                     {/if}
                     </div>
                 <div id="result-subtitle" class="text-sm font-light text-center text-gray-800 pl-2">
-                    {#if state.selectedRows.length === 1}
-                        {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(state.selectedRows[0].manufacturer +' ' + state.selectedRows[0].name)}})}
+                    {#if selectedRows.length === 1}
+                        {$_('pie.subtitle_unique_equipment',{values: {total:ratioScope.total, name:(selectedRows[0].manufacturer +' ' + selectedRows[0].name)}})}
                     {:else}
-                        {#if state.selectedSubCategories.size < 3}
-                            {$_('pie.subtitle_multiple_equipment_categories_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), categories:new Array(...state.selectedSubCategories).join(', ')}})}
-                        {:else if state.selectedCategories.size < 3}
-                            {$_('pie.subtitle_multiple_equipment_types_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), types:new Array(...state.selectedCategories).join(', ')}})}
+                        {#if selectedSubCategories.size < 3}
+                            {$_('pie.subtitle_multiple_equipment_categories_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), categories:new Array(...selectedSubCategories).join(', ')}})}
+                        {:else if selectedCategories.size < 3}
+                            {$_('pie.subtitle_multiple_equipment_types_details', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines), types:new Array(...selectedCategories).join(', ')}})}
                         {:else}
                             {$_('pie.subtitle_multiple_equipment_categories', {values:{number:Math.min(ratioScope.scope3.lines,ratioScope.scope2.lines)}})}
                         {/if}
@@ -269,16 +234,11 @@
 
             <div class="flex-row mx-auto">
                     <div id="title export" class="text-xl mt-3 font-medium text-center">{$_('pie.export')}</div>
-                    {#if imageUrlData}
-                        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="my-2 inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                            {$_('pie.download')}
-                        </a>
-                    {:else}
-                        <button on:click={downloadImage} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                            {$_('pie.exportPNG')}
-                        </button>
-                    {/if}
-                    <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded" on:click={() => {datagrid.exportCurrentView(hascustomlifetime)}}>{$_('datagrid.export_filtered')}</button>
+                    
+                    <!-- export chart image -->
+                    <ExportChartImage />
+                    <!-- export csv -->
+                    <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
                 <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     {$_('pie.share')}
