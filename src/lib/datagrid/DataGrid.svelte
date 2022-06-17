@@ -319,9 +319,6 @@
         selectedCategories = selectedCategories;
         selectedManufacturers.clear();
         selectedManufacturers = selectedManufacturers;
-        if (hascustomlifetime == false){
-            lifetime = medianlifetime;
-        }
     }
 
     function onSelect(e) {

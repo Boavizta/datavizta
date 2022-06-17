@@ -3,7 +3,7 @@
   import { Grid } from "ag-grid-community";
   import "ag-grid-community/dist/styles/ag-grid.css";
   import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-  import type { Row } from "./customType";
+  import type { Row } from "../customType";
 
   const dispatch = createEventDispatcher();
 
