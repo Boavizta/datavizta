@@ -334,7 +334,7 @@
   $: updateData(data);
 </script>
 
-<div class="ag_container">
+<div class="ag_container" id="aggridwrapper-root">
   <div
     bind:this={ref}
     style="height: 100%; width:100%"

@@ -37,7 +37,7 @@
     <a href="https://boavizta.org"><img id="logo" style="height: 47px;width: 32px;" src="./boavizta-logo-4.png" alt="Boavizta"></a>
     <h1 class="title-main">Boavizta Dataviz</h1>
     <!--language switch-->
-    <input class="mb-5 ml-auto" title="Choose language" on:click={updateLanguage} value={language} style="width: 20px;"/>
+    <input id="switch-language-button" class="mb-5 ml-auto" title="Choose language" on:click={updateLanguage} value={language} style="width: 20px;"/>
 </div>
 <div id="content" class="px-4">
     <h2 class="title-second">{$_('index.title')}</h2>
