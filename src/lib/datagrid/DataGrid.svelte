@@ -1,8 +1,8 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import AgGridWrapper from "./AgGridWrapper.svelte";
+    import AgGridWrapper from "./_AgGridWrapper.svelte";
     import { createEventDispatcher, onMount } from "svelte";
-    import FilterButton from "./FilterButton.svelte";
+    import FilterButton from "./_FilterButton.svelte";
     import * as Scope from "../impacts";
     import * as Utils from "../utils";
     import type { RegionPickerItem, Row } from "../customType";
