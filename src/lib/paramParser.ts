@@ -1,4 +1,6 @@
-export function buildLink(lifetime, selectedRegion, isYearly, filterModels){
+import type { RegionPickerItem } from "./customType"
+
+export function buildLink(lifetime, selectedRegion:RegionPickerItem, isYearly:boolean, filterModels){
     let query = ""
     const separator = ","
     if(lifetime){
