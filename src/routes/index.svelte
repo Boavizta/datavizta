@@ -65,10 +65,6 @@
         {$_('explanation.6')}
     </div>
 
-    <h3 class="title-second">{$_("index.sub-title")}</h3>
-    <div class="text-sm mb-2">
-        {$_("explanation.6")}
-    </div>
     <!-- <DataExplorer bind:dataExplorerUpdate={updateDataExplorerChild}/> -->
     <DataExplorer/>
 </div>
