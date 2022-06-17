@@ -17,19 +17,22 @@
 
     /*pointer to internal datagrid api*/
     let _filterApi;
+
+    /* filter buttons*/
     const filterCategories = new Set(["Workplace", "Datacenter"]);
     const filterSubCategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Tablet", "Printer"]);
     const filterManufacturers = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Seagate"]);
 
-    let selectedCategories = new Set();
-    let selectedSubCategories = new Set();
-    let selectedManufacturers = new Set();
+    /* selected filter buttons */
+    let filterCategoriesSelected = new Set();
+    let filterSubCategoriesSelected = new Set();
+    let filterManufacturersSelected = new Set();
 
     const dispatcher = createEventDispatcher();
 
-    function updateDataGrid(updatedRows:Row[]) {
+    function updateDataGrid(updatedRows:Row[], filterModels) {
         filteredRows=updatedRows;
-        dispatcher("updateDataGrid", updatedRows);
+        dispatcher("updateDataGrid", {"updatedRows":updatedRows, "filterModels":filterModels});
         columnDefs=setColDefs();
     }
 
@@ -224,7 +227,8 @@
 
     function onFilterChanged(e) {
         filteredRows = getFilterRows(e.api);
-        updateDataGrid(filteredRows);
+        const filterModels = e.api.getFilterModel(); 
+        updateDataGrid(filteredRows, filterModels);
     }
 
     onMount(async () => {
@@ -240,7 +244,7 @@
         /* retrieve manufacturer from query param*/
         const manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
         updateManufacturerFilter(manufacturer);
-        updateDataGrid(allRows)
+        updateDataGrid(allRows, {})
     });
 
     const updateSubcategoryFilter = (subcategory) => {
@@ -250,20 +254,20 @@
             return;
         }
 
-        selectedSubCategories.has(subcategory)
-            ? selectedSubCategories.delete(subcategory)
-            : selectedSubCategories.add(subcategory);
+        filterSubCategoriesSelected.has(subcategory)
+            ? filterSubCategoriesSelected.delete(subcategory)
+            : filterSubCategoriesSelected.add(subcategory);
 
-        const values = selectedSubCategories[Symbol.iterator]();
+        const values = filterSubCategoriesSelected[Symbol.iterator]();
 
         //remove first element to keep only two elements
-        if (selectedSubCategories.size > 2) {
+        if (filterSubCategoriesSelected.size > 2) {
             //remove first element
             const pop = values.next().value;
-            selectedSubCategories.delete(pop);
+            filterSubCategoriesSelected.delete(pop);
         }
         //trigger reactivity
-        selectedSubCategories = selectedSubCategories;
+        filterSubCategoriesSelected = filterSubCategoriesSelected;
     };
     const updateCategoryFilter = (category) => {
         //if category is not part of the defined filter
@@ -272,20 +276,20 @@
             return;
         }
 
-        selectedCategories.has(category)
-            ? selectedCategories.delete(category)
-            : selectedCategories.add(category);
+        filterCategoriesSelected.has(category)
+            ? filterCategoriesSelected.delete(category)
+            : filterCategoriesSelected.add(category);
 
-        const values = selectedCategories[Symbol.iterator]();
+        const values = filterCategoriesSelected[Symbol.iterator]();
 
         //remove first element to keep only two elements
-        if (selectedCategories.size > 2) {
+        if (filterCategoriesSelected.size > 2) {
             //remove first element
             const pop = values.next().value;
-            selectedCategories.delete(pop);
+            filterCategoriesSelected.delete(pop);
         }
         //trigger reactivity
-        selectedCategories = selectedCategories;
+        filterCategoriesSelected = filterCategoriesSelected;
     };
 
     const updateManufacturerFilter = (manufacturer) => {
@@ -295,44 +299,44 @@
             return;
         }
 
-        selectedManufacturers.has(manufacturer)
-            ? selectedManufacturers.delete(manufacturer)
-            : selectedManufacturers.add(manufacturer);
+        filterManufacturersSelected.has(manufacturer)
+            ? filterManufacturersSelected.delete(manufacturer)
+            : filterManufacturersSelected.add(manufacturer);
 
-        const values = selectedManufacturers[Symbol.iterator]();
+        const values = filterManufacturersSelected[Symbol.iterator]();
 
         //remove first element to keep only two elements
-        if (selectedManufacturers.size > 2) {
+        if (filterManufacturersSelected.size > 2) {
             //remove first element
             const pop = values.next().value;
-            selectedManufacturers.delete(pop);
+            filterManufacturersSelected.delete(pop);
         }
         //trigger reactivity
-        selectedManufacturers = selectedManufacturers;
+        filterManufacturersSelected = filterManufacturersSelected;
     };
 
     function resetDataGrid(e) {
-        updateDataGrid(getFilterRows(e.api));
-        selectedSubCategories.clear();
-        selectedSubCategories = selectedSubCategories;
-        selectedCategories.clear();
-        selectedCategories = selectedCategories;
-        selectedManufacturers.clear();
-        selectedManufacturers = selectedManufacturers;
+        updateDataGrid(getFilterRows(e.api), {});
+        filterSubCategoriesSelected.clear();
+        filterSubCategoriesSelected = filterSubCategoriesSelected;
+        filterCategoriesSelected.clear();
+        filterCategoriesSelected = filterCategoriesSelected;
+        filterManufacturersSelected.clear();
+        filterManufacturersSelected = filterManufacturersSelected;
     }
 
     function onSelect(e) {
         if (e.detail.length > 0) {
-            if (selectedSubCategories.size > 0) {
-                selectedSubCategories.clear();
+            if (filterSubCategoriesSelected.size > 0) {
+                filterSubCategoriesSelected.clear();
             }
-            if (selectedCategories.size > 0) {
-                selectedCategories.clear();
+            if (filterCategoriesSelected.size > 0) {
+                filterCategoriesSelected.clear();
             }
-            if (selectedManufacturers.size > 0) {
-                selectedManufacturers.clear();
+            if (filterManufacturersSelected.size > 0) {
+                filterManufacturersSelected.clear();
             }
-            updateDataGrid(e.detail);
+            updateDataGrid(e.detail, {});
         }
     }
 /*
@@ -358,7 +362,7 @@ export function exportCurrentView(hascustomlifetime) {
                 {#each Array.from(filterManufacturers) as ManufacturerFilter}
                 <FilterButton
                     filterText={ManufacturerFilter}
-                    active={selectedManufacturers.has(ManufacturerFilter)}
+                    active={filterManufacturersSelected.has(ManufacturerFilter)}
                     onButtonClick={() => {
                         updateManufacturerFilter(ManufacturerFilter);
                     }}
@@ -373,7 +377,7 @@ export function exportCurrentView(hascustomlifetime) {
                 {#each Array.from(filterCategories) as categoryFilter}
                 <FilterButton
                     filterText={categoryFilter}
-                    active={selectedCategories.has(categoryFilter)}
+                    active={filterCategoriesSelected.has(categoryFilter)}
                     onButtonClick={() => {
                         updateCategoryFilter(categoryFilter);
                     }}
@@ -388,7 +392,7 @@ export function exportCurrentView(hascustomlifetime) {
                 {#each Array.from(filterSubCategories) as subcategoryFilter}
                 <FilterButton
                     filterText={subcategoryFilter}
-                    active={selectedSubCategories.has(subcategoryFilter)}
+                    active={filterSubCategoriesSelected.has(subcategoryFilter)}
                     onButtonClick={() => {
                         updateSubcategoryFilter(subcategoryFilter);
                     }}
@@ -405,7 +409,7 @@ export function exportCurrentView(hascustomlifetime) {
     {columnDefs}
     on:select={onSelect}
     bind:aggridUpdateHeaders={aggridUpdateHeadersChild}
-    {selectedSubCategories}
-    {selectedManufacturers}
-    {selectedCategories}
+    selectedSubCategories={filterSubCategoriesSelected}
+    selectedManufacturers={filterManufacturersSelected}
+    selectedCategories={filterCategoriesSelected}
 />

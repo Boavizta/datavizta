@@ -19,9 +19,9 @@
     rowSelection: "multiple",
   };
   
-  export let selectedSubCategories:string[];
-  export let selectedCategories:string[];
-  export let selectedManufacturers:string[];
+  export let selectedSubCategories;
+  export let selectedCategories;
+  export let selectedManufacturers;
 
   $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
