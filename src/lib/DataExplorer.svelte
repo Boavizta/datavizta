@@ -1,30 +1,29 @@
 <script lang="ts">
     import {_} from 'svelte-i18n';
     import {onMount} from "svelte";
-    import html2canvas from 'html2canvas';
 
     import DataGrid from "./datagrid/DataGrid.svelte";
     import RegionPicker from "./chart/RegionPicker.svelte";
     import PieChart from "./chart/PieChart.svelte";
+    import ExportChartImage from './chart/ExportChartImageButton.svelte';
+    import ExportCsv from './chart/ExportCSVButton.svelte';
     import * as Scope from "./impacts"
     import { query_selector_all } from 'svelte/internal';
-    import type { RegionPickerItem, ScopeResult, Row, ChartResult } from './customType';
-    import * as Utils from "./utils";
+    import type { RegionPickerItem, ScopeResult, ChartResult } from './customType';
 
     //filter view of the grid
     //let datagrid:Row[]; not used?
 
     /* Default value */
     const lifetimeDefaultValue:number = undefined;
-    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:-1};
+    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:"-1"};
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* input values */
     let lifetime:number = lifetimeDefaultValue;//custom lifetime (opt)
     let selectedRegion:RegionPickerItem = regionDefaultValue;
     let disabledCustomValue:boolean = false;
-    let hasCustomValues:boolean = false;
-    let shareLink:string ;
+    //let hasCustomValues:boolean = false;
     let yearly:boolean = false;
 
     /* Inner state */
@@ -68,8 +67,7 @@
         ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
         medianlifetime = Scope.medianlifetime(selectedRows)
         impactTotal = Scope.impactTotal(selectedRows);
-        imageUrlData = null;
-        hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
+        //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
@@ -93,7 +91,6 @@
             resetLifetimeValue();
         }
         onUpdateImpacts();
-        imageUrlData = null;
     }
 
     function disableCustomValues(selectedRows):boolean{
@@ -109,46 +106,12 @@
         lifetime = medianlifetime;
     }
 
-    let imageUrlData = null;
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
         lifetime = Number(new URLSearchParams(window.location.search).get('lifetime'));
     });
 
-    async function downloadImage() {
-        const canvas = await html2canvas(document.getElementById('viz-container'));
-        imageUrlData = canvas.toDataURL("image/png");
-    }
-
-    function buildLink(){
-        let link = window.location.origin;
-        let query = ""
-        if(lifetime){
-            query += "lifetime=" + lifetime + "&"
-        }
-        if(selectedSubCategories.size>0){
-            query += "subcategory=" + selectedSubCategories.values().next().value + "&"
-        }
-        if(selectedCategories.size>0){
-            query += "category=" + selectedCategories.values().next().value + "&"
-        }
-        if(selectedManufacturers.size>0){
-            query += "manufacturer=" + selectedManufacturers.values().next().value + "&"
-        }
-        if(selectedRegion && selectedRegion.value != -1){
-            query += "region=" + selectedRegion.id + "&"
-        }
-        query = query.slice(0, -1)
-        shareLink = link + "?" + query;
-    }
-
-    function selectShareLinkInput(){
-        //does not work
-        let input = document.getElementById('shareLinkInput');
-        input.focus();
-        input.select();
-    }
 
     function switchYearly() {
         var checkBox = document.getElementById("yearlycheck");
@@ -164,10 +127,7 @@
         onUpdateImpacts();
     }
 
-    function exportCurrentView(hascustomlifetime) {
-        const csvContent:String =  Scope.buildCsvFromFilterRows(selectedRows, lifetime, hascustomlifetime, selectedRegion);
-        Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
-    }
+
 
 </script>
 
@@ -274,16 +234,11 @@
 
             <div class="flex-row mx-auto">
                     <div id="title export" class="text-xl mt-3 font-medium text-center">{$_('pie.export')}</div>
-                    {#if imageUrlData}
-                        <a id="viz-download" download="boavizta-gwp-by-equipment.png" href={imageUrlData} class="my-2 inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                            {$_('pie.download')}
-                        </a>
-                    {:else}
-                        <button on:click={downloadImage} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                            {$_('pie.exportPNG')}
-                        </button>
-                    {/if}
-                    <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded" on:click={() => {exportCurrentView(hascustomlifetime)}}>{$_('datagrid.export_filtered')}</button>
+                    
+                    <!-- export chart image -->
+                    <ExportChartImage />
+                    <!-- export csv -->
+                    <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
                 <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
                     {$_('pie.share')}
