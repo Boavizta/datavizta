@@ -3,7 +3,7 @@
     import {onMount} from "svelte";
     import html2canvas from 'html2canvas';
 
-    import DataGrid from "./DataGrid.svelte";
+    import DataGrid from "./datagrid/DataGrid.svelte";
     import RegionPicker from "./RegionPicker.svelte";
     import PieChart from "./PieChart.svelte";
     import * as Scope from "./impacts"

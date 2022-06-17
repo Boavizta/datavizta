@@ -3,9 +3,9 @@
     import AgGridWrapper from "./AgGridWrapper.svelte";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./FilterButton.svelte";
-    import * as Scope from "./impacts";
-    import * as Utils from "./utils";
-    import type { RegionPickerItem, Row } from "./customType";
+    import * as Scope from "../impacts";
+    import * as Utils from "../utils";
+    import type { RegionPickerItem, Row } from "../customType";
     
     //export let lifetime:number; moved to upper component
     //export let medianlifetime:number; moved to upper component
