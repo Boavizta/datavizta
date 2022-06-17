@@ -7,9 +7,9 @@
     import * as Utils from "./utils";
     import type { RegionPickerItem, Row } from "./customType";
     
-    export let lifetime:number;
-    export let medianlifetime:number;
-    export let selectedRegion:RegionPickerItem;
+    //export let lifetime:number; moved to upper component
+    //export let medianlifetime:number; moved to upper component
+    //export let selectedRegion:RegionPickerItem; moved to upper component
 
     /*internal state*/
     let allRows:Row[];//initial state of the grid
@@ -338,12 +338,14 @@
             updateDataGrid(e.detail);
         }
     }
-
+/*
+moved to upper component
 export function exportCurrentView(hascustomlifetime) {
     
     const csvContent:String =  Scope.buildCsvFromFilterRows(filteredRows, lifetime, hascustomlifetime, selectedRegion);
     Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
 }
+*/
 
 
 
