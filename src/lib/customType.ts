@@ -40,7 +40,10 @@ export type Row = {
     hard_drive,
     memory,
     number_cpu,
-    gwp_eol_ratio
+    gwp_eol_ratio,
+    gwp_transport_ratio,
+    height,
+    add_method
 }
 
 export type CalculatedScope = {

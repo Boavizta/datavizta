@@ -3,9 +3,8 @@
     import AgGridWrapper from "./_AgGridWrapper.svelte";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./_FilterButton.svelte";
-    import * as Scope from "../impacts";
     import * as Utils from "../utils";
-    import type { RegionPickerItem, Row } from "../customType";
+    import type { Row } from "../customType";
     
     //export let lifetime:number; moved to upper component
     //export let medianlifetime:number; moved to upper component
@@ -88,7 +87,6 @@
     onMount(async () => {
         allRows = await Utils.loadDataGridAsync();
         filteredRows=allRows;
-
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
         updateSubcategoryFilter(subcategory);
@@ -190,6 +188,7 @@
             if (selectedManufacturers.size > 0) {
                 selectedManufacturers.clear();
             }
+            console.log(e.detail);
             updateDataGrid(e.detail);
         }
     }
