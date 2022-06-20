@@ -3,9 +3,8 @@
     import AgGridWrapper from "./_AgGridWrapper.svelte";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./_FilterButton.svelte";
-    import * as Scope from "../impacts";
     import * as Utils from "../utils";
-    import type { RegionPickerItem, Row } from "../customType";
+    import type { Row } from "../customType";
     
     //export let lifetime:number; moved to upper component
     //export let medianlifetime:number; moved to upper component
@@ -33,150 +32,7 @@
     function updateDataGrid(updatedRows:Row[], filterModels) {
         filteredRows=updatedRows;
         dispatcher("updateDataGrid", {"updatedRows":updatedRows, "filterModels":filterModels});
-        columnDefs=setColDefs();
     }
-
-    
-
-    function setColDefs() {
-        let columnDefs = [
-        {
-            headerName: $_("datagrid.manufacturer"),
-            field: "manufacturer",
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.name"),
-            field: "name",
-            width: 300,
-        },
-        {
-            headerName: $_("datagrid.category"),
-            field: "category",
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.subcategory"),
-            field: "subcategory",
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.report_date"),
-            field: "report_date",
-            hide: false,
-            width: 120,
-        },
-        {
-            headerName: $_("datagrid.total"),
-            field: "gwp_total",
-            filter: false,
-            hide: true,
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.use"),
-            field: "gwp_use_ratio",
-            filter: false,
-            hide: true,
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.manufacturing"),
-            field: "gwp_manufacturing_ratio",
-            filter: false,
-            hide: true,
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.yearlyTec"),
-            field: "yearly_tec",
-            hide: true,
-            filter: false,
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.use_location"),
-            field: "use_location",
-            hide: false,
-            width: 100,
-        },
-        {
-            headerName: $_("datagrid.lifetime"),
-            field: "lifetime",
-            //hide: true,
-            filter: false,
-            width: 120,
-        },
-        {
-            field: "added_date",
-            hide: true,
-            width: 100,
-        },
-        {
-            field: "sources",
-            //hide: true,
-            width: 400,
-            cellRenderer: function (params) {
-                return (
-                    '<a target="_blank" href="' +
-                    params.value +
-                    '">' +
-                    params.value +
-                    "</a>"
-                );
-            },
-        },
-        {
-            field: "gwp_error_ratio",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
-            field: "weight",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
-            field: "assembly_location",
-            hide: true,
-            width: 100,
-        },
-        {
-            field: "screen_size",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
-            field: "server_type",
-            hide: true,
-            width: 100,
-        },
-        {
-            field: "hard_drive",
-            hide: true,
-            width: 100,
-        },
-        {
-            field: "memory",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
-            field: "number_cpu",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-    ];
-    return columnDefs;
-    }
-
-    let columnDefs=setColDefs();
-
 
     let options = {
         defaultColDef: {
@@ -214,7 +70,7 @@
             return allRows;
         }
     }
-    let aggridUpdateHeadersChild;
+    /* let aggridUpdateHeadersChild;
     
     function aggridUpdateHeaders(columnDefs) {
         aggridUpdateHeadersChild(columnDefs);
@@ -223,7 +79,8 @@
     export function datagridUpdateHeaders() {
         columnDefs=setColDefs();
         aggridUpdateHeaders(columnDefs);
-    }
+    } */
+
 
     function onFilterChanged(e) {
         filteredRows = getFilterRows(e.api);
@@ -234,7 +91,6 @@
     onMount(async () => {
         allRows = await Utils.loadDataGridAsync();
         filteredRows=allRows;
-
         /* retrieve subcategory from query param*/
         const subcategory = new URLSearchParams(window.location.search).get('subcategory');
         updateSubcategoryFilter(subcategory);
@@ -337,6 +193,7 @@
                 filterManufacturersSelected.clear();
             }
             updateDataGrid(e.detail, {});
+
         }
     }
 /*
@@ -352,7 +209,7 @@ export function exportCurrentView(hascustomlifetime) {
 
 </script>
 
-<div class="flex flex-wrap justify-between">
+<div id="datagrid-root" class="flex flex-wrap justify-between">
     <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
         <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-1 px-4 border rounded" on:click={resetDataGrid}>{$_('datagrid.filter_reset')}
         </button>
@@ -406,9 +263,7 @@ export function exportCurrentView(hascustomlifetime) {
 <AgGridWrapper
     {options}
     data={allRows}
-    {columnDefs}
     on:select={onSelect}
-    bind:aggridUpdateHeaders={aggridUpdateHeadersChild}
     selectedSubCategories={filterSubCategoriesSelected}
     selectedManufacturers={filterManufacturersSelected}
     selectedCategories={filterCategoriesSelected}

@@ -43,7 +43,7 @@
     let medianlifetime:number = 0;
     let hascustomlifetime:boolean = false;
     let impactTotal:number = 0;
-
+/* 
     let datagridUpdateHeadersChild;
     function datagridUpdateHeaders() {
         datagridUpdateHeadersChild();
@@ -63,7 +63,8 @@
         datagridUpdateHeaders();
         regionPickerUpdate();
         pieChartUpdate();
-    }
+    } 
+    */
 
     function onUpdateImpacts(){
         ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
@@ -138,8 +139,9 @@
 
 <div class="flex flex-col">
 
-        <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
-
+    <!--         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
+    -->
+    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
@@ -183,7 +185,8 @@
                     </div>
                 
                 <div class="mt-2">
-                    <PieChart  {ratioScope} bind:updatePieChart={pieChartUpdateChild}/>
+                    <!-- <PieChart  {ratioScope} bind:updatePieChart={pieChartUpdateChild}/> -->
+                    <PieChart  {ratioScope}/>
                 </div>
             {/if}
         </div>
@@ -205,7 +208,8 @@
             <!-- select region -->
             <div class="mt-2 mb-5">
                 <div class="flex">
-                    <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
+                    <!-- <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/> -->
+                    <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion}  {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
                 </div>
                 <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
             </div>
