@@ -9,9 +9,8 @@
     import ExportCsv from './chart/ExportCSVButton.svelte';
     import ShareLinkButton from './chart/ShareLinkButton.svelte';
     import * as Scope from "./impacts"
-    import { query_selector_all } from 'svelte/internal';
     import type { RegionPickerItem, ScopeResult, ChartResult } from './customType';
-
+    import * as ParamParser from "./paramParser";
     //filter view of the grid
     //let datagrid:Row[]; not used?
 
@@ -114,7 +113,9 @@
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
-        lifetime = Number(new URLSearchParams(window.location.search).get('lifetime'));
+        lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
+        yearly = ParamParser.parseYearly(new URLSearchParams(window.location.search));
+
     });
 
 
