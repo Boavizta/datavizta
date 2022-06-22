@@ -10,6 +10,7 @@
   export let isDisabled:boolean;
 
   function setRegionDefaultValue():RegionPickerItem {
+        //todo: duplicated on upper component
         let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:"-1"};
         return regionDefaultValue
     } 
