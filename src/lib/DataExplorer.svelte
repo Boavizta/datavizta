@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {_} from 'svelte-i18n';
+    import {_, locale} from 'svelte-i18n';
     import {onMount} from "svelte";
 
     import DataGrid from "./datagrid/DataGrid.svelte";
@@ -16,12 +16,12 @@
 
     /* Default value */
     const lifetimeDefaultValue:number = undefined;
-    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:"-1"};
+    let isDefaultRegion = true;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* input values for the chart */
     let lifetime:number = lifetimeDefaultValue;//custom lifetime (opt)
-    let selectedRegion:RegionPickerItem = regionDefaultValue;
+    let selectedRegion:RegionPickerItem;
     //let hasCustomValues:boolean = false;
     let yearly:boolean = false;
     let selectedRows = [];
@@ -64,9 +64,11 @@
     } 
     */
     //reactivity, on value change, update impacts
+    $ : currentLocale = $locale
     $ : onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion);
 
     function onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion){
+        if(selectedRegion==undefined) return;
         ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
         medianlifetime = Scope.medianlifetime(selectedRows)
         impactTotal = Scope.impactTotal(selectedRows);
@@ -102,7 +104,7 @@
     }
 
     function resetRegionPicker(){
-        selectedRegion = regionDefaultValue;
+        isDefaultRegion = true;
     }
 
     function resetLifetimeValue(){
@@ -132,7 +134,10 @@
 
     <!--         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
     -->
-    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+    <!-- destroy component on locale switch -->
+    {#key $locale}
+        <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+    {/key}
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
@@ -163,14 +168,14 @@
 
             
                     <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
-                        {#if selectedRegion !== regionDefaultValue}
+                        {#if !isDefaultRegion}
                             {selectedRegion.label}
                         {/if}
                         {#if lifetime}
-                            {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                            {(!isDefaultRegion) ? ' / ' : ''}
                             {$_('pie.lifetime')}: {lifetime} {$_('pie.year(s)')}
                         {:else if !isNaN(medianlifetime)}
-                            {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                            {(!isDefaultRegion) ? ' / ' : ''}
                             {$_('pie.medianlifetime')}: {medianlifetime} {$_('pie.year(s)')}
                         {/if}
                     </div>
@@ -200,7 +205,10 @@
             <div class="mt-2 mb-5">
                 <div class="flex">
                     <!-- <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/> -->
-                    <RegionPicker bind:value={selectedRegion} {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
+                    <!-- destroy component on locale switch -->
+                    {#key $locale}
+                        <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
+                    {/key}
                 </div>
                 <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
             </div>
