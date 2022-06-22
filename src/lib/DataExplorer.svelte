@@ -64,7 +64,6 @@
     } 
     */
     //reactivity, on value change, update impacts
-    $ : currentLocale = $locale
     $ : onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion);
 
     function onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion){
