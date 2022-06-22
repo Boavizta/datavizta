@@ -4,6 +4,7 @@
   import { onMount} from "svelte";
   import Papa from "papaparse";
   import type { RegionPickerItem } from '../customType';
+  import * as ParamParser from "../paramParser";
 
   let items:RegionPickerItem[];
   
@@ -18,8 +19,7 @@
     const text = await res.text();
     items = toSelectItems(text);
     /* retrieve region from query param */ 
-    const region = new URLSearchParams(window.location.search).get('region');
-    value = items && items.find(o => o.id === region) || defaultRegionItem;
+    value = ParamParser.parseRegion(new URLSearchParams(window.location.search), items) || defaultRegionItem
   });
 
   //const dispatcher = createEventDispatcher();

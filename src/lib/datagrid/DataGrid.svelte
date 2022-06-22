@@ -5,7 +5,8 @@
     import FilterButton from "./_FilterButton.svelte";
     import * as Utils from "../utils";
     import type { Row } from "../customType";
-    
+    import * as ParamParser from "../paramParser";
+
     //export let lifetime:number; moved to upper component
     //export let medianlifetime:number; moved to upper component
     //export let selectedRegion:RegionPickerItem; moved to upper component
@@ -100,6 +101,9 @@
         /* retrieve manufacturer from query param*/
         const manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
         updateManufacturerFilter(manufacturer);
+
+        //const filterModels = ParamParser.parseFilter(new URLSearchParams(window.location.search));
+
         updateDataGrid(allRows, {})
     });
 
