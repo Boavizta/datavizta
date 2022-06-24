@@ -20,7 +20,7 @@
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
     /* input values for the chart */
-    let lifetime:number = lifetimeDefaultValue;//custom lifetime (opt)
+    let lifetime:number = lifetimeDefaultValue;
     let selectedRegion:RegionPickerItem;
     //let hasCustomValues:boolean = false;
     let yearly:boolean = false;
@@ -69,18 +69,16 @@
     function onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion){
         if(selectedRegion==undefined) return;
         ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
-        medianlifetime = Scope.medianlifetime(selectedRows)
         impactTotal = Scope.impactTotal(selectedRows);
         //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
-        if (hascustomlifetime == false){
-            lifetime = medianlifetime;
-        }
-
     }
 
     export function onDataGridUpdate(e) {
         selectedRows = e.detail
-
+        medianlifetime = Scope.medianlifetime(selectedRows)
+        if (hascustomlifetime == false){
+            lifetime = medianlifetime;
+        }
         //re-init categories and manfufacturers
         selectedSubCategories = new Set();
         selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)});
@@ -92,7 +90,7 @@
         disabledCustomValue = disableCustomValues(selectedRows);
         if(disabledCustomValue){
             resetRegionPicker();
-            resetLifetimeValue();
+            //resetLifetimeValue();
         }
         //onUpdateImpacts();
     }
@@ -106,9 +104,9 @@
         isDefaultRegion = true;
     }
 
-    function resetLifetimeValue(){
+/*     function resetLifetimeValue(){
         lifetime = medianlifetime;
-    }
+    } */
 
 
     onMount(async () => {
