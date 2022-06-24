@@ -15,8 +15,8 @@
 
   onMount(async () => {
     const res = await fetch("./electrical_foot_print.csv");
-    const csv = await res.text();
-    items = toSelectItems(csv);
+    const text = await res.text();
+    items = toSelectItems(text);
     /* retrieve region from query param */ 
     const region = new URLSearchParams(window.location.search).get('region');
     value = items && items.find(o => o.id === region) || defaultRegionItem;
