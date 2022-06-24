@@ -58,6 +58,7 @@
     "exportPNG" : "Exporter en PNG",
     "download" : "Télécharger",
     "share" : "Partager",
+    "share-not-available" : "Partager un équipement selectionné n'est pas (encore) disponible",
     "copy" : "Copier le lien",
     "copied" : "Lien copié",
 

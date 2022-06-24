@@ -254,11 +254,7 @@
                 </div> 
                 <div class="flex-row mx-auto">
                     <!-- share permalink, does not work (yet) with one equipment selection-->
-                    {#if selectedRows.length > 1 }
-                        <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} />
-            
-                    {/if}
-                    
+                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} notAvailable={selectedRows.length == 1} />
                 </div>
         </div>
 
