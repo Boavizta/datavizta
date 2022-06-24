@@ -11,13 +11,11 @@
   export let isDefaultRegion:boolean;
   const defaultRegionItem = {label: $_('region-picker.default'), value: -1, id:"-1"};
 
-  let csv; 
-
   export let value:RegionPickerItem;
 
   onMount(async () => {
     const res = await fetch("./electrical_foot_print.csv");
-    csv = await res.text();
+    const csv = await res.text();
     items = toSelectItems(csv);
     /* retrieve region from query param */ 
     const region = new URLSearchParams(window.location.search).get('region');
