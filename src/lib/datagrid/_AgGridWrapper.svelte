@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _, locale } from "svelte-i18n";
+  import { _,locale} from "svelte-i18n";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { Grid } from "ag-grid-community";
   import "ag-grid-community/dist/styles/ag-grid.css";
@@ -323,14 +323,14 @@
   */
 
   $:{
+        //reactivity, executed on locale updates
         console.log($locale);
         if (grid) {
           columnDefs = buildColumnDefs()
-          console.log(columnDefs);
+          //console.log(columnDefs);
           grid.gridOptions.api.setColumnDefs(columnDefs);
         }
     }
-
   $: updateData(data);
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { _, locale } from "svelte-i18n";
+    import { _ } from "svelte-i18n";
     import AgGridWrapper from "./_AgGridWrapper.svelte";
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./_FilterButton.svelte";

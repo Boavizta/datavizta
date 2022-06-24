@@ -1,48 +1,41 @@
 <script lang="ts">
-  import {_} from 'svelte-i18n';
+  import { _ } from "svelte-i18n";
   import Select from "svelte-select"
-  import {createEventDispatcher, onMount} from "svelte";
+  import { onMount} from "svelte";
   import Papa from "papaparse";
   import type { RegionPickerItem } from '../customType';
 
   let items:RegionPickerItem[];
   
   export let isDisabled:boolean;
+  export let isDefaultRegion:boolean;
+  const defaultRegionItem = {label: $_('region-picker.default'), value: -1, id:"-1"};
 
-  function setRegionDefaultValue():RegionPickerItem {
-        let regionDefaultValue = {label: $_('region-picker.default'), value: -1, id:"-1"};
-        return regionDefaultValue
-    } 
-  export let regionDefaultValue:RegionPickerItem=setRegionDefaultValue();
-  export let selectedRegion:RegionPickerItem = regionDefaultValue;
-  export let value:RegionPickerItem = regionDefaultValue;
-  
-  export function updateRegionPicker():void {
-    regionDefaultValue=setRegionDefaultValue();
-    selectedRegion = regionDefaultValue;
-    value = regionDefaultValue;
-  };
-  
+  export let value:RegionPickerItem;
+
   onMount(async () => {
     const res = await fetch("./electrical_foot_print.csv");
     const text = await res.text();
     items = toSelectItems(text);
     /* retrieve region from query param */ 
     const region = new URLSearchParams(window.location.search).get('region');
-    value = items && items.find(o => o.id === region) || regionDefaultValue;
+    value = items && items.find(o => o.id === region) || defaultRegionItem;
   });
 
-  const dispatcher = createEventDispatcher();
+  //const dispatcher = createEventDispatcher();
 
-  function updateImpacts() {
+/*   function updateImpacts() {
     dispatcher("updateImpacts");
-  };
+  }; */
 
   function toSelectItems(csv) {
+    if(csv == undefined){
+      return
+    }
     const csvParsed = Papa.parse(csv, {header: true, dynamicTyping: true})
     const rowData = csvParsed.data;
     const selectItems = []
-    selectItems.push(regionDefaultValue)
+    selectItems.push(defaultRegionItem)
     return selectItems.concat(rowData.map((row) => {
       return {
         id : row['country'].toLowerCase(),
@@ -55,5 +48,5 @@
 
 </script>
 
-<Select {items} bind:value={value} on:select={updateImpacts} containerClasses="border border-1 rounded-r px-2 py-2 w-full" isDisabled="{isDisabled}" />
+<Select {items} bind:value={value} containerClasses="border border-1 rounded-r px-2 py-2 w-full" isDisabled="{isDisabled}" />
 

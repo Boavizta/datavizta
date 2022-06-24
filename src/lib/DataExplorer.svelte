@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {_} from 'svelte-i18n';
+    import {_, locale} from 'svelte-i18n';
     import {onMount} from "svelte";
 
     import DataGrid from "./datagrid/DataGrid.svelte";
@@ -16,28 +16,28 @@
 
     /* Default value */
     const lifetimeDefaultValue:number = undefined;
-    let regionDefaultValue: RegionPickerItem = {label: $_('region-picker.default'), value: -1, id:"-1"};
+    let isDefaultRegion = true;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
-    /* input values */
-    let lifetime:number = lifetimeDefaultValue;//custom lifetime (opt)
-    let selectedRegion:RegionPickerItem = regionDefaultValue;
-    let disabledCustomValue:boolean = false;
+    /* input values for the chart */
+    let lifetime:number = lifetimeDefaultValue;
+    let selectedRegion:RegionPickerItem;
     //let hasCustomValues:boolean = false;
     let yearly:boolean = false;
-
-    /* Inner state */
     let selectedRows = [];
+    
+    /* Inner state */
     let selectedSubCategories = new Set();
     let selectedManufacturers = new Set();
     let selectedCategories = new Set();
-
+    
     let ratioScope:ChartResult = {
         scope2: scopeDefaultvalue,
         scope3: scopeDefaultvalue,
         total:0
     };
-
+    let disabledCustomValue:boolean = false;
+    
     let medianlifetime:number = 0;
     let hascustomlifetime:boolean = false;
     let impactTotal:number = 0;
@@ -63,21 +63,22 @@
         pieChartUpdate();
     } 
     */
+    //reactivity, on value change, update impacts
+    $ : onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion);
 
-    function onUpdateImpacts(){
+    function onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion){
+        if(selectedRegion==undefined) return;
         ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
-        medianlifetime = Scope.medianlifetime(selectedRows)
         impactTotal = Scope.impactTotal(selectedRows);
         //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
-        if (hascustomlifetime == false){
-            lifetime = medianlifetime;
-        }
-
     }
 
     export function onDataGridUpdate(e) {
         selectedRows = e.detail
-
+        medianlifetime = Scope.medianlifetime(selectedRows)
+        if (hascustomlifetime == false){
+            lifetime = medianlifetime;
+        }
         //re-init categories and manfufacturers
         selectedSubCategories = new Set();
         selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)});
@@ -89,9 +90,9 @@
         disabledCustomValue = disableCustomValues(selectedRows);
         if(disabledCustomValue){
             resetRegionPicker();
-            resetLifetimeValue();
+            //resetLifetimeValue();
         }
-        onUpdateImpacts();
+        //onUpdateImpacts();
     }
 
     function disableCustomValues(selectedRows):boolean{
@@ -100,12 +101,12 @@
     }
 
     function resetRegionPicker(){
-        selectedRegion = regionDefaultValue;
+        isDefaultRegion = true;
     }
 
-    function resetLifetimeValue(){
+/*     function resetLifetimeValue(){
         lifetime = medianlifetime;
-    }
+    } */
 
 
     onMount(async () => {
@@ -113,19 +114,12 @@
         lifetime = Number(new URLSearchParams(window.location.search).get('lifetime'));
     });
 
-
-    function switchYearly() {
-        var checkBox = document.getElementById("yearlycheck");
-        yearly = checkBox.checked;
-        onUpdateImpacts();
-    }
-
     function changeLifetime() {
         hascustomlifetime = true;
         if (lifetime == 0){
             lifetime = medianlifetime;
         }
-        onUpdateImpacts();
+        //onUpdateImpacts();
     }
 
 
@@ -137,7 +131,7 @@
 
     <!--         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
     -->
-    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+        <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
@@ -148,7 +142,7 @@
             {:else}
                 <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
                 <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq
-                    {#if yearly == true}
+                    {#if yearly}
                         / {$_('pie.year')}
                     {/if}
                     </div>
@@ -168,14 +162,14 @@
 
             
                     <div id="result-subtitle" class="text-sm font-light text-center text-gray-600 pl-2">
-                        {#if selectedRegion !== regionDefaultValue}
+                        {#if !isDefaultRegion}
                             {selectedRegion.label}
                         {/if}
                         {#if lifetime}
-                            {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                            {(!isDefaultRegion) ? ' / ' : ''}
                             {$_('pie.lifetime')}: {lifetime} {$_('pie.year(s)')}
                         {:else if !isNaN(medianlifetime)}
-                            {(selectedRegion !== regionDefaultValue) ? ' / ' : ''}
+                            {(!isDefaultRegion) ? ' / ' : ''}
                             {$_('pie.medianlifetime')}: {medianlifetime} {$_('pie.year(s)')}
                         {/if}
                     </div>
@@ -193,8 +187,8 @@
             <div class="flex mx-auto mt-1 mb-5">
                 <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
                 <label class="mw-1/3 switch">
-                    <input type="checkbox" id="yearlycheck" on:click={switchYearly}>
-                <span class="slider round"></span>
+                    <input type="checkbox" id="yearlycheck" bind:checked={yearly}>
+                    <span class="slider round"></span>
                 </label>
                 <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
             </div>
@@ -205,7 +199,10 @@
             <div class="mt-2 mb-5">
                 <div class="flex">
                     <!-- <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/> -->
-                    <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion}  {regionDefaultValue} isDisabled="{disabledCustomValue}"/>
+                    <!-- destroy/recreate component on locale update -->
+                    {#key $locale}
+                        <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
+                    {/key}
                 </div>
                 <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
             </div>
