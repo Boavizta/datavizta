@@ -7,29 +7,28 @@
     import PieChart from "./chart/PieChart.svelte";
     import ExportChartImage from './chart/ExportChartImageButton.svelte';
     import ExportCsv from './chart/ExportCSVButton.svelte';
+    import ShareLinkButton from './chart/ShareLinkButton.svelte';
     import * as Scope from "./impacts"
-    import { query_selector_all } from 'svelte/internal';
-    import type { RegionPickerItem, ScopeResult, ChartResult } from './customType';
-
-    //filter view of the grid
-    //let datagrid:Row[]; not used?
+    import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel } from './customType';
+    import * as ParamParser from "./paramParser";
 
     /* Default value */
-    const lifetimeDefaultValue:number = undefined;
     let isDefaultRegion = true;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
-    /* input values for the chart */
-    let lifetime:number = lifetimeDefaultValue;
+    /* input values from the url */
+    let lifetime:number;
     let selectedRegion:RegionPickerItem;
     //let hasCustomValues:boolean = false;
-    let yearly:boolean = false;
-    let selectedRows = [];
+    let yearly:boolean;
+    let filterModels:FlatFilterModel;//filters defined in the datagrid component
+    let windowOrigin;
     
     /* Inner state */
-    let selectedSubCategories = new Set();
-    let selectedManufacturers = new Set();
-    let selectedCategories = new Set();
+    let selectedRows = [];
+    let selectedSubCategories = new Set();//todo : duplicated from filterModels
+    let selectedManufacturers = new Set();//todo : duplicated from filterModels
+    let selectedCategories = new Set();//todo : duplicated from filterModels
     
     let ratioScope:ChartResult = {
         scope2: scopeDefaultvalue,
@@ -73,8 +72,11 @@
         //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
     }
 
-    export function onDataGridUpdate(e) {
-        selectedRows = e.detail
+    function onDataGridUpdate(e) {
+        console.log(e.detail)
+        selectedRows = e.detail.updatedRows
+        filterModels = e.detail.filterModels
+        //update median lifetime
         medianlifetime = Scope.medianlifetime(selectedRows)
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
@@ -111,18 +113,23 @@
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
-        lifetime = Number(new URLSearchParams(window.location.search).get('lifetime'));
+        windowOrigin = window.location.origin;
+        console.log("Window origin", windowOrigin)
+        lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
+        if(lifetime){
+            hascustomlifetime = true;
+        }
+        yearly = ParamParser.parseYearly(new URLSearchParams(window.location.search));
+
     });
 
     function changeLifetime() {
         hascustomlifetime = true;
-        if (lifetime == 0){
+        /* if (lifetime == 0){
             lifetime = medianlifetime;
-        }
+        } */
         //onUpdateImpacts();
     }
-
-
 
 </script>
 
@@ -134,7 +141,7 @@
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
-        <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
+        <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-solid border-2 border-teal-500/20">
             {#if isNaN(ratioScope.total)}
                 <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
                 <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{impactTotal} kgCO2eq</div>
@@ -222,10 +229,11 @@
 
             {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
-                {$_('explanation.8')}
+                {@html $_('explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
-                {$_('explanation.9')}
+                {@html $_('explanation.9',  {values: {urlFrance:windowOrigin +"?region=france", 
+                urlPoland:windowOrigin +"?region=poland"}})}
             </p>
             {:else}
             <p class="text-xs mb-2 font-light">
@@ -241,13 +249,15 @@
                     <!-- export csv -->
                     <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
-                <!--<button on:click={buildLink} class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
-                    {$_('pie.share')}
-                </button>
-                {#if shareLink}
-                    <input id="shareLinkInput" class="" value={shareLink} on:change={selectShareLinkInput}/>
-                {/if}-->
-            </div>
+                </div> 
+                <div class="flex-row mx-auto">
+                    <!-- share permalink, does not work (yet) with one equipment selection-->
+                    {#if selectedRows.length > 1 }
+                        <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} />
+            
+                    {/if}
+                    
+                </div>
         </div>
 
     </div>

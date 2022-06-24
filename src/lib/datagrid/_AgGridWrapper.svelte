@@ -4,7 +4,8 @@
   import { Grid } from "ag-grid-community";
   import "ag-grid-community/dist/styles/ag-grid.css";
   import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-  import type { Row } from "../customType";
+  import type { Row,FlatFilterModel,FilterModel } from "../customType";
+  import * as ParamParser from "../paramParser";
 
   const dispatch = createEventDispatcher();
 
@@ -21,10 +22,28 @@
     rowSelection: "multiple",
   };
   
-  export let selectedSubCategories:string[];
-  export let selectedCategories:string[];
-  export let selectedManufacturers:string[];
+  //export let selectedSubCategories;
+  //export let selectedCategories;
+  //export let selectedManufacturers;
 
+  export let flatFilterModels:FlatFilterModel = {};
+
+  $ :{
+    console.log("flat filter models : ", flatFilterModels);
+    const filterModel:FilterModel = ParamParser.buildFilterModels(flatFilterModels);
+
+    for(const filterkey in filterModel){
+      if(grid){
+        // get filter instance
+        api.getFilterInstance(filterkey).setModel(filterModel[filterkey]);
+    
+        // refresh rows based on the filter (not automatic to allow for batching multiple filters)
+        api.onFilterChanged();
+      }
+    }
+  }
+
+/*
   $: filterBySubcategories(selectedSubCategories);
   function filterBySubcategories(subcategories) {
     if(api == undefined){
@@ -126,7 +145,7 @@
     // refresh rows based on the filter (not automatic to allow for batching multiple filters)
     api.onFilterChanged();
   }
-
+*/
   export let loading = false;
 
   let ref;
@@ -314,13 +333,6 @@
       grid.destroy();
     }
   });
-  /* 
-  export function aggridUpdateHeaders(columnDefs) {
-    if (grid) {
-      grid.gridOptions.api.setColumnDefs(columnDefs);
-    }
-  } 
-  */
 
   $:{
         //reactivity, executed on locale updates

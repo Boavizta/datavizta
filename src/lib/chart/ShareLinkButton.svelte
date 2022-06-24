@@ -1,42 +1,41 @@
 <script lang="ts">
+    import type { FlatFilterModel, RegionPickerItem } from '$lib/customType';
 
-    export let lifetime;
-    export let selectedSubCategories;
-    export let selectedCategories;
-    export let selectedManufacturers;
-    export let selectedRegion;
+    import {_} from 'svelte-i18n';
+    import { CopyButton } from "carbon-components-svelte";
 
+    export let lifetime:number;
+    export let selectedRegion:RegionPickerItem;
+    export let yearly:boolean;
+    export let filterModels:FlatFilterModel; 
+    import * as paramParser from '../paramParser';
     let shareLink;
 
-    
+    $: shareLink = window.location.origin +"?"+paramParser.buildLink(lifetime, selectedRegion, yearly, filterModels);
 
-    function buildLink(){
-        let link = window.location.origin;
-        let query = ""
-        if(lifetime){
-            query += "lifetime=" + lifetime + "&"
-        }
-        if(selectedSubCategories.size>0){
-            query += "subcategory=" + selectedSubCategories.values().next().value + "&"
-        }
-        if(selectedCategories.size>0){
-            query += "category=" + selectedCategories.values().next().value + "&"
-        }
-        if(selectedManufacturers.size>0){
-            query += "manufacturer=" + selectedManufacturers.values().next().value + "&"
-        }
-        if(selectedRegion && selectedRegion.value != -1){
-            query += "region=" + selectedRegion.id + "&"
-        }
-        query = query.slice(0, -1)
-        shareLink = link + "?" + query;
-    }
 
-    function selectShareLinkInput(){
-        //does not work
-        let input = document.getElementById('shareLinkInput');
-        input.focus();
-        input.select();
-    }
 
 </script>
+
+<div class="flex">
+
+    <!-- <button on:click={toUrl} class=" inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded"> -->
+    <!-- <button on:click={toUrl} class=" inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">
+
+    {$_('pie.share')}
+</button> -->
+{#if shareLink}
+    <div class="flex">
+            
+        <span class="py-2 px-1">{$_('pie.share')}</span>
+            <input id="shareLinkInput" class="px-1 w-auto" value={shareLink}/>
+            <!-- <CopyToClipboard text={shareLink} on:copy={handleSuccessfullyCopied} on:fail={handleFailedCopy} let:copy>
+                <button on:click={copy} class="my-2 inline-block bg-teal-600 hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded">    
+                    {$_('pie.copy')}
+                </button>
+                
+        </CopyToClipboard> -->
+        <CopyButton class="bg-gray-100 border-teal-600" text={shareLink} iconDescription={$_('pie.copy')} feedback={$_('pie.copied')}/>
+    </div>
+  {/if}
+  </div>

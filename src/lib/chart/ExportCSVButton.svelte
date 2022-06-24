@@ -16,4 +16,4 @@
 </script>
 
 
-<button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border border-teal-600 rounded" on:click={exportCurrentView}>{$_('datagrid.export_filtered')}</button>
+<button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded" on:click={exportCurrentView}>{$_('datagrid.export_filtered')}</button>
