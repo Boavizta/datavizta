@@ -11,11 +11,8 @@
     import * as Scope from "./impacts"
     import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel } from './customType';
     import * as ParamParser from "./paramParser";
-    //filter view of the grid
-    //let datagrid:Row[]; not used?
 
     /* Default value */
-    const lifetimeDefaultValue:number = undefined;
     let isDefaultRegion = true;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 

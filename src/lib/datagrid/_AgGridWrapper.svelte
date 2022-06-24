@@ -333,13 +333,6 @@
       grid.destroy();
     }
   });
-  /* 
-  export function aggridUpdateHeaders(columnDefs) {
-    if (grid) {
-      grid.gridOptions.api.setColumnDefs(columnDefs);
-    }
-  } 
-  */
 
   $:{
         //reactivity, executed on locale updates

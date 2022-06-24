@@ -72,17 +72,6 @@
             return allRows;
         }
     }
-    /* let aggridUpdateHeadersChild;
-    
-    function aggridUpdateHeaders(columnDefs) {
-        aggridUpdateHeadersChild(columnDefs);
-    }
-
-    export function datagridUpdateHeaders() {
-        columnDefs=setColDefs();
-        aggridUpdateHeaders(columnDefs);
-    } */
-
 
     //todo : should be in child components?
     function onFilterChanged(e) {
@@ -248,17 +237,6 @@
 
         }
     }
-/*
-moved to upper component
-export function exportCurrentView(hascustomlifetime) {
-    
-    const csvContent:String =  Scope.buildCsvFromFilterRows(filteredRows, lifetime, hascustomlifetime, selectedRegion);
-    Utils.exportCSVToDownload(csvContent,"boavizta_exported_view_"+(new Date()).toLocaleString().replaceAll(', ','T').replaceAll('/','-').replaceAll(':','')+".csv")
-}
-*/
-
-
-
 </script>
 
 <div id="datagrid-root" class="flex flex-wrap justify-between">

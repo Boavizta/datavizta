@@ -29,12 +29,6 @@
     }
   });
 
-  //const dispatcher = createEventDispatcher();
-
-/*   function updateImpacts() {
-    dispatcher("updateImpacts");
-  }; */
-
   function toSelectItems(csv) {
     if(csv == undefined){
       return
