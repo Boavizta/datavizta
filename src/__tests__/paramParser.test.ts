@@ -35,6 +35,25 @@ const regionItem:RegionPickerItem = {
     },
   }
 
+  const filterModels2 = {
+    manufacturer: {
+      filterType: "text",
+      operator: "OR",
+      condition1: {
+        filterType: "text",
+        type: "contains",
+        filter: "Lenovo",
+      }
+    }
+  }
+
+  const filterModels3 = {
+    manufacturer: {
+      filterType: "text",
+      type: "contains",
+      filter: "Lenovo",
+    }
+  }
 
  describe("Parse parameters", () => {
 
@@ -119,15 +138,31 @@ const regionItem:RegionPickerItem = {
           },
         });
     });
+    test("should parse mono filter", () => {
+      expect(ParamParser.parseFlatFilter(new URLSearchParams("category=Datacenter"))).toEqual({
+        category: ["Datacenter"]
+      });
+    });
 
+    test("should parse multi filters", () => {
+      expect(ParamParser.parseFlatFilter(new URLSearchParams("category=Datacenter&manufacturer=Lenovo,Seagate"))).toEqual(
+        {
+          manufacturer: ["Lenovo","Seagate"],
+          category: ["Datacenter"]
+        });
+    });
 
-
-
-    test("should build url with two filters", () => {
+   /*  test("should build url with two filters", () => {
         expect(ParamParser.buildLink(undefined, undefined, undefined, filterModels)).toEqual(
             "manufacturer=Lenovo,Seagate&category=Datacenter"
         );
-    })
+    }) */
+
+  /*   test("should build url with one filters", () => {
+      expect(ParamParser.buildLink(undefined, undefined, undefined, filterModels2)).toEqual(
+          "manufacturer=Lenovo"
+      );
+  }) */
 
     test("should build url with region", () => {
         expect(ParamParser.buildLink(undefined, regionItem, undefined, null)).toEqual(
@@ -152,4 +187,39 @@ const regionItem:RegionPickerItem = {
             ""
         );
     })
+
+    test("should parse filter models to object", () => {
+      expect(ParamParser.flatten(filterModels)).toEqual(
+          {
+            manufacturer:["Lenovo", "Seagate"],
+            category:["Datacenter"]
+          }
+      );
+    })
+
+    test("should parse filter models to object", () => {
+      expect(ParamParser.flatten(filterModels2)).toEqual(
+          {
+            manufacturer:["Lenovo"]
+          }
+      );
+    })
+
+    test("should build filter models from flatten object", () => {
+      expect(ParamParser.buildFilterModels({
+        manufacturer:["Lenovo", "Seagate"],
+        category:["Datacenter"]
+      })).toEqual(
+          filterModels
+      );
+    })
+
+    test("should parse filter models to object", () => {
+      expect(ParamParser.buildFilterModels({
+        manufacturer:["Lenovo"]
+      })).toEqual(
+        filterModels3
+      );
+    })
+
   });

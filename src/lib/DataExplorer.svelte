@@ -9,7 +9,7 @@
     import ExportCsv from './chart/ExportCSVButton.svelte';
     import ShareLinkButton from './chart/ShareLinkButton.svelte';
     import * as Scope from "./impacts"
-    import type { RegionPickerItem, ScopeResult, ChartResult } from './customType';
+    import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel } from './customType';
     import * as ParamParser from "./paramParser";
     //filter view of the grid
     //let datagrid:Row[]; not used?
@@ -19,20 +19,18 @@
     let isDefaultRegion = true;
     const scopeDefaultvalue: ScopeResult = {result: 1, lines: 1, median: 1};
 
-    /* input values for the chart */
-    let lifetime:number = lifetimeDefaultValue;
+    /* input values from the url */
+    let lifetime:number;
     let selectedRegion:RegionPickerItem;
     //let hasCustomValues:boolean = false;
-    let yearly:boolean = false;
-    let filterModels = {};
-
-    /* Inner state */
-    let selectedRows = [];
+    let yearly:boolean;
+    let filterModels:FlatFilterModel;//filters defined in the datagrid component
     
     /* Inner state */
-    let selectedSubCategories = new Set();
-    let selectedManufacturers = new Set();
-    let selectedCategories = new Set();
+    let selectedRows = [];
+    let selectedSubCategories = new Set();//todo : duplicated from filterModels
+    let selectedManufacturers = new Set();//todo : duplicated from filterModels
+    let selectedCategories = new Set();//todo : duplicated from filterModels
     
     let ratioScope:ChartResult = {
         scope2: scopeDefaultvalue,
@@ -76,19 +74,15 @@
         //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
     }
 
-    export function onDataGridUpdate(e) {
+    function onDataGridUpdate(e) {
         console.log(e.detail)
         selectedRows = e.detail.updatedRows
         filterModels = e.detail.filterModels
-<<<<<<< HEAD
         //update median lifetime
         medianlifetime = Scope.medianlifetime(selectedRows)
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
-=======
-
->>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
         //re-init categories and manfufacturers
         selectedSubCategories = new Set();
         selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)});
@@ -122,21 +116,18 @@
     onMount(async () => {
         /* retrieve lifetime from queryparam */
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
+        if(lifetime){
+            hascustomlifetime = true;
+        }
         yearly = ParamParser.parseYearly(new URLSearchParams(window.location.search));
-<<<<<<< HEAD
-=======
-
-    });
-
->>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
 
     });
 
     function changeLifetime() {
         hascustomlifetime = true;
-        if (lifetime == 0){
+        /* if (lifetime == 0){
             lifetime = medianlifetime;
-        }
+        } */
         //onUpdateImpacts();
     }
 
@@ -259,9 +250,11 @@
                     <!-- export csv -->
                     <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
-                    <!-- share permalink
-                    -->
-                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} />
+                    <!-- share permalink, does not work (yet) with one equipment selection-->
+                    {#if selectedRows.length > 1 }
+                        <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} />
+            
+                    {/if}
                 </div> 
         </div>
 

@@ -1,5 +1,19 @@
 /*define custom types*/
 
+
+export type FilterModel = {
+    subcategory? : object,
+    category? : object,
+    manufacturer? : object
+}
+
+
+export type FlatFilterModel = {
+    subcategory? : Array<string>,
+    category? : Array<string>,
+    manufacturer? : Array<string>
+}
+
 export type RegionPickerItem = {
     label: string, //label to show on the region picker 
     value: number, //value of the elect impact of the region

@@ -4,7 +4,7 @@
     import { createEventDispatcher, onMount } from "svelte";
     import FilterButton from "./_FilterButton.svelte";
     import * as Utils from "../utils";
-    import type { Row } from "../customType";
+    import type { Row,FlatFilterModel, FilterModel } from "../customType";
     import * as ParamParser from "../paramParser";
 
     //export let lifetime:number; moved to upper component
@@ -19,18 +19,19 @@
     let _filterApi;
 
     /* filter buttons*/
-    const filterCategories = new Set(["Workplace", "Datacenter"]);
-    const filterSubCategories = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Tablet", "Printer"]);
-    const filterManufacturers = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Seagate"]);
+    const filterCategoriesDefinition = new Set(["Workplace", "Datacenter"]);
+    const filterSubCategoriesDefinition = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Tablet", "Printer"]);
+    const filterManufacturersDefinition = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Seagate"]);
 
     /* selected filter buttons */
-    let filterCategoriesSelected = new Set();
-    let filterSubCategoriesSelected = new Set();
-    let filterManufacturersSelected = new Set();
+    //let filterCategoriesSelected = new Set();
+    //let filterSubCategoriesSelected = new Set();
+    //let filterManufacturersSelected = new Set();
+    let currentFilterModel:FlatFilterModel = {}; //{category=[cat1], subcategory=[sub1, sub2]}
 
     const dispatcher = createEventDispatcher();
 
-    function updateDataGrid(updatedRows:Row[], filterModels) {
+    function updateDataGrid(updatedRows:Row[], filterModels:FlatFilterModel) {
         filteredRows=updatedRows;
         dispatcher("updateDataGrid", {"updatedRows":updatedRows, "filterModels":filterModels});
     }
@@ -83,37 +84,72 @@
     } */
 
 
+    //todo : should be in child components?
     function onFilterChanged(e) {
         filteredRows = getFilterRows(e.api);
-        const filterModels = e.api.getFilterModel(); 
-        updateDataGrid(filteredRows, filterModels);
+        const filterModels:FilterModel = e.api.getFilterModel(); 
+        updateDataGrid(filteredRows, ParamParser.flatten(filterModels));
     }
 
     onMount(async () => {
         allRows = await Utils.loadDataGridAsync();
         filteredRows=allRows;
         /* retrieve subcategory from query param*/
-        const subcategory = new URLSearchParams(window.location.search).get('subcategory');
-        updateSubcategoryFilter(subcategory);
+        //const subcategory = new URLSearchParams(window.location.search).get('subcategory');
+        //updateSubcategoryFilter(subcategory);
         /* retrieve category from query param*/
-        const category = new URLSearchParams(window.location.search).get('category');
-        updateCategoryFilter(category);
+        //const category = new URLSearchParams(window.location.search).get('category');
+        //updateCategoryFilter(category);
         /* retrieve manufacturer from query param*/
-        const manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
-        updateManufacturerFilter(manufacturer);
+        //onst manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
+        //updateManufacturerFilter(manufacturer);
 
         //const filterModels = ParamParser.parseFilter(new URLSearchParams(window.location.search));
-
-        updateDataGrid(allRows, {})
+        currentFilterModel = ParamParser.parseFlatFilter(new URLSearchParams(window.location.search)) || {};
+        updateDataGrid(allRows, currentFilterModel)
     });
 
-    const updateSubcategoryFilter = (subcategory) => {
+    const updateCurrentFilter = (filterName, filterValue, fitlerDefinition)=>{
+        //if filterValue is not part of the filterDefinition
+        if(!fitlerDefinition.has(filterValue)){
+            console.log("unknow filter value : ", filterValue)
+            return;
+        }
+        
+        //if filterName does not exists yet in filterModel
+        if(!(filterName in currentFilterModel)){
+            currentFilterModel[filterName] = [filterValue];
+        }else{
+            const currentFilterValue:Set<String> = new Set(currentFilterModel[filterName]);
+            
+            //if exists, remove it
+            currentFilterValue.has(filterValue)
+                ? currentFilterValue.delete(filterValue)
+                : currentFilterValue.add(filterValue);
+            
+            //remove first element to keep only two elements
+            if (currentFilterValue.size > 2) {
+                //remove first element
+                const values = currentFilterValue[Symbol.iterator]();
+                const pop = values.next().value;
+                currentFilterValue.delete(pop);
+        }
+
+            currentFilterModel[filterName] = Array.from(currentFilterValue);
+        }
+        //trigger reactivity
+        currentFilterModel = currentFilterModel;
+
+        //update buttons
+    }
+
+    /* const updateSubcategoryFilter = (subcategory) => {
         //if subcategory is not part of the defined filter
          if(!filterSubCategories.has(subcategory)){
             console.log("unknow subcategory : ", subcategory)
             return;
         }
-
+        
         filterSubCategoriesSelected.has(subcategory)
             ? filterSubCategoriesSelected.delete(subcategory)
             : filterSubCategoriesSelected.add(subcategory);
@@ -173,21 +209,32 @@
         }
         //trigger reactivity
         filterManufacturersSelected = filterManufacturersSelected;
-    };
+    }; */
+
+    function resetCurrentFilterModel(){
+        //should empty current filter models
+        for(const filter in currentFilterModel){
+            currentFilterModel[filter] = [];
+        }
+    }
 
     function resetDataGrid(e) {
-        updateDataGrid(getFilterRows(e.api), {});
-        filterSubCategoriesSelected.clear();
+        
+        resetCurrentFilterModel()
+        updateDataGrid(getFilterRows(e.api), currentFilterModel);
+
+       /*  filterSubCategoriesSelected.clear();
         filterSubCategoriesSelected = filterSubCategoriesSelected;
         filterCategoriesSelected.clear();
         filterCategoriesSelected = filterCategoriesSelected;
         filterManufacturersSelected.clear();
-        filterManufacturersSelected = filterManufacturersSelected;
+        filterManufacturersSelected = filterManufacturersSelected; */
     }
 
     function onSelect(e) {
         if (e.detail.length > 0) {
-            if (filterSubCategoriesSelected.size > 0) {
+
+/*             if (filterSubCategoriesSelected.size > 0) {
                 filterSubCategoriesSelected.clear();
             }
             if (filterCategoriesSelected.size > 0) {
@@ -195,12 +242,10 @@
             }
             if (filterManufacturersSelected.size > 0) {
                 filterManufacturersSelected.clear();
-            }
-            updateDataGrid(e.detail, {});
-<<<<<<< HEAD
-=======
+            } */
+            //resetCurrentFilterModel()
+            updateDataGrid(e.detail, currentFilterModel);
 
->>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
         }
     }
 /*
@@ -223,12 +268,14 @@ export function exportCurrentView(hascustomlifetime) {
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.manufacturer')}</div>
             <div class="inline-flex flex-wrap">
-                {#each Array.from(filterManufacturers) as ManufacturerFilter}
+                {#each Array.from(filterManufacturersDefinition) as ManufacturerFilter}
                 <FilterButton
                     filterText={ManufacturerFilter}
-                    active={filterManufacturersSelected.has(ManufacturerFilter)}
+                    active={currentFilterModel["manufacturer"] && currentFilterModel["manufacturer"].includes(ManufacturerFilter)}
                     onButtonClick={() => {
-                        updateManufacturerFilter(ManufacturerFilter);
+                        //updateManufacturerFilter(ManufacturerFilter);
+                        updateCurrentFilter("manufacturer", ManufacturerFilter, filterManufacturersDefinition)
+
                     }}
                 />
                 {/each}
@@ -238,12 +285,21 @@ export function exportCurrentView(hascustomlifetime) {
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.category')}</div>
             <div class="inline-flex flex-wrap">
-                {#each Array.from(filterCategories) as categoryFilter}
-                <FilterButton
+                {#each Array.from(filterCategoriesDefinition) as categoryFilter}
+                <!-- <FilterButton
                     filterText={categoryFilter}
                     active={filterCategoriesSelected.has(categoryFilter)}
                     onButtonClick={() => {
-                        updateCategoryFilter(categoryFilter);
+                        //updateCategoryFilter(categoryFilter);
+                        updateCurrentFilter("category", categoryFilter, filterCategories)
+                    }}
+                /> -->
+                <FilterButton
+                    filterText={categoryFilter}
+                    active={currentFilterModel["category"] && currentFilterModel["category"].includes(categoryFilter)}
+                    onButtonClick={() => {
+                        //updateCategoryFilter(categoryFilter);
+                        updateCurrentFilter("category", categoryFilter, filterCategoriesDefinition)
                     }}
                 />
                 {/each}
@@ -253,12 +309,14 @@ export function exportCurrentView(hascustomlifetime) {
         <div class="inline-block flex-wrap">
             <div class="w-full text-xs pl-2 ">{$_('datagrid.subcategory')}</div>
             <div class="inline-flex flex-wrap">
-                {#each Array.from(filterSubCategories) as subcategoryFilter}
+                {#each Array.from(filterSubCategoriesDefinition) as subcategoryFilter}
                 <FilterButton
                     filterText={subcategoryFilter}
-                    active={filterSubCategoriesSelected.has(subcategoryFilter)}
+                    active={currentFilterModel["subcategory"] && currentFilterModel["subcategory"].includes(subcategoryFilter)}
                     onButtonClick={() => {
-                        updateSubcategoryFilter(subcategoryFilter);
+                        //updateSubcategoryFilter(subcategoryFilter);
+                        updateCurrentFilter("subcategory", subcategoryFilter, filterSubCategoriesDefinition)
+
                     }}
                 />
                 {/each}
@@ -267,11 +325,17 @@ export function exportCurrentView(hascustomlifetime) {
     </div>
 </div>
 
-<AgGridWrapper
+<!-- <AgGridWrapper
     {options}
     data={allRows}
     on:select={onSelect}
     selectedSubCategories={filterSubCategoriesSelected}
     selectedManufacturers={filterManufacturersSelected}
     selectedCategories={filterCategoriesSelected}
+/> -->
+<AgGridWrapper
+    {options}
+    data={allRows}
+    on:select={onSelect}
+    flatFilterModels={currentFilterModel}
 />

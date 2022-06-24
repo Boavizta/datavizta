@@ -19,11 +19,7 @@
     const text = await res.text();
     items = toSelectItems(text);
     /* retrieve region from query param */ 
-<<<<<<< HEAD
     value = ParamParser.parseRegion(new URLSearchParams(window.location.search), items) || defaultRegionItem
-=======
-    value = ParamParser.parseRegion(new URLSearchParams(window.location.search), items) || regionDefaultValue
->>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
   });
 
   //const dispatcher = createEventDispatcher();
