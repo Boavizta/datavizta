@@ -73,14 +73,11 @@
     }
 
     function onDataGridUpdate(e) {
-        console.log(e.detail)
+        console.log("onDataGridUpdate : ", e.detail)
         selectedRows = e.detail.updatedRows
         filterModels = e.detail.filterModels
         //update median lifetime
-        medianlifetime = Scope.medianlifetime(selectedRows)
-        if (hascustomlifetime == false){
-            lifetime = medianlifetime;
-        }
+       
         //re-init categories and manfufacturers
         selectedSubCategories = new Set();
         selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)});
@@ -92,7 +89,12 @@
         disabledCustomValue = disableCustomValues(selectedRows);
         if(disabledCustomValue){
             resetRegionPicker();
+            hascustomlifetime = false;
             //resetLifetimeValue();
+        }
+        medianlifetime = Scope.medianlifetime(selectedRows)
+        if (hascustomlifetime == false){
+            lifetime = medianlifetime;
         }
         //onUpdateImpacts();
     }
