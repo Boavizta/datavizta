@@ -19,7 +19,14 @@
     const text = await res.text();
     items = toSelectItems(text);
     /* retrieve region from query param */ 
-    value = ParamParser.parseRegion(new URLSearchParams(window.location.search), items) || defaultRegionItem
+    const regionParam = ParamParser.parseRegion(new URLSearchParams(window.location.search), items);
+    if(regionParam){
+      value = regionParam;
+      isDefaultRegion = false;
+      window.scrollTo(0,document.body.scrollHeight);
+    }else{
+      value = defaultRegionItem
+    }
   });
 
   //const dispatcher = createEventDispatcher();

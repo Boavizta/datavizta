@@ -25,6 +25,7 @@
     //let hasCustomValues:boolean = false;
     let yearly:boolean;
     let filterModels:FlatFilterModel;//filters defined in the datagrid component
+    let windowOrigin;
     
     /* Inner state */
     let selectedRows = [];
@@ -115,6 +116,8 @@
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
+        windowOrigin = window.location.origin;
+        console.log(windowOrigin)
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
             hascustomlifetime = true;
@@ -131,8 +134,6 @@
         //onUpdateImpacts();
     }
 
-
-
 </script>
 
 
@@ -143,7 +144,7 @@
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
-        <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
+        <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-solid border-2 border-teal-500/20">
             {#if isNaN(ratioScope.total)}
                 <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
                 <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{impactTotal} kgCO2eq</div>
@@ -231,10 +232,11 @@
 
             {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
-                {$_('explanation.8')}
+                {@html $_('explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
-                {$_('explanation.9')}
+                {@html $_('explanation.9',  {values: {urlFrance:windowOrigin +"?region=france", 
+                urlPoland:windowOrigin +"?region=poland"}})}
             </p>
             {:else}
             <p class="text-xs mb-2 font-light">
@@ -250,12 +252,15 @@
                     <!-- export csv -->
                     <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
+                </div> 
+                <div class="flex-row mx-auto">
                     <!-- share permalink, does not work (yet) with one equipment selection-->
                     {#if selectedRows.length > 1 }
                         <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} />
             
                     {/if}
-                </div> 
+                    
+                </div>
         </div>
 
     </div>

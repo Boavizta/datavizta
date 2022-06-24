@@ -26,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "autoprefixer": "^10.4.4",
+    "carbon-components-svelte": "^0.66.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
@@ -48,6 +49,7 @@
     "chart.js": "^3.7.1",
     "html2canvas": "^1.4.1",
     "papaparse": "^5.3.1",
+    "svelte-copy-to-clipboard": "^0.2.5",
     "svelte-i18n": "^3.3.13",
     "svelte-select": "^4.4.7",
     "tailwindcss": "^3.0.24"
