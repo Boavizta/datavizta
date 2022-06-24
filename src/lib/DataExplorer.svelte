@@ -131,10 +131,7 @@
 
     <!--         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
     -->
-    <!-- destroy component on locale switch -->
-    {#key $locale}
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
-    {/key}
 <div class="flex flex-row flex-wrap md:mt-10 justify-around">
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-2 border-teal-500/20">
@@ -202,7 +199,7 @@
             <div class="mt-2 mb-5">
                 <div class="flex">
                     <!-- <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/> -->
-                    <!-- destroy component on locale switch -->
+                    <!-- destroy/recreate component on locale update -->
                     {#key $locale}
                         <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
                     {/key}
