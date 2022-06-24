@@ -40,7 +40,7 @@
     <input id="switch-language-button" class="mb-5 ml-auto" title="Choose language" on:click={updateLanguage} value={language} style="width: 20px;"/>
 </div>
 <div id="content" class="px-4">
-    <h2 class="title-second">{$_('index.title')}</h2>
+    <h2 class="title-second mt-2">{$_('index.title')}</h2>
 
     <div class="">
         <div class="mb-3">
@@ -60,7 +60,7 @@
 
     </div>
 
-    <h3 class="title-second">{$_('index.sub-title')}</h3>
+    <h2 class="title-second">{$_('index.sub-title')}</h2>
     <div class="text-sm mb-2">
         {$_('explanation.6')}
     </div>

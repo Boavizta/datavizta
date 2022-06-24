@@ -139,7 +139,9 @@
     <!--         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
     -->
         <DataGrid on:updateDataGrid={onDataGridUpdate}/>
-<div class="flex flex-row flex-wrap md:mt-10 justify-around">
+<div class="flex flex-row flex-wrap md:mt-2 justify-around">
+
+    <!-- pie + form container-->
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-solid border-2 border-teal-500/20">
             {#if isNaN(ratioScope.total)}
