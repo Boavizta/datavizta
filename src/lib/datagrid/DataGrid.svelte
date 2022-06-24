@@ -197,6 +197,10 @@
                 filterManufacturersSelected.clear();
             }
             updateDataGrid(e.detail, {});
+<<<<<<< HEAD
+=======
+
+>>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
         }
     }
 /*

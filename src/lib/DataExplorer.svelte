@@ -80,11 +80,15 @@
         console.log(e.detail)
         selectedRows = e.detail.updatedRows
         filterModels = e.detail.filterModels
+<<<<<<< HEAD
         //update median lifetime
         medianlifetime = Scope.medianlifetime(selectedRows)
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
+=======
+
+>>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
         //re-init categories and manfufacturers
         selectedSubCategories = new Set();
         selectedRows.forEach((r)=>{selectedSubCategories.add(r.subcategory)});
@@ -119,6 +123,12 @@
         /* retrieve lifetime from queryparam */
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         yearly = ParamParser.parseYearly(new URLSearchParams(window.location.search));
+<<<<<<< HEAD
+=======
+
+    });
+
+>>>>>>> be86d38e08efb7427099a14e05abe9739cd871cd
 
     });
 
