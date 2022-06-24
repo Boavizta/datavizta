@@ -23,7 +23,7 @@
     if(regionParam){
       value = regionParam;
       isDefaultRegion = false;
-      window.scrollTo(0,document.body.scrollHeight);
+      //window.scrollTo(0,document.body.scrollHeight);
     }else{
       value = defaultRegionItem
     }

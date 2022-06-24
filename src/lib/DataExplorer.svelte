@@ -117,7 +117,7 @@
     onMount(async () => {
         /* retrieve lifetime from queryparam */
         windowOrigin = window.location.origin;
-        console.log(windowOrigin)
+        console.log("Window origin", windowOrigin)
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
             hascustomlifetime = true;
