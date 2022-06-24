@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
- import "@testing-library/jest-dom";
  import  * as ParamParser from "../lib/paramParser"
  import type {RegionPickerItem } from '../lib/customType';
 

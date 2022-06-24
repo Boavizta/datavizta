@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-import "@testing-library/jest-dom";
 import  * as Impacts from "../lib/impacts"
 import type { Row, ScopeResult, ChartResult } from '../lib/customType';
 
