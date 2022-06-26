@@ -28,7 +28,15 @@
             
         <span class="py-2 px-1">{$_('pie.share')}</span>
             <input id="shareLinkInput" class="px-1 w-auto" value={shareLink}/>
-            <CopyButton class="bg-gray-100 border-teal-600" text={shareLink} iconDescription={$_('pie.copy')} feedback={$_('pie.copied')}/>
+            <CopyButton id="shareLinkButton" class="bg-boavizta_blue hover:bg-teal-800 rounded-tr rounded-br shareLinkButton" text={shareLink} iconDescription={$_('pie.copy')} feedback={$_('pie.copied')}/>
     </div>
   {/if}
   </div>
+
+<style>
+#shareLinkButton > .bx--snippet__icon {
+    fill: white;
+    color: white;
+}
+
+</style>

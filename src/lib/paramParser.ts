@@ -80,7 +80,7 @@ export function buildLink(lifetime, selectedRegion:RegionPickerItem, isYearly:bo
     }
 
     query = query.slice(0, -1)
-    return query;
+    return encodeURI(query);
 }
 
 export function parseLifetime(params:URLSearchParams):number{

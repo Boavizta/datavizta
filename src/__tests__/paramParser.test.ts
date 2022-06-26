@@ -160,28 +160,34 @@ const regionItem:RegionPickerItem = {
   }) */
 
     test("should build url with region", () => {
-        expect(ParamParser.buildLink(undefined, regionItem, undefined, null)).toEqual(
+        expect(ParamParser.buildLink(undefined, regionItem, undefined, null,"false")).toEqual(
             "region=regionId"
         );
     })
 
     test("should build url with lifetime", () => {
-        expect(ParamParser.buildLink(1, undefined, undefined, null)).toEqual(
+        expect(ParamParser.buildLink(1, undefined, undefined, null,"false")).toEqual(
             "lifetime=1"
         );
     })
 
     test("should build url with yearly", () => {
-        expect(ParamParser.buildLink(undefined, undefined, true, null)).toEqual(
+        expect(ParamParser.buildLink(undefined, undefined, true, null,"false")).toEqual(
             "yearly=true"
         );
     })
 
     test("should build url with no parameter", () => {
-        expect(ParamParser.buildLink(undefined, undefined, undefined, undefined)).toEqual(
+        expect(ParamParser.buildLink(undefined, undefined, undefined, undefined,"false")).toEqual(
             ""
         );
     })
+
+    test("should build url with with name encoded parameter", () => {
+      expect(ParamParser.buildLink(undefined, undefined, undefined, undefined,"Apple Modele")).toEqual(
+          "name=Apple%20Modele"
+      );
+  })
 
     test("should parse filter models to object", () => {
       expect(ParamParser.flatten(filterModels)).toEqual(
