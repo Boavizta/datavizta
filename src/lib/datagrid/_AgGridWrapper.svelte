@@ -217,7 +217,7 @@
 
   $:{
         //reactivity, executed on locale updates
-        console.log($locale);
+        console.log($locale); // do not remove. Workaround to ensure locale is loaded when grid headers are translated
         if (grid) {
           columnDefs = buildColumnDefs()
           grid.gridOptions.api.setColumnDefs(columnDefs);
