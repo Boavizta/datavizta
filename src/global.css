@@ -176,3 +176,8 @@ input:checked + .slider:before {
   width: 100%;
   height: var(--grid-height, 300px);
 }
+
+.bx--snippet__icon {
+  fill: white;
+  color: white;
+}
