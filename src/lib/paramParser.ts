@@ -62,7 +62,7 @@ export function buildFilterModels(flattenFilterModel:FlatFilterModel):FilterMode
     return output;
 }
 
-export function buildLink(lifetime, selectedRegion:RegionPickerItem, isYearly:boolean, filterModels:FlatFilterModel){
+export function buildLink(lifetime, selectedRegion:RegionPickerItem, isYearly:boolean, filterModels:FlatFilterModel, singleItemSelected:String){
     let query = ""
     if(lifetime){
         query += PARAM_LIFETIME + "=" + lifetime + "&"
@@ -73,8 +73,9 @@ export function buildLink(lifetime, selectedRegion:RegionPickerItem, isYearly:bo
     if(isYearly){
         query += PARAM_YEARLY+ "=" + isYearly + "&"
     }
-
-    if(filterModels){
+    if(singleItemSelected != "false"){
+        query += "name=" + singleItemSelected + "&";
+    } else if(filterModels){
 
         for(const filterKey in filterModels){
             query += filterKey + "=" + filterModels[filterKey].join() + "&";

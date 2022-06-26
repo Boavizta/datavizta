@@ -2,7 +2,6 @@ import type { RegionPickerItem, ScopeResult, Row,RowWithScope } from "./customTy
 import * as Utils from "./utils";
 
 export function calculateImpacts(selectedRows:Row[], yearly:boolean, lifetime:number, electricalImpactFactor:number) {
-    console.log("calculateImpacts", selectedRows.length, yearly, lifetime, electricalImpactFactor)
     const scope2 = impactScope2(selectedRows, yearly, lifetime, electricalImpactFactor);
     const scope3 = impactScope3(selectedRows, yearly, lifetime);
     const total = scope2.median + scope3.median;

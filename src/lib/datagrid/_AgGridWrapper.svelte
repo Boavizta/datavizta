@@ -29,9 +29,9 @@
   export let flatFilterModels:FlatFilterModel = {};
 
   $ :{
-    console.log("flat filter models : ", flatFilterModels);
+    
     const filterModel:FilterModel = ParamParser.buildFilterModels(flatFilterModels);
-
+    console.log("filter models : ",  filterModel);
     for(const filterkey in filterModel){
       if(grid){
         // get filter instance

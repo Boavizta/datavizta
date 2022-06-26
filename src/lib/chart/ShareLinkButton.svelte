@@ -10,6 +10,7 @@
     export let yearly:boolean;
     export let filterModels:FlatFilterModel;
     export let notAvailable:boolean;
+    export let singleItemSelected:string;
 
     let windowOrigin;
     let shareLink;
@@ -17,7 +18,7 @@
     onMount(() => {
         windowOrigin=  window.location.origin
     })
-    $: shareLink = windowOrigin +"?"+paramParser.buildLink(lifetime, selectedRegion, yearly, filterModels);
+    $: shareLink = windowOrigin +"?"+paramParser.buildLink(lifetime, selectedRegion, yearly, filterModels, singleItemSelected);
 
 
 </script>

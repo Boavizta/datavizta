@@ -233,8 +233,8 @@
                 filterManufacturersSelected.clear();
             } */
             //resetCurrentFilterModel()
+            
             updateDataGrid(e.detail, currentFilterModel);
-
         }
     }
 </script>

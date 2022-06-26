@@ -132,6 +132,13 @@
         } */
         //onUpdateImpacts();
     }
+    function singleItemSelected(selectedRows) {
+        if (selectedRows.length == 1) {
+            return selectedRows[0].name;
+        } else {
+            return "false"
+        }
+    }
 
 </script>
 
@@ -256,7 +263,7 @@
                 </div> 
                 <div class="flex-row mx-auto">
                     <!-- share permalink, does not work (yet) with one equipment selection-->
-                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} notAvailable={selectedRows.length == 1} />
+                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
                 </div>
         </div>
 

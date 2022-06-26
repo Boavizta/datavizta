@@ -2,6 +2,7 @@
 
 
 export type FilterModel = {
+    name? : object,
     subcategory? : object,
     category? : object,
     manufacturer? : object
