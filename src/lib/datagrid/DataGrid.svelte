@@ -7,10 +7,6 @@
     import type { Row,FlatFilterModel, FilterModel } from "../customType";
     import * as ParamParser from "../paramParser";
 
-    //export let lifetime:number; moved to upper component
-    //export let medianlifetime:number; moved to upper component
-    //export let selectedRegion:RegionPickerItem; moved to upper component
-
     /*internal state*/
     let allRows:Row[];//initial state of the grid
     let filteredRows:Row[];//filtered state of the grid
@@ -23,10 +19,6 @@
     const filterSubCategoriesDefinition = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Tablet", "Printer"]);
     const filterManufacturersDefinition = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Seagate"]);
 
-    /* selected filter buttons */
-    //let filterCategoriesSelected = new Set();
-    //let filterSubCategoriesSelected = new Set();
-    //let filterManufacturersSelected = new Set();
     let currentFilterModel:FlatFilterModel = {}; //{category=[cat1], subcategory=[sub1, sub2]}
 
     const dispatcher = createEventDispatcher();
@@ -83,17 +75,6 @@
     onMount(async () => {
         allRows = await Utils.loadDataGridAsync();
         filteredRows=allRows;
-        /* retrieve subcategory from query param*/
-        //const subcategory = new URLSearchParams(window.location.search).get('subcategory');
-        //updateSubcategoryFilter(subcategory);
-        /* retrieve category from query param*/
-        //const category = new URLSearchParams(window.location.search).get('category');
-        //updateCategoryFilter(category);
-        /* retrieve manufacturer from query param*/
-        //onst manufacturer = new URLSearchParams(window.location.search).get('manufacturer');
-        //updateManufacturerFilter(manufacturer);
-
-        //const filterModels = ParamParser.parseFilter(new URLSearchParams(window.location.search));
         currentFilterModel = ParamParser.parseFlatFilter(new URLSearchParams(window.location.search)) || {};
         updateDataGrid(allRows, currentFilterModel)
     });
@@ -132,74 +113,6 @@
         //update buttons
     }
 
-    /* const updateSubcategoryFilter = (subcategory) => {
-        //if subcategory is not part of the defined filter
-         if(!filterSubCategories.has(subcategory)){
-            console.log("unknow subcategory : ", subcategory)
-            return;
-        }
-        
-        filterSubCategoriesSelected.has(subcategory)
-            ? filterSubCategoriesSelected.delete(subcategory)
-            : filterSubCategoriesSelected.add(subcategory);
-
-        const values = filterSubCategoriesSelected[Symbol.iterator]();
-
-        //remove first element to keep only two elements
-        if (filterSubCategoriesSelected.size > 2) {
-            //remove first element
-            const pop = values.next().value;
-            filterSubCategoriesSelected.delete(pop);
-        }
-        //trigger reactivity
-        filterSubCategoriesSelected = filterSubCategoriesSelected;
-    };
-    const updateCategoryFilter = (category) => {
-        //if category is not part of the defined filter
-         if(!filterCategories.has(category)){
-            console.log("unknow category : ", category)
-            return;
-        }
-
-        filterCategoriesSelected.has(category)
-            ? filterCategoriesSelected.delete(category)
-            : filterCategoriesSelected.add(category);
-
-        const values = filterCategoriesSelected[Symbol.iterator]();
-
-        //remove first element to keep only two elements
-        if (filterCategoriesSelected.size > 2) {
-            //remove first element
-            const pop = values.next().value;
-            filterCategoriesSelected.delete(pop);
-        }
-        //trigger reactivity
-        filterCategoriesSelected = filterCategoriesSelected;
-    };
-
-    const updateManufacturerFilter = (manufacturer) => {
-        //if subcategory is not part of the defined filter
-         if(!filterManufacturers.has(manufacturer)){
-            console.log("unknow manufacturer : ", manufacturer)
-            return;
-        }
-
-        filterManufacturersSelected.has(manufacturer)
-            ? filterManufacturersSelected.delete(manufacturer)
-            : filterManufacturersSelected.add(manufacturer);
-
-        const values = filterManufacturersSelected[Symbol.iterator]();
-
-        //remove first element to keep only two elements
-        if (filterManufacturersSelected.size > 2) {
-            //remove first element
-            const pop = values.next().value;
-            filterManufacturersSelected.delete(pop);
-        }
-        //trigger reactivity
-        filterManufacturersSelected = filterManufacturersSelected;
-    }; */
-
     function resetCurrentFilterModel(){
         //should empty current filter models
         for(const filter in currentFilterModel){
@@ -211,29 +124,10 @@
         
         resetCurrentFilterModel()
         updateDataGrid(getFilterRows(e.api), currentFilterModel);
-
-       /*  filterSubCategoriesSelected.clear();
-        filterSubCategoriesSelected = filterSubCategoriesSelected;
-        filterCategoriesSelected.clear();
-        filterCategoriesSelected = filterCategoriesSelected;
-        filterManufacturersSelected.clear();
-        filterManufacturersSelected = filterManufacturersSelected; */
     }
 
     function onSelect(e) {
         if (e.detail.length > 0) {
-
-/*             if (filterSubCategoriesSelected.size > 0) {
-                filterSubCategoriesSelected.clear();
-            }
-            if (filterCategoriesSelected.size > 0) {
-                filterCategoriesSelected.clear();
-            }
-            if (filterManufacturersSelected.size > 0) {
-                filterManufacturersSelected.clear();
-            } */
-            //resetCurrentFilterModel()
-            
             updateDataGrid(e.detail, currentFilterModel);
         }
     }
@@ -251,7 +145,6 @@
                     filterText={ManufacturerFilter}
                     active={currentFilterModel["manufacturer"] && currentFilterModel["manufacturer"].includes(ManufacturerFilter)}
                     onButtonClick={() => {
-                        //updateManufacturerFilter(ManufacturerFilter);
                         updateCurrentFilter("manufacturer", ManufacturerFilter, filterManufacturersDefinition)
 
                     }}
@@ -264,19 +157,10 @@
             <div class="w-full text-xs pl-2 ">{$_('datagrid.category')}</div>
             <div class="inline-flex flex-wrap">
                 {#each Array.from(filterCategoriesDefinition) as categoryFilter}
-                <!-- <FilterButton
-                    filterText={categoryFilter}
-                    active={filterCategoriesSelected.has(categoryFilter)}
-                    onButtonClick={() => {
-                        //updateCategoryFilter(categoryFilter);
-                        updateCurrentFilter("category", categoryFilter, filterCategories)
-                    }}
-                /> -->
                 <FilterButton
                     filterText={categoryFilter}
                     active={currentFilterModel["category"] && currentFilterModel["category"].includes(categoryFilter)}
                     onButtonClick={() => {
-                        //updateCategoryFilter(categoryFilter);
                         updateCurrentFilter("category", categoryFilter, filterCategoriesDefinition)
                     }}
                 />
@@ -303,14 +187,6 @@
     </div>
 </div>
 
-<!-- <AgGridWrapper
-    {options}
-    data={allRows}
-    on:select={onSelect}
-    selectedSubCategories={filterSubCategoriesSelected}
-    selectedManufacturers={filterManufacturersSelected}
-    selectedCategories={filterCategoriesSelected}
-/> -->
 <AgGridWrapper
     {options}
     data={allRows}

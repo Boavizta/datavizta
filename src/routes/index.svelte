@@ -2,10 +2,6 @@
     import { _, locale, getLocaleFromNavigator } from "svelte-i18n";
     import DataExplorer from "$lib/DataExplorer.svelte";
    
-    /* let updateDataExplorerChild;
-    function updateDataExplorer() {
-        updateDataExplorerChild();
-    }; */
     function initLanguage() {
         let language;
         if (getLocaleFromNavigator()=="fr") {
@@ -27,8 +23,6 @@
             locale.set("fr")
             language="EN";
         }
-        //workaround to avoid lauching update before locale is updated
-        //setTimeout(updateDataExplorer,200);
     };
 
 </script>
@@ -64,7 +58,5 @@
     <div class="text-sm mb-2">
         {$_('explanation.6')}
     </div>
-
-    <!-- <DataExplorer bind:dataExplorerUpdate={updateDataExplorerChild}/> -->
     <DataExplorer/>
 </div>

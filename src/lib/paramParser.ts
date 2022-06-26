@@ -6,9 +6,6 @@ export const PARAM_REGION_ID = "region";
 export const PARAM_YEARLY = "yearly";
 const separator = ","
 
-/*
-    return {category=[cat1], subcategory=[sub1, sub2], manufacturer=[manuf1]}
-*/
 export function flatten(filterModels:FilterModel):FlatFilterModel{
     const output = {};
     for(const filterKey in filterModels){
@@ -80,29 +77,9 @@ export function buildLink(lifetime, selectedRegion:RegionPickerItem, isYearly:bo
         for(const filterKey in filterModels){
             query += filterKey + "=" + filterModels[filterKey].join() + "&";
         }
-
-       /*  for(const filterKey in filterModels){
-            const filterModel = filterModels[filterKey];
-            if(filterModel.hasOwnProperty('filter')){
-                query += filterKey + "=" + filterModel['filter'] + "&";
-            }
-
-            if(filterModel.hasOwnProperty('condition1')){
-                if(filterModel.hasOwnProperty('condition2')){
-                    //if 2 conditions
-                    query += filterKey + "=" + filterModel['condition1']['filter']+ separator + filterModel['condition2']['filter'] + "&";
-                    
-                }else{
-                    //if only 1 condition
-                    query += filterKey + "=" + filterModel['condition1']['filter'] + "&";
-                }
-            }
-
-        } */
     }
 
     query = query.slice(0, -1)
-    //return link + "?" + query;
     return query;
 }
 

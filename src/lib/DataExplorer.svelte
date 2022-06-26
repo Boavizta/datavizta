@@ -19,7 +19,6 @@
     /* input values from the url */
     let lifetime:number;
     let selectedRegion:RegionPickerItem;
-    //let hasCustomValues:boolean = false;
     let yearly:boolean;
     let filterModels:FlatFilterModel;//filters defined in the datagrid component
     let windowOrigin;
@@ -40,28 +39,7 @@
     let medianlifetime:number = 0;
     let hascustomlifetime:boolean = false;
     let impactTotal:number = 0;
-/* 
-    let datagridUpdateHeadersChild;
-    function datagridUpdateHeaders() {
-        datagridUpdateHeadersChild();
-    }
 
-    let regionPickerUpdateChild;
-    function regionPickerUpdate() {
-        regionPickerUpdateChild();
-    }
-
-    let pieChartUpdateChild;
-    function pieChartUpdate() {
-        pieChartUpdateChild();
-    }
-
-    export function dataExplorerUpdate() {
-        datagridUpdateHeaders();
-        regionPickerUpdate();
-        pieChartUpdate();
-    } 
-    */
     //reactivity, on value change, update impacts
     $ : onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion);
 
@@ -73,7 +51,6 @@
     }
 
     function onDataGridUpdate(e) {
-        console.log("onDataGridUpdate : ", e.detail)
         selectedRows = e.detail.updatedRows
         filterModels = e.detail.filterModels
         //update median lifetime
@@ -90,13 +67,11 @@
         if(disabledCustomValue){
             resetRegionPicker();
             hascustomlifetime = false;
-            //resetLifetimeValue();
         }
         medianlifetime = Scope.medianlifetime(selectedRows)
         if (hascustomlifetime == false){
             lifetime = medianlifetime;
         }
-        //onUpdateImpacts();
     }
 
     function disableCustomValues(selectedRows):boolean{
@@ -108,15 +83,10 @@
         isDefaultRegion = true;
     }
 
-/*     function resetLifetimeValue(){
-        lifetime = medianlifetime;
-    } */
-
 
     onMount(async () => {
         /* retrieve lifetime from queryparam */
         windowOrigin = window.location.origin;
-        console.log("Window origin", windowOrigin)
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
             hascustomlifetime = true;
@@ -127,10 +97,6 @@
 
     function changeLifetime() {
         hascustomlifetime = true;
-        /* if (lifetime == 0){
-            lifetime = medianlifetime;
-        } */
-        //onUpdateImpacts();
     }
     function singleItemSelected(selectedRows) {
         if (selectedRows.length == 1) {
@@ -144,10 +110,7 @@
 
 
 <div class="flex flex-col">
-
-    <!--         <DataGrid on:updateDataGrid={onDataGridUpdate} bind:datagridUpdateHeaders={datagridUpdateHeadersChild}/>
-    -->
-        <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-2 justify-around">
 
     <!-- pie + form container-->
@@ -193,7 +156,6 @@
                     </div>
                 
                 <div class="mt-2">
-                    <!-- <PieChart  {ratioScope} bind:updatePieChart={pieChartUpdateChild}/> -->
                     <PieChart  {ratioScope}/>
                 </div>
             {/if}
@@ -216,7 +178,6 @@
             <!-- select region -->
             <div class="mt-2 mb-5">
                 <div class="flex">
-                    <!-- <RegionPicker on:updateImpacts={onUpdateImpacts} bind:value={selectedRegion} bind:updateRegionPicker={regionPickerUpdateChild} {regionDefaultValue} isDisabled="{disabledCustomValue}"/> -->
                     <!-- destroy/recreate component on locale update -->
                     {#key $locale}
                         <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>

@@ -21,17 +21,12 @@
     suppressFieldDotNotation: true,
     rowSelection: "multiple",
   };
-  
-  //export let selectedSubCategories;
-  //export let selectedCategories;
-  //export let selectedManufacturers;
 
   export let flatFilterModels:FlatFilterModel = {};
 
   $ :{
     
     const filterModel:FilterModel = ParamParser.buildFilterModels(flatFilterModels);
-    console.log("filter models : ",  filterModel);
     for(const filterkey in filterModel){
       if(grid){
         // get filter instance
@@ -43,109 +38,6 @@
     }
   }
 
-/*
-  $: filterBySubcategories(selectedSubCategories);
-  function filterBySubcategories(subcategories) {
-    if(api == undefined){
-      return;
-    }
-    const values = subcategories[Symbol.iterator]();
-    const text1 = values.next().value;
-
-    const containsOr = {
-      filterType: "text",
-      operator: "OR",
-      condition1: {
-        filterType: "text",
-        type: "contains",
-        filter: text1,
-      },
-      condition2: {}
-    };
-    if (subcategories.size > 1) {
-      const text2 = values.next().value;
-
-      containsOr.condition2 = {
-        filterType: "text",
-        type: "contains",
-        filter: text2,
-      };
-    }
-    // get filter instance
-    api.getFilterInstance("subcategory").setModel(containsOr);
-
-    // refresh rows based on the filter (not automatic to allow for batching multiple filters)
-    api.onFilterChanged();
-  }
-
-  $: filterBycategories(selectedCategories);
-  function filterBycategories(categories) {
-    if(api == undefined){
-      return;
-    }
-    const values = categories[Symbol.iterator]();
-    const text1 = values.next().value;
-
-    const containsOr = {
-      filterType: "text",
-      operator: "OR",
-      condition1: {
-        filterType: "text",
-        type: "contains",
-        filter: text1,
-      },
-      condition2: {}
-    };
-    if (categories.size > 1) {
-      const text2 = values.next().value;
-
-      containsOr.condition2 = {
-        filterType: "text",
-        type: "contains",
-        filter: text2,
-      };
-    }
-    // get filter instance
-    api.getFilterInstance("category").setModel(containsOr);
-
-    // refresh rows based on the filter (not automatic to allow for batching multiple filters)
-    api.onFilterChanged();
-  }
-
-  $: filterByManufacturers(selectedManufacturers);
-  function filterByManufacturers(manufacturers) {
-    if(api == undefined){
-      return;
-    }
-    const values = manufacturers[Symbol.iterator]();
-    const text1 = values.next().value;
-
-    const containsOr = {
-      filterType: "text",
-      operator: "OR",
-      condition1: {
-        filterType: "text",
-        type: "contains",
-        filter: text1,
-      },
-      condition2: {}
-    };
-    if (manufacturers.size > 1) {
-      const text2 = values.next().value;
-
-      containsOr.condition2 = {
-        filterType: "text",
-        type: "contains",
-        filter: text2,
-      };
-    }
-    // get filter instance
-    api.getFilterInstance("manufacturer").setModel(containsOr);
-
-    // refresh rows based on the filter (not automatic to allow for batching multiple filters)
-    api.onFilterChanged();
-  }
-*/
   export let loading = false;
 
   let ref;
@@ -299,12 +191,6 @@
   }
 
   const updateData = (data) => {
-    /* 
-    does not work on safari, onGridReady is launched after first update
-    if (grid && api) {
-      api.setRowData(data);
-      api.setColumnDefs(columnDefs);
-    } */
     if (grid) {
       grid.gridOptions.api.setRowData(data);
       grid.gridOptions.api.setColumnDefs(columnDefs);
@@ -313,11 +199,6 @@
 
   onMount(async () => {
     let dataInit:Row[];
-    /* if (!!data && typeof data.then === "function") {
-      dataInit = await data();
-    } else {
-      dataInit = data;
-    } */
     dataInit = data;
     grid = new Grid(ref, {
       ...options,
@@ -339,7 +220,6 @@
         console.log($locale);
         if (grid) {
           columnDefs = buildColumnDefs()
-          //console.log(columnDefs);
           grid.gridOptions.api.setColumnDefs(columnDefs);
         }
     }

@@ -21,7 +21,6 @@ export function impactTotal(rows_selection:Row[]) {
 
 /* calculate median lifetime */
 export function medianlifetime(rows_selection:Row[]) {
-    console.log("medianlifetime", rows_selection.length)
     let manuflifetime = 0;
     let lineswithlifetime = 0;
     rows_selection.forEach(row => {
