@@ -9,7 +9,7 @@
     import ExportCsv from './chart/ExportCSVButton.svelte';
     import ShareLinkButton from './chart/ShareLinkButton.svelte';
     import * as Scope from "./impacts"
-    import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel } from './customType';
+    import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel,Row } from './customType';
     import * as ParamParser from "./paramParser";
 
     /* Default value */
@@ -18,13 +18,13 @@
 
     /* input values from the url */
     let lifetime:number;
-    let selectedRegion:RegionPickerItem;
+    let selectedRegion:RegionPickerItem= {label:undefined, value:undefined, id:undefined};
     let yearly:boolean;
     let filterModels:FlatFilterModel;//filters defined in the datagrid component
     let windowOrigin;
     
     /* Inner state */
-    let selectedRows = [];
+    let selectedRows:Row[] = [];
     let selectedSubCategories = new Set();//todo : duplicated from filterModels
     let selectedManufacturers = new Set();//todo : duplicated from filterModels
     let selectedCategories = new Set();//todo : duplicated from filterModels
@@ -43,8 +43,10 @@
     //reactivity, on value change, update impacts
     $ : onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion);
 
-    function onUpdateImpacts(selectedRows, yearly, lifetime, selectedRegion){
+    function onUpdateImpacts(selectedRows:Row[], yearly, lifetime, selectedRegion){
         if(selectedRegion==undefined) return;
+        if(selectedRows==undefined || selectedRows.length === 0) return;
+
         ratioScope = Scope.calculateImpacts(selectedRows, yearly, lifetime, selectedRegion.value)
         impactTotal = Scope.impactTotal(selectedRows);
         //hasCustomValues = selectedRegion !== regionDefaultValue || lifetime !== lifetimeDefaultValue;
@@ -91,7 +93,7 @@
         if(lifetime){
             hascustomlifetime = true;
         }
-        yearly = ParamParser.parseYearly(new URLSearchParams(window.location.search));
+        yearly = ParamParser.parseYearly(new URLSearchParams(window.location.search)) || yearly;
 
     });
 
