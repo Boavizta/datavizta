@@ -17,7 +17,7 @@
     /* filter buttons*/
     const filterCategoriesDefinition = new Set(["Workplace", "Datacenter"]);
     const filterSubCategoriesDefinition = new Set(["Laptop", "Monitor", "Smartphone", "Desktop", "Server", "Tablet", "Printer"]);
-    const filterManufacturersDefinition = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Seagate"]);
+    const filterManufacturersDefinition = new Set(["Apple", "Dell", "Lenovo", "HP", "Lexmark", "Samsung", "Seagate"]);
 
     let currentFilterModel:FlatFilterModel = {}; //{category=[cat1], subcategory=[sub1, sub2]}
 
