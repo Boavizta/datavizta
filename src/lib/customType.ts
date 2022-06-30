@@ -1,5 +1,20 @@
 /*define custom types*/
 
+
+export type FilterModel = {
+    name? : object,
+    subcategory? : object,
+    category? : object,
+    manufacturer? : object
+}
+
+
+export type FlatFilterModel = {
+    subcategory? : Array<string>,
+    category? : Array<string>,
+    manufacturer? : Array<string>
+}
+
 export type RegionPickerItem = {
     label: string, //label to show on the region picker 
     value: number, //value of the elect impact of the region
@@ -40,7 +55,10 @@ export type Row = {
     hard_drive,
     memory,
     number_cpu,
-    gwp_eol_ratio
+    gwp_eol_ratio,
+    gwp_transport_ratio,
+    height,
+    add_method
 }
 
 export type CalculatedScope = {

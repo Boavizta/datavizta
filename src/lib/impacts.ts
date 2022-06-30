@@ -2,11 +2,13 @@ import type { RegionPickerItem, ScopeResult, Row,RowWithScope } from "./customTy
 import * as Utils from "./utils";
 
 export function calculateImpacts(selectedRows:Row[], yearly:boolean, lifetime:number, electricalImpactFactor:number) {
+    console.log("calculateImpacts", selectedRows.length, yearly, lifetime, electricalImpactFactor)
     const scope2 = impactScope2(selectedRows, yearly, lifetime, electricalImpactFactor);
     const scope3 = impactScope3(selectedRows, yearly, lifetime);
     const total = scope2.median + scope3.median;
     return {scope2: scope2, scope3: scope3, total: total} 
 }
+
 /* calculate total */
 export function impactTotal(rows_selection:Row[]) {
     let total = 0;
@@ -129,7 +131,7 @@ export function impactScope2(rows_selection:Row[], yearly:boolean, lifetime:numb
 
 
 /* calculate scope 2 impacts */
-export function impactScope2ByRow(row:Row, lifetime:number, electricalImpactFactor:number) {
+export function impactScope2byRow(row:Row, lifetime:number, electricalImpactFactor:number) {
     let scope2 = 0;
     lifetime = lifetime > 0 ? lifetime : undefined
 
@@ -171,7 +173,7 @@ export function buildCsvFromFilterRows(filteredRows:Row[], lifetime:number, hasc
     filteredRows.forEach(row => {
         const rowWithScope:RowWithScope = row;
         let totalscope3 = impactScope3byRow(row).scope3;
-        let totalscope2=impactScope2ByRow(row,lifetime,selectedRegion.value);
+        let totalscope2=impactScope2byRow(row,lifetime,selectedRegion.value);
         if ( hascustomlifetime == false ) {
             lifetime=lifetimebyRow(row)
         }
