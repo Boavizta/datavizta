@@ -26,7 +26,7 @@
     "7": "We invite you, for example, to compare the impacts by category of equipment (Workplace and Datacenter) to realize: the importance of the manufacturing phase compared to the use phase for terminals and screens & the importance of the use phase for equipment present in datacenters. Using the form on the right of the graph, you can then vary the lifespan and choose a region of use for the selected equipment to see, on the graph, how this affects the overall impact and especially the distribution by phase of the life cycle. As an example, you can compare the impacts of using a server in France with those of using it in Poland.",
     "8": "You can vary the lifespan and choose a region of use for the selected equipment to see, on the graph, how this affects the overall impact and especially the distribution by phase of the life cycle.",
     "9": "As an example, you can compare the impacts of using a server in <strong><a class=\"link\" href=\"{urlFrance}\" target=\"_blank\">France</a></strong> with those of using it in <strong><a class=\"link\" href=\"{urlPoland}\" target=\"_blank\">Poland</a></strong>.",
-    "10": "For more details about Dataviz tool, you can read",
+    "10": "For more details about Datavizta tool, you can read",
     "11": "this article.",
     "12": "https://boavizta.org/en/blog/dataviz",
     "13": "In particular, to understand the limits of use of this data exclusively provided by manufacturers."

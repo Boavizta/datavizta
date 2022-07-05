@@ -29,7 +29,7 @@
 
 <div id="navbar">
     <a href="https://boavizta.org"><img id="logo" style="height: 47px;width: 32px;" src="./boavizta-logo-4.png" alt="Boavizta"></a>
-    <h1 class="title-main">Boavizta Dataviz</h1>
+    <h1 class="title-main">Datavizta</h1>
     <!--language switch-->
     <input id="switch-language-button" class="mb-5 ml-auto cursor-pointer" title="Choose language" on:click={updateLanguage} value={language} style="width: 20px;"/>
 </div>
