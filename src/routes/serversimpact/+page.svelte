@@ -4,6 +4,7 @@
     import ServerConfig from "$lib/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
     import { _ } from "svelte-i18n";
+    import ServerUsage from "$lib/usage/ServerUsage.svelte";
 
     let server: Server = {
         config: {
@@ -57,6 +58,7 @@
 
         <div class="min-h-[200px] shadow-md p-4">
             <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
+            <ServerUsage/>
         </div>
         <div class="shadow-md p-4">
 
