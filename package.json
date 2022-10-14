@@ -46,6 +46,7 @@
   },
   "type": "module",
   "dependencies": {
+    "dotenv": "^16.0.2",
     "ag-grid-community": "^27.1.0",
     "chart.js": "^3.7.1",
     "html2canvas": "^1.4.1",

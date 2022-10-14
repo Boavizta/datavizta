@@ -1,11 +1,27 @@
 export interface Server {
-    config: ConfigurationServer
+  config: ConfigurationServer;
+  usage: UsageServer;
 }
 export interface ConfigurationServer {
   cpu: Cpu;
   ram: Array<Ram>;
   disk: Array<Disk>;
-  power_supply: PowerSupply;
+  power_supply?: PowerSupply;
+}
+
+export interface UsageServer {
+  hash?: string;
+  TYPE?: string;
+  years_use_time?: number;
+  days_use_time?: number;
+  hours_use_time?: number;
+  hours_electrical_consumption?: number;
+  usage_location?: string;
+  gwp_factor?: number;
+  pe_factor?: number;
+  adp_factor?: number;
+  max_power?: number;
+  workload?: { [key: string]: { [key: string]: number } };
 }
 
 export interface Case {
