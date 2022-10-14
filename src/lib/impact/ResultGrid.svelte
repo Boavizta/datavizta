@@ -2,23 +2,7 @@
     import type { GlobalImpact } from "$lib/customType";
     import ResultBox from "./_ResultBox.svelte";
 
-    export let result: GlobalImpact = {
-        "gwp":{
-            "manufacture":970.0,
-            "use":1170.0,
-            "unit":"kgCO2eq"
-        },
-        "pe":{
-            "manufacture":13000.0,
-            "use":39700.0,
-            "unit":"MJ"
-        },
-        "adp":{
-            "manufacture":0.15,
-            "use":0.000198,
-            "unit":"kgSbeq"
-        }
-    }
+    export let result;
 
 </script>
 

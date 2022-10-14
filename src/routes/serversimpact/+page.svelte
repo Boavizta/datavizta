@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { GlobalImpact } from "$lib/customType";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
     import ServerConfig from "$lib/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
@@ -26,6 +27,24 @@
             power_supply: undefined,
         },
     };
+
+    let result : GlobalImpact = {
+        "gwp":{
+            "manufacture":970.0,
+            "use":1170.0,
+            "unit":"kgCO2eq"
+        },
+        "pe":{
+            "manufacture":13000.0,
+            "use":39700.0,
+            "unit":"MJ"
+        },
+        "adp":{
+            "manufacture":0.15,
+            "use":0.000198,
+            "unit":"kgSbeq"
+        }
+    }
 </script>
 <div id="content" class="px-4">
     <h2 class="title-second mt-2">{$_('server-impact.title')}</h2>
@@ -43,7 +62,7 @@
 
             <h2 class="text-3xl font-bold dark:text-white">Impacts</h2>
 
-            <ResultGrid />
+            <ResultGrid {result}/>
 
         </div>
     </div>
