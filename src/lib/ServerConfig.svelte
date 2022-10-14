@@ -51,7 +51,7 @@
         max="100"
     />
     disques
-    <select bind:value={serverConfig.disk[0].type}  class="w-24 text-left border-solid borde">
+    <select bind:value={serverConfig.disk[0].type}  class="w-24 text-left border-solid border">
         <option selected value="ssd"> SSD </option>
         <option value="hdd"> HDD </option>
         <option value="" class="form-check-input">Unknown</option>
