@@ -43,7 +43,7 @@
     <h2 class="title-second mt-2 w-full">{$_('server-impact.title')}</h2>
     <div class="flex w-full flex-wrap items-stretch justify-between">
         <div class="min-h-[200px] shadow-md p-4 w-full md:w-1/3 mb-4">
-            <h2 class="text-3xl font-bold dark:text-white">Formulaire serveur</h2>
+            <h2 class="text-3xl font-bold dark:text-white">Configuration</h2>
             <ServerConfig bind:serverConfig={server.config} />
         </div>
 
