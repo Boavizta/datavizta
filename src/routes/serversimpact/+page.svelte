@@ -1,9 +1,11 @@
 <script lang="ts">
-    import { getServerImpact } from "$lib/api";
+    import type { GlobalImpact } from "$lib/customType";
+    import ResultGrid from "$lib/impact/ResultGrid.svelte";
     import ServerConfig from "$lib/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
     import type { ServerImpact } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
+    import ServerUsage from "$lib/usage/ServerUsage.svelte";
 
     let server: Server = {
         config: {
@@ -34,6 +36,24 @@
     function updateImpact() {
         serverImpact = getServerImpact(server);
     }
+
+    let result : GlobalImpact = {
+        "gwp":{
+            "manufacture":970.0,
+            "use":1170.0,
+            "unit":"kgCO2eq"
+        },
+        "pe":{
+            "manufacture":13000.0,
+            "use":39700.0,
+            "unit":"MJ"
+        },
+        "adp":{
+            "manufacture":0.15,
+            "use":0.000198,
+            "unit":"kgSbeq"
+        }
+    }
 </script>
 
 <div id="content" class="px-4">
@@ -49,29 +69,19 @@
 
         <div class="min-h-[200px] shadow-md p-4">
             <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
+            <ServerUsage/>
         </div>
         <div class="shadow-md p-4">
+
             <div class="gwp-line p-5 grid grid-cols-3">
-                <div class="" />
+                <div class=""></div>
                 <div class="text-2xl bold">Manufacture</div>
                 <div class="text-2xl bold">Usage</div>
             </div>
 
-            <div class="gwp-line p-5 grid grid-cols-3">
-                <div class="text-md">GWP</div>
-                <div class="text-md text-right">111 kgeqCO₂</div>
-                <div class="text-md text-right">222 kgeqCO₂</div>
-            </div>
-            <div class="pe-line p-5 grid grid-cols-3">
-                <div class="text-md">PE</div>
-                <div class="text-md text-right">111 MJ</div>
-                <div class="text-md text-right">222 MJ</div>
-            </div>
-            <div class="adp-line p-5 grid grid-cols-3">
-                <div class="text-md">ADP</div>
-                <div class="text-md text-right">111 kgSbeq</div>
-                <div class="text-md text-right">222 kgSbeq</div>
-            </div>
+            <ResultGrid {result}/>
+
         </div>
     </div>
+
 </div>

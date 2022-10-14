@@ -1,6 +1,20 @@
 /*define custom types*/
 
 
+//todo use type
+export type GlobalImpact = {
+    gwp: Impact,
+    pe: Impact,
+    adp: Impact
+}
+
+export type Impact = {
+    manufacture:number,
+    use:number,
+    unit:string
+}
+
+
 export type FilterModel = {
     name? : object,
     subcategory? : object,
