@@ -48,19 +48,18 @@
     }
 </script>
 <div id="content" class="px-4">
-    <h2 class="title-second mt-2">{$_('server-impact.title')}</h2>
-
-    <div class="grid space-x-10 evenly-spaced grid-cols-3">
-        <div class="min-h-[200px] shadow-md p-4">
+    <h2 class="title-second mt-2 w-full">{$_('server-impact.title')}</h2>
+    <div class="flex w-full flex-wrap items-stretch justify-between">
+        <div class="min-h-[200px] shadow-md p-4 w-full md:w-1/3 mb-4">
             <h2 class="text-3xl font-bold dark:text-white">Formulaire serveur</h2>
             <ServerConfig bind:serverConfig={server.config} />
         </div>
 
-        <div class="min-h-[200px] shadow-md p-4">
+        <div class="min-h-[200px] shadow-md p-4  w-full md:w-1/3  mb-4">
             <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
             <ServerUsage/>
         </div>
-        <div class="shadow-md p-4">
+        <div class="shadow-md p-4 w-full md:w-1/3  mb-4">
 
             <h2 class="text-3xl font-bold dark:text-white">Impacts</h2>
 
