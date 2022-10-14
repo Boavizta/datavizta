@@ -1,4 +1,8 @@
 {
+  "nav": {
+    "manufacturer": "Données Fabricants",
+    "server-impact": "Impact des serveurs"
+  },
   "index": {
     "title": "Pourquoi cette page?",
     "sub-title": "Référentiel de données",
@@ -71,5 +75,8 @@
   },
   "region-picker": {
     "default": "Utiliser la valeur par défaut"
+  },
+  "server-impact": {
+    "title":"Impact des serveurs"
   }
 }

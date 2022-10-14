@@ -1,4 +1,8 @@
 {
+  "nav": {
+    "manufacturer": "Manufacturer Data" ,
+    "server-impact": "Servers Impact"
+  },
   "index": {
     "title": "Why this page?",
     "sub-title": "Data repository",
@@ -71,5 +75,8 @@
   },
   "region-picker": {
     "default": "Use default value"
+  },
+  "server-impact": {
+    "title":"Servers Impact"
   }
 }
