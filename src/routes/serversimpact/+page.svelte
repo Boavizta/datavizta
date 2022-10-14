@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { getServerImpact } from "$lib/api";
     import ServerConfig from "$lib/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
+    import type { ServerImpact } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
 
     let server: Server = {
@@ -22,16 +24,26 @@
                     type: "ssd",
                 },
             ],
-            power_supply: undefined,
         },
+        usage: {},
     };
+    let serverImpact: Promise<ServerImpact>;
+
+    $: server, updateImpact();
+
+    function updateImpact() {
+        serverImpact = getServerImpact(server);
+    }
 </script>
+
 <div id="content" class="px-4">
-    <h2 class="title-second mt-2">{$_('server-impact.title')}</h2>
+    <h2 class="title-second mt-2">{$_("server-impact.title")}</h2>
 
     <div class="grid space-x-10 evenly-spaced grid-cols-3">
         <div class="min-h-[200px] shadow-md p-4">
-            <h2 class="text-3xl font-bold dark:text-white">Formulaire serveur</h2>
+            <h2 class="text-3xl font-bold dark:text-white">
+                Formulaire serveur
+            </h2>
             <ServerConfig bind:serverConfig={server.config} />
         </div>
 
@@ -39,9 +51,8 @@
             <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
         </div>
         <div class="shadow-md p-4">
-
             <div class="gwp-line p-5 grid grid-cols-3">
-                <div class=""></div>
+                <div class="" />
                 <div class="text-2xl bold">Manufacture</div>
                 <div class="text-2xl bold">Usage</div>
             </div>
@@ -61,8 +72,6 @@
                 <div class="text-md text-right">111 kgSbeq</div>
                 <div class="text-md text-right">222 kgSbeq</div>
             </div>
-
         </div>
     </div>
-
 </div>
