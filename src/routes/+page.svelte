@@ -2,6 +2,8 @@
     import { _, locale, getLocaleFromNavigator } from "svelte-i18n";
     import DataExplorer from "$lib/DataExplorer.svelte";
    
+//renamed file https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3294867
+
     function initLanguage() {
         let language;
         if (getLocaleFromNavigator()=="fr") {

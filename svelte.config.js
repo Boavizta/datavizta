@@ -15,16 +15,20 @@ const config = {
 			fallback: null,
 			precompress: false
 		}),
-		prerender: {
+/* 		
+https://github.com/sveltejs/kit/pull/6197
+prerender: {
 			default: true
-		},
+		}, */
+		/* 
+		
 		vite: {
 			resolve: {
 				alias: {
 					$: path.resolve('./src/')
 				}
 			}
-		}
+		} */
 	}
 };
 
