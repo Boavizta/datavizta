@@ -27,7 +27,7 @@ export async function post(path: string, data) {
 }
 
 export async function getServerImpact(server: Server): Promise<ServerImpact> {
-  const params = "?verbose=true&allocation=TOTAL";
+  const params = "?verbose=false&allocation=TOTAL";
   const res = await post("server/" + params, {
     configuration: server.config,
     usage: server.usage,

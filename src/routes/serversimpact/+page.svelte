@@ -6,6 +6,7 @@
     import type { ServerImpact } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
     import ServerUsage from "$lib/usage/ServerUsage.svelte";
+    import { getServerImpact } from "$lib/api";
 
     let server: Server = {
         config: {
@@ -37,23 +38,23 @@
         serverImpact = getServerImpact(server);
     }
 
-    let result : GlobalImpact = {
-        "gwp":{
-            "manufacture":970.0,
-            "use":1170.0,
-            "unit":"kgCO2eq"
+    let result: GlobalImpact = {
+        gwp: {
+            manufacture: 970.0,
+            use: 1170.0,
+            unit: "kgCO2eq",
         },
-        "pe":{
-            "manufacture":13000.0,
-            "use":39700.0,
-            "unit":"MJ"
+        pe: {
+            manufacture: 13000.0,
+            use: 39700.0,
+            unit: "MJ",
         },
-        "adp":{
-            "manufacture":0.15,
-            "use":0.000198,
-            "unit":"kgSbeq"
-        }
-    }
+        adp: {
+            manufacture: 0.15,
+            use: 0.000198,
+            unit: "kgSbeq",
+        },
+    };
 </script>
 
 <div id="content" class="px-4">
@@ -69,19 +70,10 @@
 
         <div class="min-h-[200px] shadow-md p-4">
             <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
-            <ServerUsage/>
+            <ServerUsage />
         </div>
         <div class="shadow-md p-4">
-
-            <div class="gwp-line p-5 grid grid-cols-3">
-                <div class=""></div>
-                <div class="text-2xl bold">Manufacture</div>
-                <div class="text-2xl bold">Usage</div>
-            </div>
-
-            <ResultGrid {result}/>
-
+            <ResultGrid {serverImpact} />
         </div>
     </div>
-
 </div>
