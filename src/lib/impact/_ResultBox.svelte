@@ -21,11 +21,11 @@
           <tr>
             <td>Manufacture</td>
             <td class="pl-2"><span class="font-semibold">
-                {result.use} </span><span>{result.unit}</span></td>
+                {result.manufacture} </span><span>{result.unit}</span></td>
           </tr>
           <tr>
               <td>Usage</td>
-              <td class="pl-2"><span class="font-semibold">{result.manufacture} </span><span>{result.unit}</span></td>
+              <td class="pl-2"><span class="font-semibold">{result.use} </span><span>{result.unit}</span></td>
           </tr>
         </tbody>
       </table>
