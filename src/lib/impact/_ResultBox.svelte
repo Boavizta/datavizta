@@ -13,19 +13,21 @@
 <div >
 
 
-    <h2 class="text-lg">{title}</h2>
-    <span class="font-light text-xs">{description}</span>
+    <span class="text-lg">{title}</span>
+    <span class="font-light text-xs italic">{description}</span>
 
     <table class="table-fixed">
         <tbody>
           <tr>
             <td>Manufacture</td>
-            <td class="pl-2"><span class="font-semibold">
-                {result.manufacture} </span><span>{result.unit}</span></td>
+            <td class="pl-4 text-right" width="100px"><span class="font-semibold">
+                {result.manufacture} </span></td>
+            <td class="pl-1"><span>{result.unit}</span></td>
           </tr>
           <tr>
               <td>Usage</td>
-              <td class="pl-2"><span class="font-semibold">{result.use} </span><span>{result.unit}</span></td>
+              <td class="pl-4 text-right"><span class="font-semibold">{result.use} </span></td>
+              <td class="pl-1"><span>{result.unit}</span></td>
           </tr>
         </tbody>
       </table>
