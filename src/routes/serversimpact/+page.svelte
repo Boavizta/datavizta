@@ -27,8 +27,9 @@
                     type: "ssd",
                 },
             ],
-        },
-        usage: {},
+        }, usage : {
+            years_use_time : 3
+        } 
     };
     let serverImpact: Promise<ServerImpact>;
 
@@ -49,7 +50,7 @@
 
         <div class="min-h-[200px] shadow-md p-4  w-full md:w-1/3  mb-4">
             <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
-            <ServerUsage/>
+            <ServerUsage bind:usage={server.usage}/>
         </div>
         <div class="shadow-md p-4 w-full md:w-1/3  mb-4">
 
