@@ -77,6 +77,27 @@
     "default": "Use default value"
   },
   "server-impact": {
-    "title":"Servers Impact"
+    "title":"Servers Impact",
+    "Manufacture" : "Manufacture",
+    "Usage" : "Usage",
+    "Impacts" : "Impacts",
+    "Utilisation" : "Utilisation",
+    "Configuration" : "Configuration",
+    "Global Warming Potential" : "Global Warming Potential",
+    "Global Warming Potential desc": "",
+    "Primary energy" : "Primary energy",
+    "Primary energy desc" : "",
+    "Abiotic Depletion Potential" : "Abiotic Depletion Potential",
+    "Abiotic Depletion Potential desc" : "",
+    "used during" : "used during ",
+    "years" : "years",
+    "in a datacenter located in " : "in a datacenter located in ",
+    "1 server with" : "1 server with",
+    "cpu with" : "CPU(s) with",
+    "core" : "cores",
+    "RAM sticks of":"sticks of",
+    "GB": "GB",
+    "storage volume": "storage volume of type",
+    "with size of": "with size of"
   }
 }

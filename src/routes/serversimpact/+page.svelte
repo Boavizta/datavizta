@@ -43,18 +43,22 @@
 <div id="content" class="px-4">
     <h2 class="title-second mt-2 w-full">{$_('server-impact.title')}</h2>
     <div class="flex w-full flex-wrap items-stretch justify-between">
-        <div class="min-h-[200px] shadow-md p-4 w-full md:w-1/3 mb-4">
-            <h2 class="text-3xl font-bold dark:text-white">Configuration</h2>
-            <ServerConfig bind:serverConfig={server.config} />
+        <div class="min-h-[200px] shadow-md p-4 w-full md:w-6/12 mb-4">
+            <div>
+                <h2 class="mb-2 text-3xl font-bold dark:text-white">{$_('server-impact.Configuration')}</h2>
+                <ServerConfig bind:serverConfig={server.config} />
+            </div>
+            <div class="mt-8">
+                <h2 class="mb-2  text-3xl font-bold dark:text-white">{$_('server-impact.Utilisation')}</h2>
+                <ServerUsage bind:usage={server.usage}/>
+            </div>
         </div>
 
-        <div class="min-h-[200px] shadow-md p-4  w-full md:w-1/3  mb-4">
-            <h2 class="text-3xl font-bold dark:text-white">Utilisation</h2>
-            <ServerUsage bind:usage={server.usage}/>
-        </div>
-        <div class="shadow-md p-4 w-full md:w-1/3  mb-4">
+        <!-- <div class="min-h-[200px] shadow-md p-4  w-full md:w-1/3  mb-4">
+        </div> -->
+        <div class="shadow-md p-4 w-full md:w-6/12">
 
-            <h2 class="text-3xl font-bold dark:text-white">Impacts</h2>
+            <h2 class="mb-2 text-3xl font-bold dark:text-white">{$_('server-impact.Impacts')}</h2>
 
             <ResultGrid {serverImpact}/>
 

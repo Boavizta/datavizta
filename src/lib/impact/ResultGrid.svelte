@@ -2,6 +2,7 @@
     import type { GlobalImpact } from "$lib/customType";
     import type { ServerImpact } from "$lib/types/impact";
     import ResultBox from "./_ResultBox.svelte";
+    import { _ } from "svelte-i18n";
 
     export let serverImpact: Promise<ServerImpact>;
 </script>
@@ -10,25 +11,25 @@
     <div class="spinner-border" role="status" />
 {:then loadedImpact}
     {#if loadedImpact != undefined}
-        <div class="mt-4">
+        <div class="">
             <ResultBox
                 result={loadedImpact.gwp}
-                title="Global Warming Potential"
-                description="Évalue l’effet sur le réchauffement de la planète"
+                title="{$_('server-impact.Global Warming Potential')}"
+                description="{$_('server-impact.Global Warming Potential desc')}"
             />
         </div>
         <div class="mt-6">
             <ResultBox
                 result={loadedImpact.pe}
-                title="Primary energy"
-                description="Consommation de ressources énergétiques"
+                title="{$_('server-impact.Primary energy')}"
+                description="{$_('server-impact.Primary energy desc')}"
             />
         </div>
         <div class="mt-6">
             <ResultBox
                 result={loadedImpact.adp}
-                title="Abiotic Depletion Potential"
-                description="Évalue l’utilisation de minéraux et de matières premières fossiles."
+                title="{$_('server-impact.Abiotic Depletion Potential')}"
+                description="{$_('server-impact.Abiotic Depletion Potential desc')}"
             />
         </div>
     {/if}

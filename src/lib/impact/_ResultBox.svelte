@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { Impact } from "$lib/customType";
+    import { _ } from "svelte-i18n";
 
     export let result:Impact ={
             "manufacture":13000.0,
@@ -19,13 +20,13 @@
     <table class="table-fixed">
         <tbody>
           <tr>
-            <td>Manufacture</td>
+            <td>{$_('server-impact.Manufacture')}</td>
             <td class="pl-4 text-right" width="100px"><span class="font-semibold">
                 {result.manufacture} </span></td>
             <td class="pl-1"><span>{result.unit}</span></td>
           </tr>
           <tr>
-              <td>Usage</td>
+              <td>{$_('server-impact.Usage')}</td>
               <td class="pl-4 text-right"><span class="font-semibold">{result.use} </span></td>
               <td class="pl-1"><span>{result.unit}</span></td>
           </tr>
