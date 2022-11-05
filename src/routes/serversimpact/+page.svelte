@@ -41,7 +41,7 @@
 </script>
 
 <div id="content" class="px-4">
-    <h2 class="title-second mt-2 w-full">{$_('server-impact.title')}</h2>
+    <h2 class="title-second mt-2 mb-4 w-full">{$_('server-impact.title')}</h2>
     <div class="flex w-full flex-wrap items-stretch justify-between">
         <div class="min-h-[200px] shadow-md p-4 w-full md:w-6/12">
             <div>
