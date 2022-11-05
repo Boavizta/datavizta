@@ -95,10 +95,10 @@
     "1 server with" : "1 serveur possédant",
     "cpu with" : "CPU(s) avec",
     "core" : "cores",
-    "RAM sticks of":"barrettes de",
+    "RAM sticks of":"barrettes RAM de",
     "GB": "Go",
     "of": "de",
-    "storage volume": "disques",
+    "storage volume": "disque(s) de stockage",
     "with size of": "d'une capacité de"
   }
 }

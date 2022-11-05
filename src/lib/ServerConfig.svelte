@@ -53,7 +53,8 @@
             max="100"
         />
         {$_('server-impact.storage volume')}
-        <select
+        
+        <!-- <select
             bind:value={serverConfig.disk[0].type}
             class="w-24 text-left border-solid border"
         >
@@ -68,6 +69,6 @@
             type="number"
             min="1"
             max="10000"
-        />{$_('server-impact.GB')} 
+        />{$_('server-impact.GB')}  -->
     </p>
 </form>

@@ -15,6 +15,7 @@
 
 
     <span class="text-lg">{title}</span>
+    <br/>
     <span class="font-light text-xs italic">{description}</span>
 
     <table class="table-fixed">
