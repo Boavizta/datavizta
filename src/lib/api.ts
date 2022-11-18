@@ -2,7 +2,8 @@ import type { ConfigurationServer, Server } from "./types/hardware";
 import type { ServerImpact } from "./types/impact";
 import { env } from "$env/dynamic/public";
 
-const base = env.PUBLIC_API_URL  + "/v1";
+const base = "https://dev.api.boavizta.org/v1"
+
 
 async function send(method: string, path: string, data: unknown = undefined) {
   const opts: RequestInit = { method, headers: {} };

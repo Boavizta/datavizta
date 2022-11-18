@@ -12,7 +12,7 @@
         config: {
             cpu: {
                 units: 1,
-                core_units: 16,
+                core_units: 16
             },
             ram: [
                 {
@@ -23,17 +23,17 @@
             disk: [
                 {
                     units: 1,
-                    capacity: 512,
+                    capacity: 500,
                     type: "ssd",
                 },
                 {
                     units: 1,
-                    capacity: 512,
+                    capacity: 1000,
                     type: "hdd",
                 },
             ],
         }, usage : {
-            years_use_time : 3
+            hours_electrical_consumption : 250
         } 
     };
     let serverImpact: Promise<ServerImpact>;
@@ -50,11 +50,11 @@
     <div class="flex w-full flex-wrap items-stretch justify-between">
         <div class="min-h-[200px] shadow-md p-4 w-full md:w-6/12">
             <div>
-                <h2 class="mb-2 text-3xl font-bold dark:text-white">{$_('server-impact.Configuration')}</h2>
+                <h2 class="mb-2 text-3xl font-bold">{$_('server-impact.Configuration')}</h2>
                 <ServerConfig bind:serverConfig={server.config} />
             </div>
             <div class="mt-8">
-                <h2 class="mb-2  text-3xl font-bold dark:text-white">{$_('server-impact.Utilisation')}</h2>
+                <h2 class="mb-2  text-3xl font-bold">{$_('server-impact.Utilisation')}</h2>
                 <ServerUsage bind:usage={server.usage}/>
             </div>
         </div>
