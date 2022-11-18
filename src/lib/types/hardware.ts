@@ -20,8 +20,7 @@ export interface UsageServer {
   gwp_factor?: number;
   pe_factor?: number;
   adp_factor?: number;
-  max_power?: number;
-  workload?: { [key: string]: { [key: string]: number } };
+  time_workload?: number;
 }
 
 export interface Case {
@@ -34,11 +33,12 @@ export interface Cpu {
   core_units: number;
   die_size?: number;
   die_size_per_core?: number;
+  tdp: number;
   process?: number;
   manufacturer?: string;
   manufacture_date?: string;
   model?: string;
-  family?: string;
+  family: string;
 }
 
 export interface Disk {

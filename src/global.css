@@ -209,3 +209,4 @@ input:checked + .slider:before {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+

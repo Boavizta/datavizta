@@ -26,6 +26,11 @@
                     capacity: 512,
                     type: "ssd",
                 },
+                {
+                    units: 1,
+                    capacity: 512,
+                    type: "hdd",
+                },
             ],
         }, usage : {
             years_use_time : 3
