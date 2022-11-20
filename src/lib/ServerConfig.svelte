@@ -36,8 +36,6 @@
         ssdmanufitems = await getitems(ssd_manuf_route);
     })
 
-    
-
 </script>
 
 <form>
