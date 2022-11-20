@@ -5,21 +5,22 @@
     import {onMount} from "svelte";
     import {get, getServerImpact, post} from "$lib/api";
     import * as ParamParser from "$lib/paramParser";
+    import { element } from "svelte/internal";
     
 
     /*Bound var*/
     export let serverConfig: ConfigurationServer;
 
-    let families = get("utils/cpu_family/");
-    let ssd_manuf = get("utils/ssd_manufacturer/");
-    let ram_manuf = get("utils/ram_manufacturer/");
+    let families_route = "utils/cpu_family/";
+    let ssd_manuf_route = "utils/ssd_manufacturer/";
+    let ram_manuf_route = "utils/ram_manufacturer/";
 
     let architems = [];
     let rammanufitems = [];
     let ssdmanufitems = [];
 
-    onMount(async () => { 
-        architems = await families.then((response) => response.json())
+    function getitems(route) {
+        return get(route).then((response) => response.json())
             .then((data) => {
                 let elements = [];
                 for(let i = 0; i < data.length; i++) {
@@ -27,23 +28,12 @@
                 }
                 return elements
             });
-        rammanufitems = await ssd_manuf.then((response) => response.json())
-            .then((data) => {
-                let elements = [];
-                for(let i = 0; i < data.length; i++) {
-                    elements.push({value: data[i], label: data[i]});
-                }
-                return elements
-            });
-        ssdmanufitems = await ram_manuf.then((response) => response.json())
-            .then((data) => {
-                let elements = [];
-                for(let i = 0; i < data.length; i++) {
-                    elements.push({value: data[i], label: data[i]});
-                }
-                return elements
-            });
+    }
 
+    onMount(async () => { 
+        architems = await getitems(families_route);
+        rammanufitems = await getitems(ram_manuf_route);
+        ssdmanufitems = await getitems(ssd_manuf_route);
     })
 
     
