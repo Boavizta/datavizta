@@ -13,10 +13,11 @@
       {value: 'model', label: 'model'},
   ];
 
-  function getitems(route) {
+  function getitems(route, default_value) {
       return get(route).then((response) => response.json())
           .then((data) => {
               let elements = [];
+              elements.push({value: default_value, label: 'Default'});
               let items = Object.keys(data)
               for (let i = 0; i < items.length; i++) {
                   elements.push({value: data[items[i]], label: items[i]});
@@ -29,7 +30,7 @@
   let locaitems = []
 
   onMount(async () => {
-      locaitems = await getitems(localisation_route);
+      locaitems = await getitems(localisation_route, 'Default');
   })
 
 
@@ -56,7 +57,7 @@
 <div class="flex flex-row my-2">
     <div class="basis-1/2 my-2">
         <p>Localisation</p>
-        <Select items={locaitems} on:select={region_select}/>
+        <Select items={locaitems} on:select={region_select} value="Default"/>
     </div>
     <div class="basis-1/2 my-2">
         <p>Lifespan (year)</p>

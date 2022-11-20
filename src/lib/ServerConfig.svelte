@@ -6,7 +6,7 @@
     import {get, getServerImpact, post} from "$lib/api";
     import * as ParamParser from "$lib/paramParser";
     import { element } from "svelte/internal";
-    
+
 
     /*Bound var*/
     export let serverConfig: ConfigurationServer;
@@ -19,10 +19,11 @@
     let rammanufitems = [];
     let ssdmanufitems = [];
 
-    function getitems(route) {
+    function getitems(route, default_value) {
         return get(route).then((response) => response.json())
             .then((data) => {
                 let elements = [];
+                elements.push({value: default_value, label: 'Default'});
                 for(let i = 0; i < data.length; i++) {
                     elements.push({value: data[i], label: data[i]});
                 }
@@ -31,10 +32,23 @@
     }
 
     onMount(async () => { 
-        architems = await getitems(families_route);
-        rammanufitems = await getitems(ram_manuf_route);
-        ssdmanufitems = await getitems(ssd_manuf_route);
+        architems = await getitems(families_route, "skylake");
+        rammanufitems = await getitems(ram_manuf_route, "Samsung");
+        ssdmanufitems = await getitems(ssd_manuf_route, "Mirco");
     })
+
+    function archi_select(event){
+        serverConfig.cpu.family = event.detail.value
+    }
+
+    function ram_manuf_select(event){
+        serverConfig.ram[0].manufacturer = event.detail.value
+    }
+
+    function ssd_manuf_select(event){
+        serverConfig.disk[0].manufacturer = event.detail.value
+    }
+
 
 </script>
 
@@ -56,7 +70,7 @@
     </div>
     <div class="my-2">
         <p>Architecture</p>
-        <Select items={architems} bind:value={serverConfig.cpu.family}/> <!--families-->
+        <Select items={architems} on:select={archi_select} value="Default"/>
     </div>
 
     <p class="text-xl my-2">RAM</p>
@@ -72,7 +86,7 @@
         </div>
         <div class="basis-1/3 h-full my-2">
             <p>Manufacturer</p>
-            <Select items={rammanufitems} bind:value={serverConfig.ram[0].manufacturer}/> <!--ram_manuf-->
+            <Select items={rammanufitems} on:select={ram_manuf_select} value="Default"/>
         </div>
     </div>
 
@@ -88,7 +102,7 @@
         </div>
         <div class="basis-1/3 my-2">
             <p>Manufacturer</p>
-            <Select items={ssdmanufitems} bind:value={serverConfig.disk[0].manufacturer}/> <!--ssd_manuf-->
+            <Select items={ssdmanufitems} on:select={ssd_manuf_select} value="Default"/>
         </div>
     </div>
 
