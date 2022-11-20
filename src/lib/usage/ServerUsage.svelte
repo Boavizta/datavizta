@@ -9,8 +9,8 @@
   export let usage:UsageServer;
 
   let methods = [
-      {value: 'electricity', label: 'elec'},
-      {value: 'model', label: 'model'},
+      {value: 'Electricity', label: 'Electricity'},
+      {value: 'Load', label: 'Load'},
   ];
 
   function getitems(route, default_value) {
@@ -35,7 +35,7 @@
 
 
   function change_method(event){
-      if(event.detail.label == "model"){
+      if(event.detail.label == "Load"){
           usage.hours_electrical_consumption = null
           usage.time_workload = 50
           document.getElementById('model').style.display = 'block';
@@ -55,27 +55,31 @@
 </script>
 
 <div class="flex flex-row my-2">
-    <div class="basis-1/2 my-2">
-        <p>Localisation</p>
-        <Select items={locaitems} on:select={region_select} value="Default"/>
+    <div class="basis-1/2 my-2 mx-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Localisation</label>
+        <div style="--borderRadius: 0.5em;">
+            <Select items={locaitems} on:select={region_select} value="Default"/>
+        </div>
     </div>
-    <div class="basis-1/2 my-2">
-        <p>Lifespan (year)</p>
-        <input bind:value={usage.years_use_time} type="number" min="1" max="64"/>
+    <div class="basis-1/2 my-2 mx-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Lifespan (year)</label>
+        <input bind:value={usage.years_use_time} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
     </div>
 </div>
 <div class="flex flex-row my-2">
-    <div class="basis-1/2 my-2">
-        <p>method</p>
-        <Select items={methods} on:select={change_method} value="elec"/>
+    <div class="basis-1/2 my-2 mx-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Method</label>
+        <div style="--borderRadius: 0.5em;">
+            <Select items={methods} on:select={change_method} value="Electricity"/>
+        </div>
     </div>
-    <div class="basis-1/2 my-2" id="conso">
-        <p>Average electrical consumption (Watt/hour)</p>
-        <input bind:value={usage.hours_electrical_consumption} type="number" min="1" max="10"/>
+    <div class="basis-1/2 my-2 mx-2" id="conso">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Average electrical consumption (Watt/hour)</label>
+        <input bind:value={usage.hours_electrical_consumption} type="number" min="1" max="10" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
     </div>
-    <div class="basis-1/2 my-2" id="model" style="display: none">
-        <p>Server load (%)</p>
-        <input bind:value={usage.time_workload} type="number" min="1" max="10"/>
+    <div class="basis-1/2 my-2 mx-2" id="model" style="display: none">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Server load (%)</label>
+        <input bind:value={usage.time_workload} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
     </div>
 </div>
 

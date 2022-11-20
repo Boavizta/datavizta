@@ -210,3 +210,7 @@ input:checked + .slider:before {
   visibility: visible;
 }
 
+.tester {
+  border-radius: 0.5rem;
+  background-color: rgb(249 250 251);
+}
