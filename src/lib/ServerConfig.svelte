@@ -1,11 +1,11 @@
 <script lang="ts">
     import type { ConfigurationServer, Disk } from "$lib/types/hardware";
-
     import { _ } from "svelte-i18n";
     import Select from "svelte-select"
     import {onMount} from "svelte";
     import {get, getServerImpact, post} from "$lib/api";
     import * as ParamParser from "$lib/paramParser";
+    
 
     /*Bound var*/
     export let serverConfig: ConfigurationServer;
@@ -14,12 +14,39 @@
     let ssd_manuf = get("utils/ssd_manufacturer/");
     let ram_manuf = get("utils/ram_manufacturer/");
 
-    let items = [
-        {value: 'A', label: 'A'},
-        {value: 'B', label: 'B'},
-        {value: 'C', label: 'C'},
-        {value: 'D', label: 'D'}
-    ];
+    let architems = [];
+    let rammanufitems = [];
+    let ssdmanufitems = [];
+
+    onMount(async () => { 
+        architems = await families.then((response) => response.json())
+            .then((data) => {
+                let elements = [];
+                for(let i = 0; i < data.length; i++) {
+                    elements.push({value: data[i], label: data[i]});
+                }
+                return elements
+            });
+        rammanufitems = await ssd_manuf.then((response) => response.json())
+            .then((data) => {
+                let elements = [];
+                for(let i = 0; i < data.length; i++) {
+                    elements.push({value: data[i], label: data[i]});
+                }
+                return elements
+            });
+        ssdmanufitems = await ram_manuf.then((response) => response.json())
+            .then((data) => {
+                let elements = [];
+                for(let i = 0; i < data.length; i++) {
+                    elements.push({value: data[i], label: data[i]});
+                }
+                return elements
+            });
+
+    })
+
+    
 
 </script>
 
@@ -41,7 +68,7 @@
     </div>
     <div class="my-2">
         <p>Architecture</p>
-        <Select items={items} bind:value={serverConfig.cpu.family}/> <!--families-->
+        <Select items={architems} bind:value={serverConfig.cpu.family}/> <!--families-->
     </div>
 
     <p class="text-xl my-2">RAM</p>
@@ -57,7 +84,7 @@
         </div>
         <div class="basis-1/3 h-full my-2">
             <p>Manufacturer</p>
-            <Select items={items} bind:value={serverConfig.ram[0].manufacturer}/> <!--ram_manuf-->
+            <Select items={rammanufitems} bind:value={serverConfig.ram[0].manufacturer}/> <!--ram_manuf-->
         </div>
     </div>
 
@@ -73,7 +100,7 @@
         </div>
         <div class="basis-1/3 my-2">
             <p>Manufacturer</p>
-            <Select items={items} bind:value={serverConfig.disk[0].manufacturer}/> <!--ssd_manuf-->
+            <Select items={ssdmanufitems} bind:value={serverConfig.disk[0].manufacturer}/> <!--ssd_manuf-->
         </div>
     </div>
 
