@@ -14,7 +14,7 @@
 <div >
 
 
-    <span class="text-lg">{title}</span>
+    <span >{title}</span>
     <br/>
     <span class="font-light text-xs italic">{description}</span>
 
