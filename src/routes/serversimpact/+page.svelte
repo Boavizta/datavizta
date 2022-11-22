@@ -50,13 +50,13 @@
 <div id="content" class="px-4">
     <h2 class="title-second mt-2 mb-4 w-full">{$_('server-impact.title')}</h2>
     <div class="flex w-full flex-wrap items-stretch justify-between">
-        <div class="min-h-[200px] shadow-md p-4 w-full md:w-5/12">
-            <div>
-                <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Configuration')}</h2>
+        <div class="min-h-[200px] p-4 w-full md:w-5/12">
+            <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Configuration')}</h2>
+            <div class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <ServerConfig bind:serverConfig={server.config} />
             </div>
-            <div class="mt-8">
-                <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Utilisation')}</h2>
+            <h2 class="mt-6 mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Utilisation')}</h2>
+            <div class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
                 <ServerUsage bind:usage={server.usage}/>
             </div>
         </div>
