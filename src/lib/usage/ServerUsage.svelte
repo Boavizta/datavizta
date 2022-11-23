@@ -54,30 +54,28 @@
   }
 </script>
 
-<div class="flex flex-row my-2">
-    <div class="basis-1/2 my-2 mx-2">
+<div class="flex flex-row my-1">
+    <div class="basis-1/4 my-1 mx-2">
         <label class="block mb-2 text-sm font-medium text-gray-900">Localisation</label>
         <div style="--borderRadius: 0.5em;">
             <Select items={locaitems} on:select={region_select} value="Default"/>
         </div>
     </div>
-    <div class="basis-1/2 my-2 mx-2">
+    <div class="basis-1/4 my-1 mx-2">
         <label class="block mb-2 text-sm font-medium text-gray-900">Lifespan (year)</label>
         <input bind:value={usage.years_use_time} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
     </div>
-</div>
-<div class="flex flex-row my-2">
-    <div class="basis-1/2 my-2 mx-2">
+    <div class="basis-1/4 my-1 mx-2">
         <label class="block mb-2 text-sm font-medium text-gray-900">Method</label>
         <div style="--borderRadius: 0.5em;">
             <Select items={methods} on:select={change_method} value="Electricity"/>
         </div>
     </div>
-    <div class="basis-1/2 my-2 mx-2" id="conso">
+    <div class="basis-1/4 my-1 mx-2" id="conso">
         <label class="block mb-2 text-sm font-medium text-gray-900">Avrg electrical consumption (Watt/hour)</label>
         <input bind:value={usage.hours_electrical_consumption} type="number" min="1" max="10" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
     </div>
-    <div class="basis-1/2 my-2 mx-2" id="model" style="display: none">
+    <div class="basis-1/4 my-1 mx-2" id="model" style="display: none">
         <label class="block mb-2 text-sm font-medium text-gray-900">Server load (%)</label>
         <input bind:value={usage.time_workload} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
     </div>

@@ -115,11 +115,7 @@
         <div class="min-h-[200px] p-4 w-full md:w-5/12">
             <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Configuration')}</h2>
             <div class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                <ServerConfig bind:serverConfig={server.config} />
-            </div>
-            <h2 class="mt-6 mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Utilisation')}</h2>
-            <div class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
-                <ServerUsage bind:usage={server.usage}/>
+                <ServerConfig bind:serverConfig={server.config} bind:usage={server.usage} />
             </div>
         </div>
         <div class="px-4 md:w-7/12">
