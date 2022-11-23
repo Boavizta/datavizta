@@ -1,9 +1,7 @@
 import type { ConfigurationServer, Server } from "./types/hardware";
 import type { ServerImpact } from "./types/impact";
-import { env } from "$env/dynamic/public";
 
 const base = "https://dev.api.boavizta.org/v1"
-
 
 async function send(method: string, path: string, data: unknown = undefined) {
   const opts: RequestInit = { method, headers: {} };
@@ -28,7 +26,7 @@ export async function post(path: string, data) {
 }
 
 export async function getServerImpact(server: Server): Promise<ServerImpact> {
-  const params = "?verbose=false&allocation=TOTAL";
+  const params = "?verbose=true&allocation=TOTAL";
   const res = await post("server/" + params, {
     configuration: server.config,
     usage: server.usage,

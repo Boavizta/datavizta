@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { GlobalImpact } from "$lib/customType";
+    import type {GlobalImpact, VerboseImpacts} from "$lib/customType";
     import type { ServerImpact } from "$lib/types/impact";
     import ResultBox from "./_ResultBox.svelte";
     import { _ } from "svelte-i18n";
@@ -7,10 +7,10 @@
     import BarChartPE from "$lib/chart/BarChartPE.svelte"
     import BarChartADP from "$lib/chart/BarChartADP.svelte"
 
-    export let serverImpact: Promise<ServerImpact>;
+    export let verboseImpacts: VerboseImpacts;
 </script>
 
-{#await serverImpact}
+{#await verboseImpacts}
     <div class="spinner-border" role="status" />
 {:then loadedImpact}
     {#if loadedImpact != undefined}
@@ -25,29 +25,7 @@
                 <BarChartADP result={loadedImpact.adp} />
             </div>
         </div>
-        <div class="px-4 md:w-full">
-            <div class="mt-6 text-sm">
-                <ResultBox
-                    result={loadedImpact.gwp}
-                    title="{$_('server-impact.Global Warming Potential')}"
-                    description="{$_('server-impact.Global Warming Potential desc')}"
-                />
-            </div>
-            <div class="mt-6 text-sm">
-                <ResultBox
-                    result={loadedImpact.pe}
-                    title="{$_('server-impact.Primary energy')}"
-                    description="{$_('server-impact.Primary energy desc')}"
-                />
-            </div>
-            <div class="mt-6 text-sm">
-                <ResultBox
-                    result={loadedImpact.adp}
-                    title="{$_('server-impact.Abiotic Depletion Potential')}"
-                    description="{$_('server-impact.Abiotic Depletion Potential desc')}"
-                />
-            </div>
-        </div>
+
     {/if}
 {:catch error}
     <p style="color: red">{error.message}</p>

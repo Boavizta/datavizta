@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { GlobalImpact } from "$lib/customType";
+    import type {VerboseImpacts} from "$lib/customType";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
     import ServerConfig from "$lib/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
@@ -11,39 +11,101 @@
     let server: Server = {
         config: {
             cpu: {
-                units: 1,
+                units: 2,
                 core_units: 16,
                 tdp: 150
             },
             ram: [
                 {
-                    units: 2,
-                    capacity: 16,
+                    units: 4,
+                    capacity: 32,
                 },
             ],
             disk: [
                 {
-                    units: 1,
-                    capacity: 500,
+                    units: 4,
+                    capacity: 1000,
                     type: "ssd",
                 },
                 {
-                    units: 1,
+                    units: 2,
                     capacity: 1000,
                     type: "hdd",
                 },
             ],
         }, usage : {
-            hours_electrical_consumption : 250,
+            hours_electrical_consumption : 150,
             years_use_time: 4
         } 
     };
-    let serverImpact: Promise<ServerImpact>;
+
+    let serverImpact: ServerImpact;
+    let verboseImpacts:VerboseImpacts = {
+       "adp": {
+            "hdd": 1,
+            "motherboard":1,
+            "power_supply":1,
+            "cpu":1,
+            "ram":1,
+            "ssd":1,
+            "use":1,
+            "unit":1
+        },
+        "pe": {
+            "hdd": 1,
+            "motherboard":1,
+            "power_supply":1,
+            "cpu":1,
+            "ram":1,
+            "ssd":1,
+            "use":1,
+            "unit":1
+        },
+        "gwp": {
+            "hdd": 1,
+            "motherboard":1,
+            "power_supply":1,
+            "cpu":1,
+            "ram":1,
+            "ssd":1,
+            "use":1,
+            "unit":1
+        },
+    };
 
     $: server, updateImpact();
 
-    function updateImpact() {
-        serverImpact = getServerImpact(server);
+    async function updateImpact() {
+        serverImpact = await getServerImpact(server);
+        verboseImpacts.adp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.adp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['RAM-1']['units']
+        verboseImpacts.adp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['SSD-1']['units']
+        verboseImpacts.adp.hdd = serverImpact['verbose']['HDD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['HDD-1']['units']
+        verboseImpacts.adp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
+        verboseImpacts.adp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.adp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['adp']['value']
+        verboseImpacts.adp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['unit']
+        verboseImpacts.adp.use= serverImpact['verbose']['USAGE']['usage_impacts']['adp']['value']
+
+        verboseImpacts.gwp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.gwp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['RAM-1']['units']
+        verboseImpacts.gwp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['SSD-1']['units']
+        verboseImpacts.gwp.hdd = serverImpact['verbose']['HDD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['HDD-1']['units']
+        verboseImpacts.gwp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
+        verboseImpacts.gwp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.gwp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['gwp']['value']
+        verboseImpacts.gwp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['unit']
+        verboseImpacts.gwp.use= serverImpact['verbose']['USAGE']['usage_impacts']['gwp']['value']
+
+        verboseImpacts.pe.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.pe.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['RAM-1']['units']
+        verboseImpacts.pe.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['SSD-1']['units']
+        verboseImpacts.pe.hdd = serverImpact['verbose']['HDD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['HDD-1']['units']
+        verboseImpacts.pe.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
+        verboseImpacts.pe.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.pe.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['pe']['value']
+        verboseImpacts.pe.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['unit']
+        verboseImpacts.pe.use= serverImpact['verbose']['USAGE']['usage_impacts']['pe']['value']
     }
 </script>
 
@@ -61,7 +123,7 @@
             </div>
         </div>
         <div class="px-4 md:w-7/12">
-                <ResultGrid {serverImpact}/>
+                <ResultGrid {verboseImpacts}/>
         </div>
     </div>
 

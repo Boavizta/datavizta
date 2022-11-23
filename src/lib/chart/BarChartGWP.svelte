@@ -36,21 +36,54 @@
     return {
       labels: ["GWP (kgCO2eq)"],
     datasets: [{
-      label: 'GWP Manuf',
+      label: 'GWP - USAGE',
       yAxisID: 'GWP',
-      data: [result.manufacture],
+      data: [result.use],
       backgroundColor: ['#008a8c'],
       borderColor: ['#008a8c'],
       stack: 'stack 0',
       skipNull: true
-    }, {
-      label: 'GWP Use',
+    },
+    {
+      label: 'GWP - RAM - MANUF',
       yAxisID: 'GWP',
-      data: [result.use],
-      backgroundColor: ['rgb(150, 182, 183)'],
-      borderColor: ['rgb(150, 182, 183)'],
+      data: [result.ram],
+      backgroundColor: ['rgb(151, 182, 184)'],
+      borderColor: ['rgb(151, 182, 184)'],
       stack: 'stack 0'
-    }]
+    },
+    {
+      label: 'GWP - CPU - MANUF',
+      yAxisID: 'GWP',
+      data: [result.cpu],
+      backgroundColor: ['rgb(130, 246, 250)'],
+      borderColor: ['rgb(130, 246, 250)'],
+      stack: 'stack 0'
+     },
+     {
+         label: 'GWP - SSD - MANUF',
+         yAxisID: 'GWP',
+         data: [result.ssd],
+         backgroundColor: ['rgb(203, 246, 247)'],
+         borderColor: ['rgb(203, 246, 247)'],
+         stack: 'stack 0'
+     },
+     {
+         label: 'GWP - HDD - MANUF',
+         yAxisID: 'GWP',
+         data: [result.hdd],
+         backgroundColor: ['rgb(62, 118, 120)'],
+         borderColor: ['rgb(62, 118, 120)'],
+         stack: 'stack 0'
+     },
+     {
+         label: 'GWP - OTHER - MANUF',
+         yAxisID: 'GWP',
+         data: [(result.motherboard + result.power_supply + result.assembly)],
+         backgroundColor: ['rgb(161, 182, 183)'],
+         borderColor: ['rgb(161, 118, 120)'],
+         stack: 'stack 0'
+     }]
     }
   }
   onMount(() => {
@@ -73,5 +106,5 @@
   }
 </script>
 
-<canvas bind:this={portfolio} height="{200}" width="100%"/>
+<canvas bind:this={portfolio} height="{300}" width="100%"/>
 
