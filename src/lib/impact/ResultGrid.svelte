@@ -3,9 +3,7 @@
     import type { ServerImpact } from "$lib/types/impact";
     import ResultBox from "./_ResultBox.svelte";
     import { _ } from "svelte-i18n";
-    import BarChartGWP from "$lib/chart/BarChartGWP.svelte"
-    import BarChartPE from "$lib/chart/BarChartPE.svelte"
-    import BarChartADP from "$lib/chart/BarChartADP.svelte"
+    import BarChart from "$lib/chart/HorizBarChart.svelte"
 
     export let verboseImpacts: VerboseImpacts;
 </script>
@@ -14,17 +12,18 @@
     <div class="spinner-border" role="status" />
 {:then loadedImpact}
     {#if loadedImpact != undefined}
-        <div class="px-4 flex w-full">
-            <div class="px-4 md:w-1/3">
-                <BarChartGWP result={loadedImpact.gwp} />
+       
+            <div class="px-4 w-full">
+                <BarChart result={loadedImpact.gwp} criteria="{$_('server-impact.GWP')}"/>
             </div>
-            <div class="px-4 md:w-1/3">
-                <BarChartPE result={loadedImpact.pe} />
+            <div class="px-4 w-full">
+                <BarChart result={loadedImpact.pe} criteria="{$_('server-impact.PE')}"/>
             </div>
-            <div class="px-4 md:w-1/3">
-                <BarChartADP result={loadedImpact.adp} />
+            <div class="px-4 w-full">
+                <BarChart result={loadedImpact.adp} criteria="{$_('server-impact.ADP')}"/>
             </div>
-        </div>
+            
+       
 
     {/if}
 {:catch error}
