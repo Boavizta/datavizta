@@ -217,7 +217,7 @@ input:checked + .slider:before {
 
 .stacked-bar-graph {
   width: 100%;
-  height: 18px;
+  height: 25px;
   overflow: hidden
 }
 

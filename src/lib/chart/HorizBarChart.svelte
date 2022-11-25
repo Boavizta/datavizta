@@ -39,7 +39,7 @@
   }
   
 </script>
-  <h3 class="mb-2 mx-2 text-l font-bold">{criteria} ({result.unit})</h3>
+  <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit})</h3>
 
 <div class="stacked-bar-graph rounded-top">
   <span style="width:{use_pct}%" class="bar-2"></span>
@@ -53,11 +53,11 @@
   <span style="width:{hdd_pct}%" class="bar-6"></span>
   <span style="width:{others_pct}%" class="bar-7"></span>
 </div>
-<div class="px-4 text-xs w-full">
+<div class="px-1 text-xs w-full">
   <span class="bar-2 bar-legend"></span>{$_('server-impact.Usage')} : {result.use}
-  <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {result.use}
+  <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {result_fab}
 </div>
-<div class="px-4 pb-4 text-xs w-full">
+<div class="px-1 pb-4 text-xs w-full">
   <span class="bar-3 bar-legend"></span> {$_('server-impact.Manufacture')} RAM : {result.ram}
   <span class="bar-4 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} CPU : {result.cpu}
   <span class="bar-5 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} SSD : {result.ssd}

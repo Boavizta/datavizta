@@ -94,22 +94,22 @@
 </script>
 
 <form>
-    <p class="text-xl  my-1 mx-2">CPU</p>
-    <div class="flex flex-row my-1 mx-2">
-        <div class="basis-1/5 my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+    <p class="text-xl  my-1">CPU</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Quantity</label>
             <input bind:value={serverConfig.cpu.units} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-1/5  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Core unit</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Core unit</label>
             <input bind:value={serverConfig.cpu.core_units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-1/5  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">TDP (Watt)</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">TDP (Watt)</label>
             <input bind:value={serverConfig.cpu.tdp} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-2/5  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Architecture</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Architecture</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={architems} on:select={archi_select} value="Default"/>
             </div>
@@ -117,78 +117,78 @@
     </div>
 
 
-    <p class="text-xl  my-1 mx-2">RAM</p>
+    <p class="text-xl  my-1">RAM</p>
 
-    <div class="flex flex-row  my-1 mx-2">
-        <div class="basis-1/4 h-full  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Quantity</label>
             <input bind:value={serverConfig.ram[0].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-1/4 h-full  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Capacity (GB)</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Capacity (GB)</label>
             <input bind:value={serverConfig.ram[0].capacity} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-2/4 h-full  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Manufacturer</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Manufacturer</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={rammanufitems} on:select={ram_manuf_select} value="Default"/>
             </div>
         </div>
     </div>
 
-    <p class="text-xl  my-1 mx-2">SSD</p>
-    <div class="flex flex-row  my-1 mx-2">
-        <div class="basis-1/4  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+    <p class="text-xl  my-1">SSD</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Quantity</label>
             <input bind:value={serverConfig.disk[0].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-1/4  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Capacity (GB)</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Capacity (GB)</label>
             <input bind:value={serverConfig.disk[0].capacity} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-2/4  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Manufacturer</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Manufacturer</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={ssdmanufitems} on:select={ssd_manuf_select} value="Default"/>
             </div>
         </div>
     </div>
 
-    <p class="text-xl  my-1 mx-2">HDD</p>
-    <div class="flex flex-row  my-1 mx-2">
-        <div class="basis-2/4  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+    <p class="text-xl  my-1">HDD</p>
+    <div class="grid md:grid-cols-2 md:gap-1">
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Quantity</label>
             <input bind:value={serverConfig.disk[1].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-2/4  my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Capacity (GB)</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Capacity (GB)</label>
             <input bind:value={serverConfig.disk[1].capacity} type="number" min="1" max="5000" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
     </div>
-    <p class="text-xl  my-1 mx-2">USAGE</p>
-    <div class="flex flex-row my-1 mx-2">
-        <div class="basis-1/4 my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Localisation</label>
+    <p class="text-xl  my-1">USAGE</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Localisation</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={locaitems} on:select={region_select} value="Default"/>
             </div>
         </div>
-        <div class="basis-1/4 my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Lifespan (year)</label>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Lifespan (year)</label>
             <input bind:value={usage.years_use_time} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-1/4 my-1 mx-2">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Method</label>
+        <div class="relative min-w-[100px] z-0 w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">Method</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={methods} on:select={change_method} value="Electricity"/>
             </div>
         </div>
-        <div class="basis-1/4 my-1 mx-2" id="conso">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Avrg Watt/hour</label>
+        <div class="relative min-w-[100px] z-0 w-full mb-2 group" id="conso">
+            <label class="block text-sm font-medium text-gray-900">Avrg Watt/hour</label>
             <input bind:value={usage.hours_electrical_consumption} type="number" min="1" max="10" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="basis-1/4 my-1 mx-2" id="model" style="display: none">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Server load (%)</label>
+        <div class="relative z-0 w-full mb-2 group" id="model" style="display: none">
+            <label class="block text-sm font-medium text-gray-900">Server load (%)</label>
             <input bind:value={usage.time_workload} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
     </div>
