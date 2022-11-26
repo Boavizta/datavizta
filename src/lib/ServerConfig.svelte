@@ -165,25 +165,25 @@
         </div>
     </div>
     <p class="text-xl  my-1">USAGE</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
-        <div class="relative min-w-[100px] w-full mb-2 group">
+    <div class="grid md:grid-cols-2 md:gap-1">
+        <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.localisation')}</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={locaitems} on:select={region_select} value="Default"/>
             </div>
         </div>
 
-        <div class="relative min-w-[100px] w-full mb-2 group">
+        <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.lifespan')}</label>
             <input bind:value={usage.years_use_time} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-        <div class="relative min-w-[100px] z-0 w-full mb-2 group">
+        <div class="relative z-0 w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.method')}</label>
             <div style="--borderRadius: 0.5em;">
                 <Select items={methods} on:select={change_method} value="Electricity"/>
             </div>
         </div>
-        <div class="relative min-w-[100px] z-0 w-full mb-2 group" id="conso">
+        <div class="relative z-0 w-full mb-2 group" id="conso">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.avrg_elec')}</label>
             <input bind:value={usage.hours_electrical_consumption} type="number" min="1" max="10" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>

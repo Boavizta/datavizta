@@ -89,7 +89,7 @@
     "localisation": "Localisation",
     "lifespan": "Lifespan (year)",
     "method": "Method",
-    "avrg_elec": "Avrage consumption Watt/hour",
+    "avrg_elec": "Average consumption W/h",
     "load": "Server load (%)",
     "Utilisation" : "Server usage",
     "Configuration" : "Server configuration",
