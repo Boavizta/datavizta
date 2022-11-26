@@ -39,8 +39,7 @@
   }
   
 </script>
-  <h3 class="mb-2 mx-2 text-l font-bold">{criteria}</h3>
-
+<h3 class="mx-1 text-l font-bold">{criteria} ({result.unit})</h3>
 <div class="stacked-bar-graph">
   <span style="width:{use_pct}%; border-top-left-radius: 3px" class="bar-2"></span>
   <span style="width:{fab_pct}%; border-top-right-radius: 3px" class="bar-1"></span>

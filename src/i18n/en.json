@@ -1,7 +1,7 @@
 {
   "nav": {
     "manufacturer": "Manufacturer Data" ,
-    "server-impact": "Servers Impact"
+    "server-impact": "Servers Impacts"
   },
   "index": {
     "title": "Why this page?",
@@ -80,26 +80,27 @@
     "title":"Servers Impact",
     "Manufacture" : "Manufacturing",
     "Usage" : "Usage",
-    "Impacts" : "Impacts",
+    "quantity": "Quantity",
+    "Core_units": "Core units",
+    "tdp": "TDP (Watt)",
+    "architecture": "Architecture",
+    "capacity": "Capacity (GB)",
+    "manufacturer": "Manufacturer",
+    "localisation": "Localisation",
+    "lifespan": "Lifespan (year)",
+    "method": "Method",
+    "avrg_elec": "Avrage consumption Watt/hour",
+    "load": "Server load (%)",
     "Utilisation" : "Server usage",
     "Configuration" : "Server configuration",
     "Others" : "Others",
+    "Unit" : "Unit",
     "Results" : "Multicriteria impacts",
-    "GWP" : "Global Warming Potential (GWP)",
+    "GWP" : "Global Warming Potential",
     "Global Warming Potential desc": " ",
-    "PE" : "Primary energy (PE)",
+    "PE" : "Primary energy",
     "Primary energy desc" : " ",
-    "ADP" : "Abiotic Depletion Potential (ADP)",
-    "Abiotic Depletion Potential desc" : " ",
-    "used during" : "used during ",
-    "years" : "years",
-    "in a datacenter located in " : "in a datacenter located in ",
-    "1 server with" : "1 server with",
-    "cpu with" : "CPU(s) with",
-    "core" : "cores",
-    "RAM sticks of":"RAM sticks of",
-    "GB": "GB",
-    "storage volume": "storage volume",
-    "with size of": "with size of"
+    "ADP" : "Abiotic Depletion Potential",
+    "Abiotic Depletion Potential desc" : " "
   }
 }
