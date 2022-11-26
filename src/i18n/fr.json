@@ -106,11 +106,11 @@
   },
   "server-impact-desc": {
     "why": "Pourquoi cette page ?",
-    "why_content": "Au travers de cette page, Boavizta vous propose de comprendre les impacts des serveurs sur plusieurs critères, sur deux phases de cycles de vie (usage, fabrication) en fonction de ses caractéristiques techniques et son contexte d'usage.\n",
-    "how": "Comment sont évaluez les impacts ?",
-    "how_content1": "Les impacts liés à la fabrication sont évaluez à l'aide de la méthodologie détailliée par Boavizta dans",
+    "why_content": "Au travers de cette page, Boavizta vous propose de comprendre les impacts environnementaux des serveurs sur plusieurs critères, sur deux phases de cycles de vie (usage, fabrication) en fonction de leurs caractéristiques techniques et leur contexte d'utilisation.\n",
+    "how": "Comment sont évalués les impacts ?",
+    "how_content1": "Les impacts liés à la fabrication sont évalués à l'aide de la méthodologie détailliée par Boavizta dans",
     "how_content2": "cet article",
-    "how_content3": "Ceux liés à l'usage sont évalués à partir de la consommation éléctrique moyenne ou modélisé à partir de la charge estimé du serveur. La méthodologie est détailliée ici :",
+    "how_content3": "Ceux liés à la phase d'utilisation sont évalués à partir de la consommation éléctrique moyenne ou modélisés à partir de la charge estimée du serveur. La méthodologie est détaillée ici :",
     "further": "Pour aller plus loin",
     "further_content1": "Cette page utilise la",
     "further_content2":". Une API open-source qui utilise des données et des méthodes ouvertes pour évaluer les impacts environnmentaux des equipements numériques.\n"
