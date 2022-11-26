@@ -16,6 +16,8 @@
 
   export let result:Impact;
   export let criteria;
+  export let description;
+
 
   function updateChart(result) {
     result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd
@@ -40,6 +42,7 @@
   
 </script>
   <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit})</h3>
+  <h2 class="mx-1 text-sm italic">{description}</h2>
 
 <div class="stacked-bar-graph rounded-top">
   <span style="width:{use_pct}%" class="bar-2"></span>

@@ -97,10 +97,21 @@
     "Unit" : "Unit",
     "Results" : "Multicriteria impacts",
     "GWP" : "Global Warming Potential",
-    "Global Warming Potential desc": " ",
+    "Global Warming Potential desc": "Evaluates the effect on global warming",
     "PE" : "Primary energy",
-    "Primary energy desc" : " ",
+    "Primary energy desc" : "Consumption of energy resources",
     "ADP" : "Abiotic Depletion Potential",
-    "Abiotic Depletion Potential desc" : " "
+    "Abiotic Depletion Potential desc" : "Evaluates the use of minerals and fossil ressources"
+  },
+  "server-impact-desc": {
+    "why": "Why this page?",
+    "why_content": "Through this page, Boavizta proposes you to understand the impacts of the servers on several criterias, on two life cycles phases (use, manufacture) according to its technical characteristics and its context of use.",
+    "how": "How are the impacts assessed?",
+    "how_content1": "The impacts related to manufacture are assessed using the methodology detailed by Boavizta in",
+    "how_content2": "this article",
+    "how_content3": "Those related to usage are evaluated from the average power consumption or modeled from the estimated server load. The methodology is detailed here:",
+    "further": "To go further",
+    "further_content1": "This page uses the",
+    "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment."
   }
 }
