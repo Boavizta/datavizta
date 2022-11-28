@@ -1,6 +1,7 @@
 <script lang="ts">
     import {_, locale} from 'svelte-i18n';
     import {onMount} from "svelte";
+    import { page } from '$app/stores';
 
     import DataGrid from "./datagrid/DataGrid.svelte";
     import RegionPicker from "./chart/RegionPicker.svelte";
@@ -21,7 +22,7 @@
     let selectedRegion:RegionPickerItem= {label:undefined, value:undefined, id:undefined};
     let yearly:boolean;
     let filterModels:FlatFilterModel;//filters defined in the datagrid component
-    let windowOrigin;
+    let pageUrl;
     
     /* Inner state */
     let selectedRows:Row[] = [];
@@ -87,8 +88,9 @@
 
 
     onMount(async () => {
+        //pageUrl = window.location.origin+"/manufacturerdata"; //hacky style of defining url
+        pageUrl = $page.url //not hacky style of getting url
         /* retrieve lifetime from queryparam */
-        windowOrigin = window.location.origin;
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
             hascustomlifetime = true;
@@ -204,8 +206,8 @@
                 {@html $_('manufdata.explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
-                {@html $_('manufdata.explanation.9',  {values: {urlFrance:windowOrigin +"?region=france", 
-                urlPoland:windowOrigin +"?region=poland"}})}
+                {@html $_('manufdata.explanation.9',  {values: {urlFrance:pageUrl +"?region=france", 
+                urlPoland:pageUrl +"?region=poland"}})}
             </p>
             {:else}
             <p class="text-xs mb-2 font-light">
@@ -224,7 +226,7 @@
                 </div> 
                 <div class="flex-row mx-auto">
                     <!-- share permalink, does not work (yet) with one equipment selection-->
-                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
+                    <ShareLinkButton {pageUrl} {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
                 </div>
         </div>
         
