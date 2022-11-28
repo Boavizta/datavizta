@@ -29,11 +29,11 @@
             <li>{$_('index.explanation.8')}</li>
             <li>{$_('index.explanation.9')}</li>
         </ul>
-        <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded">{$_('index.button.1')}</button>
+        <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded" onclick="window.location.href='/manufacturerdata'">{$_('index.button.1')}</button>
         <h3 class="title-third mt-2">{$_('server-impact.title')}</h3>
         <p class="text-sm mb-2">
             {$_('index.explanation.10')}
         </p>
-        <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded">{$_('index.button.2')}</button>
+        <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded" onclick="window.location.href='/serversimpact'">{$_('index.button.2')}</button>
     </div>
 </div>
