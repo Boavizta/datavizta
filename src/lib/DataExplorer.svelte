@@ -201,15 +201,15 @@
 
             {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
-                {@html $_('explanation.8')}
+                {@html $_('manufdata.explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
-                {@html $_('explanation.9',  {values: {urlFrance:windowOrigin +"?region=france", 
+                {@html $_('manufdata.explanation.9',  {values: {urlFrance:windowOrigin +"?region=france", 
                 urlPoland:windowOrigin +"?region=poland"}})}
             </p>
             {:else}
             <p class="text-xs mb-2 font-light">
-                {$_('explanation.error')}
+                {$_('manufdata.explanation.error')}
             </p>
             {/if}
 

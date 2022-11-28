@@ -5,6 +5,7 @@
   import { _, locale, getLocaleFromNavigator } from "svelte-i18n";
   import "../app.css";
   import "../ext/github-ribbon.css";
+  export const prerender = true;
  
   //renamed file https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3294867
   let language=initLanguage("std");
