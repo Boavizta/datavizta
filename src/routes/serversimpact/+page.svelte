@@ -110,7 +110,7 @@
 </script>
 
 <div id="content" class="px-1">
-    <h2 class="title-second mt-2 mb-4 w-full">{$_('server-impact.title')}</h2>
+    <h2 class="title-second mt-2 mb-4 w-full px-4">{$_('server-impact.title')}</h2>
     <div class="grid md:grid-cols-12 gap-1">
         <div class="min-h-[200px] md:col-span-5 px-4 w-full ">
             <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Configuration')}</h2>

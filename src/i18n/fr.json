@@ -1,11 +1,34 @@
 {
   "nav": {
+    "home": "Accueil",
     "manufacturer": "Données Fabricants",
     "server-impact": "Impact des serveurs"
   },
   "index": {
+    "title1": "Pourquoi Datavizta?",
+    "title2": "Quel outil? Pour quel usage?",
+    "title3": "Boavizta",
+    "button": {
+      "1": "Accéder au référentiel de données constructeur",
+      "2": "Accéder à l'évaluation d'impact des serveurs"
+    },
+    "explanation": {
+      "1": "Un des constats qui nous a incités à lancer ",
+      "1bis": " était que nous manquions cruellement de données pertinentes pour mesurer les impacts environnementaux du numérique. Au-delà des impacts liés à la consommation d'électricité des équipements permettant de délivrer des services numériques, il est primordial de connaitre les impacts de la fabrication, du transport et de la fin de vie de tous ces équipements. D'autant plus que pour certains d'entre eux, comme les terminaux et les écrans, ces phases du cycle de vie ont un impact bien plus important que celui lié à leur consommation électrique.",
+      "2": "Jusqu'à présent, les mesures d'impact de ces phases étaient complexes à mettre en œuvre ou nécessitaient des données propriétaires, et impliquaient des durées et des couts bien trop importants pour être réalisées régulièrement, même sur des périmètres simples.",
+      "3": "Boavizta pense qu'une approche ouverte et participative serait bien plus adaptée pour rendre accessible la mesure d'impact environnemental du numérique au plus grand nombre.",
+      "4": "A ce titre, une base de données et des methodologies ouvertes ont été développées collectivement par le groupe de travail et Datavizta a pour objectif de rendre accessible le résultat de ces travaux sous forme d'outils simples d'utilisation.",
+      "5": "L'outil de visualisation des données du référentiel constructeur permet de : ",
+      "6": "Rechercher facilement les facteurs d'impact carbone pour les équipements numériques présents dans ",
+      "7": "la base de données ouverte de Boavizta",
+      "8": "Visualiser la répartition des impacts par étape du cycle de vie des équipements en différenciant la phase d'utilisation (scope 2), des phases de fabrication, transport et fin de vie (scope 3)",
+      "9": "Evaluer les impacts du prolongement de la durée de vie ou bien de l'utilisation dans une zone géographique plutôt qu'une autre. ", 
+      "10": "L'outil d'évaluation d'impact des serveurs permet de comprendre les impacts environnementaux des serveurs sur plusieurs critères (Potentiel de réchauffement climatique, Énergie Primaire et Potentiel d'épuisement de ressources abiotiques), sur deux phases de cycles de vie (usage, fabrication) en fonction de leurs caractéristiques techniques et leur contexte d'utilisation."
+    }
+  },
+  "manufdata": {
     "title": "Pourquoi cette page?",
-    "sub-title": "Référentiel de données",
+    "subtitle": "Référentiel de données constructeur",
     "search": "Effectuer une recherche",
     "scope-ratio": "Ratio Scope 2 / Scope 3",
     "selected_rows": "{n} ligne(s) selectionnée(s)",
@@ -17,23 +40,23 @@
     "years": "années",
     "years_tooltip": "remplace la valeur constructeur",
     "lifetime": "Durée de vie",
-    "custom_values": "Personnaliser"
-  },
-  "explanation": {
-    "error": "Les données fournies par le constructeur pour ce(s) équipement(s) ne sont pas suffisantes pour que vous puissiez personnaliser la durée de vie et le lieu d'utilisation.",
-    "1": "Au travers de cette page, Boavizta vous propose de :",
-    "2": "Rechercher facilement les facteurs d'impact carbone pour les équipements numériques présents dans ",
-    "3": "la base de données ouverte de Boavizta",
-    "4": "Visualiser la répartition des impacts par étape du cycle de vie des équipements en différenciant la phase d'utilisation (scope 2), des phases de fabrication, transport et fin de vie (scope 3)",
-    "5": "Evaluer les impacts du prolongement de la durée de vie ou bien de l'utilisation dans une zone géographique plutôt qu'une autre. ",
-    "6": "Le tableau suivant affiche les principales données d'impact carbone pour tous les équipements présents dans la base de données Boavizta. Le graphique sous forme de camembert, en dessous du tableau, affiche la répartition des impacts par étape du cycle de vie des équipements en question. Vous pouvez effectuer des recherches sur chacune des colonnes du tableau pour trouver l'équipement précis ou le type d'équipement (Monitor, Laptop, Smartphone, Server…) qui vous intéresse. Une fois le filtre de recherche appliqué ou la ligne d'un équipement sélectionnée, le graphique est mis à jour pour afficher les impacts de l'ensemble des équipements sélectionnés.",
-    "7": "A l'aide du formulaire situé à droite du graphique, vous pouvez ensuite faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser, sur le graphique, comment cela influe sur l'impact global et surtout sur la répartition par phase du cycle de vie. A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne.",
-    "8": "Vous pouvez faire varier la durée de vie  et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser comment cela influe sur l'impact global et sur la répartition par phase du cycle de vie.",
-    "9": "A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en <strong><a href='{urlFrance}'>France</a></strong> avec ceux d'une utilisation en <strong><a href='{urlPoland}'>Pologne</a></strong>.",
-    "10": "Pour plus de détails sur l'outil Datavizta vous pouvez consulter",
-    "11": "cet article.",
-    "12": "https://boavizta.org/blog/dataviz",
-    "13": "Notamment pour comprendre les limites d'utilisation de ces données fournies exclusivement par les fabriquants."
+    "custom_values": "Personnaliser",
+    "explanation": {
+      "error": "Les données fournies par le constructeur pour ce(s) équipement(s) ne sont pas suffisantes pour que vous puissiez personnaliser la durée de vie et le lieu d'utilisation.",
+      "1": "Au travers de cette page, Boavizta vous propose de :",
+      "2": "Rechercher facilement les facteurs d'impact carbone pour les équipements numériques présents dans ",
+      "3": "la base de données ouverte de Boavizta",
+      "4": "Visualiser la répartition des impacts par étape du cycle de vie des équipements en différenciant la phase d'utilisation (scope 2), des phases de fabrication, transport et fin de vie (scope 3)",
+      "5": "Evaluer les impacts du prolongement de la durée de vie ou bien de l'utilisation dans une zone géographique plutôt qu'une autre. ",
+      "6": "Le graphique, ci-dessous, affiche la répartition des impacts par étape du cycle de vie des équipements présents dans la base de données de facteurs d'impacts environnementaux de Boavizta construite exclusivement à partir de données constructeurs. Le tableau, situé sous le graphique, affiche les principales données d'impact carbone pour tous les équipements présents dans la base de données Boavizta. Vous pouvez effectuer des recherches sur chacune des colonnes du tableau pour trouver l'équipement précis ou le type d'équipement (Monitor, Laptop, Smartphone, Server…) qui vous intéresse. Une fois le filtre de recherche appliqué ou la ligne d'un équipement sélectionnée, le graphique est mis à jour pour afficher les impacts de l'ensemble des équipements sélectionnés.",
+      "7": "A l'aide du formulaire situé à droite du graphique, vous pouvez ensuite faire varier la durée de vie et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser, sur le graphique, comment cela influe sur l'impact global et surtout sur la répartition par phase du cycle de vie. A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en France avec ceux d'une utilisation en Pologne.",
+      "8": "Vous pouvez faire varier la durée de vie  et choisir un lieu d'utilisation des équipements sélectionnés pour visualiser comment cela influe sur l'impact global et sur la répartition par phase du cycle de vie.",
+      "9": "A titre d'exemple, vous pouvez comparer les impacts de l'utilisation d'un serveur en <strong><a href='{urlFrance}'>France</a></strong> avec ceux d'une utilisation en <strong><a href='{urlPoland}'>Pologne</a></strong>.",
+      "10": "Pour plus de détails sur cet outil de visualisation vous pouvez consulter",
+      "11": "cet article.",
+      "12": "https://boavizta.org/blog/dataviz",
+      "13": "Notamment pour comprendre les limites d'utilisation de ces données fournies exclusivement par les fabriquants."
+    }
   },
   "datagrid" : {
     "lifetime": "Durée de vie",
@@ -77,7 +100,7 @@
     "default": "Utiliser la valeur par défaut"
   },
   "server-impact": {
-    "title":"Impact des serveurs",
+    "title":"Impact multicritère des serveurs",
     "Manufacture" : "Fabrication",
     "Usage" : "Utilisation",
     "quantity": "Quantité",

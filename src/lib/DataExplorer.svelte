@@ -112,9 +112,7 @@
 
 
 <div class="flex flex-col">
-    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-2 justify-around">
-
     <!-- pie + form container-->
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-solid border-2 border-teal-500/20">
@@ -229,7 +227,8 @@
                     <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
                 </div>
         </div>
-
+        
     </div>
+    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 </div>
 </div>

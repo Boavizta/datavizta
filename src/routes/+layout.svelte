@@ -71,12 +71,14 @@
       <span></span>
     </a>
     <nav id="std_menu">
-      <a class="mr-5" href="/">{$_('nav.manufacturer')}</a>
+      <a class="mr-5" href="/">{$_('nav.home')}</a>
+      <a class="mr-5" href="/manufacturerdata">{$_('nav.manufacturer')}</a>
       <a class="mr-5" href="/serversimpact">{$_('nav.server-impact')}</a>
     </nav>
     <nav id="burger_menu">
       <ul>
-        <li><a class="mr-5" href="/" on:click={showMenu}>{$_('nav.manufacturer')}</a></li>
+        <li><a class="mr-5" href="/" on:click={showMenu}>{$_('nav.home')}</a></li>
+        <li><a class="mr-5" href="/manufacturerdata" on:click={showMenu}>{$_('nav.manufacturer')}</a></li>
         <li><a class="mr-5" href="/serversimpact" on:click={showMenu}>{$_('nav.server-impact')}</a></li>
         <li><a class="mr-5" href="javascript:void(0);"    title="Choose language" on:click={updateLanguage} on:click={showMenu}>{language}</a></li>
       </ul>
