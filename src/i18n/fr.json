@@ -27,8 +27,7 @@
     }
   },
   "manufdata": {
-    "title": "Pourquoi cette page?",
-    "subtitle": "Référentiel de données constructeur",
+    "title": "Référentiel de données constructeur",
     "search": "Effectuer une recherche",
     "scope-ratio": "Ratio Scope 2 / Scope 3",
     "selected_rows": "{n} ligne(s) selectionnée(s)",

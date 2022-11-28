@@ -20,7 +20,7 @@
     </div>
     <h2 class="title-second mt-2">{$_('index.title2')}</h2>
     <div class="mb-3">
-        <h3 class="title-third mt-2">{$_('manufdata.subtitle')}</h3>
+        <h3 class="title-third mt-2">{$_('manufdata.title')}</h3>
         <p class="text-sm mb-2">
             {$_('index.explanation.5')}
         </p>

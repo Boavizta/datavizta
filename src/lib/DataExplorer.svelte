@@ -162,7 +162,7 @@
         </div>
 
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
-            <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
+            <div id="title" class="text-xl mb-5 font-medium text-center">{$_('manufdata.custom_values')}</div>
             <!-- button toggle yearly/total -->
             <div class="flex mx-auto mt-1 mb-5">
                 <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
@@ -173,7 +173,7 @@
                 <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
             </div>
             <p>
-                {$_('index.select_country_elec_impact')}
+                {$_('manufdata.select_country_elec_impact')}
             </p>
             <!-- select region -->
             <div class="mt-2 mb-5">
@@ -183,20 +183,20 @@
                         <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
                     {/key}
                 </div>
-                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
+                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.select_country_elec_impact_tooltip')}</small>
             </div>
 
             <!-- input lifetime -->
             <div class="mb-3">
-                <p class="block">{$_('index.lifetime')}</p>
+                <p class="block">{$_('manufdata.lifetime')}</p>
                 <div class="flex">
 
                     <input id="lifetime" bind:value={lifetime} on:input={changeLifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
                     <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
-                        {$_('index.years')}
+                        {$_('manufdata.years')}
                     </span>
                 </div>
-                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
+                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.years_tooltip')}</small>
             </div>
 
             {#if disabledCustomValue == false }
