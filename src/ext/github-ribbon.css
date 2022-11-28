@@ -29,11 +29,11 @@
     /* The right and left classes determine the side we attach our banner to */
     position: absolute;
     display: block;
-    width: 15.38em;
+    width: 20em;
     height: 1.54em;
 
     top: 3.23em;
-    right: -3.23em;
+    right: -4em;
 
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
