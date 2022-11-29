@@ -230,5 +230,6 @@
         
     </div>
     <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+    
 </div>
 </div>
