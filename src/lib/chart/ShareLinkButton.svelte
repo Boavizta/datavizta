@@ -4,20 +4,20 @@
     import {onMount} from "svelte";
     import * as paramParser from '../paramParser';
 
+    export let pageUrl:number;
     export let lifetime:number;
     export let selectedRegion:RegionPickerItem;
     export let yearly:boolean;
     export let filterModels:FlatFilterModel;
     export let singleItemSelected:string;
 
-    let windowOrigin;
     let shareLink;
     let tooltipText=$_('pie.copy');
 
     onMount(() => {
-        windowOrigin=  window.location.origin
     })
-    $: shareLink = windowOrigin +"?"+paramParser.buildLink(lifetime, selectedRegion, yearly, filterModels, singleItemSelected);
+    
+    $: shareLink = pageUrl +"?"+paramParser.buildLink(lifetime, selectedRegion, yearly, filterModels, singleItemSelected);
 
     function copyToClipboard() {
 		navigator.clipboard.writeText(shareLink);
