@@ -97,7 +97,7 @@
     "default": "Use default value"
   },
   "server-impact": {
-    "title":"Multicritera server impacts during lifespan",
+    "title":"Multicritera server impacts",
     "Manufacture" : "Manufacturing",
     "Usage" : "Usage",
     "quantity": "Quantity",
@@ -115,7 +115,7 @@
     "Configuration" : "Server configuration",
     "Others" : "Others",
     "Unit" : "Unit",
-    "Results" : "Multicriteria impacts",
+    "Results" : "Multicriteria impacts during lifespan",
     "GWP" : "Global Warming Potential",
     "Global Warming Potential desc": "Evaluates the effect on global warming",
     "PE" : "Primary energy",

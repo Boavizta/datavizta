@@ -98,7 +98,7 @@
     "default": "Utiliser la valeur par défaut"
   },
   "server-impact": {
-    "title":"Impact multicritère des serveurs sur la durée de vie totale",
+    "title":"Impact multicritère des serveurs",
     "Manufacture" : "Fabrication",
     "Usage" : "Utilisation",
     "quantity": "Quantité",
@@ -117,7 +117,7 @@
     "Configuration" : "Configuration du serveur",
     "Others" : "Autres",
     "Unit" : "Unité",
-    "Results" : "Impact multicritères",
+    "Results" : "Impact multicritères sur la durée de vie totale",
     "GWP" : "Potentiel de gaz à effet de serre",
     "Global Warming Potential desc": "Évalue l’effet sur le réchauffement de la planète",
     "PE" : "Energie Primaire",
