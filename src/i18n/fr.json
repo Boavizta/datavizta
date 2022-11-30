@@ -98,7 +98,7 @@
     "default": "Utiliser la valeur par défaut"
   },
   "server-impact": {
-    "title":"Impact multicritère des serveurs",
+    "title":"Impact multicritère des serveurs sur la durée de vie totale",
     "Manufacture" : "Fabrication",
     "Usage" : "Utilisation",
     "quantity": "Quantité",

@@ -41,7 +41,7 @@
   }
   
 </script>
-  <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit})</h3>
+  <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit}) - Total : {result_total}</h3>
   <h2 class="mx-1 text-sm italic">{description}</h2>
 
 <div class="stacked-bar-graph rounded-top">

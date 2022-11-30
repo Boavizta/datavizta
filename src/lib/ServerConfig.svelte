@@ -36,7 +36,7 @@
     onMount(async () => { 
         architems = await getitems(families_route, "skylake");
         rammanufitems = await getitems(ram_manuf_route, "Samsung");
-        ssdmanufitems = await getitems(ssd_manuf_route, "Mirco");
+        ssdmanufitems = await getitems(ssd_manuf_route, "Micron");
         locaitems = await getlocalisation(localisation_route, 'Default');
     })
 
@@ -62,7 +62,7 @@
         return get(route).then((response) => response.json())
             .then((data) => {
                 let elements = [];
-                elements.push({value: default_value, label: 'Default'});
+                //elements.push({value: default_value, label: 'Default'});
                 let items = Object.keys(data)
                 for (let i = 0; i < items.length; i++) {
                     elements.push({value: data[items[i]], label: items[i]});

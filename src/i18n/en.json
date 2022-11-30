@@ -97,7 +97,7 @@
     "default": "Use default value"
   },
   "server-impact": {
-    "title":"Multicritera server impacts",
+    "title":"Multicritera server impacts during lifespan",
     "Manufacture" : "Manufacturing",
     "Usage" : "Usage",
     "quantity": "Quantity",
