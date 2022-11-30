@@ -88,8 +88,7 @@
 
 
     onMount(async () => {
-        //pageUrl = window.location.origin+"/manufacturerdata"; //hacky style of defining url
-        pageUrl = $page.url //not hacky style of getting url
+        pageUrl = window.location.origin + window.location.pathname;//recreate url with path
         /* retrieve lifetime from queryparam */
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
