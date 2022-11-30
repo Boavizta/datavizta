@@ -37,6 +37,9 @@
         rammanufitems = await getitems(ram_manuf_route);
         ssdmanufitems = await getitems(ssd_manuf_route);
         locaitems = await getlocalisation(localisation_route);
+        serverConfig.cpu.family = "skylake";
+        serverConfig.ram[0].manufacturer = "Samsung";
+        serverConfig.disk[0].manufacturer = "Micron";
     })
 
     function archi_select(event){
@@ -88,12 +91,50 @@
         usage.usage_location = event.detail.value
     }
 
+    function toggleCPU() {
+        var menu = document.getElementById("serverconfig-cpu");
+        if ( !(menu.style.display === "block")) {
+          //menu.className = "open";
+          menu.style.display = "block";
+        } else {
+          menu.style.display = "none";
+        }
+    }
+    function toggleRAM() {
+        var menu = document.getElementById("serverconfig-ram");
+        if ( !(menu.style.display === "block")) {
+          //menu.className = "open";
+          menu.style.display = "block";
+        } else {
+          menu.style.display = "none";
+        }
+    }
+    function toggleSSD() {
+        var menu = document.getElementById("serverconfig-ssd");
+        if ( !(menu.style.display === "block")) {
+          //menu.className = "open";
+          menu.style.display = "block";
+        } else {
+          menu.style.display = "none";
+        }
+    }
+
 
 </script>
-
+<style>
+  #serverconfig-cpu {
+    display:none;
+  }
+  #serverconfig-ram {
+    display:none;
+  }
+  #serverconfig-ssd {
+    display:none;
+  }
+</style>
 <form>
-    <p class="text-xl  my-1">CPU</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
+    <p><a class="text-xl" href="javascript:void(0);" on:click={toggleCPU}>> </a><span class="text-xl  my-1">CPU </span><span href class="text-md"> ({serverConfig.cpu.units} x {serverConfig.cpu.core_units} cores - Architecture "{serverConfig.cpu.family}" - TDP:{serverConfig.cpu.tdp}W)</span></p>
+    <div id="serverconfig-cpu" class="grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
             <input bind:value={serverConfig.cpu.units} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
@@ -115,8 +156,8 @@
     </div>
 
 
-    <p class="text-xl  my-1">RAM</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
+    <p><a class="text-xl" href="javascript:void(0);" on:click={toggleRAM}>> </a><span class="text-xl  my-1">RAM </span><span href class="text-md"> ({serverConfig.ram[0].units} x {serverConfig.ram[0].capacity}GB - Fabriquant : {serverConfig.ram[0].manufacturer})</span></p>
+    <div id="serverconfig-ram" class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
             <input bind:value={serverConfig.ram[0].units} type="number" min="1" max="999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
@@ -133,8 +174,8 @@
         </div>
     </div>
 
-    <p class="text-xl  my-1">SSD</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
+  <p><a class="text-xl" href="javascript:void(0);" on:click={toggleSSD}>> </a><span class="text-xl  my-1">SSD </span><span href class="text-md"> ({serverConfig.disk[0].units} x {serverConfig.disk[0].capacity}GB - Fabriquant : {serverConfig.disk[0].manufacturer})</span></p>
+  <div id="serverconfig-ssd" class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
             <input bind:value={serverConfig.disk[0].units} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
@@ -152,7 +193,7 @@
     </div>
 
     <p class="text-xl  my-1">HDD</p>
-    <div class="grid md:grid-cols-2 md:gap-1">
+    <div id="serverconfig-hdd" class="grid md:grid-cols-2 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
             <input bind:value={serverConfig.disk[1].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
@@ -163,7 +204,7 @@
         </div>
     </div>
     <p class="text-xl  my-1">USAGE</p>
-    <div class="grid md:grid-cols-2 md:gap-1">
+    <div id="serverconfig-usage" class="grid md:grid-cols-2 md:gap-1">
         <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.localisation')}</label>
             <div style="--borderRadius: 0.5em;">
