@@ -43,7 +43,7 @@
 
       }else {
           usage.time_workload = null
-          usage.hours_electrical_consumption = 250
+          usage.hours_electrical_consumption = 150
           document.getElementById('model').style.display = 'none';
           document.getElementById('conso').style.display = 'block';
       }

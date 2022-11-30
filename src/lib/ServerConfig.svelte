@@ -21,11 +21,10 @@
     let ssdmanufitems = [];
     let locaitems = []
 
-    function getitems(route, default_value) {
+    function getitems(route) {
         return get(route).then((response) => response.json())
             .then((data) => {
                 let elements = [];
-                elements.push({value: default_value, label: 'Default'});
                 for(let i = 0; i < data.length; i++) {
                     elements.push({value: data[i], label: data[i]});
                 }
@@ -34,10 +33,10 @@
     }
 
     onMount(async () => { 
-        architems = await getitems(families_route, "skylake");
-        rammanufitems = await getitems(ram_manuf_route, "Samsung");
-        ssdmanufitems = await getitems(ssd_manuf_route, "Micron");
-        locaitems = await getlocalisation(localisation_route, 'Default');
+        architems = await getitems(families_route);
+        rammanufitems = await getitems(ram_manuf_route);
+        ssdmanufitems = await getitems(ssd_manuf_route);
+        locaitems = await getlocalisation(localisation_route);
     })
 
     function archi_select(event){
@@ -58,11 +57,10 @@
         {value: 'Load', label: 'Load'},
     ];
 
-    function getlocalisation(route, default_value) {
+    function getlocalisation(route) {
         return get(route).then((response) => response.json())
             .then((data) => {
                 let elements = [];
-                //elements.push({value: default_value, label: 'Default'});
                 let items = Object.keys(data)
                 for (let i = 0; i < items.length; i++) {
                     elements.push({value: data[items[i]], label: items[i]});
@@ -80,7 +78,7 @@
 
         }else {
             usage.time_workload = null
-            usage.hours_electrical_consumption = 250
+            usage.hours_electrical_consumption = 150
             document.getElementById('model').style.display = 'none';
             document.getElementById('conso').style.display = 'block';
         }
@@ -111,7 +109,7 @@
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.architecture')}</label>
             <div style="--borderRadius: 0.5em;">
-                <Select items={architems} on:select={archi_select} value="Default"/>
+                <Select items={architems} on:select={archi_select} value="skylake"/>
             </div>
         </div>
     </div>
@@ -130,7 +128,7 @@
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">Manufacturer</label>
             <div style="--borderRadius: 0.5em;">
-                <Select items={rammanufitems} on:select={ram_manuf_select} value="Default"/>
+                <Select items={rammanufitems} on:select={ram_manuf_select} value="Samsung"/>
             </div>
         </div>
     </div>
@@ -148,7 +146,7 @@
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.manufacturer')}</label>
             <div style="--borderRadius: 0.5em;">
-                <Select items={ssdmanufitems} on:select={ssd_manuf_select} value="Default"/>
+                <Select items={ssdmanufitems} on:select={ssd_manuf_select} value="Micron"/>
             </div>
         </div>
     </div>
@@ -169,7 +167,7 @@
         <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.localisation')}</label>
             <div style="--borderRadius: 0.5em;">
-                <Select items={locaitems} on:select={region_select} value="Default"/>
+                <Select items={locaitems} on:select={region_select} value="0-Global"/>
             </div>
         </div>
 
