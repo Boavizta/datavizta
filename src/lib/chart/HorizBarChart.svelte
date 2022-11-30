@@ -7,12 +7,14 @@
   let result_total;
   let result_others;
   let use_pct;
-  let fab_pct
-  let cpu_pct
-  let ram_pct
-  let ssd_pct
-  let hdd_pct
-  let others_pct
+  let fab_pct;
+  let cpu_pct;
+  let ram_pct;
+  let ssd_pct;
+  let hdd_pct;
+  let others_pct;
+
+  let nb_rounded;
 
   export let result:Impact;
   export let criteria;
@@ -20,7 +22,7 @@
 
 
   function updateChart(result) {
-    result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd
+    result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd;
     result_total=result.use + result_fab;
     result_others=result.assembly + result.motherboard + result.power_supply;
     use_pct=result.use * 100 / result_total;
@@ -32,16 +34,34 @@
     others_pct=result_others * 100 / result_total;
   }
 
+  function setRounded(unit: number) {
+      switch (unit) {
+          case 'kgCO2eq':
+              nb_rounded = 1
+              break;
+          case 'MJ':
+              nb_rounded = 0
+              break;
+          case 'kgSbeq':
+              nb_rounded = 6
+              break;
+          default:
+              nb_rounded = 6
+      }
+
+  }
   onMount(() => {
+    setRounded(result.unit)
     updateChart(result)
   })
 
   $: {
-    updateChart(result)
+      setRounded(result.unit)
+      updateChart(result)
   }
   
 </script>
-  <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit}) - Total : {result_total}</h3>
+  <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit}) - Total : {(result_total).toFixed(nb_rounded)}</h3>
   <h2 class="mx-1 text-sm italic">{description}</h2>
 
 <div class="stacked-bar-graph rounded-top">
@@ -57,14 +77,14 @@
   <span style="width:{others_pct}%" class="bar-7"></span>
 </div>
 <div class="px-1 text-xs w-full">
-  <span class="bar-2 bar-legend"></span>{$_('server-impact.Usage')} : {result.use}
-  <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {result_fab}
+  <span class="bar-2 bar-legend"></span>{$_('server-impact.Usage')} : {(result.use).toFixed(nb_rounded)}
+  <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {(result_fab).toFixed(nb_rounded)}
 </div>
 <div class="px-1 pb-4 text-xs w-full">
-  <span class="bar-3 bar-legend"></span> {$_('server-impact.Manufacture')} RAM : {result.ram}
-  <span class="bar-4 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} CPU : {result.cpu}
-  <span class="bar-5 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} SSD : {result.ssd}
-  <span class="bar-6 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} HDD : {result.hdd}
-  <span class="bar-7 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} {$_('server-impact.Others')} : {result_others}
+  <span class="bar-3 bar-legend"></span> {$_('server-impact.Manufacture')} RAM : {(result.ram).toFixed(nb_rounded)}
+  <span class="bar-4 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} CPU : {(result.cpu).toFixed(nb_rounded)}
+  <span class="bar-5 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} SSD : {(result.ssd).toFixed(nb_rounded)}
+  <span class="bar-6 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} HDD : {(result.hdd).toFixed(nb_rounded)}
+  <span class="bar-7 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} {$_('server-impact.Others')} : {(result_others).toFixed(nb_rounded)}
 </div>
 
