@@ -104,7 +104,7 @@
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.tdp')}</label>
-            <input bind:value={serverConfig.cpu.tdp} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.cpu.tdp} type="number" min="50" max="350" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.architecture')}</label>
@@ -119,7 +119,7 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
-            <input bind:value={serverConfig.ram[0].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.ram[0].units} type="number" min="1" max="999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
@@ -137,7 +137,7 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
-            <input bind:value={serverConfig.disk[0].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.disk[0].units} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
@@ -159,7 +159,7 @@
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
-            <input bind:value={serverConfig.disk[1].capacity} type="number" min="1" max="5000" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.disk[1].capacity} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
     </div>
     <p class="text-xl  my-1">USAGE</p>
@@ -183,11 +183,11 @@
         </div>
         <div class="relative z-0 w-full mb-2 group" id="conso">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.avrg_elec')}</label>
-            <input bind:value={usage.hours_electrical_consumption} type="number" min="1" max="10" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usage.hours_electrical_consumption} type="number" min="10" max="999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative z-0 w-full mb-2 group" id="model" style="display: none">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.load')}</label>
-            <input bind:value={usage.time_workload} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usage.time_workload} type="number" min="0" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
     </div>
 </form>
