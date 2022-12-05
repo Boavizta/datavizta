@@ -20,6 +20,7 @@
     let rammanufitems = [];
     let ssdmanufitems = [];
     let locaitems = []
+    let selectedlocation ="0-Global"
 
     function getitems(route) {
         return get(route).then((response) => response.json())
@@ -89,6 +90,7 @@
 
     function region_select(event){
         usage.usage_location = event.detail.value
+        selectedlocation = event.detail.label
     }
 
     function toggleCPU() {
@@ -137,13 +139,6 @@
         }
     }
 
-    function getselectedregion() {
-        var e = document.getElementById("select-region");
-        var text = e.children("option:selected").value
-        return text
-    }
-
-
 </script>
 <style>
   #serverconfig-cpu {
@@ -163,7 +158,7 @@
   }
 </style>
 <form>
-    <p><a class="text-xl" href="javascript:void(0);" on:click={toggleCPU}>> </a><span class="text-xl  my-1">CPU </span><span class="text-md"> ({serverConfig.cpu.units} x {serverConfig.cpu.core_units} cores - Architecture "{serverConfig.cpu.family}" - TDP:{serverConfig.cpu.tdp}W)</span></p>
+    <p on:click={toggleCPU}><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">CPU </span><span class="text-md"> ({serverConfig.cpu.units} x {serverConfig.cpu.core_units} cores - Architecture "{serverConfig.cpu.family}" - TDP:{serverConfig.cpu.tdp}W)</span></p>
     <div id="serverconfig-cpu" class="grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
@@ -186,7 +181,7 @@
     </div>
 
 
-    <p><a class="text-xl" href="javascript:void(0);" on:click={toggleRAM}>> </a><span class="text-xl  my-1">RAM </span><span class="text-md"> ({serverConfig.ram[0].units} x {serverConfig.ram[0].capacity}GB - Fabriquant : {serverConfig.ram[0].manufacturer})</span></p>
+    <p on:click={toggleRAM}><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">RAM </span><span class="text-md"> ({serverConfig.ram[0].units} x {serverConfig.ram[0].capacity}GB - Fabriquant : {serverConfig.ram[0].manufacturer})</span></p>
     <div id="serverconfig-ram" class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
@@ -204,7 +199,7 @@
         </div>
     </div>
 
-  <p><a class="text-xl" href="javascript:void(0);" on:click={toggleSSD}>> </a><span class="text-xl  my-1">SSD </span><span class="text-md"> ({serverConfig.disk[0].units} x {serverConfig.disk[0].capacity}GB - Fabriquant : {serverConfig.disk[0].manufacturer})</span></p>
+  <p on:click={toggleSSD}><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">SSD </span><span class="text-md"> ({serverConfig.disk[0].units} x {serverConfig.disk[0].capacity}GB - Fabriquant : {serverConfig.disk[0].manufacturer})</span></p>
   <div id="serverconfig-ssd" class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
@@ -222,7 +217,7 @@
         </div>
     </div>
 
-  <p><a class="text-xl" href="javascript:void(0);" on:click={toggleHDD}>> </a><span class="text-xl  my-1">HDD </span><span class="text-md"> ({serverConfig.disk[1].units} x {serverConfig.disk[1].capacity}GB)</span></p>
+  <p on:click={toggleHDD}><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">HDD </span><span class="text-md"> ({serverConfig.disk[1].units} x {serverConfig.disk[1].capacity}GB)</span></p>
   <div id="serverconfig-hdd" class="grid md:grid-cols-2 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
@@ -233,7 +228,7 @@
             <input bind:value={serverConfig.disk[1].capacity} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
     </div>
-  <p><a class="text-xl" href="javascript:void(0);" on:click={toggleUSAGE}>> </a><span class="text-xl  my-1">USAGE </span><span class="text-md"> (Region:{getselectedregion} - Durée de vie: {usage.years_use_time})</span></p>
+  <p on:click={toggleUSAGE}><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">USAGE </span><span class="text-md"> (Region: {selectedlocation} - Durée de vie: {usage.years_use_time})</span></p>
   <div id="serverconfig-usage" class="grid md:grid-cols-2 md:gap-1">
         <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.localisation')}</label>
