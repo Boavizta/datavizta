@@ -112,7 +112,7 @@
 <div id="content" class="px-1">
     <h2 class="title-second mt-2 mb-4 w-full px-4">{$_('server-impact.title')}</h2>
     <div class="grid md:grid-cols-12 gap-1">
-        <div class="min-h-[200px] md:col-span-5 px-4 w-full ">
+        <div class="min-h-[200px] md:col-span-5 px-1 w-full ">
             <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Configuration')}</h2>
             <div class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <ServerConfig bind:serverConfig={server.config} bind:usage={server.usage} />
