@@ -9,6 +9,7 @@
     import ExportChartImage from './chart/ExportChartImageButton.svelte';
     import ExportCsv from './chart/ExportCSVButton.svelte';
     import ShareLinkButton from './chart/ShareLinkButton.svelte';
+    import * as paramParser from './paramParser';
     import * as Scope from "./impacts"
     import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel,Row } from './customType';
     import * as ParamParser from "./paramParser";
@@ -88,8 +89,7 @@
 
 
     onMount(async () => {
-        //pageUrl = window.location.origin+"/manufacturerdata"; //hacky style of defining url
-        pageUrl = $page.url //not hacky style of getting url
+        pageUrl = window.location.origin + window.location.pathname;//recreate url with path
         /* retrieve lifetime from queryparam */
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
@@ -206,8 +206,7 @@
                 {@html $_('manufdata.explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
-                {@html $_('manufdata.explanation.9',  {values: {urlFrance:pageUrl +"?region=france", 
-                urlPoland:pageUrl +"?region=poland"}})}
+                {@html $_('manufdata.explanation.9')}
             </p>
             {:else}
             <p class="text-xs mb-2 font-light">

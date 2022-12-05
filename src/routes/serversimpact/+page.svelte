@@ -124,7 +124,7 @@
             <div class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <h3 class="text-xl font-bold">{$_('server-impact-desc.how')}</h3>
                 <p class="mb-2">
-                    {$_('server-impact-desc.how_content1')} <a href='https://www.boavizta.org/blog/empreinte-de-la-fabrication-d-un-serveur' class='no-underline hover:underline blue text-sky-800' target='_blank'>{$_('server-impact-desc.how_content2')}</a>.
+                    {$_('server-impact-desc.how_content1')} <a href={$_('server-impact-desc.articlelink')} class='no-underline hover:underline blue text-sky-800' target='_blank'>{$_('server-impact-desc.how_content2')}</a>.
                     {$_('server-impact-desc.how_content3')} <a href='https://doc.api.boavizta.org/' class='no-underline hover:underline blue text-sky-800' target='_blank'>doc.api.boavizta.org</a>.
 
                 </p>
