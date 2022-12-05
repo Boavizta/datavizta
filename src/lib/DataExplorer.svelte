@@ -1,6 +1,7 @@
 <script lang="ts">
     import {_, locale} from 'svelte-i18n';
     import {onMount} from "svelte";
+    import { page } from '$app/stores';
 
     import DataGrid from "./datagrid/DataGrid.svelte";
     import RegionPicker from "./chart/RegionPicker.svelte";
@@ -8,6 +9,7 @@
     import ExportChartImage from './chart/ExportChartImageButton.svelte';
     import ExportCsv from './chart/ExportCSVButton.svelte';
     import ShareLinkButton from './chart/ShareLinkButton.svelte';
+    import * as paramParser from './paramParser';
     import * as Scope from "./impacts"
     import type { RegionPickerItem, ScopeResult, ChartResult, FlatFilterModel,Row } from './customType';
     import * as ParamParser from "./paramParser";
@@ -21,7 +23,7 @@
     let selectedRegion:RegionPickerItem= {label:undefined, value:undefined, id:undefined};
     let yearly:boolean;
     let filterModels:FlatFilterModel;//filters defined in the datagrid component
-    let windowOrigin;
+    let pageUrl;
     
     /* Inner state */
     let selectedRows:Row[] = [];
@@ -87,8 +89,8 @@
 
 
     onMount(async () => {
+        pageUrl = window.location.origin + window.location.pathname;//recreate url with path
         /* retrieve lifetime from queryparam */
-        windowOrigin = window.location.origin;
         lifetime = ParamParser.parseLifetime(new URLSearchParams(window.location.search));
         if(lifetime){
             hascustomlifetime = true;
@@ -112,9 +114,7 @@
 
 
 <div class="flex flex-col">
-    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
 <div class="flex flex-row flex-wrap md:mt-2 justify-around">
-
     <!-- pie + form container-->
     <div class="flex flex-row flex-wrap-reverse justify-center">
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-solid border-2 border-teal-500/20">
@@ -164,7 +164,7 @@
         </div>
 
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
-            <div id="title" class="text-xl mb-5 font-medium text-center">{$_('index.custom_values')}</div>
+            <div id="title" class="text-xl mb-5 font-medium text-center">{$_('manufdata.custom_values')}</div>
             <!-- button toggle yearly/total -->
             <div class="flex mx-auto mt-1 mb-5">
                 <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
@@ -175,7 +175,7 @@
                 <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
             </div>
             <p>
-                {$_('index.select_country_elec_impact')}
+                {$_('manufdata.select_country_elec_impact')}
             </p>
             <!-- select region -->
             <div class="mt-2 mb-5">
@@ -185,33 +185,32 @@
                         <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
                     {/key}
                 </div>
-                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('index.select_country_elec_impact_tooltip')}</small>
+                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.select_country_elec_impact_tooltip')}</small>
             </div>
 
             <!-- input lifetime -->
             <div class="mb-3">
-                <p class="block">{$_('index.lifetime')}</p>
+                <p class="block">{$_('manufdata.lifetime')}</p>
                 <div class="flex">
 
                     <input id="lifetime" bind:value={lifetime} on:input={changeLifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
                     <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
-                        {$_('index.years')}
+                        {$_('manufdata.years')}
                     </span>
                 </div>
-                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('index.years_tooltip')}</small>
+                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.years_tooltip')}</small>
             </div>
 
             {#if disabledCustomValue == false }
             <p class="text-xs mb-2 font-light">
-                {@html $_('explanation.8')}
+                {@html $_('manufdata.explanation.8')}
             </p>
             <p class="text-xs mb-2 font-light">
-                {@html $_('explanation.9',  {values: {urlFrance:windowOrigin +"?region=france", 
-                urlPoland:windowOrigin +"?region=poland"}})}
+                {@html $_('manufdata.explanation.9')}
             </p>
             {:else}
             <p class="text-xs mb-2 font-light">
-                {$_('explanation.error')}
+                {$_('manufdata.explanation.error')}
             </p>
             {/if}
 
@@ -226,10 +225,12 @@
                 </div> 
                 <div class="flex-row mx-auto">
                     <!-- share permalink, does not work (yet) with one equipment selection-->
-                    <ShareLinkButton {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
+                    <ShareLinkButton {pageUrl} {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
                 </div>
         </div>
-
+        
     </div>
+    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
+    
 </div>
 </div>

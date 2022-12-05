@@ -1,7 +1,35 @@
 {
+  "lifespan": "Lifespan",
+  "years": "years",
+  "manufacturer": "Manufacturer",
+  "nav": {
+    "home": "Home",
+    "manufacturer": "Manufacturer Data" ,
+    "server-impact": "Servers Impacts"
+  },
   "index": {
-    "title": "Why this page?",
-    "sub-title": "Data repository",
+    "title1": "Why Datavizta?",
+    "title2": "Which tools? What for?",
+    "button": {
+      "1": "Go to the manufacturer data repository",
+      "2": "Go to the server impact assessment"
+    },
+    "explanation": {
+      "1": "One of the observations that prompted us to launch ",
+      "1bis": " was that we were sorely lacking in relevant data to measure the environmental impacts of digital technology. Beyond the impacts linked to the electricity consumption of the equipment used to deliver digital services, it is essential to know the impacts of the manufacturing, transport and end of life of all this equipment. Especially since for some of them, such as terminals and displays, these life cycle phases have a much greater impact than their electricity consumption",
+      "2": "Until now, the impact measurements of these phases were complex to implement or required proprietary data, and involved times and costs far too important to be carried out regularly, even on simple perimeters.",
+      "3": "Boavizta believes that an open and participatory approach would be much more appropriate to make digital environmental impact measurement accessible to as many people as possible.",
+      "4": "As such, a database and open methodologies have been developed collectively by the working group and Datavizta aims to make the result of this work accessible in the form of easy to use tools.",
+      "5": "The data visualization tool of the manufacturer's repository allows to : ",
+      "6": "Easily search for carbon impact factors for digital equipment present in ",
+      "7": "Boavizta's open database",
+      "8": "Visualize the breakdown of impacts by stage of the equipment life cycle by differentiating the use phase (scope 2), from the manufacturing, transport and end-of-life phases (scope 3).",
+      "9": "Evaluate the impacts of extended life or use in one geographic area rather than another. ", 
+      "10": "The server impact assessment tool provides an understanding of the environmental impacts of servers on several criteria (Global Warming Potential, Primary Energy and Abiotic Resource Depletion Potential), over two life cycle phases (use, manufacturing) based on their technical characteristics and context of use."
+      }
+  },
+  "manufdata": {
+    "title": "Manufacturer data repository",
     "search": "Perform a search",
     "scope-ratio": "Ratio Scope 2 / Scope 3",
     "selected_rows": "{n} selected line(s)",
@@ -13,25 +41,24 @@
     "years_tooltip": "applied to selected devices",
     "years": "years",
     "lifetime": "Lifetime",
-    "custom_values": "Custom values"
+    "custom_values": "Custom values",
+    "explanation": {
+      "error": "Data provided by manufacturer is not sufficient to allow you to personalize the lifespan and the use location.",
+      "1": "With this page, Boavizta has sought to achieve several complementary objectives:",
+      "2": "To be able to search easily for carbon impact factors for digital equipment in ",
+      "3": "the open database of Boavizta",
+      "4": "To be able to visualize the impacts repartition by stages of the life cycle of equipment by differentiating the use phase (scope 2) from the manufacturing, transport and end-of-life phases (scope 3)",
+      "5": "To be able to assess the impacts of extending the life of the product or using it in one geographical area rather than another. ",
+      "6": "The pie chart, below, displays the distribution of impacts by life cycle stage of devices referenced in the Boavizta environmental impact factor database built exclusively from manufacturer data. The table, below the graph, displays the main carbon impact data for all devices referenced in the Boavizta database. You can search on each column of the table to find the specific device or type of device (Monitor, Laptop, Smartphone, Server...) you are interested in. Once the search filter is applied or the line of a device is selected, the graph is updated to show the impacts of all the selected devices.",
+      "7": "We invite you, for example, to compare the impacts by category of equipment (Workplace and Datacenter) to realize: the importance of the manufacturing phase compared to the use phase for terminals and screens & the importance of the use phase for equipment present in datacenters. Using the form on the right of the graph, you can then vary the lifespan and choose a region of use for the selected equipment to see, on the graph, how this affects the overall impact and especially the distribution by phase of the life cycle. As an example, you can compare the impacts of using a server in France with those of using it in Poland.",
+      "8": "You can vary the lifespan and choose a region of use for the selected equipment to see, on the graph, how this affects the overall impact and especially the distribution by phase of the life cycle.",
+      "9": "As an example, you can compare the impacts of using a server in France with those of using it in Poland.",
+      "10": "For more details about this tool, you can read",
+      "11": "this article.",
+      "12": "https://boavizta.org/en/blog/dataviz",
+      "13": "In particular, to understand the limits of use of this data exclusively provided by manufacturers."
+    }
   },
-  "explanation": {
-    "error": "Data provided by manufacturer is not sufficient to allow you to personalize the lifespan and the use location.",
-    "1": "With this page, Boavizta has sought to achieve several complementary objectives:",
-    "2": "To be able to search easily for carbon impact factors for digital equipment in ",
-    "3": "the open database of Boavizta",
-    "4": "To be able to visualize the impacts repartition by stages of the life cycle of equipment by differentiating the use phase (scope 2) from the manufacturing, transport and end-of-life phases (scope 3)",
-    "5": "To be able to assess the impacts of extending the life of the product or using it in one geographical area rather than another. ",
-    "6": "The following table displays the main carbon impact data for all the equipment in the Boavizta database. The pie chart below the table displays the impacts repartition of the equipment by life cycle stage. You can search on each column of the table to find the specific equipment or type of equipment (Monitor, Laptop, Smartphone, Server...) you are interested in. Once the search filter is applied or the line of an equipment is selected, the graph is updated to display the impacts of all the selected equipment",
-    "7": "We invite you, for example, to compare the impacts by category of equipment (Workplace and Datacenter) to realize: the importance of the manufacturing phase compared to the use phase for terminals and screens & the importance of the use phase for equipment present in datacenters. Using the form on the right of the graph, you can then vary the lifespan and choose a region of use for the selected equipment to see, on the graph, how this affects the overall impact and especially the distribution by phase of the life cycle. As an example, you can compare the impacts of using a server in France with those of using it in Poland.",
-    "8": "You can vary the lifespan and choose a region of use for the selected equipment to see, on the graph, how this affects the overall impact and especially the distribution by phase of the life cycle.",
-    "9": "As an example, you can compare the impacts of using a server in <strong><a class=\"link\" href=\"{urlFrance}\" target=\"_blank\">France</a></strong> with those of using it in <strong><a class=\"link\" href=\"{urlPoland}\" target=\"_blank\">Poland</a></strong>.",
-    "10": "For more details about Dataviz tool, you can read",
-    "11": "this article.",
-    "12": "https://boavizta.org/en/blog/dataviz",
-    "13": "In particular, to understand the limits of use of this data exclusively provided by manufacturers."
-  },
-
   "datagrid": {
     "lifetime": "Lifetime",
     "manufacturer": "Manufacturer",
@@ -71,5 +98,44 @@
   },
   "region-picker": {
     "default": "Use default value"
+  },
+  "server-impact": {
+    "title":"Multicritera server impacts",
+    "Manufacture" : "Manufacturing",
+    "Usage" : "Usage",
+    "quantity": "Quantity",
+    "Core_units": "Core units",
+    "tdp": "TDP (Watt)",
+    "architecture": "Architecture",
+    "capacity": "Capacity (GB)",
+    "manufacturer": "Manufacturer",
+    "localisation": "Localisation",
+    "lifespan": "Lifespan (year)",
+    "method": "Method",
+    "avrg_elec": "Average consumption W/h",
+    "load": "Server load (%)",
+    "Utilisation" : "Server usage",
+    "Configuration" : "Server configuration",
+    "Others" : "Others",
+    "Unit" : "Unit",
+    "Results" : "Multicritera impacts during lifespan",
+    "GWP" : "Global Warming Potential",
+    "Global Warming Potential desc": "Evaluates the effect on global warming",
+    "PE" : "Primary energy",
+    "Primary energy desc" : "Consumption of energy resources",
+    "ADP" : "Abiotic Depletion Potential",
+    "Abiotic Depletion Potential desc" : "Evaluates the use of minerals and fossil ressources"
+  },
+  "server-impact-desc": {
+    "why": "Why this page?",
+    "why_content": "Through this page, Boavizta proposes you to understand the environmental impacts of servers on several criterias, on two life cycles phases (use, manufacture) according to their technical characteristics and context of use.",
+    "how": "How are the impacts assessed?",
+    "how_content1": "The impacts related to manufacture are assessed using the methodology detailed by Boavizta in",
+    "how_content2": "this article",
+    "articlelink": "https://www.boavizta.org/en/blog/empreinte-de-la-fabrication-d-un-serveur",
+    "how_content3": "Those related to the use phase are evaluated from the average power consumption or modeled from the estimated server load. The methodology is detailed here:",
+    "further": "To go further",
+    "further_content1": "This page uses the",
+    "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment."
   }
 }

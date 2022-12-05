@@ -19,6 +19,13 @@ body {
   font-size:2rem;
   font-family: 'Maven Pro',sans-serif;
 }
+.title-third {
+  display:flex;
+  color: #003864;
+  font-weight: 600;
+  font-size:1.5rem;
+  font-family: 'Maven Pro',sans-serif;
+}
 .title-left {
   align-items: flex-start;
   font-size: 1.5rem!important;
@@ -180,4 +187,91 @@ input:checked + .slider:before {
 .bx--snippet__icon {
   fill: white;
   color: white;
+}
+
+/* Tooltip */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tester {
+  border-radius: 0.5rem;
+  background-color: rgb(249 250 251);
+}
+
+.stacked-bar-graph {
+  width: 100%;
+  height: 25px;
+  overflow: hidden
+}
+
+.rounded-bottom {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.rounded-top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.stacked-bar-graph span {
+    display: inline-block;
+    height:100%;
+    box-sizing: border-box;
+    float: left;
+}
+
+
+.bar-3 {
+  background: rgb(24, 61, 93);
+}
+
+.bar-2 {
+  background:#008A8C;
+  ;
+}
+
+.bar-4 {
+  background: rgb(84, 182, 189);
+}
+.bar-1 {
+  background: rgb(202, 231, 227);
+}
+.bar-5 {
+  background: rgb(247, 210, 72);
+}
+.bar-6 {
+  background: rgb(202, 162, 124);
+}
+.bar-7 {
+  background: rgb(157, 181, 183);
+}
+.bar-legend {
+  width:10px;
+  height:10px;
+  display: inline-block;
 }

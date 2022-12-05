@@ -41,7 +41,8 @@
       return {
         id : row['country'].toLowerCase(),
         label: row['country'] + " - " + row['year']+ " - " + row['gwp_emission_factor'] + "kgCO2e/kWh",
-        value: row['gwp_emission_factor']
+        value: row['gwp_emission_factor'],
+        code: row['code']
       }
     }))
   };

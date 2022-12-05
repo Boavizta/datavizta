@@ -1,6 +1,19 @@
 /*define custom types*/
 
 
+//todo use type
+export type GlobalImpact = {
+    gwp: Impact,
+    pe: Impact,
+    adp: Impact
+}
+
+export type Impact = {
+    assembly: number, unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number}
+
+export type VerboseImpacts = { gwp: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number }, pe: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number }, adp: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number } }
+
+
 export type FilterModel = {
     name? : object,
     subcategory? : object,
@@ -18,7 +31,8 @@ export type FlatFilterModel = {
 export type RegionPickerItem = {
     label: string, //label to show on the region picker 
     value: number, //value of the elect impact of the region
-    id: string //id of the region
+    id: string, //id of the region
+    code? : string // code of the region
 }
 
 export type ScopeResult = {

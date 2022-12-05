@@ -6,7 +6,8 @@ module.exports = {
     /* add the blue color */
     extend: {
       colors: {
-        boavizta_blue: '#003864'
+        boavizta_blue: '#003864',
+        boavizta_green: '#008A8C'
       }
     }
   },
