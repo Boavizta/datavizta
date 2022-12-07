@@ -1,7 +1,11 @@
 import type { ConfigurationServer, Server } from "./types/hardware";
 import type { ServerImpact } from "./types/impact";
-
-const base = "https://dev.api.boavizta.org/v1"
+let base
+if (import.meta.env.VITE_PUBLIC_API_URL) {
+  base = import.meta.env.VITE_PUBLIC_API_URL
+} else {
+  base = "https://dev.api.boavizta.org/v1"
+}
 
 async function send(method: string, path: string, data: unknown = undefined) {
   const opts: RequestInit = { method, headers: {} };
