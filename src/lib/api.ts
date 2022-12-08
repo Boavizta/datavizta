@@ -4,7 +4,7 @@ let base
 if (import.meta.env.VITE_PUBLIC_API_URL) {
   base = import.meta.env.VITE_PUBLIC_API_URL
 } else {
-  base = "http://localhost:5000/v1"
+  base = "https://api.boavizta.org/v1"
 }
 
 async function send(method: string, path: string, data: unknown = undefined) {
