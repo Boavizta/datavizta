@@ -11,10 +11,10 @@
     export let usage:UsageServer;
 
 
-    let families_route = "utils/cpu_family/";
-    let ssd_manuf_route = "utils/ssd_manufacturer/";
-    let ram_manuf_route = "utils/ram_manufacturer/";
-    let localisation_route = "utils/country_code/";
+    let families_route = "utils/cpu_family";
+    let ssd_manuf_route = "utils/ssd_manufacturer";
+    let ram_manuf_route = "utils/ram_manufacturer";
+    let localisation_route = "utils/country_code";
 
     let architems = [];
     let rammanufitems = [];
