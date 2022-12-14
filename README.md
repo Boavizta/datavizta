@@ -1,4 +1,4 @@
-# Boavizta-front
+# Datavizta
 
 ## Data Explorer
 
