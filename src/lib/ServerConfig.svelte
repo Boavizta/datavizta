@@ -175,7 +175,7 @@
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
-            <input bind:value={serverConfig.ram[0].capacity} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.ram[0].capacity} type="number" min="1" max="999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">Manufacturer</label>
@@ -190,11 +190,11 @@
   <div id="serverconfig-ssd" class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
-            <input bind:value={serverConfig.disk[0].units} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.disk[0].units} type="number" min="0" max="999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
-            <input bind:value={serverConfig.disk[0].capacity} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.disk[0].capacity} type="number" min="1" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.manufacturer')}</label>
@@ -209,11 +209,11 @@
   <div id="serverconfig-hdd" class="hidden md:grid md:grid-cols-2 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
-            <input bind:value={serverConfig.disk[1].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.disk[1].units} type="number" min="0" max="999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
-            <input bind:value={serverConfig.disk[1].capacity} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={serverConfig.disk[1].capacity} type="number" min="1" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
     </div>
   <p on:click={toggleUSAGE} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">USAGE </span><span class="text-md"> (Region: {selectedlocation} - {$_('lifespan')}: {usage.years_use_time} {$_('years')})</span></p>
@@ -228,7 +228,7 @@
 
         <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.lifespan')}</label>
-            <input bind:value={usage.years_use_time} type="number" min="1" max="64" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usage.years_use_time} type="number" min="1" max="99" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.method')}</label>
