@@ -1,3 +1,5 @@
+import type { List } from "postcss/lib/list";
+
 export interface Server {
   config: ConfigurationServer;
   usage: UsageServer;
@@ -7,6 +9,11 @@ export interface ConfigurationServer {
   ram: Array<Ram>;
   disk: Array<Disk>;
   power_supply?: PowerSupply;
+}
+export interface ConfigurationCloud {
+  provider: string;
+  instance_type: string;
+  usage: UsageServer;
 }
 
 export interface UsageServer {
@@ -20,7 +27,7 @@ export interface UsageServer {
   gwp_factor?: number;
   pe_factor?: number;
   adp_factor?: number;
-  time_workload?: number;
+  time_workload?: List;
 }
 
 export interface Case {

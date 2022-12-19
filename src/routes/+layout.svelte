@@ -23,10 +23,8 @@
           language_min="FR"
       }
       if (type == "min") {
-        console.log(language_min)
         return language_min;
       } else { 
-        console.log(language)
         return language;
       }
   };
@@ -44,7 +42,6 @@
   function showMenu() {
       var menu = document.getElementById("burger_menu");
       var icon = document.getElementById("burger_icon");
-      console.log("ShowMenu")
       if ( !(menu.style.display === "block")) {
           //menu.className = "open";
           menu.style.display = "block";
@@ -75,12 +72,14 @@
       <a class="mr-5" href="/">{$_('nav.home')}</a>
       <a class="mr-5" href="/manufacturerdata">{$_('nav.manufacturer')}</a>
       <a class="mr-5" href="/serversimpact">{$_('nav.server-impact')}</a>
+      <a class="mr-5" href="/cloudimpact">{$_('nav.cloud-impact')}</a>
     </nav>
     <nav id="burger_menu">
       <ul>
         <li><a class="mr-5" href="/" on:click={showMenu}>{$_('nav.home')}</a></li>
         <li><a class="mr-5" href="/manufacturerdata" on:click={showMenu}>{$_('nav.manufacturer')}</a></li>
         <li><a class="mr-5" href="/serversimpact" on:click={showMenu}>{$_('nav.server-impact')}</a></li>
+        <li><a class="mr-5" href="/cloudimpact" on:click={showMenu}>{$_('nav.cloud-impact')}</a></li>
         <li><a class="mr-5" href="javascript:void(0);"    title="Choose language" on:click={updateLanguage} on:click={showMenu}>{language}</a></li>
       </ul>
     </nav>
@@ -128,7 +127,7 @@
     user-select: none;
     cursor: pointer;
   }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 963px) {
   #burger_menu {
     display: none;
     position: absolute;
