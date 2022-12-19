@@ -1,11 +1,10 @@
 <script lang="ts">
     import type {VerboseImpacts} from "$lib/customType";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
-    import ServerConfig from "$lib/ServerConfig.svelte";
+    import ServerConfig from "$lib/impact/server/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
     import type { ServerImpact } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
-    import ServerUsage from "$lib/usage/ServerUsage.svelte";
     import { getServerImpact } from "$lib/api";
 
     let server: Server = {

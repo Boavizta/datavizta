@@ -1,16 +1,15 @@
 <script lang="ts">
     import type {VerboseImpacts} from "$lib/customType";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
-    import CloudConfig from "$lib/CloudConfig.svelte";
-    import UsageConfig from "$lib/UsageConfig.svelte";
+    import CloudConfig from "$lib/impact/cloud/CloudConfig.svelte";
+    import UsageConfig from "$lib/impact/cloud/UsageConfig.svelte";
     import DetailedServerConfig from "$lib/DetailedServerConfig.svelte"
     import DetailedUsageConfig from "$lib/DetailedUsageConfig.svelte"
+    import * as Utils from "$lib/utils"
     import type { ConfigurationCloud } from "$lib/types/hardware";
     import type { ServerImpact } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
-    import ServerUsage from "$lib/usage/ServerUsage.svelte";
     import { getCloudImpact } from "$lib/api";
-    import { onMount } from "svelte";
     
     export let cloud_instance: ConfigurationCloud = {
         provider: "aws",
@@ -59,22 +58,6 @@
             "unit":0
         },
     };
-    function toggleServerConfig() {
-        var menu = document.getElementById("serverconfig-detailed");
-        if ( !(menu.style.display === "block")) {
-          menu.style.display = "block";
-        } else {
-          menu.style.display = "none";
-        }
-    }
-    function toggleUsageConfig() {
-        var menu = document.getElementById("usageconfig-detailed");
-        if ( !(menu.style.display === "block")) {
-          menu.style.display = "block";
-        } else {
-          menu.style.display = "none";
-        }
-    }
 
     $: cloud_instance, updateImpact();
     
@@ -122,7 +105,7 @@
                 <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('cloud-impact.configuration')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid grid-cols-2 gap-1">
                     <CloudConfig bind:cloudConfig={cloud_instance}/>
-                    <p on:click={toggleServerConfig} class="ml-2 block w-full col-span-2"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-server')}</a></p>
+                    <p on:click={() => Utils.toggleElement("serverconfig-detailed")} class="ml-2 block w-full col-span-2"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-server')}</a></p>
                     <div id="serverconfig-detailed" class="hidden col-span-2">
                         <DetailedServerConfig {serverImpact}/>
                     </div>
@@ -130,7 +113,7 @@
                 <h2 class="m-2 text-2xl font-bold">{$_('cloud-impact.usage')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid grid-cols-6 gap-1">
                     <UsageConfig bind:cloudConfig={cloud_instance}/>
-                    <p on:click={toggleUsageConfig} class="ml-2 block w-full col-span-6"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-usage')}</a></p>
+                    <p on:click={() => Utils.toggleElement("usageconfig-detailed")} class="ml-2 block w-full col-span-6"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-usage')}</a></p>
                     <div id="usageconfig-detailed" class="hidden col-span-6">
                     <DetailedUsageConfig {serverImpact}/>
                     </div>

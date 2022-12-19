@@ -45,3 +45,13 @@ export  function exportCSVToDownload(csvContent,name) {
 
     link.click(); 
 }
+
+export function toggleElement(element) {
+    var menu = document.getElementById(element);
+    console.log(menu)
+    if ( !(menu.style.display === "block")) {
+      menu.style.display = "block";
+    } else {
+      menu.style.display = "none";
+    }
+}
