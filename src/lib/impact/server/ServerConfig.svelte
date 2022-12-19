@@ -87,7 +87,7 @@
    
 </script>
 
-<div class="relative min-w-[100px] w-full mb-2 group">
+
     <p on:click={() => Utils.toggleElement("server-impact.cpu")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">CPU </span><span class="text-md"> ({serverConfig.config.cpu.units} x {serverConfig.config.cpu.core_units} cores - Architecture "{serverConfig.config.cpu.family}" - TDP:{serverConfig.config.cpu.tdp}W)</span></p>
     <p class="hidden md:block"><span class="text-xl  my-1">CPU </span></p>
     <div id="server-impact.cpu" class="hidden md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-1">
@@ -110,7 +110,6 @@
             </div>
         </div>
     </div>
-</div>
 
     <p on:click={() => Utils.toggleElement("server-impact.ram")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">RAM </span><span class="text-md"> ({serverConfig.config.ram[0].units} x {serverConfig.config.ram[0].capacity}GB - {$_('manufacturer')} : {serverConfig.config.ram[0].manufacturer})</span></p>
     <p class="hidden md:block"><span class="text-xl  my-1">RAM </span></p>
