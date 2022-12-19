@@ -2,9 +2,9 @@
     import type {VerboseImpacts} from "$lib/customType";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
     import CloudConfig from "$lib/impact/cloud/CloudConfig.svelte";
-    import UsageConfig from "$lib/impact/cloud/UsageConfig.svelte";
-    import DetailedServerConfig from "$lib/DetailedServerConfig.svelte"
-    import DetailedUsageConfig from "$lib/DetailedUsageConfig.svelte"
+    import UsageConfig from "$lib/impact/UsageConfig.svelte";
+    import DetailedServerConfig from "$lib/impact/DetailedCloudConfig.svelte"
+    import DetailedUsageConfig from "$lib/impact/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
     import type { ConfigurationCloud } from "$lib/types/hardware";
     import type { ServerImpact } from "$lib/types/impact";
@@ -112,7 +112,7 @@
                 </div>
                 <h2 class="m-2 text-2xl font-bold">{$_('cloud-impact.usage')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid grid-cols-6 gap-1">
-                    <UsageConfig bind:cloudConfig={cloud_instance}/>
+                    <UsageConfig bind:serverUsage={cloud_instance.usage} usageType="Cloud" />
                     <p on:click={() => Utils.toggleElement("usageconfig-detailed")} class="ml-2 block w-full col-span-6"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-usage')}</a></p>
                     <div id="usageconfig-detailed" class="hidden col-span-6">
                     <DetailedUsageConfig {serverImpact}/>
