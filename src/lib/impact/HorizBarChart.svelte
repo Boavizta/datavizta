@@ -77,7 +77,7 @@
   <span style="width:{others_pct}%" class="bar-7"></span>
 </div>
 <div class="px-1 text-xs w-full">
-  <span class="bar-2 bar-legend"></span>{$_('server-impact.Usage')} : {(result.use).toFixed(nb_rounded)}
+  <span class="bar-2 bar-legend"></span> {$_('server-impact.Usage')} : {(result.use).toFixed(nb_rounded)}
   <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {(result_fab).toFixed(nb_rounded)}
 </div>
 <div class="px-1 pb-4 text-xs w-full">
