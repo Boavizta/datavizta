@@ -87,7 +87,11 @@
     }
     
     function changeExtUsageTime(event,i:Integer){
-        if ( (parseInt(extUsageTime[i]) + parseInt(event.target.value)) <= 100 ) {
+        let b = 0   
+        if (i == 0) {
+            b = 1
+        }
+        if ( (parseInt(extUsageTime[b]) + parseInt(event.target.value)) <= 100 ) {
             extUsageTime[i] = event.target.value
             extUsageTime[2] = 100 - extUsageTime[0] - extUsageTime[1]
             updateExtTimeWorkLoad()
@@ -99,7 +103,7 @@
     function changeElecCons() {
         serverUsage.hours_electrical_consumption = elecCons
     }
-    
+
     function changeUsageLoad(event,i:Integer,ext:Boolean){
             if (event.target.value > 100){
                 extUsageLoad[i] = 100

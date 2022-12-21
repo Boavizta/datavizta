@@ -37,13 +37,13 @@
         cloud_providers = await getitems(cloud_providers_route);
         cloud_instances = await getAllInstances("aws");
         cloudConfig.provider = "aws";
-        cloudConfig.instance_type = await getfirstitem(cloud_instances_route+"?cloud_provider="+cloudConfig.provider);
+        cloudConfig.instance_type = await getfirstitem(cloud_instances_route+"?provider="+cloudConfig.provider);
     })
 
     async function provider_select(event){
         cloudConfig.provider=event.detail.value
         cloud_instances = await getAllInstances(event.detail.value)
-        cloudConfig.instance_type = await getfirstitem(cloud_instances_route+"?cloud_provider="+cloudConfig.provider);
+        cloudConfig.instance_type = await getfirstitem(cloud_instances_route+"?provider="+cloudConfig.provider);
     }
 
     function instance_select(event){
@@ -51,7 +51,7 @@
     }
 
     function getAllInstances(cloud_provider) {
-        return get(cloud_instances_route+"?cloud_provider="+cloud_provider).then((response) => response.json())
+        return get(cloud_instances_route+"?provider="+cloud_provider).then((response) => response.json())
             .then((data) => {
                 let elements = [];
                 for(let i = 0; i < data.length; i++) {
