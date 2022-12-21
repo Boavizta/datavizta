@@ -118,6 +118,7 @@
     "Manufacture" : "Fabrication",
     "Usage" : "Utilisation",
     "quantity": "Quantité",
+    "hdd-quantity": "Nombre de HDD",
     "Core_units": "Nb Coeurs",
     "tdp": "TDP (Watt)",
     "architecture": "Architecture",
@@ -140,9 +141,9 @@
     "Primary energy desc" : "Consommation de ressources énergétiques",
     "ADP" : "Potentiel d’épuisement des ressources abiotiques",
     "Abiotic Depletion Potential desc" : "Évalue l’utilisation de minéraux et de matières premières fossiles.",
-    "enclosure": "Type de serveur et alimentation",
+    "others": "Autres",
     "case_type" : "Type de serveur",
-    "psu_number" : "Nombre d'alimentations",
+    "psu_number" : "Nombre de PSU",
     "psu" : "unités d'alimentation"
   },
   "cloud-impact": {

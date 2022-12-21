@@ -117,6 +117,7 @@
     "Manufacture" : "Manufacturing",
     "Usage" : "Usage",
     "quantity": "Quantity",
+    "hdd-quantity": "HDD quantity",
     "Core_units": "Core units",
     "tdp": "TDP (Watt)",
     "architecture": "Architecture",
@@ -138,9 +139,9 @@
     "Primary energy desc" : "Consumption of energy resources",
     "ADP" : "Abiotic Depletion Potential",
     "Abiotic Depletion Potential desc" : "Evaluates the use of minerals and fossil ressources",
-    "enclosure": "Enclosure & PSU",
+    "others": "Others",
     "case_type" : "Server type",
-    "psu_number" : "PSU number",
+    "psu_number" : "PSU quantity",
     "psu" : "power supply units"
   },
   "cloud-impact": {

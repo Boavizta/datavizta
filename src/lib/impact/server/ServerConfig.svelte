@@ -117,18 +117,13 @@
             </div>
         </div>
     </div>
-
-  <p on:click={() => Utils.toggleElement("server-impact.hdd")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">HDD </span><span class="text-md"> ({serverConfig.config.disk[1].units} x {serverConfig.config.disk[1].capacity}GB)</span></p>
-  <p class="hidden md:block"><span class="text-xl  my-1">HDD </span></p>
-  <div id="server-impact.hdd" class="hidden md:grid md:grid-cols-2 md:gap-1">
+  <p on:click={() => Utils.toggleElement("server-impact.others")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">{$_('server-impact.enclosure')} </span><span class="text-md"> ({serverConfig.config.disk[1].units} HDD - {serverConfig.model.type} - {serverConfig.config.power_supply.units} {$_('server-impact.psu')})</span></p>
+  <p class="hidden md:block"><span class="text-xl  my-1">{$_('server-impact.others')}</span></p>
+  <div id="server-impact.others" class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
-            <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
+            <label class="block text-sm font-medium text-gray-900">{$_('server-impact.hdd-quantity')}</label>
             <input bind:value={serverConfig.config.disk[1].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
-  </div>
-  <p on:click={() => Utils.toggleElement("server-impact.case")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">{$_('server-impact.enclosure')} </span><span class="text-md"> ({serverConfig.model.type} - {serverConfig.config.power_supply.units} {$_('server-impact.psu')})</span></p>
-  <p class="hidden md:block"><span class="text-xl  my-1">{$_('server-impact.enclosure')}</span></p>
-  <div id="server-impact.case" class="hidden md:grid md:grid-cols-2 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.case_type')}</label>
             <div style="--borderRadius: 0.5em;">
