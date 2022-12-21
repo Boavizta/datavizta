@@ -2,10 +2,16 @@
   "lifespan": "Durée de vie",
   "years": "années",
   "manufacturer": "Fabriquant",
+  "with": "avec",
+  "and": "et",
+  "without": "Sans",
+  "cores": "coeurs",
+  "density": "densité",
   "nav": {
     "home": "Accueil",
     "manufacturer": "Données Fabricants",
-    "server-impact": "Impact des serveurs"
+    "server-impact": "Impact des serveurs",
+    "cloud-impact": "Impact du Cloud"
   },
   "index": {
     "title1": "Pourquoi Datavizta?",
@@ -100,6 +106,13 @@
   "region-picker": {
     "default": "Utiliser la valeur par défaut"
   },
+  "usage-methods":{
+    "elec":"Conso Electrique",
+    "load":"Charge",
+    "extload":"Charge (avancée)",
+    "timeslot":"Plage",
+    "time":"Durée"
+  },
   "server-impact": {
     "title":"Impact multicritère des serveurs",
     "Manufacture" : "Fabrication",
@@ -113,7 +126,7 @@
     "localisation": "Localisation",
     "lifespan": "Durée de vie (ans)",
     "method": "Méthode",
-    "avrg_elec": "Conso moyenne W/h",
+    "avrg_elec": "Conso moyenne (W)",
     "load": "Charge serveur (%)",
     "Impacts" : "Impacts",
     "Utilisation" : "Utilisation du serveur",
@@ -127,6 +140,19 @@
     "Primary energy desc" : "Consommation de ressources énergétiques",
     "ADP" : "Potentiel d’épuisement des ressources abiotiques",
     "Abiotic Depletion Potential desc" : "Évalue l’utilisation de minéraux et de matières premières fossiles."
+  },
+  "cloud-impact": {
+    "title":"Impact multicritère des instances Cloud",
+    "configuration": "Configuration de l'instance",
+    "usage": "Utilisation de l'instance",
+    "provider" : "Fournisseur de Cloud",
+    "instance_type" : "Type d'instance"
+  },
+  "detailed-config": {
+    "show-server": "Voir la configuration serveur détaillée",
+    "show-usage": "Voir les hypothèses d'utilisation détaillées",
+    "usage-title": "Facteurs d'impact du mix electrique:",
+    "usage-conso": "Consommation électrique moyenne: "
   },
   "server-impact-desc": {
     "why": "Pourquoi cette page ?",

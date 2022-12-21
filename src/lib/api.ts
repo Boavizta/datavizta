@@ -1,4 +1,4 @@
-import type { ConfigurationServer, Server } from "./types/hardware";
+import type { ConfigurationServer, ConfigurationCloud, Server } from "./types/hardware";
 import type { ServerImpact } from "./types/impact";
 let base
 if (import.meta.env.VITE_PUBLIC_API_URL) {
@@ -35,6 +35,14 @@ export async function getServerImpact(server: Server): Promise<ServerImpact> {
     configuration: server.config,
     usage: server.usage,
   });
+  return res.text().then((json) => {
+    return JSON.parse(json);
+  });
+}
+
+export async function getCloudImpact(instance: ConfigurationCloud): Promise<ServerImpact> {
+  const params = "?verbose=true";
+  const res = await post("cloud/" + params, instance);
   return res.text().then((json) => {
     return JSON.parse(json);
   });

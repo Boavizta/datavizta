@@ -22,9 +22,9 @@
 
 
   function updateChart(result) {
-    result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd;
+    result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd + result.case;
     result_total=result.use + result_fab;
-    result_others=result.assembly + result.motherboard + result.power_supply;
+    result_others=result.assembly + result.motherboard + result.power_supply + result.case;
     use_pct=result.use * 100 / result_total;
     fab_pct=result_fab * 100 / result_total;
     cpu_pct=result.cpu * 100 / result_total;
@@ -77,7 +77,7 @@
   <span style="width:{others_pct}%" class="bar-7"></span>
 </div>
 <div class="px-1 text-xs w-full">
-  <span class="bar-2 bar-legend"></span>{$_('server-impact.Usage')} : {(result.use).toFixed(nb_rounded)}
+  <span class="bar-2 bar-legend"></span> {$_('server-impact.Usage')} : {(result.use).toFixed(nb_rounded)}
   <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {(result_fab).toFixed(nb_rounded)}
 </div>
 <div class="px-1 pb-4 text-xs w-full">

@@ -2,10 +2,16 @@
   "lifespan": "Lifespan",
   "years": "years",
   "manufacturer": "Manufacturer",
+  "with": "with",
+  "and": "and",
+  "without": "Without",
+  "cores": "core units",
+  "density": "density",
   "nav": {
     "home": "Home",
     "manufacturer": "Manufacturer Data" ,
-    "server-impact": "Servers Impacts"
+    "server-impact": "Servers Impacts",
+    "cloud-impact": "Cloud Impacts"
   },
   "index": {
     "title1": "Why Datavizta?",
@@ -99,6 +105,13 @@
   "region-picker": {
     "default": "Use default value"
   },
+  "usage-methods":{
+    "elec":"Electricity",
+    "load":"Load",
+    "extload":"Load (advanced)",
+    "timeslot":"Slot",
+    "time":"Time"
+  },
   "server-impact": {
     "title":"Multicritera server impacts",
     "Manufacture" : "Manufacturing",
@@ -112,7 +125,7 @@
     "localisation": "Localisation",
     "lifespan": "Lifespan (year)",
     "method": "Method",
-    "avrg_elec": "Average consumption W/h",
+    "avrg_elec": "Average consumption (W)",
     "load": "Server load (%)",
     "Utilisation" : "Server usage",
     "Configuration" : "Server configuration",
@@ -125,6 +138,19 @@
     "Primary energy desc" : "Consumption of energy resources",
     "ADP" : "Abiotic Depletion Potential",
     "Abiotic Depletion Potential desc" : "Evaluates the use of minerals and fossil ressources"
+  },
+  "cloud-impact": {
+    "title":"Multicritera cloud instances impacts",
+    "configuration": "Instance configuration",
+    "usage": "Instance usage",
+    "provider" : "Cloud provider",
+    "instance_type" : "Cloud instance type"
+  },
+  "detailed-config": {
+    "show-server": "Show detailed server config",
+    "show-usage": "Show detailed usage config",
+    "usage-title": "Electricity mix impact factors:",
+    "usage-conso": "Mean electricity power usage: "
   },
   "server-impact-desc": {
     "why": "Why this page?",

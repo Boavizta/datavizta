@@ -1,9 +1,6 @@
 <script lang="ts">
-    import type {GlobalImpact, VerboseImpacts} from "$lib/customType";
-    import type { ServerImpact } from "$lib/types/impact";
-    import ResultBox from "./_ResultBox.svelte";
     import { _ } from "svelte-i18n";
-    import BarChart from "$lib/chart/HorizBarChart.svelte"
+    import BarChart from "$lib/impact/HorizBarChart.svelte"
 
     export let verboseImpacts: VerboseImpacts;
 </script>
