@@ -139,7 +139,11 @@
     "PE" : "Energie Primaire",
     "Primary energy desc" : "Consommation de ressources énergétiques",
     "ADP" : "Potentiel d’épuisement des ressources abiotiques",
-    "Abiotic Depletion Potential desc" : "Évalue l’utilisation de minéraux et de matières premières fossiles."
+    "Abiotic Depletion Potential desc" : "Évalue l’utilisation de minéraux et de matières premières fossiles.",
+    "enclosure": "Enclosure",
+    "case_type" : "Type de serveur",
+    "psu_number" : "Nombre d'alimentation",
+    "psu" : "unités d'alimentation"
   },
   "cloud-impact": {
     "title":"Impact multicritère des instances Cloud",

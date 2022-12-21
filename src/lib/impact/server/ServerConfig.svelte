@@ -12,13 +12,11 @@
     let families_route = "utils/cpu_family";
     let ssd_manuf_route = "utils/ssd_manufacturer";
     let ram_manuf_route = "utils/ram_manufacturer";
-    let localisation_route = "utils/country_code";
 
     let architems = [];
     let rammanufitems = [];
     let ssdmanufitems = [];
-    let locaitems = []
-    let selectedlocation ="0-Global"
+    let casetypes = [{value: 'rack', label: 'Rack'},{value: 'blade', label: 'Blade'}]
 
     function getitems(route) {
         return get(route).then((response) => response.json())
@@ -35,7 +33,6 @@
         architems = await getitems(families_route);
         rammanufitems = await getitems(ram_manuf_route);
         ssdmanufitems = await getitems(ssd_manuf_route);
-        locaitems = await getlocalisation(localisation_route);
         serverConfig.config.cpu.family = "skylake";
         serverConfig.config.ram[0].manufacturer = "Samsung";
         serverConfig.config.disk[0].manufacturer = "Micron";
@@ -53,38 +50,10 @@
         serverConfig.config.disk[0].manufacturer = event.detail.value
     }
 
-    function getlocalisation(route) {
-        return get(route).then((response) => response.json())
-            .then((data) => {
-                let elements = [];
-                let items = Object.keys(data)
-                for (let i = 0; i < items.length; i++) {
-                    elements.push({value: data[items[i]], label: items[i]});
-                }
-                return elements
-            });
+    function casetype_select(event){
+        serverConfig.model.type = event.detail.value
     }
 
-    function change_method(event){
-        if(event.detail.value == "Load"){
-            serverConfig.usage.hours_electrical_consumption = null
-            serverConfig.usage.time_workload = 50
-            document.getElementById('model').style.display = 'block';
-            document.getElementById('conso').style.display = 'none';
-
-        } else {
-            serverConfig.usage.time_workload = null
-            serverConfig.usage.hours_electrical_consumption = 150
-            document.getElementById('model').style.display = 'none';
-            document.getElementById('conso').style.display = 'block';
-        }
-    }
-
-    function region_select(event){
-        serverConfig.usage.usage_location = event.detail.value
-        selectedlocation = event.detail.label
-    }
-   
 </script>
 
 
@@ -156,9 +125,17 @@
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.quantity')}</label>
             <input bind:value={serverConfig.config.disk[1].units} type="number" min="1" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
+  </div>
+  <p on:click={() => Utils.toggleElement("server-impact.case")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">{$_('server-impact.enclosure')} </span><span class="text-md"> ({serverConfig.model.type} - {serverConfig.config.power_supply.units} {$_('server-impact.psu')})</span></p>
+  <p class="hidden md:block"><span class="text-xl  my-1">{$_('server-impact.enclosure')}</span></p>
+  <div id="server-impact.case" class="hidden md:grid md:grid-cols-2 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
-            <label class="block text-sm font-medium text-gray-900">{$_('server-impact.capacity')}</label>
-            <input bind:value={serverConfig.config.disk[1].capacity} type="number" min="10" max="9999" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <label class="block text-sm font-medium text-gray-900">{$_('server-impact.case_type')}</label>
+            <Select items={casetypes} on:select={casetype_select} value="Rack"/>
+        </div>
+        <div class="relative min-w-[100px] w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">{$_('server-impact.psu_number')}</label>
+            <input bind:value={serverConfig.config.power_supply.units} type="number" min="1" max="4" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
   </div>
   

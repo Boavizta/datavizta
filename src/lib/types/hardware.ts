@@ -1,6 +1,7 @@
 import type { List } from "postcss/lib/list";
 
 export interface Server {
+  model: ModelServer;
   config: ConfigurationServer;
   usage: UsageServer;
 }

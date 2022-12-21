@@ -7,11 +7,13 @@
     import type { ServerImpact } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
     import { getServerImpact } from "$lib/api";
-    import DetailedServerConfig from "$lib/impact/DetailedCloudConfig.svelte"
     import DetailedUsageConfig from "$lib/impact/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
 
     let server: Server = {
+        model: {
+            type:"rack"
+        },
         config: {
             cpu: {
                 units: 2,
@@ -36,6 +38,10 @@
                     type: "hdd",
                 },
             ],
+            power_supply: 
+                {
+                units: 2
+                }
         }, usage : {
             hours_electrical_consumption : 150,
             years_use_time: 4
@@ -82,13 +88,15 @@
     $: server, updateImpact();
 
     async function updateImpact() {
+        //console.log(server)
         serverImpact = await getServerImpact(server);
+        //console.log(serverImpact)
         verboseImpacts.adp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.adp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['RAM-1']['units']
         verboseImpacts.adp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['SSD-1']['units']
         verboseImpacts.adp.hdd = serverImpact['verbose']['HDD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['HDD-1']['units']
         verboseImpacts.adp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
-        verboseImpacts.adp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.adp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['POWER_SUPPLY-1']['units']
         verboseImpacts.adp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['adp']['value']
         verboseImpacts.adp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['unit']
         verboseImpacts.adp.use= serverImpact['verbose']['USAGE']['usage_impacts']['adp']['value']
@@ -99,7 +107,7 @@
         verboseImpacts.gwp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['SSD-1']['units']
         verboseImpacts.gwp.hdd = serverImpact['verbose']['HDD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['HDD-1']['units']
         verboseImpacts.gwp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
-        verboseImpacts.gwp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.gwp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['POWER_SUPPLY-1']['units']
         verboseImpacts.gwp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['gwp']['value']
         verboseImpacts.gwp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['unit']
         verboseImpacts.gwp.use= serverImpact['verbose']['USAGE']['usage_impacts']['gwp']['value']
@@ -110,7 +118,7 @@
         verboseImpacts.pe.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['SSD-1']['units']
         verboseImpacts.pe.hdd = serverImpact['verbose']['HDD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['HDD-1']['units']
         verboseImpacts.pe.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
-        verboseImpacts.pe.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['CPU-1']['units']
+        verboseImpacts.pe.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['POWER_SUPPLY-1']['units']
         verboseImpacts.pe.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['pe']['value']
         verboseImpacts.pe.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['unit']
         verboseImpacts.pe.use= serverImpact['verbose']['USAGE']['usage_impacts']['pe']['value']
