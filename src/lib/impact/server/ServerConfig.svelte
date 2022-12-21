@@ -131,7 +131,9 @@
   <div id="server-impact.case" class="hidden md:grid md:grid-cols-2 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.case_type')}</label>
-            <Select items={casetypes} on:select={casetype_select} value="Rack"/>
+            <div style="--borderRadius: 0.5em;">
+                <Select items={casetypes} on:select={casetype_select} value="Rack"/>
+            </div>
         </div>
         <div class="relative min-w-[100px] w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('server-impact.psu_number')}</label>

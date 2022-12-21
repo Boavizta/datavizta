@@ -138,7 +138,7 @@
     "Primary energy desc" : "Consumption of energy resources",
     "ADP" : "Abiotic Depletion Potential",
     "Abiotic Depletion Potential desc" : "Evaluates the use of minerals and fossil ressources",
-    "enclosure": "Enclosure",
+    "enclosure": "Enclosure & PSU",
     "case_type" : "Server type",
     "psu_number" : "PSU number",
     "psu" : "power supply units"
