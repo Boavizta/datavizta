@@ -52,7 +52,8 @@
             "ram":1,
             "ssd":1,
             "use":1,
-            "unit":1
+            "unit":1,
+            "case":1
         },
         "pe": {
             "hdd": 1,
@@ -62,7 +63,8 @@
             "ram":1,
             "ssd":1,
             "use":1,
-            "unit":1
+            "unit":1,
+            "case":1
         },
         "gwp": {
             "hdd": 1,
@@ -72,14 +74,17 @@
             "ram":1,
             "ssd":1,
             "use":1,
-            "unit":1
+            "unit":1,
+            "case":1
         },
     };
 
     $: server, updateImpact();
 
     async function updateImpact() {
+        console.log(server)
         serverImpact = await getServerImpact(server);
+        console.log(serverImpact)
         verboseImpacts.adp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.adp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['RAM-1']['units']
         verboseImpacts.adp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['SSD-1']['units']
@@ -89,6 +94,7 @@
         verboseImpacts.adp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['adp']['value']
         verboseImpacts.adp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['unit']
         verboseImpacts.adp.use= serverImpact['verbose']['USAGE']['usage_impacts']['adp']['value']
+        verboseImpacts.adp.case= serverImpact['verbose']['CASE-1']['manufacture_impacts']['adp']['value']
 
         verboseImpacts.gwp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.gwp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['RAM-1']['units']
@@ -99,6 +105,7 @@
         verboseImpacts.gwp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['gwp']['value']
         verboseImpacts.gwp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['unit']
         verboseImpacts.gwp.use= serverImpact['verbose']['USAGE']['usage_impacts']['gwp']['value']
+        verboseImpacts.gwp.case= serverImpact['verbose']['CASE-1']['manufacture_impacts']['gwp']['value']
 
         verboseImpacts.pe.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.pe.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['RAM-1']['units']
@@ -109,6 +116,7 @@
         verboseImpacts.pe.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['pe']['value']
         verboseImpacts.pe.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['unit']
         verboseImpacts.pe.use= serverImpact['verbose']['USAGE']['usage_impacts']['pe']['value']
+        verboseImpacts.pe.case= serverImpact['verbose']['CASE-1']['manufacture_impacts']['pe']['value']
     }
 </script>
 

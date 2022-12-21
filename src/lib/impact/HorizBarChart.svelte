@@ -22,9 +22,9 @@
 
 
   function updateChart(result) {
-    result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd;
+    result_fab=result.assembly + result.cpu + result.hdd + result.motherboard + result.power_supply + result.ram + result.ssd + result.case;
     result_total=result.use + result_fab;
-    result_others=result.assembly + result.motherboard + result.power_supply;
+    result_others=result.assembly + result.motherboard + result.power_supply + result.case;
     use_pct=result.use * 100 / result_total;
     fab_pct=result_fab * 100 / result_total;
     cpu_pct=result.cpu * 100 / result_total;
