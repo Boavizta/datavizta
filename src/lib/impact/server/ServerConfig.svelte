@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-  <p on:click={() => Utils.toggleElement("server-impact.others")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">{$_('server-impact.enclosure')} </span><span class="text-md"> ({serverConfig.config.disk[1].units} HDD - {serverConfig.model.type} - {serverConfig.config.power_supply.units} {$_('server-impact.psu')})</span></p>
+  <p on:click={() => Utils.toggleElement("server-impact.others")} class="sm:block md:hidden"><a class="text-xl" href="javascript:void(0);" >> </a><span class="text-xl  my-1">{$_('server-impact.others')} </span><span class="text-md"> ({serverConfig.config.disk[1].units} HDD - {serverConfig.model.type} - {serverConfig.config.power_supply.units} {$_('server-impact.psu')})</span></p>
   <p class="hidden md:block"><span class="text-xl  my-1">{$_('server-impact.others')}</span></p>
   <div id="server-impact.others" class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-1">
         <div class="relative min-w-[100px] w-full mb-2 group">
