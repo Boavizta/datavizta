@@ -2,17 +2,6 @@
 
 
 //todo use type
-export type GlobalImpact = {
-    gwp: Impact,
-    pe: Impact,
-    adp: Impact
-}
-
-export type Impact = {
-    assembly: number, unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number}
-
-export type VerboseImpacts = { gwp: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number }, pe: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number }, adp: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number } }
-
 
 export type FilterModel = {
     name? : object,

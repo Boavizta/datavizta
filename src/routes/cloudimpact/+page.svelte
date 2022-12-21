@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {VerboseImpacts} from "$lib/customType";
+    import type {VerboseImpacts} from "$lib/types/impact";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
     import CloudConfig from "$lib/impact/cloud/CloudConfig.svelte";
     import UsageConfig from "$lib/impact/UsageConfig.svelte";
@@ -35,7 +35,8 @@
             "ram":0,
             "ssd":0,
             "use":0,
-            "unit":0
+            "unit":0,
+            "case":0
         },
         "pe": {
             "hdd": 0,
@@ -45,7 +46,8 @@
             "ram":0,
             "ssd":0,
             "use":0,
-            "unit":0
+            "unit":0,
+            "case":0
         },
         "gwp": {
             "hdd": 0,
@@ -55,7 +57,8 @@
             "ram":0,
             "ssd":0,
             "use":0,
-            "unit":0
+            "unit":0,
+            "case":0
         },
     };
 
@@ -70,6 +73,8 @@
         verboseImpacts.adp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['adp']['value']
         verboseImpacts.adp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['unit']
         verboseImpacts.adp.use= serverImpact['verbose']['USAGE']['usage_impacts']['adp']['value']
+        verboseImpacts.adp.case= serverImpact['verbose']['CASE-1']['manufacture_impacts']['adp']['value']
+
         verboseImpacts.gwp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.gwp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['RAM-1']['units']
         verboseImpacts.gwp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
@@ -77,6 +82,8 @@
         verboseImpacts.gwp.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['gwp']['value']
         verboseImpacts.gwp.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['gwp']['unit']
         verboseImpacts.gwp.use= serverImpact['verbose']['USAGE']['usage_impacts']['gwp']['value']
+        verboseImpacts.gwp.case= serverImpact['verbose']['CASE-1']['manufacture_impacts']['gwp']['value']
+
         verboseImpacts.pe.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.pe.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['RAM-1']['units']
         verboseImpacts.pe.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['manufacture_impacts']['pe']['value']*serverImpact['verbose']['MOTHERBOARD-1']['units']
@@ -84,6 +91,7 @@
         verboseImpacts.pe.assembly= serverImpact['verbose']['ASSEMBLY-1']['manufacture_impacts']['pe']['value']
         verboseImpacts.pe.unit = serverImpact['verbose']['CPU-1']['manufacture_impacts']['pe']['unit']
         verboseImpacts.pe.use= serverImpact['verbose']['USAGE']['usage_impacts']['pe']['value']
+        verboseImpacts.pe.case= serverImpact['verbose']['CASE-1']['manufacture_impacts']['pe']['value']
         if ( serverImpact['verbose']['SSD-1'] !== undefined ) {
             verboseImpacts.adp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['SSD-1']['units']
             verboseImpacts.gwp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['gwp']['value']*serverImpact['verbose']['SSD-1']['units']

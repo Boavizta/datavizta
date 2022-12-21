@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {VerboseImpacts} from "$lib/customType";
+    import type {VerboseImpacts} from "$lib/types/impact";
     import ResultGrid from "$lib/impact/ResultGrid.svelte";
     import ServerConfig from "$lib/impact/server/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
@@ -82,9 +82,7 @@
     $: server, updateImpact();
 
     async function updateImpact() {
-        console.log(server)
         serverImpact = await getServerImpact(server);
-        console.log(serverImpact)
         verboseImpacts.adp.cpu = serverImpact['verbose']['CPU-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['CPU-1']['units']
         verboseImpacts.adp.ram = serverImpact['verbose']['RAM-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['RAM-1']['units']
         verboseImpacts.adp.ssd = serverImpact['verbose']['SSD-1']['manufacture_impacts']['adp']['value']*serverImpact['verbose']['SSD-1']['units']
