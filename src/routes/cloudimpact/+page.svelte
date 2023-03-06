@@ -146,6 +146,9 @@
         <p class="">
             {$_('server-impact-desc.further_content1')}  <a href='https://github.com/boavizta/boaviztapi/'class='no-underline hover:underline blue text-sky-800' target='_blank'>BoaviztAPI</a>{$_('server-impact-desc.further_content2')}
         </p>
+         <p class="">
+            {$_('server-impact-desc.further_content3')}  <a href='https://github.com/Boavizta/cloud-scanner'class='no-underline hover:underline blue text-sky-800' target='_blank'>Boavizta cloud-scanner</a>{$_('server-impact-desc.further_content4')}
+        </p>
     </div>
 
 </div>
