@@ -167,6 +167,8 @@
     "how_content3": "Those related to the use phase are evaluated from the average power consumption or modeled from the estimated server load. The methodology is detailed here:",
     "further": "To go further",
     "further_content1": "This page uses the",
-    "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment."
+    "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment.",
+    "further_content3": "Check also ",
+    "further_content4":". An open-source tool that combines real time inventory and usage data from your AWS account with Boavizta API to offer a view of your impacts."
   }
 }

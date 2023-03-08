@@ -22,8 +22,8 @@
     },
     "explanation": {
       "1": "Un des constats qui nous a incités à lancer ",
-      "1bis": " était que nous manquions cruellement de données pertinentes pour mesurer les impacts environnementaux du numérique. Au-delà des impacts liés à la consommation d'électricité des équipements permettant de délivrer des services numériques, il est primordial de connaitre les impacts de la fabrication, du transport et de la fin de vie de tous ces équipements. D'autant plus que pour certains d'entre eux, comme les terminaux et les écrans, ces phases du cycle de vie ont un impact bien plus important que celui lié à leur consommation électrique.",
-      "2": "Jusqu'à présent, les mesures d'impact de ces phases étaient complexes à mettre en œuvre ou nécessitaient des données propriétaires, et impliquaient des durées et des couts bien trop importants pour être réalisées régulièrement, même sur des périmètres simples.",
+      "1bis": " était que nous manquions cruellement de données pertinentes pour mesurer les impacts environnementaux du numérique. Au-delà des impacts liés à la consommation d'électricité des équipements permettant de délivrer des services numériques, il est primordial de connaître les impacts de la fabrication, du transport et de la fin de vie de tous ces équipements. D'autant plus que pour certains d'entre eux, comme les terminaux et les écrans, ces phases du cycle de vie ont un impact bien plus important que celui lié à leur consommation électrique.",
+      "2": "Jusqu'à présent, les mesures d'impact de ces phases étaient complexes à mettre en œuvre ou nécessitaient des données propriétaires, et impliquaient des durées et des coûts bien trop importants pour être réalisées régulièrement, même sur des périmètres simples.",
       "3": "Boavizta pense qu'une approche ouverte et participative serait bien plus adaptée pour rendre accessible la mesure d'impact environnemental du numérique au plus grand nombre.",
       "4": "A ce titre, une base de données et des methodologies ouvertes ont été développées collectivement par le groupe de travail et Datavizta a pour objectif de rendre accessible le résultat de ces travaux sous forme d'outils simples d'utilisation.",
       "5": "L'outil de visualisation des données du référentiel constructeur permet de : ",
@@ -38,7 +38,7 @@
     "title": "Référentiel de données constructeur",
     "search": "Effectuer une recherche",
     "scope-ratio": "Ratio Scope 2 / Scope 3",
-    "selected_rows": "{n} ligne(s) selectionnée(s)",
+    "selected_rows": "{n} ligne(s) sélectionnée(s)",
     "title_equivalent": "Equivalence CO2",
     "label_equivalent": "Voiture thermique",
     "calculate": "Calculer",
@@ -72,7 +72,7 @@
     "category" : "Catégorie",
     "subcategory": "Sous-catégorie",
     "use_location": "Lieu d'utilisation",
-    "report_date": "Date Fabricaton",
+    "report_date": "Date Fabrication",
     "use": "Utilisation (%)",
     "yearlyTec" : "TEC annuel (kWh)",
     "manufacturing": "Fabrication (%)",
@@ -156,19 +156,21 @@
   "detailed-config": {
     "show-server": "Voir la configuration serveur détaillée",
     "show-usage": "Voir les hypothèses d'utilisation détaillées",
-    "usage-title": "Facteurs d'impact du mix electrique:",
+    "usage-title": "Facteurs d'impact du mix électrique:",
     "usage-conso": "Consommation électrique moyenne: "
   },
   "server-impact-desc": {
     "why": "Pourquoi cette page ?",
     "why_content": "Au travers de cette page, Boavizta vous propose de comprendre les impacts environnementaux des serveurs sur plusieurs critères, sur deux phases de cycles de vie (usage, fabrication) en fonction de leurs caractéristiques techniques et leur contexte d'utilisation.\n",
     "how": "Comment sont évalués les impacts ?",
-    "how_content1": "Les impacts liés à la fabrication sont évalués à l'aide de la méthodologie détailliée par Boavizta dans",
+    "how_content1": "Les impacts liés à la fabrication sont évalués à l'aide de la méthodologie détaillée par Boavizta dans",
     "how_content2": "cet article",
     "articlelink": "https://www.boavizta.org/blog/empreinte-de-la-fabrication-d-un-serveur",
-    "how_content3": "Ceux liés à la phase d'utilisation sont évalués à partir de la consommation éléctrique moyenne ou modélisés à partir de la charge estimée du serveur. La méthodologie est détaillée ici :",
+    "how_content3": "Ceux liés à la phase d'utilisation sont évalués à partir de la consommation électrique moyenne ou modélisés à partir de la charge estimée du serveur. La méthodologie est détaillée ici :",
     "further": "Pour aller plus loin",
     "further_content1": "Cette page utilise la",
-    "further_content2":". Une API open-source qui utilise des données et des méthodes ouvertes pour évaluer les impacts environnmentaux des equipements numériques.\n"
+    "further_content2":". Une API open-source qui utilise des données et des méthodes ouvertes pour évaluer les impacts environnementaux des équipements numériques.\n",
+    "further_content3": "Essayez aussi ",
+    "further_content4":". Une application open-source qui combine l'inventaire automatique et les données d'utilisations de votre compte AWS pour offrir une évaluation en temps réel de vos impacts."
   }
 }
