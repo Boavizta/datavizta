@@ -230,7 +230,7 @@
 <div class="ag_container" id="aggridwrapper-root">
   <div
     bind:this={ref}
-    style="height: 100%; width:100%"
+    style="height: 100%; width:100%; display:none"
     class="ag-theme-alpine"
   />
 </div>
