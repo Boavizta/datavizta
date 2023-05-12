@@ -12,11 +12,11 @@
 {:then loadedImpact}
     {#if loadedImpact != undefined}
     <div class="ml-4 px-1 w-full">
-        <p><a class="text-xs">{$_('detailed-config.usage-conso')}{loadedImpact['verbose']["USAGE"]["hours_electrical_consumption"]["value"]}{loadedImpact['verbose']["USAGE"]["hours_electrical_consumption"]["unit"]}</a></p>
+        <p><a class="text-xs">{$_('detailed-config.usage-conso')}{loadedImpact['verbose']["hours_electrical_consumption"]["value"]}{loadedImpact['verbose']["hours_electrical_consumption"]["unit"]}</a></p>
         <p><a class="text-xs">{$_('detailed-config.usage-title')}</a></p>
-        <p><span class="ml-5 text-xs">ADP:{loadedImpact['verbose']["USAGE"]["adp_factor"]["value"]}{loadedImpact['verbose']["USAGE"]["adp_factor"]["unit"]}</span></p>
-        <p><span class="ml-5 text-xs">GWP:{loadedImpact['verbose']["USAGE"]["gwp_factor"]["value"]}{loadedImpact['verbose']["USAGE"]["gwp_factor"]["unit"]}</span></p>
-        <p><span class="ml-5 text-xs">PE:{loadedImpact['verbose']["USAGE"]["pe_factor"]["value"]}{loadedImpact['verbose']["USAGE"]["pe_factor"]["unit"]}</span></p>
+        <p><span class="ml-5 text-xs">ADP:{loadedImpact['impacts']["adp"]["use"]["value"]}{loadedImpact['impacts']["adp"]["unit"]}</span></p>
+        <p><span class="ml-5 text-xs">GWP:{loadedImpact['impacts']["gwp"]["use"]["value"]}{loadedImpact['impacts']["gwp"]["unit"]}</span></p>
+        <p><span class="ml-5 text-xs">PE:{loadedImpact['impacts']["pe"]["use"]["value"]}{loadedImpact['impacts']["pe"]["unit"]}</span></p>
     </div>
         {/if}
     {:catch error}
