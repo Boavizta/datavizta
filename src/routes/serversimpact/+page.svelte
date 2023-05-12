@@ -98,7 +98,7 @@
         verboseImpacts.adp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.unit = serverImpact['impacts']['gwp']['unit']
+        verboseImpacts.adp.unit = serverImpact['impacts']['adp']['unit']
         verboseImpacts.adp.case= serverImpact['verbose']['CASE-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.use  = serverImpact['impacts']['adp']['use']['value']
         
