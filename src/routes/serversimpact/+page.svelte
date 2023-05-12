@@ -98,7 +98,7 @@
         verboseImpacts.adp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.unit = serverImpact['verbose']['CPU-1']['impacts']['adp']['embedded']['unit']
+        verboseImpacts.adp.unit = serverImpact['impacts']['gwp']['unit']
         verboseImpacts.adp.case= serverImpact['verbose']['CASE-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.use  = serverImpact['impacts']['adp']['use']['value']
         
@@ -110,7 +110,7 @@
         verboseImpacts.gwp.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['gwp']['embedded']['value']
         verboseImpacts.gwp.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['gwp']['embedded']['value']
         verboseImpacts.gwp.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.unit = serverImpact['verbose']['CPU-1']['impacts']['gwp']['embedded']['unit']
+        verboseImpacts.gwp.unit = serverImpact['impacts']['gwp']['unit']
         verboseImpacts.gwp.case= serverImpact['verbose']['CASE-1']['impacts']['gwp']['embedded']['value']
         verboseImpacts.gwp.use  = serverImpact['impacts']['gwp']['use']['value']
 
@@ -121,7 +121,7 @@
         verboseImpacts.pe.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['pe']['embedded']['value']
         verboseImpacts.pe.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['pe']['embedded']['value']
         verboseImpacts.pe.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.unit = serverImpact['verbose']['CPU-1']['impacts']['pe']['embedded']['unit']
+        verboseImpacts.pe.unit = serverImpact['impacts']['pe']['unit']
         verboseImpacts.pe.case= serverImpact['verbose']['CASE-1']['impacts']['pe']['embedded']['value']
         verboseImpacts.pe.use  = serverImpact['impacts']['pe']['use']['value']
     }
