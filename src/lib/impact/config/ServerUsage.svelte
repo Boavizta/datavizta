@@ -41,7 +41,7 @@
           document.getElementById('model').style.display = 'block';
           document.getElementById('conso').style.display = 'none';
 
-      }else {
+      } else {
           usage.time_workload = null
           usage.hours_electrical_consumption = 150
           document.getElementById('model').style.display = 'none';

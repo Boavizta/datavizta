@@ -1,7 +1,7 @@
 <script lang="ts">
     import { _ } from "svelte-i18n";
-    import type { ServerImpact } from "$lib/types/impact";
-    export let serverImpact: ServerImpact;
+    import type { Impacts } from "$lib/types/impact";
+    export let serverImpact: Impacts;
     $: serverImpact;
 </script>
 

@@ -1,12 +1,11 @@
 <script lang="ts">
-    import type ConfigurationCloud from "$lib/types/hardware";
     import { _ } from "svelte-i18n";
-    import type { ServerImpact } from "$lib/types/impact";
+    import type { VerboseServerImpacts } from "$lib/types/impact";
     import Select from "svelte-select"
     import {onMount} from "svelte";
     import {get} from "$lib/api";
 
-    export let serverImpact: ServerImpact;
+    export let serverImpact: VerboseServerImpacts;
 </script>
 
 {#await serverImpact}
