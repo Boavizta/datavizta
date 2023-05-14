@@ -16,6 +16,11 @@ export interface ConfigurationCloud {
   instance_type: string;
   usage: UsageServer;
 }
+export interface ConfigurationTerminal {
+  category: string;
+  subcategory: string;
+  usage: UsageServer;
+}
 
 export interface UsageServer {
   hash?: string;

@@ -34,8 +34,16 @@ export type VerboseServerImpact = {
   assembly: number, power_supply: number, ssd: number, total: number, motherboard: number, hdd: number, cpu: number, ram: number, case: number}
 
 export type CriteriaServerImpact = {
+  description: string;
   embedded : VerboseServerImpact,
   use: VerboseServerImpact,
+  unit: string
+};
+
+export type CriteriaTerminalImpact = {
+  description: string;
+  embedded : ImpactValue,
+  use: ImpactValue,
   unit: string
 };
 
