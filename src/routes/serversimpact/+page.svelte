@@ -3,11 +3,11 @@
     import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
     import ServerConfig from "$lib/impact/server-cloud/ServerConfig.svelte";
     import type { Server } from "$lib/types/hardware";
-    import UsageConfig from "$lib/impact/config/UsageConfig.svelte";
+    import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
     import type { Impacts } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
     import { getServerImpact } from "$lib/api";
-    import DetailedUsageConfig from "$lib/impact/config/DetailedUsageConfig.svelte"
+    import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
 
     let server: Server = {

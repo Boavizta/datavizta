@@ -2,9 +2,9 @@
     import type {VerboseServerImpacts} from "$lib/types/impact";
     import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
     import CloudConfig from "$lib/impact/server-cloud/CloudConfig.svelte";
-    import UsageConfig from "$lib/impact/config/UsageConfig.svelte";
+    import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
     import DetailedServerConfig from "$lib/impact/server-cloud/DetailedCloudConfig.svelte"
-    import DetailedUsageConfig from "$lib/impact/config/DetailedUsageConfig.svelte"
+    import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
     import type { ConfigurationCloud } from "$lib/types/hardware";
     import type { Impacts } from "$lib/types/impact";
