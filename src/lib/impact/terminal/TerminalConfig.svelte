@@ -37,7 +37,6 @@
 
     async function updateDefaultUsageValues() {
         let temp = await getUsageDefaultValues(terminalConfig.archetype)
-        console.log("temp=",temp)
         terminalConfig.usage.hours_electrical_consumption = temp["USAGE"]["hours_electrical_consumption"]["default"]
         terminalConfig.usage.hours_use_time = temp["USAGE"]["use_time"]["default"]
         terminalConfig.category = temp["device_type"]["default"]
@@ -65,7 +64,6 @@
         terminalConfig.archetype = terminal_archetypes[0].value
         let temp = await getUsageDefaultValues(terminalConfig.archetype)
         updateDefaultUsageValues()
-        console.log(usageConfig)
     }
 
     function archetype_select(event){

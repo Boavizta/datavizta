@@ -207,7 +207,7 @@
     "usage": "Device usage"
   },
   "terminal-impact": {
-    "title":"Multicritera cloud instances impacts"
+    "title":"Multicritera user devices impacts"
   },
   "detailed-config": {
     "show-server": "Show detailed server config",

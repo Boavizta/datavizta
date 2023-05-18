@@ -26,12 +26,13 @@
         time_workload: {
             time_percentage: [100],
             load_percentage: [50]
-            }
+            },
+        usage_location: "WOR"
     }
     export let terminal: Terminal = {
         category: "laptop",
         usage : {
-            usage_location: "WOR",
+            usage_location: "World",
         } 
     };
     $: terminal, updateImpact();
