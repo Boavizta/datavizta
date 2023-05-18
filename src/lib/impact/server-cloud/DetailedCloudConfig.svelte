@@ -1,9 +1,6 @@
 <script lang="ts">
     import { _ } from "svelte-i18n";
     import type { VerboseServerImpacts } from "$lib/types/impact";
-    import Select from "svelte-select"
-    import {onMount} from "svelte";
-    import {get} from "$lib/api";
 
     export let serverImpact: VerboseServerImpacts;
 </script>

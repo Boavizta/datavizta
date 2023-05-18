@@ -1,9 +1,10 @@
 import type { List } from "postcss/lib/list";
+import { number } from "svelte-i18n";
 
 export interface Server {
   model: ModelServer;
   config: ConfigurationServer;
-  usage: UsageServer;
+  usage: UsageRequest;
 }
 export interface ConfigurationServer {
   cpu: Cpu;
@@ -11,29 +12,55 @@ export interface ConfigurationServer {
   disk: Array<Disk>;
   power_supply?: PowerSupply;
 }
-export interface ConfigurationCloud {
+export interface Cloud {
   provider: string;
   instance_type: string;
-  usage: UsageServer;
+  usage: UsageRequest;
 }
-export interface ConfigurationTerminal {
+export interface Terminal {
   category: string;
-  subcategory: string;
-  usage: UsageServer;
+  archetype: string;
+  usage: UsageRequest;
 }
 
-export interface UsageServer {
+export interface UsageRequest {
   hash?: string;
   TYPE?: string;
   years_use_time?: number;
   days_use_time?: number;
   hours_use_time?: number;
   hours_electrical_consumption?: number;
+  life_time?: number;
+  usage_location?: string;
+  time_workload?: List;
+}
+export interface Usage {
+  hash?: string;
+  TYPE?: string;
+  use_time?: {
+    default?: number;
+    value?: number;
+    life_time_ratio?: number;
+    hours_per_day?: number;
+  }
+  hours_electrical_consumption?: {
+    default?: number;
+    value?: number;
+    min?: number;
+    max?: number;
+  }
+  life_time?: {
+    default?: number;
+    value?: number;
+  }
   usage_location?: string;
   gwp_factor?: number;
   pe_factor?: number;
   adp_factor?: number;
-  time_workload?: List;
+  time_workload?: {
+    time_percentage?: Array;
+    load_percentage?: Array;
+  }
 }
 
 export interface Case {

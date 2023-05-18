@@ -11,7 +11,8 @@
     "home": "Accueil",
     "manufacturer": "Données Fabricants",
     "server-impact": "Impact des serveurs",
-    "cloud-impact": "Impact du Cloud"
+    "cloud-impact": "Impact du Cloud",
+    "terminal-impact": "Impacts des terminaux"
   },
   "index": {
     "title1": "Pourquoi Datavizta?",
@@ -94,7 +95,6 @@
     "share" : "Partager",
     "copy" : "Copier le lien",
     "copied" : "Lien copié",
-
     "year" : "an",
     "impossible" : "Les données fournies par les constructeurs pour les équipements sélectionnés ne permettent pas d'afficher le détail de l'impact ou l'impact annuel.",
     "yearly": "Annuel",
@@ -113,10 +113,66 @@
     "timeslot":"Plage",
     "time":"Durée"
   },
-  "server-impact": {
-    "title":"Impact multicritère des serveurs",
+  "impacts": {
     "Manufacture" : "Fabrication",
-    "Usage" : "Utilisation",
+    "Usage": "Utilisation",
+    "Results" : "Impact multicritères sur la durée de vie totale",
+    "GWP" : "Potentiel de gaz à effet de serre",
+    "GWP desc": "Évalue l’effet sur le réchauffement de la planète",
+    "PE" : "Energie Primaire",
+    "PE desc" : "Évalue la consommation de ressources énergétiques",
+    "ADP" : "Epuisement des ressources abiotiques",
+    "ADP desc" : "Évalue l’utilisation de minéraux et de matières premières fossiles.",
+    "GWPPB" : "Gaz à effet de serre - potentiel biogenique",
+    "GWPPB desc" : "Evaluates the contribution of biogenic emissions",
+    "GWPPF" : "Gaz à effet de serre - potentiel biogenique",
+    "GWPPF desc" : "Evalue le potentiel biogenique sur le rechauffement climatique",
+    "GWPPLU" : "Gaz à effet de serre - potentiel lié à l'utilisation des sols",
+    "GWPPLU desc" : "Evalue le potentiel lié à l'utilisation des sols sur le rechauffement climatiquee",
+    "IR" : "Radiations Ionisantes",
+    "IR desc" : "Evalue les emissions de radiations ionisantes",
+    "LU" : "Utilisation des sols",
+    "LU desc" : "Evalue l'impact sur l'utilisation des sols",
+    "ODP" : "Appauvrissement de la couche d'ozone",
+    "ODP desc" : "Evalue l'impact sur la couche d'ozone",
+    "PM" : "Emissions de particules fines",
+    "PM desc" : "Evalue les émissions de particules fines",
+    "POCP" : "Formation d'ozone photochimique",
+    "POCP desc" : "Evalue la formation d'ozone photochimique",
+    "MIPS" : "Material Input Per Service",
+    "MIPS desc" : "Evaluates material input per unit of service",
+    "ADPE" : "Epuisement des ressources abiotiques - ressources minérales et métalliques",
+    "ADPE desc" : "Evalue le potentiel d'épuisement des ressources minérales et métalliques",
+    "ADPF" : "Epuisement des ressources abiotiques - ressources fossiles",
+    "ADPF desc" : "Evalue le potentiel d'épuisement des ressources fossiles (y compris nucléaire)",
+    "AP" : "Acidification",
+    "AP desc" : "Evalue le potentiel d'acidification",
+    "CTUE" : "Freshwater Ecotoxicity",
+    "CTUE desc" : "Evaluates freshwater ecotoxicity",
+    "CTUH_C" : "Human Toxicity - Carcinogenic Effects",
+    "CTUH_C desc" : "Evaluates human toxicity - Carcinogenic effects",
+    "CTUH_NC" : "Human Toxicity - Non Carcinogenic Effects",
+    "CTUH_NC desc" : "Evaluates human toxicity - Non carcinogenic effects",
+    "EPF" : "Eutrophisation Eaux Douces",
+    "EPF desc" : "Evalue le potentiel d'eutrophication des eaux douces",
+    "EPM" : "Eutrophisation Marine",
+    "EPM desc" : "Evalue le potentiel d'eutrophication des eaux marines",
+    "EPT" : "Eutrophisation Terrestre",
+    "EPT desc" : "Evalue le potentiel d'eutrophication terrestre",
+    "others": "Autres",
+    "Impacts" : "Impacts"
+  },
+  "usage-config": {
+    "localisation": "Localisation",
+    "lifespan": "Durée de vie (ans)",
+    "method": "Méthode",
+    "avrg_elec": "Conso moyenne (W)",
+    "load": "Charge serveur (%)",
+    "usage" : "Utilisation",
+    "hoursperday": "Heures d'utilisation par jour"
+  },
+  "server-config": {
+    "configuration" : "Configuration du serveur",
     "quantity": "Quantité",
     "hdd-quantity": "Nombre de HDD",
     "Core_units": "Nb Coeurs",
@@ -124,34 +180,34 @@
     "architecture": "Architecture",
     "capacity": "Capacité (GB)",
     "manufacturer": "Fabricant",
-    "localisation": "Localisation",
-    "lifespan": "Durée de vie (ans)",
-    "method": "Méthode",
-    "avrg_elec": "Conso moyenne (W)",
-    "load": "Charge serveur (%)",
-    "Impacts" : "Impacts",
-    "Utilisation" : "Utilisation du serveur",
-    "Configuration" : "Configuration du serveur",
-    "Others" : "Autres",
     "Unit" : "Unité",
-    "Results" : "Impact multicritères sur la durée de vie totale",
-    "GWP" : "Potentiel de gaz à effet de serre",
-    "Global Warming Potential desc": "Évalue l’effet sur le réchauffement de la planète",
-    "PE" : "Energie Primaire",
-    "Primary energy desc" : "Consommation de ressources énergétiques",
-    "ADP" : "Potentiel d’épuisement des ressources abiotiques",
-    "Abiotic Depletion Potential desc" : "Évalue l’utilisation de minéraux et de matières premières fossiles.",
-    "others": "Autres",
     "case_type" : "Type de serveur",
     "psu_number" : "Nombre de PSU",
-    "psu" : "unités d'alimentation"
+    "psu" : "unités d'alimentation",
+    "others" : "Autres",
+    "usage" : "Utitilisation du serveur"
+  },
+  "server-impact": {
+    "title":"Impact multicritère des serveurs"
+  },
+  "cloud-config": {
+    "configuration": "Configuration de l'instance",
+    "provider" : "Fournisseur de Cloud",
+    "instance_type" : "Type d'instance",
+    "usage": "Utilisation de l'instance"
   },
   "cloud-impact": {
     "title":"Impact multicritère des instances Cloud",
-    "configuration": "Configuration de l'instance",
-    "usage": "Utilisation de l'instance",
-    "provider" : "Fournisseur de Cloud",
-    "instance_type" : "Type d'instance"
+    "usage": "Instance usage"
+  },
+  "terminal-config": {
+    "configuration": "Configuration du terminal",
+    "category" : "Type de terminal",
+    "subcategory" : "Sous catégorie",
+    "usage": "Utilisation du terminal"
+  },
+  "terminal-impact": {
+    "title":"Multicritera cloud instances impacts"
   },
   "detailed-config": {
     "show-server": "Voir la configuration serveur détaillée",
@@ -167,6 +223,18 @@
     "how_content2": "cet article",
     "articlelink": "https://www.boavizta.org/blog/empreinte-de-la-fabrication-d-un-serveur",
     "how_content3": "Ceux liés à la phase d'utilisation sont évalués à partir de la consommation électrique moyenne ou modélisés à partir de la charge estimée du serveur. La méthodologie est détaillée ici :",
+    "further": "Pour aller plus loin",
+    "further_content1": "Cette page utilise la",
+    "further_content2":". Une API open-source qui utilise des données et des méthodes ouvertes pour évaluer les impacts environnementaux des équipements numériques.\n",
+    "further_content3": "Essayez aussi ",
+    "further_content4":". Une application open-source qui combine l'inventaire automatique et les données d'utilisations de votre compte AWS pour offrir une évaluation en temps réel de vos impacts."
+  },
+  "terminal-impact-desc": {
+      "how": "Comment sont évalués les impacts ?",
+      "how_content1": "Les impacts liés à la fabrication sont évalués à l'aide de la méthodologie Negaoctet et tous les facteurs d'impact sont disponibles dans ",
+      "how_content2": "ADEME - Base impacts",
+      "articlelink": "https://base-impacts.ademe.fr/",
+      "how_content3": "Ceux liés à la phase d'utilisation sont évalués à partir de la consommation électrique moyenne ou modélisés à partir de la charge estimée du terminal. La méthodologie est détaillée ici :",
     "further": "Pour aller plus loin",
     "further_content1": "Cette page utilise la",
     "further_content2":". Une API open-source qui utilise des données et des méthodes ouvertes pour évaluer les impacts environnementaux des équipements numériques.\n",

@@ -64,13 +64,13 @@
 </script>
 
   <div class="relative min-w-[100px] w-full mb-2 group">
-        <label class="block text-sm font-medium text-gray-900">{$_('cloud-impact.provider')}</label>
+        <label class="block text-sm font-medium text-gray-900">{$_('cloud-config.provider')}</label>
         <div style="--borderRadius: 0.5em;">
             <Select items={cloud_providers} on:select={provider_select} value="{cloudConfig.provider}"/>
         </div>
     </div>
     <div class="relative min-w-[100px] w-full mb-2 group">
-        <label class="block text-sm font-medium text-gray-900">{$_('cloud-impact.instance_type')}</label>
+        <label class="block text-sm font-medium text-gray-900">{$_('cloud-config.instance_type')}</label>
         <div style="--borderRadius: 0.5em;">
             <Select items={cloud_instances} on:select={instance_select} value="{cloudConfig.instance_type}"/>
         </div>

@@ -11,7 +11,8 @@
     "home": "Home",
     "manufacturer": "Manufacturer Data" ,
     "server-impact": "Servers Impacts",
-    "cloud-impact": "Cloud Impacts"
+    "cloud-impact": "Cloud Impacts",
+    "terminal-impact": "User devices Impacts"
   },
   "index": {
     "title1": "Why Datavizta?",
@@ -112,10 +113,66 @@
     "timeslot":"Slot",
     "time":"Time"
   },
-  "server-impact": {
-    "title":"Multicritera server impacts",
+  "impacts": {
     "Manufacture" : "Manufacturing",
     "Usage" : "Usage",
+    "Results" : "Multicritera impacts during lifespan",
+    "GWP" : "Global Warming Potential",
+    "GWP desc": "Evaluates the effect on global warming",
+    "PE" : "Primary energy",
+    "PE desc" : "Evaluates the consumption of energy resources",
+    "ADP" : "Abiotic Depletion Potential",
+    "ADP desc" : "Evaluates the use of minerals and fossil resources",
+    "GWPPB" : "Global Warming Potential - Biogenic potential",
+    "GWPPB desc" : "Evaluates the contribution of biogenic emissions",
+    "GWPPF" : "Global Warming Potential - Biogenic potential",
+    "GWPPF desc" : "Evaluates the contribution of fossil fuel emissions",
+    "GWPPLU" : "Global Warming Potential - Land Use potential",
+    "GWPPLU desc" : "Evaluates the contribution of emissions from land use change",
+    "IR" : "Ionizing Radiations",
+    "IR desc" : "Evaluates the emissions of radionizing substances",
+    "LU" : "Lan Use",
+    "LU desc" : "Evaluates land use",
+    "ODP" : "Ozone layer depletion",
+    "ODP desc" : "Evaluates Depletion of the Ozone Layer",
+    "PM" : "Thin particules emissions",
+    "PM desc" : "Evaluates thin particle emissions",
+    "POCP" : "Photochemical Ozone Formation",
+    "POCP desc" : "Evaluates photochemical ozone formation",
+    "MIPS" : "Material Input Per Service",
+    "MIPS desc" : "Evaluates material input per unit of service",
+    "ADPE" : "Abiotic Depletion Potential - mineral and metal resources",
+    "ADPE desc" : "Evaluates the use of mineral and metal resources",
+    "ADPF" : "Abiotic Depletion Potential - Fossil resources",
+    "ADPF desc" : "Evaluates the use of fossil resources (including nuclear)",
+    "AP" : "Acidification",
+    "AP desc" : "Evaluates the acidification potential",
+    "CTUE" : "Freshwater Ecotoxicity",
+    "CTUE desc" : "Evaluates freshwater ecotoxicity",
+    "CTUH_C" : "Human Toxicity - Carcinogenic Effects",
+    "CTUH_C desc" : "Evaluates human toxicity - Carcinogenic effects",
+    "CTUH_NC" : "Human Toxicity - Non Carcinogenic Effects",
+    "CTUH_NC desc" : "Evaluates human toxicity - Non carcinogenic effects",
+    "EPF" : "Eutrophisation of freshwater",
+    "EPF desc" : "Evaluates eutrophisation of freshwater",
+    "EPM" : "Eutrophisation of marine waters",
+    "EPM desc" : "Evaluates eutrophisation of marine waters",
+    "EPT" : "Terrestrial Eutrophisation",
+    "EPT desc" : "Evaluates terrestrial eutrophisation",
+    "others": "Others",
+    "Impacts" : "Impacts"
+  },
+  "usage-config": {
+    "localisation": "Localisation",
+    "lifespan": "Lifespan (year)",
+    "method": "Method",
+    "avrg_elec": "Average consumption (W)",
+    "load": "Server load (%)",
+    "usage" : "Usage",
+    "hoursperday": "Running hours per day"
+  },
+  "server-config": {
+    "configuration" : "Server configuration",
     "quantity": "Quantity",
     "hdd-quantity": "HDD quantity",
     "Core_units": "Core units",
@@ -123,33 +180,34 @@
     "architecture": "Architecture",
     "capacity": "Capacity (GB)",
     "manufacturer": "Manufacturer",
-    "localisation": "Localisation",
-    "lifespan": "Lifespan (year)",
-    "method": "Method",
-    "avrg_elec": "Average consumption (W)",
-    "load": "Server load (%)",
-    "Utilisation" : "Server usage",
-    "Configuration" : "Server configuration",
-    "Others" : "Others",
     "Unit" : "Unit",
-    "Results" : "Multicritera impacts during lifespan",
-    "GWP" : "Global Warming Potential",
-    "Global Warming Potential desc": "Evaluates the effect on global warming",
-    "PE" : "Primary energy",
-    "Primary energy desc" : "Consumption of energy resources",
-    "ADP" : "Abiotic Depletion Potential",
-    "Abiotic Depletion Potential desc" : "Evaluates the use of minerals and fossil ressources",
-    "others": "Others",
     "case_type" : "Server type",
     "psu_number" : "PSU quantity",
-    "psu" : "power supply units"
+    "psu" : "power supply units",
+    "others" : "Others",
+    "usage" : "Server usage"
+  },
+  "server-impact": {
+    "title":"Multicritera server impacts"
+  },
+  "cloud-config": {
+    "configuration": "Instance configuration",
+    "provider" : "Cloud provider",
+    "instance_type" : "Cloud instance type",
+    "usage": "Instance usage"
   },
   "cloud-impact": {
     "title":"Multicritera cloud instances impacts",
-    "configuration": "Instance configuration",
-    "usage": "Instance usage",
-    "provider" : "Cloud provider",
-    "instance_type" : "Cloud instance type"
+    "usage": "Instance usage"
+  },
+  "terminal-config": {
+    "configuration": "User device configuration",
+    "category" : "Device type",
+    "subcategory" : "Sub-category",
+    "usage": "Device usage"
+  },
+  "terminal-impact": {
+    "title":"Multicritera cloud instances impacts"
   },
   "detailed-config": {
     "show-server": "Show detailed server config",
@@ -170,5 +228,17 @@
     "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment.",
     "further_content3": "Check also ",
     "further_content4":". An open-source tool that combines real time inventory and usage data from your AWS account with Boavizta API to offer a view of your impacts."
+  },
+  "terminal-impact-desc": {
+      "how": "How are the impacts assessed?",
+      "how_content1": "The impact related to manufacture are assessed using the Negaoctet's methodology and all impact factors are available on",
+      "how_content2": "ADEME - Base impacts",
+      "articlelink": "https://base-impacts.ademe.fr/",
+      "how_content3": "Those related to the use phase are evaluated from the average power consumption or modeled from the estimated device load. The methodology is detailed here:",
+      "further": "To go further",
+      "further_content1": "This page uses the",
+      "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment.",
+      "further_content3": "Check also ",
+      "further_content4":". An open-source tool that combines real time inventory and usage data from your AWS account with Boavizta API to offer a view of your impacts."
   }
 }

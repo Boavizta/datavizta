@@ -25,7 +25,6 @@
     result_total=result.use.value + result.embedded.value;
     use_pct=result.use.value * 100 / result_total;
     fab_pct=result.embedded.value * 100 / result_total;
-    console.log(result.embedded.value)
   }
 
   function setRounded(unit: number) {
@@ -64,7 +63,7 @@
       <span style="width:{fab_pct}%" class="bar-1"></span>
     </div>
     <div class="px-1 text-xs w-full ">
-      <span class="bar-2 bar-legend"></span> {$_('server-impact.Usage')} : {(result.use.value).toFixed(nb_rounded)} {#if result.use.warnings != undefined}({result.use.warnings}){/if}
-      <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {(result.embedded.value).toFixed(nb_rounded)} {#if result.embedded.warnings != undefined}({result.embedded.warnings}){/if}  
+      <span class="bar-2 bar-legend"></span> {$_('impacts.Usage')} : {(result.use.value).toFixed(nb_rounded)} {#if result.use.warnings != undefined}({result.use.warnings}){/if}
+      <span class="bar-1 bar-legend ml-2"></span> {$_('impacts.Manufacture')} : {(result.embedded.value).toFixed(nb_rounded)} {#if result.embedded.warnings != undefined}({result.embedded.warnings}){/if}  
     </div>
     {/if}

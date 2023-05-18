@@ -77,14 +77,14 @@
   <span style="width:{others_pct}%" class="bar-7"></span>
 </div>
 <div class="px-1 text-xs w-full">
-  <span class="bar-2 bar-legend"></span> {$_('server-impact.Usage')} : {(result.use.total).toFixed(nb_rounded)}
-  <span class="bar-1 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} : {(result_fab).toFixed(nb_rounded)}
+  <span class="bar-2 bar-legend"></span> {$_('impacts.Usage')} : {(result.use.total).toFixed(nb_rounded)}
+  <span class="bar-1 bar-legend ml-2"></span> {$_('impacts.Manufacture')} : {(result_fab).toFixed(nb_rounded)}
 </div>
 <div class="px-1 pb-4 text-xs w-full">
-  <span class="bar-3 bar-legend"></span> {$_('server-impact.Manufacture')} RAM : {(result.embedded.ram).toFixed(nb_rounded)}
-  <span class="bar-4 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} CPU : {(result.embedded.cpu).toFixed(nb_rounded)}
-  <span class="bar-5 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} SSD : {(result.embedded.ssd).toFixed(nb_rounded)}
-  <span class="bar-6 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} HDD : {(result.embedded.hdd).toFixed(nb_rounded)}
-  <span class="bar-7 bar-legend ml-2"></span> {$_('server-impact.Manufacture')} {$_('server-impact.Others')} : {(result_others).toFixed(nb_rounded)}
+  <span class="bar-3 bar-legend"></span> {$_('impacts.Manufacture')} RAM : {(result.embedded.ram).toFixed(nb_rounded)}
+  <span class="bar-4 bar-legend ml-2"></span> {$_('impacts.Manufacture')} CPU : {(result.embedded.cpu).toFixed(nb_rounded)}
+  <span class="bar-5 bar-legend ml-2"></span> {$_('impacts.Manufacture')} SSD : {(result.embedded.ssd).toFixed(nb_rounded)}
+  <span class="bar-6 bar-legend ml-2"></span> {$_('impacts.Manufacture')} HDD : {(result.embedded.hdd).toFixed(nb_rounded)}
+  <span class="bar-7 bar-legend ml-2"></span> {$_('impacts.Manufacture')} {$_('impacts.others')} : {(result_others).toFixed(nb_rounded)}
 </div>
 

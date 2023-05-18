@@ -1,4 +1,4 @@
-import type { ConfigurationTerminal, ConfigurationCloud, Server } from "./types/hardware";
+import type { Terminal, Cloud, Server } from "./types/hardware";
 import type { Impacts } from "./types/impact";
 let base
 if (import.meta.env.VITE_PUBLIC_API_URL) {
@@ -41,7 +41,7 @@ export async function getServerImpact(server: Server): Promise<Impacts> {
   });
 }
 
-export async function getCloudImpact(instance: ConfigurationCloud): Promise<Impacts> {
+export async function getCloudImpact(instance: Cloud): Promise<Impacts> {
   const params = "?verbose=true";
   const res = await post("cloud/" + params, instance);
   return res.text().then((json) => {
@@ -49,8 +49,8 @@ export async function getCloudImpact(instance: ConfigurationCloud): Promise<Impa
   });
 }
 
-export async function getTerminalImpact(device: ConfigurationTerminal): Promise<Impacts> {
-  const res = await get("user_terminal/" + device.category + "?criteria=all" + "&type=" + device.subcategory);
+export async function getTerminalImpact(device: Terminal): Promise<Impacts> {
+  const res = await post("user_terminal/" + device.category + "?criteria=all" + "&name=" + device.archetype, device);
   return res.text().then((json) => {
     return JSON.parse(json);
   });

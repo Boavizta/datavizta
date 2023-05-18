@@ -2,7 +2,7 @@
     import type {VerboseServerImpacts} from "$lib/types/impact";
     import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
     import ServerConfig from "$lib/impact/server-cloud/ServerConfig.svelte";
-    import type { Server } from "$lib/types/hardware";
+    import type { Server, Usage } from "$lib/types/hardware";
     import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
     import type { Impacts } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
@@ -10,6 +10,29 @@
     import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
 
+    let usageConfig: Usage = {
+        hours_electrical_consumption: {
+            default: 150,
+            value: 150,
+            min: 50,
+            max: 500
+        },
+        use_time: {
+            default: 4 * 365 * 24,
+            value: 4 * 365 * 24,
+            hours_per_day: 24,
+            life_time_ratio: 1
+        },
+        life_time: {
+            default: 4,
+            value: 4
+        },
+        time_workload: {
+            time_percentage: [100],
+            load_percentage: [50]
+            }
+    }
+    
     let server: Server = {
         model: {
             type:"rack"
@@ -44,10 +67,11 @@
                 }
         }, usage : {
             hours_electrical_consumption : 150,
-            years_use_time: 4
+            hours_use_time: 4 * 365 * 24,
+            usage_location: "World"
         } 
     };
-
+    
     let serverImpact: Impacts;
     let verboseImpacts:VerboseServerImpacts = {
         "adp": {
@@ -100,7 +124,7 @@
     $: server, updateImpact();
 
     async function updateImpact() {
-        //console.log(server)
+        console.log(server)
         serverImpact = await getServerImpact(server);
         verboseImpacts.adp.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['adp']['embedded']['value']
@@ -146,13 +170,13 @@
     <div class="grid md:grid-cols-12 gap-1">
         <div class="min-h-[200px] md:col-span-5 px-1 w-full ">
             <form> 
-                <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Configuration')}</h2>
+                <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-config.configuration')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid gap-1">
-                    <ServerConfig bind:serverConfig={server}/>
+                    <ServerConfig bind:serverConfig={server} bind:usageConfig={usageConfig}/>
                 </div>
-                <h2 class="m-2 text-2xl font-bold">{$_('server-impact.Usage')}</h2>
+                <h2 class="m-2 text-2xl font-bold">{$_('server-config.usage')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid gap-1">
-                    <UsageConfig bind:serverUsage={server.usage} usageType="server"/>
+                    <UsageConfig bind:usage={server.usage} bind:usageConfig={usageConfig} usageType="server"/>
                     <p on:click={() => Utils.toggleElement("usageconfig-detailed")} class="ml-2 block w-full col-span-6"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-usage')}</a></p>
                     <div id="usageconfig-detailed" class="hidden col-span-6">
                     <DetailedUsageConfig {serverImpact}/>
@@ -163,7 +187,7 @@
         </div>
         
         <div class="px-1 md:col-span-7">
-            <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Results')}</h2>
+            <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('impacts.Results')}</h2>
                 <ResultGrid {verboseImpacts}/>
         </div>
     </div>

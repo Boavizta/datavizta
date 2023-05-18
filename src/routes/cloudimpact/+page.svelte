@@ -3,19 +3,36 @@
     import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
     import CloudConfig from "$lib/impact/server-cloud/CloudConfig.svelte";
     import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
-    import DetailedServerConfig from "$lib/impact/server-cloud/DetailedCloudConfig.svelte"
+    import DetailedCloudConfig from "$lib/impact/server-cloud/DetailedCloudConfig.svelte"
     import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
-    import type { ConfigurationCloud } from "$lib/types/hardware";
+    import type { Cloud, Usage } from "$lib/types/hardware";
     import type { Impacts } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
     import { getCloudImpact } from "$lib/api";
     
-    export let cloud_instance: ConfigurationCloud = {
+    let usageConfig: Usage = {
+        time_workload: {
+            time_percentage: [100],
+            load_percentage: [50]
+            },
+        use_time: {
+            default: 4 * 365 * 24,
+            value: 4 * 365 * 24,
+            hours_per_day: 24,
+            life_time_ratio: 1
+        },
+        life_time: {
+            default: 4,
+            value: 4
+        }
+    }
+
+    export let cloud_instance: Cloud = {
         provider: "aws",
         instance_type: "a1.2xlarge",
         usage : {
-            years_use_time: 4,
+            hours_use_time: 4 * 365 * 24,
             usage_location: "WOR",
             time_workload: [
                     {
@@ -25,6 +42,7 @@
                     ]
         } 
     };
+
     let serverImpact: Impacts;
     let verboseImpacts:VerboseServerImpacts = {
         "adp": {
@@ -122,17 +140,17 @@
     <div class="grid md:grid-cols-12 gap-1">
         <div class="min-h-[200px] md:col-span-5 px-1 w-full ">
             <form> 
-                <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('cloud-impact.configuration')}</h2>
+                <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('cloud-config.configuration')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid grid-cols-2 gap-1">
                     <CloudConfig bind:cloudConfig={cloud_instance}/>
                     <p on:click={() => Utils.toggleElement("serverconfig-detailed")} class="ml-2 block w-full col-span-2"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-server')}</a></p>
                     <div id="serverconfig-detailed" class="hidden col-span-2">
-                        <DetailedServerConfig {serverImpact}/>
+                        <DetailedCloudConfig {serverImpact}/>
                     </div>
                 </div>
-                <h2 class="m-2 text-2xl font-bold">{$_('cloud-impact.usage')}</h2>
+                <h2 class="m-2 text-2xl font-bold">{$_('cloud-config.usage')}</h2>
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid grid-cols-6 gap-1">
-                    <UsageConfig bind:serverUsage={cloud_instance.usage} usageType="Cloud" />
+                    <UsageConfig bind:usage={cloud_instance.usage} bind:usageConfig={usageConfig} usageType="Cloud" />
                     <p on:click={() => Utils.toggleElement("usageconfig-detailed")} class="ml-2 block w-full col-span-6"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-usage')}</a></p>
                     <div id="usageconfig-detailed" class="hidden col-span-6">
                     <DetailedUsageConfig {serverImpact}/>
@@ -143,7 +161,7 @@
         </div>
         
         <div class="px-1 md:col-span-7">
-            <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('server-impact.Results')}</h2>
+            <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('impacts.Results')}</h2>
                 <ResultGrid {verboseImpacts}/>
         </div>
     </div>
