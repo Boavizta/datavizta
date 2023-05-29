@@ -5,6 +5,7 @@
     import {onMount} from "svelte";
     import {get} from "$lib/api";
     import type { Impacts } from "$lib/types/impact";
+    import { stringify } from "postcss";
 
     /*Bound var*/
     export let userDeviceConfig: UserDevice
@@ -41,7 +42,7 @@
         usageConfig.avg_power.max = temp["USAGE"]["avg_power"]["max"]
         usageConfig.life_time.value = Math.round(temp["USAGE"]["life_time"]["default"] / 365 / 24)
         usageConfig.use_time_ratio.value = temp["USAGE"]["use_time_ratio"]["default"]
-        usageConfig.use_time_ratio.hours_per_day = 24 * usageConfig.use_time_ratio.value
+        usageConfig.use_time_ratio.hours_per_day = Math.round(24 * usageConfig.use_time_ratio.value * 10)/10
         userDeviceConfig = {
             category: userDeviceConfig.category,
             subcategory: temp["device_type"]["default"],
