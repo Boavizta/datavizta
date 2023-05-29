@@ -40,7 +40,7 @@
         usageConfig.avg_power.value = temp["USAGE"]["avg_power"]["default"]
         usageConfig.avg_power.min = temp["USAGE"]["avg_power"]["min"]
         usageConfig.avg_power.max = temp["USAGE"]["avg_power"]["max"]
-        usageConfig.life_time.value = Math.round(temp["USAGE"]["life_time"]["default"] / 365 / 24)
+        usageConfig.years_life_time.value = Math.round(temp["USAGE"]["hours_life_time"]["default"] / 365 / 24)
         usageConfig.use_time_ratio.value = temp["USAGE"]["use_time_ratio"]["default"]
         usageConfig.use_time_ratio.hours_per_day = Math.round(24 * usageConfig.use_time_ratio.value * 10)/10
         userDeviceConfig = {
@@ -49,7 +49,7 @@
             archetype: userDeviceConfig.archetype,
             usage: { 
                 avg_power : temp["USAGE"]["avg_power"]["default"],
-                life_time : temp["USAGE"]["life_time"]["default"],
+                hours_life_time : temp["USAGE"]["hours_life_time"]["default"],
                 use_time_ratio : temp["USAGE"]["use_time_ratio"]["default"],
                 usage_location : userDeviceConfig.usage.usage_location,
                 time_workload : userDeviceConfig.usage.time_workload

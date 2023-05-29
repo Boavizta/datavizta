@@ -20,8 +20,8 @@
         use_time_ratio: {
             value: 0.2
         },
-        life_time: {
-            value: 5 * 365 * 24
+        years_life_time: {
+            value: 5
         },
         time_workload: [{
             time_percentage: 100,

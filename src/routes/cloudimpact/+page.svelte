@@ -21,7 +21,7 @@
         use_time_ratio: {
             value: 1
         },
-        life_time: {
+        years_life_time: {
             value: 5
         },
         time_workload : [ {
@@ -44,7 +44,7 @@
         usage : {
             avg_power : 150,
             use_time_ratio: 1,
-            life_time: 5 * 365 * 24,
+            hours_life_time: 5 * 365 * 24,
             usage_location: "World",
             time_workload: [{
                 time_percentage: 100,

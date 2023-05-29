@@ -29,7 +29,7 @@ export interface UsageRequest {
   TYPE?: string;
   use_time?: number;
   avg_power?: number;
-  life_time?: number;
+  hours_life_time?: number;
   use_time_ratio?: number;
   usage_location?: string;
   gwp_factor?: number;
@@ -44,7 +44,7 @@ export interface Usage {
     default?: number;
     value?: number;
   }
-  life_time?: {
+  years_life_time?: {
     default?: number;
     value?: number;
   }

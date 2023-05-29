@@ -104,7 +104,7 @@
     }
 
     function changeLifeTime() {
-        usage.life_time = usageConfig.life_time.value * 365 * 24
+        usage.hours_life_time = usageConfig.years_life_time.value * 365 * 24
     }
     function changeTimeRatio() {
         usage.use_time_ratio = usageConfig.use_time_ratio.hours_per_day / 24
@@ -139,7 +139,7 @@
 
         <div class="relative col-span-3 w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('usage-config.lifespan')}</label>
-            <input bind:value={usageConfig.life_time.value} on:change={changeLifeTime} type="number" min="1" max="15" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usageConfig.years_life_time.value} on:change={changeLifeTime} type="number" min="1" max="15" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative col-span-3 w-full mb-2 group">
                 {#if (usageType != "Cloud")}
