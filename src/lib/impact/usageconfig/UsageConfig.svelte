@@ -104,7 +104,7 @@
     }
 
     function changeLifeTime() {
-        usage.years_life_time = usageConfig.life_time.value
+        usage.life_time = usageConfig.life_time.value * 365 * 24
     }
     function changeTimeRatio() {
         usage.use_time_ratio = usageConfig.use_time_ratio.hours_per_day / 24
