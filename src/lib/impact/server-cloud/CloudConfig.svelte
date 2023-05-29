@@ -1,15 +1,15 @@
 <script lang="ts">
-    import type ConfigurationCloud from "$lib/types/hardware";
+    import type { Cloud } from "$lib/types/hardware";
     import { _ } from "svelte-i18n";
     import Select from "svelte-select"
     import {onMount} from "svelte";
     import {get} from "$lib/api";
 
     /*Bound var*/
-    export let cloudConfig: ConfigurationCloud
+    export let cloudConfig: Cloud
 
-    let cloud_providers_route = "cloud/all_providers";
-    let cloud_instances_route = "cloud/all_instances"
+    let cloud_providers_route = "cloud/instance/all_providers";
+    let cloud_instances_route = "cloud/instance/all_instances"
 
     let locaitems = []
     let cloud_providers = []

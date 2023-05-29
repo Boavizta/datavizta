@@ -17,9 +17,19 @@
     onMount(async () => { 
         locaitems = await getlocalisation(localisation_route);
         usageConfig.usage_location = "World"
-        usageConfig.time_workload.time_percentage = [30,30,40]
-        usageConfig.time_workload.load_percentage = [50,30,10]
-        console.log(usageConfig.time_workload.load_percentage[0])
+        usage.use_time_ratio = usageConfig.use_time_ratio.value / 24
+        usageConfig.time_workload = [ {
+            time_percentage : 30,
+            load_percentage : 50
+        },
+        {
+            time_percentage : 30,
+            load_percentage : 30
+        },
+        {
+            time_percentage : 40,
+            load_percentage : 10
+        }]
     })
 
     function getlocalisation(route) {
@@ -40,23 +50,23 @@
             document.getElementById('load').style.display = 'block';
             document.getElementById('extload').style.display = 'none';
             if ( usageType != "Cloud"){
-                usage.hours_electrical_consumption = null
+                usage.avg_power = null
                 document.getElementById('elec').style.display = 'none';
             }
         } else if(event.detail.value == "ExtLoad"){
-            
+
             updateExtTimeWorkLoad()
             document.getElementById('load').style.display = 'none';
             document.getElementById('extload').style.display = 'grid';
             if ( usageType != "Cloud"){
-                usage.hours_electrical_consumption = null
+                usage.avg_power = null
                 document.getElementById('elec').style.display = 'none';
             }
         } else {
             document.getElementById('load').style.display = 'none';
             document.getElementById('extload').style.display = 'none';
             if ( usageType != "Cloud"){
-                usage.hours_electrical_consumption = usageConfig.hours_electrical_consumption.value
+                usage.avg_power = usageConfig.avg_power.value
                 usage.time_workload = []
                 document.getElementById('elec').style.display = 'grid';
             }
@@ -66,25 +76,12 @@
         usage.time_workload = [
                     {
                         time_percentage: 100,
-                        load_percentage: usageConfig.time_workload.load_percentage[0]
+                        load_percentage: usageConfig.time_workload[0].load_percentage
                     }
                     ]
     }
     function updateExtTimeWorkLoad(){
-        usage.time_workload = [
-                    {
-                        time_percentage: usageConfig.time_workload.time_percentage[0],
-                        load_percentage: usageConfig.time_workload.load_percentage[0]
-                    },
-                    {
-                        time_percentage: usageConfig.time_workload.time_percentage[1],
-                        load_percentage: usageConfig.time_workload.load_percentage[1]
-                    },
-                    {
-                        time_percentage: usageConfig.time_workload.time_percentage[2],
-                        load_percentage: usageConfig.time_workload.load_percentage[2]
-                    }
-                    ]
+        usage.time_workload = usageConfig.time_workload
     }
     
     function changeExtUsageTime(event,i:Integer){
@@ -92,28 +89,32 @@
         if (i == 0) {
             b = 1
         }
-        if ( (parseInt(usageConfig.time_workload.time_percentage[b]) + parseInt(event.target.value)) <= 100 ) {
-            usageConfig.time_workload.time_percentage[i] = event.target.value
-            usageConfig.time_workload.time_percentage[2] = 100 - usageConfig.time_workload.time_percentage[0] - usageConfig.time_workload.time_percentage[1]
+        if ( parseInt(usageConfig.time_workload[b].time_percentage) + parseInt(event.target.value) <= 100 ) {
+            usageConfig.time_workload[i].time_percentage = event.target.value
+            usageConfig.time_workload[2].time_percentage = 100 - usageConfig.time_workload[0].time_percentage - usageConfig.time_workload[1].time_percentage
             updateExtTimeWorkLoad()
         } else {
             alert("Total time could not exceed 100%")
-            usageConfig.time_workload.time_percentage[i] = event.target.oldvalue
+            usageConfig.time_workload[i].time_percentage = 0
+            usageConfig.time_workload[2].time_percentage = 100 - usageConfig.time_workload[0].time_percentage - usageConfig.time_workload[1].time_percentage
         }
     }
     function changeElecCons() {
-        usage.hours_electrical_consumption = usageConfig.hours_electrical_consumption.value
+        usage.avg_power = usageConfig.avg_power.value
     }
 
-    function changeUsageTime() {
-        usage.hours_use_time = usageConfig.use_time.hours_per_day * usageConfig.life_time.value * 365
+    function changeLifeTime() {
+        usage.years_life_time = usageConfig.life_time.value
+    }
+    function changeTimeRatio() {
+        usage.use_time_ratio = usageConfig.use_time_ratio.hours_per_day / 24
     }
 
     function changeUsageLoad(event,i:Integer,ext:Boolean){
             if (event.target.value > 100){
-                usageConfig.time_workload.load_percentage[i] = 100
+                usageConfig.time_workload[i].load_percentage = 100
             } else {
-                usageConfig.time_workload.load_percentage[i] = event.target.value
+                usageConfig.time_workload[i].load_percentage = event.target.value
             }
             if (ext == true) {
                 updateExtTimeWorkLoad()
@@ -138,7 +139,7 @@
 
         <div class="relative col-span-3 w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('usage-config.lifespan')}</label>
-            <input bind:value={usageConfig.life_time.value} on:change={changeUsageTime} type="number" min="1" max="15" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usageConfig.life_time.value} on:change={changeLifeTime} type="number" min="1" max="15" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         <div class="relative col-span-3 w-full mb-2 group">
                 {#if (usageType != "Cloud")}
@@ -150,7 +151,7 @@
                     {:else}
                     <label class="block text-sm font-medium text-gray-900">{$_('usage-config.hoursperday')}</label>
                     <div style="--borderRadius: 0.5em;">
-                        <input bind:value={usageConfig.use_time.hours_per_day} on:change={changeUsageTime} type="number" min="0" max="24" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+                        <input bind:value={usageConfig.use_time_ratio.hours_per_day} on:change={changeTimeRatio} type="number" min="0" max="24" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
                     </div>
                     {/if}
                 {:else}
@@ -163,18 +164,18 @@
         {#if (usageType != "Cloud")}
         <div class="relative w-full mb-2 group" id="elec">
             <label class="block text-sm font-medium text-gray-900">{$_('usage-config.avrg_elec')}</label>
-            <input bind:value={usageConfig.hours_electrical_consumption.value} on:change={changeElecCons} type="number" min={usageConfig.hours_electrical_consumption.min} max={usageConfig.hours_electrical_consumption.max} class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usageConfig.avg_power.value} on:change={changeElecCons} type="number" min={usageConfig.avg_power.min} max={usageConfig.avg_power.max} class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         {#if (usageType != "Terminal")}
             <div class="hidden relative col-span-3 w-full mb-2 group" id="load">
                 <label class="block text-sm font-medium text-gray-900">{$_('usage-config.load')}</label>
-                <input bind:value={usageConfig.time_workload.load_percentage[0]} on:change={(event)=>{changeUsageLoad(event,0,false)}} type="number" min="0" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+                <input bind:value={usageConfig.time_workload[0].load_percentage} on:change={(event)=>{changeUsageLoad(event,0,false)}} type="number" min="0" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
             </div>
         {/if}
         {:else}
         <div class="block relative col-span-3 w-full mb-2 group" id="load">
             <label class="block text-sm font-medium text-gray-900">{$_('usage-config.load')}</label>
-            <input bind:value={usageConfig.time_workload.load_percentage[0]} on:change={(event)=>{changeUsageLoad(event,0,false)}} type="number" min="0" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+            <input bind:value={usageConfig.time_workload[0].load_percentage} on:change={(event)=>{changeUsageLoad(event,0,false)}} type="number" min="0" max="100" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         {/if}
         {#if (usageType != "Terminal")}
@@ -182,23 +183,23 @@
                 <div class="p-1 border border-gray-300 rounded-lg relative col-span-2 group">
                     <p class="text-center">{$_('usage-methods.timeslot')} 1/3</p>
                     <label class="mx-2 block text-xs font-medium text-gray-900">{$_('usage-methods.time')} (%)</label>
-                    <input bind:value={usageConfig.time_workload.time_percentage[0]} on:change={(event)=>{changeExtUsageTime(event,0)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
+                    <input bind:value={usageConfig.time_workload[0].time_percentage} on:change={(event)=>{changeExtUsageTime(event,0)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
                     <label class="mx-2 block text-xs font-medium text-gray-900">{$_('usage-methods.load')} (%)</label>
-                    <input bind:value={usageConfig.time_workload.load_percentage[0]} on:change={(event)=>{changeUsageLoad(event,0,true)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
+                    <input bind:value={usageConfig.time_workload[0].load_percentage} on:change={(event)=>{changeUsageLoad(event,0,true)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
                 </div>
                 <div class="p-1 border border-gray-300 rounded-lg relative col-span-2 mb-2 group">
                     <p class="text-center">{$_('usage-methods.timeslot')} 2/3</p>
                     <label class="mx-2 block text-xs font-medium text-gray-900">{$_('usage-methods.time')} (%)</label>
-                    <input bind:value={usageConfig.time_workload.time_percentage[1]} on:change={(event)=>{changeExtUsageTime(event,1)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
+                    <input bind:value={usageConfig.time_workload[1].time_percentage} on:change={(event)=>{changeExtUsageTime(event,1)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
                     <label class="mx-2 block text-xs font-medium text-gray-900">{$_('usage-methods.load')} (%)</label>
-                    <input bind:value={usageConfig.time_workload.load_percentage[1]} on:change={(event)=>{changeUsageLoad(event,1,true)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
+                    <input bind:value={usageConfig.time_workload[1].load_percentage} on:change={(event)=>{changeUsageLoad(event,1,true)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
                 </div>
                 <div class="p-1 border border-gray-300 rounded-lg relative col-span-2 mb-2 group">
                     <p class="text-center">{$_('usage-methods.timeslot')} 3/3</p>
                     <label class="mx-2 block text-xs font-medium text-gray-900" >{$_('usage-methods.time')} (%)</label>
-                    <input disabled bind:value={usageConfig.time_workload.time_percentage[2]} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
+                    <input disabled bind:value={usageConfig.time_workload[2].time_percentage} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
                     <label class="mx-2 block text-xs font-medium text-gray-900">{$_('usage-methods.load')} (%)</label>
-                    <input bind:value={usageConfig.time_workload.load_percentage[2]} on:change={(event)=>{changeUsageLoad(event,2,true)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
+                    <input bind:value={usageConfig.time_workload[2].load_percentage} on:change={(event)=>{changeUsageLoad(event,2,true)}} type="number" min="0" max="100" class="mx-1 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2"/>
                 </div>
             </div>
             {/if}

@@ -1,4 +1,4 @@
-import type { Terminal, Cloud, Server } from "./types/hardware";
+import type { Cloud, Server, UserDevice } from "./types/hardware";
 import type { Impacts } from "./types/impact";
 let base
 if (import.meta.env.VITE_PUBLIC_API_URL) {
@@ -30,7 +30,7 @@ export async function post(path: string, data) {
 }
 
 export async function getServerImpact(server: Server): Promise<Impacts> {
-  const params = "?verbose=true&allocation=TOTAL";
+  const params = "?verbose=true";
   const res = await post("server/" + params, {
     model: server.model,
     configuration: server.config,
@@ -43,14 +43,19 @@ export async function getServerImpact(server: Server): Promise<Impacts> {
 
 export async function getCloudImpact(instance: Cloud): Promise<Impacts> {
   const params = "?verbose=true";
-  const res = await post("cloud/" + params, instance);
+  const res = await post("cloud/instance" + params, instance);
   return res.text().then((json) => {
     return JSON.parse(json);
   });
 }
 
-export async function getTerminalImpact(device: Terminal): Promise<Impacts> {
-  const res = await post("user_terminal/" + device.category + "?criteria=all" + "&name=" + device.archetype, device);
+export async function getUserDeviceImpact(device: UserDevice, yearly: Boolean = false): Promise<Impacts> {
+  let res
+  if (yearly) {
+    res = await post(device.category + "/" + device.subcategory + "?criteria=all" + "&duration=8760&archetype=" + device.archetype, device);
+  } else {
+    res = await post(device.category + "/" + device.subcategory + "?criteria=all" + "&archetype=" + device.archetype, device);
+  }
   return res.text().then((json) => {
     return JSON.parse(json);
   });

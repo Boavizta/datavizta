@@ -12,7 +12,7 @@
 {:then loadedImpact}
     {#if loadedImpact != undefined}
     <div class="ml-4 px-1 w-full">
-        <p><a class="text-xs">{$_('detailed-config.usage-conso')}{loadedImpact['verbose']["hours_electrical_consumption"]["value"]}{loadedImpact['verbose']["hours_electrical_consumption"]["unit"]}</a></p>
+        <p><a class="text-xs">{$_('detailed-config.usage-conso')}{loadedImpact['verbose']["avg_power"]["value"]}{loadedImpact['verbose']["avg_power"]["unit"]}</a></p>
         <p><a class="text-xs">{$_('detailed-config.usage-title')}</a></p>
         <p><span class="ml-5 text-xs">ADP:{loadedImpact['impacts']["adp"]["use"]["value"]}{loadedImpact['impacts']["adp"]["unit"]}</span></p>
         <p><span class="ml-5 text-xs">GWP:{loadedImpact['impacts']["gwp"]["use"]["value"]}{loadedImpact['impacts']["gwp"]["unit"]}</span></p>

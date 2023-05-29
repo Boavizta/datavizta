@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { ConfigurationTerminal, Usage} from "$lib/types/hardware";
+    import type { Usage, UserDevice} from "$lib/types/hardware";
     import { _ } from "svelte-i18n";
     import Select from "svelte-select"
     import {onMount} from "svelte";
@@ -7,15 +7,13 @@
     import type { Impacts } from "$lib/types/impact";
 
     /*Bound var*/
-    export let terminalConfig: ConfigurationTerminal
+    export let userDeviceConfig: UserDevice
     export let usageConfig: Usage
 
-    let terminal_categories_route = "user_terminal/all_categories";
-    let terminal_archetypes_route = "user_terminal/archetypes";
-    let terminal_UsageDefaultValues_route = "user_terminal/archetype_config";
-
-    let terminal_categories = []
-    let terminal_archetypes = []
+    let device_types = []
+    let archetypes = []
+    let items = [{value:'terminal', label:$_('terminal-config.terminals')},{value:'peripheral', label:$_('terminal-config.peripherals')}]
+    let category = {value:"terminal", label:$_('terminal-config.terminals')}
 
     function getitems(route) {
         return get(route).then((response) => response.json())
@@ -35,43 +33,67 @@
             });
     }
 
-    async function updateDefaultUsageValues() {
-        let temp = await getUsageDefaultValues(terminalConfig.archetype)
-        terminalConfig.usage.hours_electrical_consumption = temp["USAGE"]["hours_electrical_consumption"]["default"]
-        terminalConfig.usage.hours_use_time = temp["USAGE"]["use_time"]["default"]
-        terminalConfig.category = temp["device_type"]["default"]
-        usageConfig.hours_electrical_consumption.default = temp["USAGE"]["hours_electrical_consumption"]["default"]
-        usageConfig.hours_electrical_consumption.value = temp["USAGE"]["hours_electrical_consumption"]["default"]
-        usageConfig.hours_electrical_consumption.min = temp["USAGE"]["hours_electrical_consumption"]["min"]
-        usageConfig.hours_electrical_consumption.max = temp["USAGE"]["hours_electrical_consumption"]["max"]
-        usageConfig.life_time.value = temp["USAGE"]["life_time"]["default"] / 365 / 24
-        usageConfig.use_time.value = temp["USAGE"]["use_time"]["default"]
-        usageConfig.use_time.life_time_ratio =  temp["USAGE"]["use_time"]["default"] / temp["USAGE"]["life_time"]["default"]
-        usageConfig.use_time.hours_per_day = 24 * usageConfig.use_time.life_time_ratio
+    async function updateDefaultUsageValues(category, subcategory, archetype) {
+        let temp = await getUsageDefaultValues(category, subcategory, archetype)
+        usageConfig.avg_power.default = temp["USAGE"]["avg_power"]["default"]
+        usageConfig.avg_power.value = temp["USAGE"]["avg_power"]["default"]
+        usageConfig.avg_power.min = temp["USAGE"]["avg_power"]["min"]
+        usageConfig.avg_power.max = temp["USAGE"]["avg_power"]["max"]
+        usageConfig.life_time.value = Math.round(temp["USAGE"]["life_time"]["default"] / 365 / 24)
+        usageConfig.use_time_ratio.value = temp["USAGE"]["use_time_ratio"]["default"]
+        usageConfig.use_time_ratio.hours_per_day = 24 * usageConfig.use_time_ratio.value
+        userDeviceConfig = {
+            category: userDeviceConfig.category,
+            subcategory: temp["device_type"]["default"],
+            archetype: userDeviceConfig.archetype,
+            usage: { 
+                avg_power : temp["USAGE"]["avg_power"]["default"],
+                life_time : temp["USAGE"]["life_time"]["default"],
+                use_time_ratio : temp["USAGE"]["use_time_ratio"]["default"],
+                usage_location : userDeviceConfig.usage.usage_location,
+                time_workload : userDeviceConfig.usage.time_workload
+            },
+
+        }
     } 
 
     onMount(async () => { 
-        terminal_categories = await getitems(terminal_categories_route);
-        terminal_archetypes = await getArchetypes("laptop");
-        terminalConfig.category = "laptop";
-        terminalConfig.archetype = terminal_archetypes[0].value
-        updateDefaultUsageValues()
+        userDeviceConfig.category = "terminal"
+        device_types = Object.keys(await getDeviceTypes(userDeviceConfig.category))
+        userDeviceConfig.subcategory = device_types[0]
+        archetypes = await getArchetypes(userDeviceConfig.category, userDeviceConfig.subcategory);
+        userDeviceConfig.archetype = archetypes[0].value
+        updateDefaultUsageValues(userDeviceConfig.category, userDeviceConfig.subcategory, userDeviceConfig.archetype)
     })
 
     async function category_select(event){
-        terminalConfig.category = event.detail.value
-        terminal_archetypes = await getArchetypes(event.detail.value)
-        terminalConfig.archetype = terminal_archetypes[0].value
-        let temp = await getUsageDefaultValues(terminalConfig.archetype)
-        updateDefaultUsageValues()
+        //userDeviceConfig.category=event.detail.value
+        category.value=event.detail.value
+        const cat=event.detail.value
+        device_types = Object.keys(await getDeviceTypes(cat))
+        const subcat = device_types[0]
+        //userDeviceConfig.subcategory = device_types[0]
+        archetypes = await getArchetypes(cat, subcat)
+        const arch = archetypes[0].value
+        //userDeviceConfig.archetype = archetypes[0].value
+        const use = userDeviceConfig.usage
+        userDeviceConfig = { category: cat, subcategory: subcat, archetype: arch, usage: use }
+        updateDefaultUsageValues(cat, subcat, arch)
+    }
+
+    async function device_type_select(event) {
+        userDeviceConfig.subcategory = event.detail.value
+        archetypes = await getArchetypes(userDeviceConfig.category, userDeviceConfig.subcategory)
+        userDeviceConfig.archetype = archetypes[0].value
+        updateDefaultUsageValues(userDeviceConfig.category, userDeviceConfig.subcategory, userDeviceConfig.archetype)
     }
 
     function archetype_select(event){
-        terminalConfig.archetype = event.detail.value
+        userDeviceConfig.archetype = event.detail.value
     }
 
-    function getArchetypes(category) {
-        return get(terminal_archetypes_route+"?name="+category).then((response) => response.json())
+    function getArchetypes(category, subcategory) {
+        return get(category + "/" + subcategory + "/archetypes").then((response) => response.json())
             .then((data) => {
                 let elements = [];
                 for(let i = 0; i < data.length; i++) {
@@ -81,8 +103,11 @@
             });
     }
 
-    function getUsageDefaultValues(archetype) {
-        return get(terminal_UsageDefaultValues_route+"?archetype="+archetype).then((response) => response.json())
+    function getUsageDefaultValues(category, subcategory, archetype) {
+        return get(category + "/" + subcategory + "/archetype_config?archetype=" + archetype).then((response) => response.json())
+    }
+    function getDeviceTypes(category) {
+        return get(category+"/all").then((response) => response.json())
     }
    $: usageConfig
 
@@ -91,12 +116,18 @@
   <div class="relative min-w-[100px] w-full mb-2 group">
         <label class="block text-sm font-medium text-gray-900">{$_('terminal-config.category')}</label>
         <div style="--borderRadius: 0.5em;">
-            <Select items={terminal_categories} on:select={category_select} value="{terminalConfig.category}"/>
+            <Select items={items} on:select={category_select} value={category.value}/>
         </div>
     </div>
     <div class="relative min-w-[100px] w-full mb-2 group">
         <label class="block text-sm font-medium text-gray-900">{$_('terminal-config.subcategory')}</label>
         <div style="--borderRadius: 0.5em;">
-            <Select items={terminal_archetypes} on:select={archetype_select} value="{terminalConfig.archetype}"/>
+            <Select items={device_types} on:select={device_type_select} value={userDeviceConfig.subcategory}/>
+        </div>
+    </div>
+    <div class="relative min-w-[100px] w-full mb-2 group">
+        <label class="block text-sm font-medium text-gray-900">{$_('terminal-config.archetype')}</label>
+        <div style="--borderRadius: 0.5em;">
+            <Select items={archetypes} on:select={archetype_select} value="{userDeviceConfig.archetype}"/>
         </div>
     </div>

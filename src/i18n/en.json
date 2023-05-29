@@ -202,9 +202,12 @@
   },
   "terminal-config": {
     "configuration": "User device configuration",
-    "category" : "Device type",
-    "subcategory" : "Sub-category",
-    "usage": "Device usage"
+    "category" : "Category",
+    "subcategory" : "Device Type",
+    "archetype" : "Model",
+    "usage": "Device usage",
+    "terminals": "terminal",
+    "peripherals": "peripheral"
   },
   "terminal-impact": {
     "title":"Multicritera user devices impacts"

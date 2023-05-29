@@ -12,35 +12,45 @@
     import { getCloudImpact } from "$lib/api";
     
     let usageConfig: Usage = {
-        time_workload: {
-            time_percentage: [100],
-            load_percentage: [50]
-            },
-        use_time: {
-            default: 4 * 365 * 24,
-            value: 4 * 365 * 24,
-            hours_per_day: 24,
-            life_time_ratio: 1
+        avg_power: {
+            default: 150,
+            value: 150,
+            min: 50,
+            max: 250
+        },
+        use_time_ratio: {
+            value: 1
         },
         life_time: {
-            default: 4,
-            value: 4
-        }
+            value: 5
+        },
+        time_workload : [ {
+            time_percentage : 30,
+            load_percentage : 50
+        },
+        {
+            time_percentage : 30,
+            load_percentage : 30
+        },
+        {
+            time_percentage : 40,
+            load_percentage : 10
+        }]
     }
 
     export let cloud_instance: Cloud = {
         provider: "aws",
         instance_type: "a1.2xlarge",
         usage : {
-            hours_use_time: 4 * 365 * 24,
-            usage_location: "WOR",
-            time_workload: [
-                    {
-                        time_percentage: 100,
-                        load_percentage: 50
-                    }
-                    ]
-        } 
+            avg_power : 150,
+            use_time_ratio: 1,
+            years_life_time: 5,
+            usage_location: "World",
+            time_workload: [{
+                time_percentage: 100,
+                load_percentage: 50
+            }]
+        }
     };
 
     let serverImpact: Impacts;

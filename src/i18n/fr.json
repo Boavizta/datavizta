@@ -202,9 +202,12 @@
   },
   "terminal-config": {
     "configuration": "Configuration du terminal",
-    "category" : "Type de terminal",
-    "subcategory" : "Sous catégorie",
-    "usage": "Utilisation du terminal"
+    "category" : "Catégorie",
+    "subcategory" : "Type",
+    "archetype" : "Modèle",
+    "usage": "Utilisation du terminal",
+    "terminals": "terminal",
+    "peripherals": "peripheral"
   },
   "terminal-impact": {
     "title":"Impact multicritère des terminaux"

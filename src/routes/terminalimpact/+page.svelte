@@ -1,47 +1,48 @@
 <script lang="ts">
     import ResultGrid from "$lib/impact/terminal/ResultGrid.svelte";
-    import TerminalConfig from "$lib/impact/terminal/TerminalConfig.svelte";
-    import type { Terminal, Usage } from "$lib/types/hardware";
+    import UserDeviceConfig from "$lib/impact/terminal/TerminalConfig.svelte";
+    import type { Usage, UserDevice } from "$lib/types/hardware";
     import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
     import { _ } from "svelte-i18n";
     import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
     import type { Impacts } from "$lib/types/impact";
-    import { getTerminalImpact } from "$lib/api";
+    import { getUserDeviceImpact } from "$lib/api";
 
     let impacts: Impacts;
     let usageConfig: Usage = {
-        hours_electrical_consumption: {
+        avg_power: {
             default: 150,
             value: 150,
             min: 50,
             max: 250
         },
-        use_time: {
-            default: 365 * 24
+        use_time_ratio: {
+            value: 0.2
         },
         life_time: {
-            default: 5 * 365 * 24
+            value: 5 * 365 * 24
         },
-        time_workload: {
-            time_percentage: [100],
-            load_percentage: [50]
-            },
-        usage_location: "WOR"
+        time_workload: [{
+            time_percentage: 100,
+            load_percentage: 50
+        }]
     }
-    export let terminal: Terminal = {
-        category: "laptop",
-        usage : {
-            usage_location: "World",
-        } 
-    };
-    $: terminal, updateImpact();
+    export let userDevice: UserDevice = {
+         category: "terminal",
+         subcategory: "laptop",
+         archetype: "laptop-pro",
+         usage: {
+             usage_location: "World",
+         }
+     };
+    let yearly:boolean = false;
+
+    $: userDevice, updateImpact();
 
     async function updateImpact() {
-        console.log("terminal",terminal)
-        impacts = await getTerminalImpact(terminal);
+        impacts = await getUserDeviceImpact(userDevice, yearly);
     }
-
 </script>
 
 <div id="content" class="px-1">
@@ -51,11 +52,11 @@
             <form> 
                 <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('terminal-config.configuration')}</h2>
                 <div id="terminalconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid gap-1">
-                    <TerminalConfig bind:terminalConfig={terminal} bind:usageConfig={usageConfig}/>
+                    <UserDeviceConfig bind:userDeviceConfig={userDevice} bind:usageConfig={usageConfig}/>
                 </div>
                 <h2 class="m-2 text-2xl font-bold">{$_('terminal-config.usage')}</h2>
                 <div id="terminalconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 grid gap-1">
-                    <UsageConfig bind:usage={terminal.usage} bind:usageConfig={usageConfig} usageType="Terminal" />
+                    <UsageConfig bind:usage={userDevice.usage} bind:usageConfig={usageConfig} usageType="Terminal" />
                     <p on:click={() => Utils.toggleElement("usageconfig-detailed")} class="ml-2 block w-full col-span-6"><a class="text-xs" href="javascript:void(0);" >> {$_('detailed-config.show-usage')}</a></p>
                     <div id="usageconfig-detailed" class="hidden col-span-6">
                         <DetailedUsageConfig bind:serverImpact={impacts}/>
@@ -67,6 +68,12 @@
         
         <div class="px-1 md:col-span-7">
             <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('impacts.Results')}</h2>
+            {$_('pie.total')}
+                <label class="mw-1/3 switch">
+                    <input type="checkbox" id="yearlycheck" bind:checked={yearly} on:change="{updateImpact}">
+                    <span class="slider round"></span>
+                </label>
+            {$_('pie.yearly')}
             <ResultGrid {impacts}/>
         </div>
     </div>

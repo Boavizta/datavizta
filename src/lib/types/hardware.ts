@@ -17,8 +17,9 @@ export interface Cloud {
   instance_type: string;
   usage: UsageRequest;
 }
-export interface Terminal {
+export interface UserDevice {
   category: string;
+  subcategory: string;
   archetype: string;
   usage: UsageRequest;
 }
@@ -26,13 +27,15 @@ export interface Terminal {
 export interface UsageRequest {
   hash?: string;
   TYPE?: string;
-  years_use_time?: number;
-  days_use_time?: number;
-  hours_use_time?: number;
-  hours_electrical_consumption?: number;
+  use_time?: number;
+  avg_power?: number;
   life_time?: number;
+  use_time_ratio?: number;
   usage_location?: string;
-  time_workload?: List;
+  gwp_factor?: number;
+  pe_factor?: number;
+  adp_factor?: number;
+  time_workload?: Array<TimeWorkload>
 }
 export interface Usage {
   hash?: string;
@@ -40,27 +43,35 @@ export interface Usage {
   use_time?: {
     default?: number;
     value?: number;
-    life_time_ratio?: number;
-    hours_per_day?: number;
-  }
-  hours_electrical_consumption?: {
-    default?: number;
-    value?: number;
-    min?: number;
-    max?: number;
   }
   life_time?: {
     default?: number;
     value?: number;
   }
+  use_time_ratio?: {
+      value: number,
+      status?: string,
+      unit?: string,
+      min?: number,
+      max?: number,
+      hours_per_day?: number
+  }
+  avg_power?: {
+    default?: number;
+    value?: number;
+    min?: number;
+    max?: number;
+  }
   usage_location?: string;
   gwp_factor?: number;
   pe_factor?: number;
   adp_factor?: number;
-  time_workload?: {
-    time_percentage?: Array;
-    load_percentage?: Array;
-  }
+  time_workload?: Array<TimeWorkload>
+}
+
+export interface TimeWorkload {
+  time_percentage?: number;
+  load_percentage?: number;
 }
 
 export interface Case {
