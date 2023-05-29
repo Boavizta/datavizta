@@ -36,7 +36,6 @@ export async function getServerImpact(server: Server): Promise<Impacts> {
     configuration: server.config,
     usage: server.usage,
   });
-  console.log(server.usage.hours_life_time)
   return res.text().then((json) => {
     return JSON.parse(json);
   });
@@ -45,7 +44,6 @@ export async function getServerImpact(server: Server): Promise<Impacts> {
 export async function getCloudImpact(instance: Cloud): Promise<Impacts> {
   const params = "?verbose=true";
   const res = await post("cloud/instance" + params, instance);
-  console.log(instance.usage.hours_life_time)
   return res.text().then((json) => {
     return JSON.parse(json);
   });
@@ -58,7 +56,6 @@ export async function getUserDeviceImpact(device: UserDevice, yearly: Boolean = 
   } else {
     res = await post(device.category + "/" + device.subcategory + "?criteria=all" + "&archetype=" + device.archetype, device);
   }
-  console.log(device.usage.hours_life_time)
   return res.text().then((json) => {
     return JSON.parse(json);
   });
