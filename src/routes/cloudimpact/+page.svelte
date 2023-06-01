@@ -133,12 +133,12 @@
         verboseImpacts.pe.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['pe']['embedded']['value']
         verboseImpacts.pe.use.total  = serverImpact['impacts']['pe']['use']['value']
         if ( serverImpact['verbose']['SSD-1'] !== undefined ) {
-            verboseImpacts.adp.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['adp']['embedded']['value']
+            verboseImpacts.adpe.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['adpe']['embedded']['value']
             verboseImpacts.gwp.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['gwp']['embedded']['value']
             verboseImpacts.pe.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['pe']['embedded']['value']
         }
         if ( serverImpact['verbose']['HDD-1'] !== undefined ) {
-            verboseImpacts.adp.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['adp']['embedded']['value']
+            verboseImpacts.adpe.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['adpe']['embedded']['value']
             verboseImpacts.gwp.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['gwp']['embedded']['value']
             verboseImpacts.pe.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['pe']['embedded']['value']
         }
