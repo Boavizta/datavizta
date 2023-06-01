@@ -55,7 +55,7 @@
   
 </script>
   <h3 class="mx-1 text-l font-bold">{criteria} ({result.unit}) - Total : {(result_total).toFixed(nb_rounded)}</h3>
-  <h2 class="mx-1 text-sm italic">{result.description}</h2>
+  <h2 class="mx-1 text-sm italic">{description}</h2>
 
   {#if (result.use.value != undefined) && (result.embedded.value != undefined)}
     <div class="stacked-bar-graph rounded-top rounded-bottom">

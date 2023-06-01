@@ -12,12 +12,12 @@
     {#if loadedImpact != undefined}
         {#if (loadedImpact.impacts.gwp.use != undefined) && (loadedImpact.impacts.gwp.embedded != undefined) && (loadedImpact.impacts.gwp.use.value != undefined) && (loadedImpact.impacts.gwp.embedded.value != undefined)}
             <div class="px-1 w-full pb-4">
-                <BarChart result={loadedImpact.impacts.gwp} criteria="{$_('impacts.GWP')}" description="{$_('impacts.Global Warming Potential desc')}"/>
+                <BarChart result={loadedImpact.impacts.gwp} criteria="{$_('impacts.GWP')}" description="{$_('impacts.GWP desc')}"/>
             </div>
         {/if}
         {#if (loadedImpact.impacts.pe.use.value != undefined) && (loadedImpact.impacts.pe.embedded.value != undefined)}
             <div class="px-1 w-full pb-4">
-                <BarChart result={loadedImpact.impacts.pe} criteria="{$_('impacts.PE')}" description="{$_('impacts.Primary energy desc')}"/>
+                <BarChart result={loadedImpact.impacts.pe} criteria="{$_('impacts.PE')}" description="{$_('impacts.PE desc')}"/>
             </div>
         {/if}
         {#if (loadedImpact.impacts.adpe.use.value != undefined) && (loadedImpact.impacts.adpe.embedded.value != undefined)}
