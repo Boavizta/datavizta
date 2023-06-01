@@ -42,7 +42,7 @@ export async function getServerImpact(server: Server): Promise<Impacts> {
 }
 
 export async function getCloudImpact(instance: Cloud): Promise<Impacts> {
-  const params = "?verbose=true";
+  const params = "?verbose=true&criteria=gwp&criteria=pe&criteria=adpe";
   const res = await post("cloud/instance" + params, instance);
   return res.text().then((json) => {
     return JSON.parse(json);
@@ -52,7 +52,7 @@ export async function getCloudImpact(instance: Cloud): Promise<Impacts> {
 export async function getUserDeviceImpact(device: UserDevice, yearly: Boolean = false): Promise<Impacts> {
   let res
   if (yearly) {
-    res = await post(device.category + "/" + device.subcategory + "?criteria=gwp&criteria=ir&criteria=pe&criteria=adp&criteria=odp&criteria=ap&criteria=ept" + "&duration=8760&archetype=" + device.archetype, device);
+    res = await post(device.category + "/" + device.subcategory + "?criteria=gwp&criteria=ir&criteria=pe&criteria=adpe&criteria=odp&criteria=ap&criteria=ept" + "&duration=8760&archetype=" + device.archetype, device);
   } else {
     res = await post(device.category + "/" + device.subcategory + "?criteria=all" + "&archetype=" + device.archetype, device);
   }

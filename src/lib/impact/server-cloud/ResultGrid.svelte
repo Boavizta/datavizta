@@ -17,7 +17,7 @@
                 <BarChart result={loadedImpact.pe} criteria="{$_('impacts.PE')}" description="{$_('impacts.PE desc')}"/>
             </div>
             <div class="px-1 w-full">
-                <BarChart result={loadedImpact.adp} criteria="{$_('impacts.ADP')}" description="{$_('impacts.ADP desc')}"/>
+                <BarChart result={loadedImpact.adpe} criteria="{$_('impacts.ADPE')}" description="{$_('impacts.ADPE desc')}"/>
             </div>
             
        

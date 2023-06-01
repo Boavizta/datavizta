@@ -20,9 +20,9 @@
                 <BarChart result={loadedImpact.impacts.pe} criteria="{$_('impacts.PE')}" description="{$_('impacts.Primary energy desc')}"/>
             </div>
         {/if}
-        {#if (loadedImpact.impacts.adp.use.value != undefined) && (loadedImpact.impacts.adp.embedded.value != undefined)}
+        {#if (loadedImpact.impacts.adpe.use.value != undefined) && (loadedImpact.impacts.adpe.embedded.value != undefined)}
             <div class="px-1 w-full pb-4">
-                <BarChart result={loadedImpact.impacts.adp} criteria="{$_('impacts.ADP')}" description="{$_('impacts.Abiotic Depletion Potential desc')}"/>
+                <BarChart result={loadedImpact.impacts.adpe} criteria="{$_('impacts.ADPE')}" description="{$_('impacts.ADPE desc')}"/>
             </div>
         {/if}
         {#if (loadedImpact.impacts.ir.use.value != undefined) && (loadedImpact.impacts.ir.embedded.value != undefined)}

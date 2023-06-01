@@ -14,7 +14,7 @@ export type Impacts = {
       use: ImpactValue;
       unit: string;
     };
-    adp: {
+    adpe: {
       description: string;
       embedded: ImpactValue;
       use: ImpactValue;
@@ -50,5 +50,5 @@ export type CriteriaTerminalImpact = {
 export type VerboseServerImpacts = { 
   gwp: CriteriaServerImpact,
   pe: CriteriaServerImpact,
-  adp: CriteriaServerImpact
+  adpe: CriteriaServerImpact
 }
