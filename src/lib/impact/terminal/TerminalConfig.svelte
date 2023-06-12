@@ -68,6 +68,7 @@
     async function category_select(event){
         //userDeviceConfig.category=event.detail.value
         category.value=event.detail.value
+        category.label=event.detail.label
         const cat=event.detail.value
         device_types = Object.keys(await getDeviceTypes(cat))
         const subcat = device_types[0]
