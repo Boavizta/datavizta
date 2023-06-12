@@ -42,7 +42,7 @@ export async function getServerImpact(server: Server): Promise<Impacts> {
 }
 
 export async function getCloudImpact(instance: Cloud): Promise<Impacts> {
-  const params = "?verbose=true&criteria=gwp&criteria=pe&criteria=adpe";
+  const params = "?verbose=true&criteria=gwp&criteria=pe&criteria=adp";
   const res = await post("cloud/instance" + params, instance);
   return res.text().then((json) => {
     return JSON.parse(json);

@@ -206,8 +206,8 @@
     "subcategory" : "Type",
     "archetype" : "Modèle",
     "usage": "Utilisation du terminal",
-    "terminals": "terminal",
-    "peripherals": "peripheral"
+    "terminals": "Terminaux",
+    "peripherals": "Périphériques"
   },
   "terminal-impact": {
     "title":"Impact multicritère des terminaux"

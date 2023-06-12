@@ -79,7 +79,7 @@
     
     let serverImpact: Impacts;
     let verboseImpacts:VerboseServerImpacts = {
-        "adpe": {
+        "adp": {
             "embedded": {
                 "hdd": 0,
                 "motherboard":0,
@@ -130,14 +130,14 @@
 
     async function updateImpact() {
         serverImpact = await getServerImpact(server);
-        verboseImpacts.adpe.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['adpe']['embedded']['value']
-        verboseImpacts.adpe.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['adpe']['embedded']['value']
-        verboseImpacts.adpe.embedded.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['adpe']['embedded']['value']
-        verboseImpacts.adpe.embedded.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['adpe']['embedded']['value']
-        verboseImpacts.adpe.embedded.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['adpe']['embedded']['value']
-        verboseImpacts.adpe.unit = serverImpact['impacts']['adpe']['unit']
-        verboseImpacts.adpe.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['adpe']['embedded']['value']
-        verboseImpacts.adpe.use.total  = serverImpact['impacts']['adpe']['use']['value']
+        verboseImpacts.adp.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['adp']['embedded']['value']
+        verboseImpacts.adp.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['adp']['embedded']['value']
+        verboseImpacts.adp.embedded.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['adp']['embedded']['value']
+        verboseImpacts.adp.embedded.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['adp']['embedded']['value']
+        verboseImpacts.adp.embedded.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['adp']['embedded']['value']
+        verboseImpacts.adp.unit = serverImpact['impacts']['adp']['unit']
+        verboseImpacts.adp.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['adp']['embedded']['value']
+        verboseImpacts.adp.use.total  = serverImpact['impacts']['adp']['use']['value']
 
         verboseImpacts.gwp.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['gwp']['embedded']['value']
         verboseImpacts.gwp.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['gwp']['embedded']['value']
@@ -157,12 +157,12 @@
         verboseImpacts.pe.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['pe']['embedded']['value']
         verboseImpacts.pe.use.total  = serverImpact['impacts']['pe']['use']['value']
         if ( serverImpact['verbose']['SSD-1'] !== undefined ) {
-            verboseImpacts.adpe.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['adpe']['embedded']['value']
+            verboseImpacts.adp.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['adp']['embedded']['value']
             verboseImpacts.gwp.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['gwp']['embedded']['value']
             verboseImpacts.pe.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['pe']['embedded']['value']
         }
         if ( serverImpact['verbose']['HDD-1'] !== undefined ) {
-            verboseImpacts.adpe.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['adpe']['embedded']['value']
+            verboseImpacts.adp.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['adp']['embedded']['value']
             verboseImpacts.gwp.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['gwp']['embedded']['value']
             verboseImpacts.pe.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['pe']['embedded']['value']
         }

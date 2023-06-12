@@ -14,7 +14,37 @@ export type Impacts = {
       use: ImpactValue;
       unit: string;
     };
+    adp: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
     adpe: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    ir: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    odp: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    ap: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    ept: {
       description: string;
       embedded: ImpactValue;
       use: ImpactValue;

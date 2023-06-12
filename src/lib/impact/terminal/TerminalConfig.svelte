@@ -4,8 +4,6 @@
     import Select from "svelte-select"
     import {onMount} from "svelte";
     import {get} from "$lib/api";
-    import type { Impacts } from "$lib/types/impact";
-    import { stringify } from "postcss";
 
     /*Bound var*/
     export let userDeviceConfig: UserDevice
@@ -117,7 +115,7 @@
   <div class="relative min-w-[100px] w-full mb-2 group">
         <label class="block text-sm font-medium text-gray-900">{$_('terminal-config.category')}</label>
         <div style="--borderRadius: 0.5em;">
-            <Select items={items} on:select={category_select} value={category.value}/>
+            <Select items={items} on:select={category_select} value={category.label}/>
         </div>
     </div>
     <div class="relative min-w-[100px] w-full mb-2 group">
