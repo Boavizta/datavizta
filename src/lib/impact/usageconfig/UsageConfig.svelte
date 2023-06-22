@@ -49,17 +49,16 @@
             updateTimeWorkLoad()
             document.getElementById('load').style.display = 'block';
             document.getElementById('extload').style.display = 'none';
+            usage.avg_power = null
             if ( usageType != "Cloud"){
-                usage.avg_power = null
                 document.getElementById('elec').style.display = 'none';
             }
         } else if(event.detail.value == "ExtLoad"){
-
             updateExtTimeWorkLoad()
             document.getElementById('load').style.display = 'none';
             document.getElementById('extload').style.display = 'grid';
+            usage.avg_power = null
             if ( usageType != "Cloud"){
-                usage.avg_power = null
                 document.getElementById('elec').style.display = 'none';
             }
         } else {
