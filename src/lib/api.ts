@@ -54,7 +54,7 @@ export async function getUserDeviceImpact(device: UserDevice, yearly: Boolean = 
   if (yearly) {
     res = await post(device.category + "/" + device.subcategory + "?criteria=gwp&criteria=ir&criteria=pe&criteria=adpe&criteria=odp&criteria=ap&criteria=ept" + "&duration=8760&archetype=" + device.archetype, device);
   } else {
-    res = await post(device.category + "/" + device.subcategory + "?criteria=all" + "&archetype=" + device.archetype, device);
+    res = await post(device.category + "/" + device.subcategory + "?criteria=gwp&criteria=ir&criteria=pe&criteria=adpe&criteria=odp&criteria=ap&criteria=ept" + "&archetype=" + device.archetype, device);
   }
   return res.text().then((json) => {
     return JSON.parse(json);
