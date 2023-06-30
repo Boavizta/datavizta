@@ -76,7 +76,6 @@
     "yearlyTec" : "Yearly TEC (kWh)",
     "manufacturing": "Manufacturing (%)",
     "total": "Total (kgCO2eq)",
-    "export_filtered": "Export to CSV",
     "filter_reset": "Reset filters"
   },
   "pie": {

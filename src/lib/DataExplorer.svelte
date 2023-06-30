@@ -7,7 +7,6 @@
     import RegionPicker from "./chart/RegionPicker.svelte";
     import PieChart from "./chart/PieChart.svelte";
     import ExportChartImage from './chart/ExportChartImageButton.svelte';
-    import ExportCsv from './chart/ExportCSVButton.svelte';
     import ShareLinkButton from './chart/ShareLinkButton.svelte';
     import * as paramParser from './paramParser';
     import * as Scope from "./impacts"
@@ -219,8 +218,6 @@
                     
                     <!-- export chart image -->
                     <ExportChartImage />
-                    <!-- export csv -->
-                    <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
    
                 </div> 
                 <div class="flex-row mx-auto">

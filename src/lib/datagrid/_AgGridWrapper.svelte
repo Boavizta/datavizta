@@ -62,11 +62,6 @@
             width: 100,
         },
         {
-            headerName: $_("datagrid.name"),
-            field: "name",
-            width: 300,
-        },
-        {
             headerName: $_("datagrid.category"),
             field: "category",
             width: 100,
@@ -75,12 +70,6 @@
             headerName: $_("datagrid.subcategory"),
             field: "subcategory",
             width: 100,
-        },
-        {
-            headerName: $_("datagrid.report_date"),
-            field: "report_date",
-            hide: false,
-            width: 120,
         },
         {
             headerName: $_("datagrid.total"),
@@ -124,68 +113,13 @@
             width: 80,
         },
         {
-            field: "added_date",
-            hide: true,
-            width: 100,
-        },
-        {
-            field: "sources",
-            //hide: true,
-            filter: false,
-            width: 80,
-            cellRenderer: function (params) {
-                return (
-                  `<a target="_blank" href="${params.value}">
-                      <svg fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16" height="16px"><path d="M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 5 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z"/>
-                        </svg>
-                  </a>`
-                    
-                );
-            },
-        },
-        {
-            field: "gwp_error_ratio",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
-            field: "weight",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
             field: "assembly_location",
             hide: true,
             width: 100,
         },
         {
-            field: "screen_size",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
             field: "server_type",
             hide: true,
-            width: 100,
-        },
-        {
-            field: "hard_drive",
-            hide: true,
-            width: 100,
-        },
-        {
-            field: "memory",
-            hide: true,
-            filter: "agNumberColumnFilter",
-            width: 100,
-        },
-        {
-            field: "number_cpu",
-            hide: true,
-            filter: "agNumberColumnFilter",
             width: 100,
         },
     ];
