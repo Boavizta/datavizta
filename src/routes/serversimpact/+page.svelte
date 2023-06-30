@@ -18,7 +18,8 @@
             max: 250
         },
         use_time_ratio: {
-            value: 1
+            value: 1,
+            hours_per_day: 24
         },
         years_life_time: {
             value: 5
