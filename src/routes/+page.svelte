@@ -25,7 +25,6 @@
             {$_('index.explanation.5')}
         </p>
         <ul class="text-sm pl-4">
-            <li>{$_('index.explanation.6')} <a class="link" href="https://github.com/Boavizta/environmental-footprint-data" target="_blank">{$_('index.explanation.7')}</a></li>
             <li>{$_('index.explanation.8')}</li>
             <li>{$_('index.explanation.9')}</li>
         </ul>
