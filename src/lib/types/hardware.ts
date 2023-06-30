@@ -62,7 +62,10 @@ export interface Usage {
     min?: number;
     max?: number;
   }
-  usage_location?: string;
+  usage_location?: {
+    value: string;
+    label: string;
+  }
   gwp_factor?: number;
   pe_factor?: number;
   adp_factor?: number;

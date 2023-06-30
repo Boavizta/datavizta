@@ -20,6 +20,10 @@
         use_time_ratio: {
             value: 0.2
         },
+        usage_location: {
+            value: "WOR",
+            label: "World"
+        },
         years_life_time: {
             value: 5
         },
@@ -33,7 +37,7 @@
          subcategory: "laptop",
          archetype: "laptop-pro",
          usage: {
-             usage_location: "World",
+             usage_location: "WOR",
          }
      };
     let yearly:boolean = false;

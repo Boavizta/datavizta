@@ -12,11 +12,10 @@
 
     let localisation_route = "utils/country_code";
     let locaitems = []
-    let selectedlocation ="World"
+    let selectedRegionLabel = "World"
 
     onMount(async () => { 
         locaitems = await getlocalisation(localisation_route);
-        usageConfig.usage_location = "World"
         usage.use_time_ratio = usageConfig.use_time_ratio.hours_per_day / 24
         usageConfig.time_workload = [ {
             time_percentage : 30,
@@ -123,8 +122,9 @@
     }
     
     function region_select(event){
-        usage.usage_location = event.detail.value
-        selectedlocation = event.detail.label
+        usageConfig.usage_location.value = event.detail.value
+        usageConfig.usage_location.label = event.detail.label
+        usage.usage_location = usageConfig.usage_location.value
     }
 
 </script>
@@ -132,7 +132,7 @@
         <div class="relative col-span-3 w-full mb-2 group">
             <label class="block text-sm font-medium text-gray-900">{$_('usage-config.localisation')}</label>
             <div style="--borderRadius: 0.5em;">
-                <Select id="select-region" items={locaitems} on:select={region_select} value={usageConfig.usage_location}/>
+                <Select id="select-region" items={locaitems} on:select={region_select} value={selectedRegionLabel}/>
             </div>
         </div>
 

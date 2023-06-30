@@ -25,6 +25,10 @@
         years_life_time: {
             value: 5
         },
+        usage_location: {
+            value: "WOR",
+            label: "World"
+        },
         time_workload : [ {
             time_percentage : 30,
             load_percentage : 50
@@ -46,7 +50,7 @@
             avg_power : 150,
             use_time_ratio: 1,
             hours_life_time: 5 * 365 * 24,
-            usage_location: "World",
+            usage_location: "WOR",
             time_workload: [{
                 time_percentage: 100,
                 load_percentage: 50
