@@ -33,6 +33,7 @@
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "jpeg-js": ">=0.4.4",
+    "node-fetch": "^3.3.2",
     "postcss": "^8.4.12",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.5.0",
