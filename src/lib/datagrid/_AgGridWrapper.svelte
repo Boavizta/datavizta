@@ -227,7 +227,7 @@
   $: updateData(data);
 </script>
 
-<div class="ag_container" id="aggridwrapper-root">
+<div class="ag_container hidden md:block" id="aggridwrapper-root">
   <div
     bind:this={ref}
     style="height: 100%; width:100%"

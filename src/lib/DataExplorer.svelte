@@ -113,18 +113,83 @@
 </script>
 
 
-<div class="flex flex-col">
-<div class="flex flex-row flex-wrap md:mt-2 justify-around">
-    <!-- pie + form container-->
-    <div class="flex flex-row flex-wrap-reverse justify-center">
+
+<div class="md:flex flex-row md:mt-2 justify-around">
+    
+    <DataGrid on:updateDataGrid={onDataGridUpdate} />
+ 
+    <!-- pie + customize value form-->
+    <div class="flex flex-col justify-center">
+
+        <!-- customize value form-->
+        <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm border-solid border-2 border-teal-500/20 text-sm" >
+
+            <div id="title" class="text-xl mb-3 font-medium">{$_('manufdata.custom_values')}</div>
+            {#if disabledCustomValue == false }
+            <!-- <p class="text-xs mb-2 font-light">
+                {@html $_('manufdata.explanation.8')}
+            </p>
+            <p class="text-xs mb-2 font-light">
+                {@html $_('manufdata.explanation.9')}
+            </p> -->
+            {:else}
+            <p class="text-xs mb-2 font-light text-red-400">
+                {$_('manufdata.explanation.error')}
+            </p>
+            {/if}
+            
+            <!-- region picker -->
+                <p>
+                    {$_('manufdata.select_country_elec_impact')} ({$_('manufdata.select_country_elec_impact_tooltip')})
+                </p>
+                <!-- select region -->
+                <div class="mb-3">
+                    <div class="flex">
+                        <!-- destroy/recreate component on locale update -->
+                        {#key $locale}
+                            <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
+                        {/key}
+                    </div>
+                    
+                </div>
+            <!-- end of region picker -->
+            <!-- input lifetime -->
+            <div class="mb-3">
+                <p class="block">{$_('manufdata.lifetime')} ({$_('manufdata.years_tooltip')})</p>
+                <div class="flex">
+
+                    <input id="lifetime" bind:value={lifetime} on:input={changeLifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
+                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
+                        {$_('manufdata.years')}
+                    </span>
+                </div>
+                <!-- <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.years_tooltip')}</small> -->
+            </div>
+            <!-- button toggle yearly/total -->
+            <div class="flex mx-auto mt-1 mb-1">
+                <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
+                <label class="mw-1/3 switch">
+                    <input type="checkbox" id="yearlycheck" bind:checked={yearly}>
+                    <span class="slider round"></span>
+                </label>
+                <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
+            </div>
+            <!-- end of button toggle yearly/total -->
+            
+            
+
+        
+        </div>
+            
+        <!-- pie-->
         <div id="viz-container" class="flex flex-col md:rounded-l content-center py-5 px-10 border-solid border-2 border-teal-500/20">
             {#if isNaN(ratioScope.total)}
                 <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
-                <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{impactTotal} kgCO2eq</div>
+                <div id="result-highlight" class="text-center text-2xl font-medium my-2 text-green">{impactTotal} kgCO2eq</div>
                 <div id="result-impossible" class="max-w-sm text-m font-normal text-center">{$_('pie.impossible')}</div>
             {:else}
                 <div id="result-title" class="text-xl font-normal text-center">{$_('pie.title')}</div>
-                <div id="result-highlight" class="text-center text-4xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq
+                <div id="result-highlight" class="text-center text-2xl font-medium my-2 text-green">{ratioScope.total} kgCO2eq
                     {#if yearly}
                         / {$_('pie.year')}
                     {/if}
@@ -162,75 +227,29 @@
                 </div>
             {/if}
         </div>
+        <!-- end of pie-->
+        
+        <!-- export panel -->
 
         <div id="form-container" class="flex flex-col md:rounded-r px-5 py-5 bg-opacity-20 max-w-sm bg-teal-500" >
-            <div id="title" class="text-xl mb-5 font-medium text-center">{$_('manufdata.custom_values')}</div>
-            <!-- button toggle yearly/total -->
-            <div class="flex mx-auto mt-1 mb-5">
-                <div class="mw-1/3 py-1 px-2">{$_('pie.total')}</div>
-                <label class="mw-1/3 switch">
-                    <input type="checkbox" id="yearlycheck" bind:checked={yearly}>
-                    <span class="slider round"></span>
-                </label>
-                <div class="mw-1/3 py-1 px-2">{$_('pie.yearly')}</div>
-            </div>
-            <p>
-                {$_('manufdata.select_country_elec_impact')}
-            </p>
-            <!-- select region -->
-            <div class="mt-2 mb-5">
-                <div class="flex">
-                    <!-- destroy/recreate component on locale update -->
-                    {#key $locale}
-                        <RegionPicker bind:value={selectedRegion} bind:isDefaultRegion={isDefaultRegion} isDisabled="{disabledCustomValue}"/>
-                    {/key}
-                </div>
-                <small id="regionHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.select_country_elec_impact_tooltip')}</small>
-            </div>
-
-            <!-- input lifetime -->
-            <div class="mb-3">
-                <p class="block">{$_('manufdata.lifetime')}</p>
-                <div class="flex">
-
-                    <input id="lifetime" bind:value={lifetime} on:input={changeLifetime} type="number" class="border-2 pl-2  w-auto" min="0.5" max="100" step="0.5" disabled="{disabledCustomValue}"/>
-                    <span class="text-sm border-2 rounded-r px-4 py-1 bg-gray-300 whitespace-no-wrap">
-                        {$_('manufdata.years')}
-                    </span>
-                </div>
-                <small id="lifetimeHelp" class="block mt-1 text-xs text-gray-600">{$_('manufdata.years_tooltip')}</small>
-            </div>
-
-            {#if disabledCustomValue == false }
-            <p class="text-xs mb-2 font-light">
-                {@html $_('manufdata.explanation.8')}
-            </p>
-            <p class="text-xs mb-2 font-light">
-                {@html $_('manufdata.explanation.9')}
-            </p>
-            {:else}
-            <p class="text-xs mb-2 font-light">
-                {$_('manufdata.explanation.error')}
-            </p>
-            {/if}
-
+            <!-- export panel -->
             <div class="flex-row mx-auto">
-                    <div id="title export" class="text-xl mt-3 font-medium text-center">{$_('pie.export')}</div>
-                    
-                    <!-- export chart image -->
-                    <ExportChartImage />
-                    <!-- export csv -->
-                    <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
-   
-                </div> 
-                <div class="flex-row mx-auto">
-                    <!-- share permalink, does not work (yet) with one equipment selection-->
-                    <ShareLinkButton {pageUrl} {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
-                </div>
+                <!-- <div id="title export" class="text-xl mt-3 font-medium text-center">{$_('pie.export')}</div> -->
+                
+                <!-- export chart image -->
+                <ExportChartImage />
+                <!-- export csv -->
+                <ExportCsv {selectedRows} {lifetime} {hascustomlifetime} {selectedRegion}/>
+
+            </div> 
+            <div class="flex-row mx-auto">
+                <!-- share permalink, does not work (yet) with one equipment selection-->
+                <ShareLinkButton {pageUrl} {lifetime} {selectedRegion} {yearly} {filterModels} singleItemSelected={singleItemSelected(selectedRows)}/>
+            </div>
         </div>
+        <!-- end of export panel -->
         
     </div>
-    <DataGrid on:updateDataGrid={onDataGridUpdate}/>
-    
+    <!-- end of pie + form container-->
 </div>
-</div>
+

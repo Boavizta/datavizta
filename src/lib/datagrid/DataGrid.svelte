@@ -133,8 +133,9 @@
     }
 </script>
 
-<div id="datagrid-root" class="flex flex-wrap justify-between">
-    <div class="flex grow  flex-wrap my-2 space-x-0.5 > * + *	">
+<div id="datagrid-root" class="flex flex-col">
+    <!-- search filters -->
+    <div class="flex flex-wrap my-2 space-x-0.5 > * + *	">
         <button class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-1 px-4 border rounded" on:click={resetDataGrid}>{$_('datagrid.filter_reset')}
         </button>
         <div class="inline-block flex-wrap">
@@ -185,11 +186,14 @@
             </div>
         </div>
     </div>
+    <!-- end of search filters -->
+    
+    <AgGridWrapper
+        {options}
+        data={allRows}
+        on:select={onSelect}
+        flatFilterModels={currentFilterModel}
+    />
+
 </div>
 
-<AgGridWrapper
-    {options}
-    data={allRows}
-    on:select={onSelect}
-    flatFilterModels={currentFilterModel}
-/>
