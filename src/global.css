@@ -181,7 +181,7 @@ input:checked + .slider:before {
 
 .ag_container {
   width: 100%;
-  height: var(--grid-height, 300px);
+  height: var(--grid-height, 600px);
 }
 
 .bx--snippet__icon {
