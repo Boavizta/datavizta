@@ -15,7 +15,7 @@
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
     "test:coverage": "jest --coverage",
-    "update-data": "node utils/fetchGridIntensity.js"
+    "update-grid-intensity": "node utils/fetchGridIntensity.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.20.0",
