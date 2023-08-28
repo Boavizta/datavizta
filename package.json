@@ -14,7 +14,8 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "update-grid-intensity": "node utils/fetchGridIntensity.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.20.0",
@@ -33,6 +34,7 @@
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "jpeg-js": ">=0.4.4",
+    "node-fetch": "^3.3.2",
     "postcss": "^8.4.12",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.5.0",
