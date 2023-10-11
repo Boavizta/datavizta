@@ -111,6 +111,7 @@
     
     async function updateImpact() {
         serverImpact = await getCloudImpact(cloud_instance);
+        console.log(serverImpact)
         verboseImpacts.adp.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['adp']['embedded']['value']
         verboseImpacts.adp.embedded.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['adp']['embedded']['value']
