@@ -1,9 +1,10 @@
 import type { List } from "postcss/lib/list";
+import { number } from "svelte-i18n";
 
 export interface Server {
   model: ModelServer;
   config: ConfigurationServer;
-  usage: UsageServer;
+  usage: UsageRequest;
 }
 export interface ConfigurationServer {
   cpu: Cpu;
@@ -11,24 +12,69 @@ export interface ConfigurationServer {
   disk: Array<Disk>;
   power_supply?: PowerSupply;
 }
-export interface ConfigurationCloud {
+export interface Cloud {
   provider: string;
   instance_type: string;
-  usage: UsageServer;
+  usage: UsageRequest;
+}
+export interface UserDevice {
+  category: string;
+  subcategory: string;
+  archetype: string;
+  usage: UsageRequest;
 }
 
-export interface UsageServer {
+export interface UsageRequest {
   hash?: string;
   TYPE?: string;
-  years_use_time?: number;
-  days_use_time?: number;
-  hours_use_time?: number;
-  hours_electrical_consumption?: number;
+  use_time?: number;
+  avg_power?: number;
+  hours_life_time?: number;
+  use_time_ratio?: number;
   usage_location?: string;
   gwp_factor?: number;
   pe_factor?: number;
   adp_factor?: number;
-  time_workload?: List;
+  time_workload?: Array<TimeWorkload>
+}
+export interface Usage {
+  hash?: string;
+  TYPE?: string;
+  use_time?: {
+    default?: number;
+    value?: number;
+  }
+  years_life_time?: {
+    default?: number;
+    value?: number;
+  }
+  use_time_ratio?: {
+      value: number,
+      status?: string,
+      unit?: string,
+      min?: number,
+      max?: number,
+      hours_per_day?: number
+  }
+  avg_power?: {
+    default?: number;
+    value?: number;
+    min?: number;
+    max?: number;
+  }
+  usage_location?: {
+    value: string;
+    label: string;
+  }
+  gwp_factor?: number;
+  pe_factor?: number;
+  adp_factor?: number;
+  time_workload?: Array<TimeWorkload>
+}
+
+export interface TimeWorkload {
+  time_percentage?: number;
+  load_percentage?: number;
 }
 
 export interface Case {

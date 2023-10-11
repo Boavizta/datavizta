@@ -2,7 +2,6 @@ import type { RegionPickerItem, ScopeResult, Row,RowWithScope } from "./customTy
 import * as Utils from "./utils";
 
 export function calculateImpacts(selectedRows:Row[], yearly:boolean, lifetime:number, electricalImpactFactor:number) {
-    console.log("calculateImpacts", selectedRows.length, yearly, lifetime, electricalImpactFactor)
     const scope2 = impactScope2(selectedRows, yearly, lifetime, electricalImpactFactor);
     const scope3 = impactScope3(selectedRows, yearly, lifetime);
     const total = scope2.median + scope3.median;
@@ -165,46 +164,4 @@ export function lifetimebyRow(row:Row) {
     } else {
         return '';
     }
-}
-/*build csv content from rows and custom values*/
-export function buildCsvFromFilterRows(filteredRows:Row[], lifetime:number, hascustomlifetime:boolean, selectedRegion:RegionPickerItem):String {
-    let csvContent = "data:text/csv;charset=utf-8,";
-    let rowsWithScope:RowWithScope[]=new Array();
-    filteredRows.forEach(row => {
-        const rowWithScope:RowWithScope = row;
-        let totalscope3 = impactScope3byRow(row).scope3;
-        let totalscope2=impactScope2byRow(row,lifetime,selectedRegion.value);
-        if ( hascustomlifetime == false ) {
-            lifetime=lifetimebyRow(row)
-        }
-        rowWithScope.lifetimeoverride=lifetime.toString()
-        if (totalscope2 != 0) {
-            rowWithScope.total_scope2=totalscope2.toString();
-            rowWithScope.yearly_scope2=(totalscope2 / lifetime).toString()
-        } else {
-            rowWithScope.total_scope2='';
-            rowWithScope.yearly_scope2='';
-        }
-        if (totalscope3 != 0) {
-            rowWithScope.total_scope3=totalscope3.toString();
-            rowWithScope.yearly_scope3=(totalscope3 / lifetime).toString()
-        } else {
-            rowWithScope.total_scope3='';
-            rowWithScope.yearly_scope3='';
-        }
-        
-        if (selectedRegion.value !== -1) {
-            rowWithScope.regionlabel=selectedRegion.label;
-            rowWithScope.electricalImpactFactor=selectedRegion.value.toString();
-        } else {
-            rowWithScope.regionlabel='';
-            rowWithScope.electricalImpactFactor='';
-        }
-        rowsWithScope.push(rowWithScope)
-    });
-
-    const headers = Object.keys(rowsWithScope[0]);
-    csvContent += headers.join(',')+"\r\n";
-    csvContent += Utils.convertToCSV(rowsWithScope);
-    return csvContent;
 }

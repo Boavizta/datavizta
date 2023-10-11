@@ -1,32 +1,84 @@
-export interface ServerImpact {
+
+
+export type Impacts = {
   impacts:{
     gwp: {
-      manufacture: number;
-      use: number;
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
       unit: string;
     };
     pe: {
-      manufacture: number;
-      use: number;
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
       unit: string;
     };
     adp: {
-      manufacture: number;
-      use: number;
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    adpe: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    ir: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    odp: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    ap: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
+      unit: string;
+    };
+    ept: {
+      description: string;
+      embedded: ImpactValue;
+      use: ImpactValue;
       unit: string;
     };
   }
 }
-
-export type GlobalImpact = {
-  gwp: Impact,
-  pe: Impact,
-  adp: Impact
+type ImpactValue = {
+  value: number,
+  significant_figures: number,
+  min: number,
+  max: number,
+  warnings: [],
 }
 
-export type Impact = {
-  assembly: number, unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number}
+export type VerboseServerImpact = {
+  assembly: number, power_supply: number, ssd: number, total: number, motherboard: number, hdd: number, cpu: number, ram: number, case: number}
 
-export type VerboseImpacts = { gwp: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number, case: number }, pe: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number, case: number }, adp: { unit: number, power_supply: number, ssd: number, use: number, motherboard: number, hdd: number, cpu: number, ram: number, assembly: number, case: number } }
+export type CriteriaServerImpact = {
+  description: string;
+  embedded : VerboseServerImpact,
+  use: VerboseServerImpact,
+  unit: string
+};
 
+export type CriteriaTerminalImpact = {
+  description: string;
+  embedded : ImpactValue,
+  use: ImpactValue,
+  unit: string
+};
 
+export type VerboseServerImpacts = { 
+  gwp: CriteriaServerImpact,
+  pe: CriteriaServerImpact,
+  adpe: CriteriaServerImpact
+}
