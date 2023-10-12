@@ -17,6 +17,7 @@
     onMount(async () => { 
         locaitems = await getlocalisation(localisation_route);
         usage.use_time_ratio = usageConfig.use_time_ratio.hours_per_day / 24
+        usage.avg_power = null
         usageConfig.time_workload = [ {
             time_percentage : 30,
             load_percentage : 50
