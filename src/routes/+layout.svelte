@@ -59,7 +59,7 @@
 </script>
 <div id="navbar" class="flex">
   <div class="flex title-font font-medium items-center">
-      <a href="https://boavizta.org"><img id="logo" style="height: 47px;width: 32px;" src="./boavizta-logo-4.png" alt="Boavizta"></a>
+      <a href="https://boavizta.org"><img id="logo" style="height: 47px;width: 32px;" src="./logo_picto_color.png" alt="Boavizta"></a>
       <h1 class="title-main">Datavizta</h1>
   </div>
   <a id="burger_icon" href="javascript:void(0);" class="ml-auto" on:click={showMenu}>
