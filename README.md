@@ -1,4 +1,12 @@
-# Datavizta
+<p align="center">
+    <img src="https://github.com/Boavizta/datavizta/blob/main/datavizta_color.svg" height="100">
+</p>
+
+<h3 align="center">
+    Explore Boavizta's data and methods through a pedagogical frontend
+</h3>
+
+---
 
 ## Data Explorer
 
