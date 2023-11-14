@@ -18,6 +18,7 @@
         locaitems = await getlocalisation(localisation_route);
         usage.use_time_ratio = usageConfig.use_time_ratio.hours_per_day / 24
         usage.avg_power = null
+        usageConfig.extendLifetime.value= 0
         usageConfig.time_workload = [ {
             time_percentage : 30,
             load_percentage : 50
@@ -162,7 +163,7 @@
                 {/if}
         </div>
         {#if (usageType != "Cloud")}
-        <div class="relative w-full mb-2 group" id="elec">
+        <div class="relative w-full col-span-3 mb-2 group" id="elec">
             <label class="block text-sm font-medium text-gray-900">{$_('usage-config.avrg_elec')}</label>
             <input bind:value={usageConfig.avg_power.value} on:change={changeElecCons} type="number" min={usageConfig.avg_power.min} max={usageConfig.avg_power.max} class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
@@ -203,3 +204,9 @@
                 </div>
             </div>
             {/if}
+        {#if (usageType == "Terminal")}
+        <div class="relative col-span-3 w-full mb-2 group">
+            <label class="block text-sm font-medium text-gray-900">{$_('usage-config.extendlifespan')}</label>
+            <input bind:value={usageConfig.extendLifetime.value} type="number" min="0" max="5" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+        </div>
+        {/if}

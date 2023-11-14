@@ -62,6 +62,9 @@ export interface Usage {
     min?: number;
     max?: number;
   }
+  extendLifetime?: {
+    value: number;
+  }
   usage_location?: {
     value: string;
     label: string;

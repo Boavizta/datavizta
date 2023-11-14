@@ -7,7 +7,7 @@
     import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
     import * as Utils from "$lib/utils"
     import type { Impacts } from "$lib/types/impact";
-    import { getUserDeviceImpact } from "$lib/api";
+    import { getUserDeviceImpact} from "$lib/api";
 
     let impacts: Impacts;
     let usageConfig: Usage = {
@@ -23,6 +23,9 @@
         usage_location: {
             value: "WOR",
             label: "World"
+        },
+        extendLifetime: {
+            value: 0
         },
         years_life_time: {
             value: 5
@@ -42,10 +45,32 @@
      };
     let yearly:boolean = false;
 
-    $: userDevice, updateImpact();
+    $: userDevice, usageConfig, updateImpact();
 
-    async function updateImpact() {
+    function getExtendLifetimeAvoid(lifetime: Number, extendlifetime: Number, impact: Impacts, yearly) {
+        let output = {}
+        if (extendlifetime == 0) {
+            Object.keys(impact.impacts).forEach(function(key) {
+            output[key] = {"value":0,"unit":impact.impacts[key].unit}
+            })
+        } else {
+            Object.keys(impact.impacts).forEach(function(key) {
+            let embedded=impact.impacts[key].embedded.value
+            if (yearly == true) {
+                embedded=lifetime*embedded
+            }
+            let avoided=embedded*extendlifetime/lifetime
+            if (yearly == true) {
+                avoided=avoided/extendlifetime
+            }
+            output[key] = {"value":avoided,"unit":impact.impacts[key].unit}
+            })
+        }
+        return output
+    }
+async function updateImpact() {
         impacts = await getUserDeviceImpact(userDevice, yearly);
+        impacts.avoided = getExtendLifetimeAvoid(usageConfig.years_life_time.value,usageConfig.extendLifetime.value,impacts,yearly)
     }
 </script>
 

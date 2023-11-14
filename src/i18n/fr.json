@@ -157,11 +157,14 @@
     "EPT" : "Eutrophisation Terrestre",
     "EPT desc" : "Evalue le potentiel d'eutrophication terrestre",
     "others": "Autres",
-    "Impacts" : "Impacts"
+    "Impacts" : "Impacts",
+    "Avoided" : "Evité grace au prolongement de vie",
+    "Avoideddisclaim" : "(par rapport au scénario initial)"
   },
   "usage-config": {
     "localisation": "Localisation",
     "lifespan": "Durée de vie (ans)",
+    "extendlifespan": "Prolongement durée vie (ans)",
     "method": "Méthode",
     "avrg_elec": "Conso moyenne (W)",
     "load": "Charge serveur (%)",

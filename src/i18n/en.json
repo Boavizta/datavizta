@@ -157,11 +157,14 @@
     "EPT" : "Terrestrial Eutrophisation",
     "EPT desc" : "Evaluates terrestrial eutrophisation",
     "others": "Others",
-    "Impacts" : "Impacts"
+    "Impacts" : "Impacts",
+    "Avoided" : "Avoided thanks to extended lifespan",
+    "Avoideddisclaim" : "(compared to initial scenario)"
   },
   "usage-config": {
     "localisation": "Localisation",
-    "lifespan": "Lifespan (year)",
+    "lifespan": "Lifespan (years)",
+    "extendlifespan": "Lifespan extend (years)",
     "method": "Method",
     "avrg_elec": "Average consumption (W)",
     "load": "Server load (%)",
