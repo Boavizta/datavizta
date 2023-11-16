@@ -12,7 +12,8 @@
     "manufacturer": "Manufacturer Data" ,
     "server-impact": "Servers Impacts",
     "cloud-impact": "Cloud Impacts",
-    "terminal-impact": "User devices Impacts"
+    "terminal-impact": "User devices Impacts",
+    "iot-impact": "IoT Impacts"
   },
   "index": {
     "title1": "Why Datavizta?",
@@ -243,5 +244,8 @@
       "further_content2":". An open-source API that uses open data and methods to assess the environmental impacts of digital equipment.",
       "further_content3": "Check also ",
       "further_content4":". An open-source tool that combines real time inventory and usage data from your AWS account with Boavizta API to offer a view of your impacts."
+  },
+  "iot-impact": {
+    "title":"Multicritera IoT impacts"
   }
 }
