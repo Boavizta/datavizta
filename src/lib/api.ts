@@ -1,4 +1,4 @@
-import type { Cloud, Server, UserDevice } from "./types/hardware";
+import type { Cloud, Server, UserDevice, IoT } from "./types/hardware";
 import type { Impacts } from "./types/impact";
 let base
 if (import.meta.env.VITE_PUBLIC_API_URL) {

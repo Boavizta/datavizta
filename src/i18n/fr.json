@@ -247,5 +247,10 @@
   },
   "iot-impact": {
     "title":"Impact multicritère des IoT"
+  },
+  "iot-config":{
+    "configuration" :"Archetypes",
+    "type" : "Type",
+    "hsl" : "Level d'HSL"
   }
 }

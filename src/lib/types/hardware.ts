@@ -23,6 +23,10 @@ export interface UserDevice {
   archetype: string;
   usage: UsageRequest;
 }
+export interface IoT{
+  archetype: Archetype;
+  usage: UsageRequest;
+}
 
 export interface UsageRequest {
   hash?: string;
@@ -134,4 +138,9 @@ export interface Ram {
   manufacture_date?: string;
   model?: string;
   integrator?: string;
+}
+
+export interface Archetype {
+  type: string,
+  hsl_level : string,
 }

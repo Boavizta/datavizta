@@ -1,8 +1,8 @@
 <script lang="ts">
     import type {VerboseServerImpacts} from "$lib/types/impact";
     import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
-    import ServerConfig from "$lib/impact/server-cloud/ServerConfig.svelte";
-    import type { Server, Usage } from "$lib/types/hardware";
+    import IoTConfig from "$lib/impact/iot/IoTConfig.svelte";
+    import type { IoT, Usage } from "$lib/types/hardware";
     import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
     import type { Impacts } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
@@ -42,44 +42,17 @@
         }]
     }
     
-    let server: Server = {
-        model: {
-            type:"rack"
+    let iot: IoT = {
+        archetype: {
+            type: '',
+            hsl_level: '',
         },
-        config: {
-            cpu: {
-                units: 2,
-                core_units: 16,
-                tdp: 150
-            },
-            ram: [
-                {
-                    units: 4,
-                    capacity: 32,
-                },
-            ],
-            disk: [
-                {
-                    units: 4,
-                    capacity: 1000,
-                    type: "ssd",
-                },
-                {
-                    units: 2,
-                    capacity: 1000,
-                    type: "hdd",
-                },
-            ],
-            power_supply: 
-                {
-                units: 2
-                }
-        }, usage : {
+        usage : {
             avg_power : 150,
             use_time_ratio: 1,
             hours_life_time: 5 * 365 * 24,
             usage_location: "WOR",
-        } 
+        }
     };
     
     let serverImpact: Impacts;
@@ -130,51 +103,37 @@
            "unit": "kgCO2e"
         },
     };
+    
 
-    $: server, updateImpact();
-
-    async function updateImpact() {
-        serverImpact = await getServerImpact(server);
-        verboseImpacts.adp.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.embedded.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.embedded.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.embedded.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.unit = serverImpact['impacts']['adp']['unit']
-        verboseImpacts.adp.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['adp']['embedded']['value']
-        verboseImpacts.adp.use.total  = serverImpact['impacts']['adp']['use']['value']
-
-        verboseImpacts.gwp.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.embedded.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.embedded.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.embedded.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.unit = serverImpact['impacts']['gwp']['unit']
-        verboseImpacts.gwp.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['gwp']['embedded']['value']
-        verboseImpacts.gwp.use.total  = serverImpact['impacts']['gwp']['use']['value']
-
-        verboseImpacts.pe.embedded.cpu = serverImpact['verbose']['CPU-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.embedded.ram = serverImpact['verbose']['RAM-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.embedded.motherboard = serverImpact['verbose']['MOTHERBOARD-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.embedded.power_supply= serverImpact['verbose']['POWER_SUPPLY-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.embedded.assembly= serverImpact['verbose']['ASSEMBLY-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.unit = serverImpact['impacts']['pe']['unit']
-        verboseImpacts.pe.embedded.case= serverImpact['verbose']['CASE-1']['impacts']['pe']['embedded']['value']
-        verboseImpacts.pe.use.total  = serverImpact['impacts']['pe']['use']['value']
-        if ( serverImpact['verbose']['SSD-1'] !== undefined ) {
-            verboseImpacts.adp.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['adp']['embedded']['value']
-            verboseImpacts.gwp.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['gwp']['embedded']['value']
-            verboseImpacts.pe.embedded.ssd = serverImpact['verbose']['SSD-1']['impacts']['pe']['embedded']['value']
-        }
-        if ( serverImpact['verbose']['HDD-1'] !== undefined ) {
-            verboseImpacts.adp.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['adp']['embedded']['value']
-            verboseImpacts.gwp.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['gwp']['embedded']['value']
-            verboseImpacts.pe.embedded.hdd = serverImpact['verbose']['HDD-1']['impacts']['pe']['embedded']['value']
-        }
+    let block_number = 1;
+    function add_block(){
+        block_number++;
+    }
+    function remove_last(){
+        block_number--;
     }
 </script>
 
 <div id="content" class="px-1">
-    <h2 class="title-second mt-2 mb-4 w-full px-4">{$_('server-impact.title')}</h2>
-
+    <h2 class="title-second mt-2 mb-4 w-full px-4">{$_('iot-impact.title')}</h2>
+    <div class="grid md:grid-cols-12 gap-1">
+        <div class="min-h-[200px] md:col-span-5 px-1 w-full ">
+            <form> 
+                <div class="flex gap-1 items-center mb-2">
+                    <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('iot-config.configuration')}</h2>
+                    <button class="border rounded-md h-6 px-2 flex items-center justify-center hover:opacity-70" on:click={add_block}>Add</button>
+                    <button class="border rounded-md h-6 px-2 flex items-center justify-center hover:opacity-70" on:click={remove_last}>Remove</button>
+                </div>
+                <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 flex flex-col">
+                    {#each {length: block_number} as _, i}
+                        <div class="flex gap-1">
+                            <IoTConfig bind:IoTConfig={iot}/>
+                            <p>{iot.archetype.type}</p>
+                        </div>
+                    {/each}
+                </div>
+            </form>
+            
+        </div>
+    </div>
 </div>
