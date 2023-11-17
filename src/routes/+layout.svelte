@@ -73,7 +73,6 @@
       <a class="mr-5" href="/serversimpact">{$_('nav.server-impact')}</a>
       <a class="mr-5" href="/cloudimpact">{$_('nav.cloud-impact')}</a>
       <a class="mr-5" href="/terminalimpact">{$_('nav.terminal-impact')}</a>
-      <a class="mr-5" href="/manufacturerdata">{$_('nav.manufacturer')}</a>
     </nav>
     <nav id="burger_menu">
       <ul>
@@ -82,7 +81,6 @@
         <li><a class="mr-5" href="/cloudimpact" on:click={showMenu}>{$_('nav.cloud-impact')}</a></li>
         <li><a class="mr-5" href="/terminalimpact" on:click={showMenu}>{$_('nav.terminal-impact')}</a></li>
         <li><a class="mr-5" href="javascript:void(0);"    title="Choose language" on:click={updateLanguage} on:click={showMenu}>{language}</a></li>
-        <li><a class="mr-5" href="/manufacturerdata" on:click={showMenu}>{$_('nav.manufacturer')}</a></li>
       </ul>
     </nav>
     <input id="switch-language-button" class="mb-5 ml-auto cursor-pointer" title="Choose language" on:click={updateLanguage} value={language_min} style="width: 20px;"/>

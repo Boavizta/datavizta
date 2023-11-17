@@ -18,8 +18,9 @@
     "title1": "Pourquoi Datavizta?",
     "title2": "Quel outil? Pour quel usage?",
     "button": {
-      "1": "Accéder au référentiel de données constructeur",
-      "2": "Accéder à l'évaluation d'impact des serveurs"
+      "2": "Accéder à l'évaluation d'impact des serveurs",
+      "3": "Accéder à l'évaluation d'impact des instances Cloud",
+      "4": "Accéder à l'évaluation d'impact des terminaux"
     },
     "explanation": {
       "1": "Un des constats qui nous a incités à lancer ",
@@ -27,10 +28,9 @@
       "2": "Jusqu'à présent, les mesures d'impact de ces phases étaient complexes à mettre en œuvre ou nécessitaient des données propriétaires, et impliquaient des durées et des coûts bien trop importants pour être réalisées régulièrement, même sur des périmètres simples.",
       "3": "Boavizta pense qu'une approche ouverte et participative serait bien plus adaptée pour rendre accessible la mesure d'impact environnemental du numérique au plus grand nombre.",
       "4": "A ce titre, une base de données et des methodologies ouvertes ont été développées collectivement par le groupe de travail et Datavizta a pour objectif de rendre accessible le résultat de ces travaux sous forme d'outils simples d'utilisation.",
-      "5": "L'outil de visualisation des données du référentiel constructeur permet de : ",
-      "8": "Visualiser la répartition des impacts par étape du cycle de vie des équipements en différenciant la phase d'utilisation (scope 2), des phases de fabrication, transport et fin de vie (scope 3)",
-      "9": "Evaluer les impacts du prolongement de la durée de vie ou bien de l'utilisation dans une zone géographique plutôt qu'une autre. ", 
-      "10": "L'outil d'évaluation d'impact des serveurs permet de comprendre les impacts environnementaux des serveurs sur plusieurs critères (Potentiel de réchauffement climatique, Énergie Primaire et Potentiel d'épuisement de ressources abiotiques), sur deux phases de cycles de vie (usage, fabrication) en fonction de leurs caractéristiques techniques et leur contexte d'utilisation."
+      "5": "Nous avons décidé de supprimer l'accès aux données d'imppact fournies par les constructeurs car nous avons constaté qu'elles n'étaient pas utilisées à bon escient, malgré nos recommandations. À la place, nous proposons une meilleure alternative pour évaluer les impacts environnementaux des terminaux utilisateurs et des serveurs. Les données brutes restent accessibles sur notre dépôt GitHub ; cependant, veuillez noter qu'elles ne seront plus mises à jour.",
+      "6": "L'outil d'évaluation d'impact multicritères permet de comprendre les impacts environnementaux des serveurs, des instances Cloud et des terminaux sur plusieurs critères (Potentiel de réchauffement climatique, Énergie Primaire et Potentiel d'épuisement de ressources abiotiques), sur deux phases de cycles de vie (usage, fabrication) en fonction de leurs caractéristiques techniques et leur contexte d'utilisation.",
+      "7": "Impacts multicritères"
     }
   },
   "manufdata": {
