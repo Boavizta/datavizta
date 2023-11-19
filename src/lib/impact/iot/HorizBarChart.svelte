@@ -31,8 +31,7 @@
         let componentIndex = 3;
 
         for (const [component, value] of Object.entries(result.embedded)) {
-            const readableName = formatComponentName(component);
-            component_pcts[readableName] = {
+            component_pcts[component] = {
                 pct: (value * 100) / result_total,
                 index: componentIndex++,
             };
@@ -53,7 +52,7 @@
                 nb_rounded = 6;
                 break;
             default:
-                nb_rounded = 2;
+                nb_rounded = 6;
         }
     }
 
@@ -85,14 +84,16 @@
 </div>
 <div class="px-1 text-xs w-full">
     <span class="bar-2 bar-legend" />
-    {$_("impacts.Usage")} : {use_pct.toFixed(nb_rounded)}
+    {$_("impacts.Usage")} : {result.use.total.toFixed(nb_rounded)}
     <span class="bar-1 bar-legend ml-2" />
-    {$_("impacts.Manufacture")} : {fab_pct.toFixed(nb_rounded)}
+    {$_("impacts.Manufacture")} : {result_fab.toFixed(nb_rounded)}
 </div>
 <div class="px-1 pb-4 text-xs w-full">
     {#each Object.entries(component_pcts) as [component, { pct, index }]}
         <span class={`bar-${index} bar-legend ${index != 3 ? "ml-2" : ""}`} />
         {$_("impacts.Manufacture")}
-        {component} : {pct.toFixed(nb_rounded)}
+        {formatComponentName(component)} : {result.embedded[component].toFixed(
+            nb_rounded
+        )}
     {/each}
 </div>
