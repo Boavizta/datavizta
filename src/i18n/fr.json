@@ -249,9 +249,10 @@
     "title": "Impact multicritère des IoT"
   },
   "iot-config": {
-    "configuration": "Archetypes",
-    "archetype": "Archetype",
+    "configuration": "Configuration des IoTs",
+    "fonctional_blocks": "Blocs fonctionnels",
+    "archetype": "Archétype",
     "type": "Type",
-    "hsl": "Level d'HSL"
+    "hsl": "Niveau d'HSL"
   }
 }
