@@ -69,8 +69,6 @@
     }
 
     function remove(iot: IoT) {
-        console.log(all_iot);
-
         all_iot = all_iot.filter((item) => item !== iot);
         block_number--;
     }
@@ -152,7 +150,6 @@
         } catch (error) {
             console.error("Error in updateImpact:", error);
         }
-        console.log("verboseImpacts:", verboseImpacts);
     }
 </script>
 
@@ -172,10 +169,7 @@
                         class="cursor-pointer hover:opacity-70"
                     />
                 </div>
-                <div
-                    id="serverconfig-usage"
-                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 flex flex-col"
-                >
+                <div id="serverconfig-usage" class="flex flex-col gap-2 mb-4">
                     {#each { length: block_number } as _, i}
                         <div class="flex gap-2">
                             <IoTConfig bind:IoTConfig={all_iot[i]} />
