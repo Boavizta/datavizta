@@ -1,7 +1,7 @@
 <script lang="ts">
-  import {onMount} from 'svelte';
-  import {_} from 'svelte-i18n';
   import type { CriteriaServerImpact } from "$lib/types/impact";
+  import { onMount } from 'svelte';
+  import { _ } from 'svelte-i18n';
 
   let result_fab;
   let result_total;

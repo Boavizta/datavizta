@@ -1,6 +1,7 @@
 <script lang="ts">
     import { getIotImpact } from "$lib/api";
     import IoTConfig from "$lib/impact/iot/IoTConfig.svelte";
+    import ResultGrid from "$lib/impact/iot/ResultGrid.svelte";
     import type { IoT, Usage } from "$lib/types/hardware";
     import type { Impacts, VerboseIotImpacts } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
@@ -143,6 +144,10 @@
                 </div>
             </form>
             
+        </div>
+        <div class="px-1 md:col-span-7">
+            <h2 class="mb-2 mx-2 text-2xl font-bold">{$_('impacts.Results')}</h2>
+                <ResultGrid {verboseImpacts}/>
         </div>
     </div>
 </div>

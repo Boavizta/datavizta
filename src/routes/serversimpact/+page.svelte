@@ -1,14 +1,13 @@
 <script lang="ts">
-    import type {VerboseServerImpacts} from "$lib/types/impact";
+    import { getServerImpact } from "$lib/api";
     import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
     import ServerConfig from "$lib/impact/server-cloud/ServerConfig.svelte";
-    import type { Server, Usage } from "$lib/types/hardware";
+    import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte";
     import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
-    import type { Impacts } from "$lib/types/impact";
+    import type { Server, Usage } from "$lib/types/hardware";
+    import type { Impacts, VerboseServerImpacts } from "$lib/types/impact";
+    import * as Utils from "$lib/utils";
     import { _ } from "svelte-i18n";
-    import { getServerImpact } from "$lib/api";
-    import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
-    import * as Utils from "$lib/utils"
 
     let usageConfig: Usage = {
         avg_power: {
