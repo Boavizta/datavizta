@@ -39,10 +39,10 @@
     
     function createIoT(): IoT {
         return {
-            archetype: {
+            functional_blocks: [{
                 type: '',
                 hsl_level: '',
-            },
+            }],
             usage: {
                 avg_power: 150,
                 use_time_ratio: 1,
@@ -57,8 +57,7 @@
     let IotImpact: Impacts;
     let verboseImpacts: VerboseIotImpacts;
 
-    $: Iot_instance, updateImpact();
-    
+    $: all_iot, updateImpact();
 
     let block_number = 1;
 
@@ -76,42 +75,48 @@
     }
 
     async function updateImpact() {
+        verboseImpacts = {
+            adpe: { embedded: {}, use: { total: 0 }, unit: "" },
+            gwp: { embedded: {}, use: { total: 0 }, unit: "" }
+        };
+
+        const componentsSet = new Set([
+            "ACTUATORS-1", "CASING-1", "CONNECTIVITY-1", "MEMORY-1", "OTHERS-1", "PCB-1",
+            "POWER_SUPPLY-1", "PROCESSING-1", "SECURITY-1", "SENSING-1", "USER_INTERFACE-1"
+        ]);
+
+        function extractImpactValues(impactType, component, verboseData) {
+            return verboseData[component]['impacts'][impactType]?.embedded?.value ?? 0;
+        }
+
+        function accumulateImpacts(impactType, component, value) {
+            if (!verboseImpacts[impactType].embedded[component]) {
+                verboseImpacts[impactType].embedded[component] = 0;
+            }
+            verboseImpacts[impactType].embedded[component] += value;
+        }
+
         try {
-            IotImpact = await getIotImpact(Iot_instance);
-            if (!IotImpact || !IotImpact['verbose']) {
-                console.error('Invalid IotImpact data');
-                return;
-            }
+            let isFirstInstance = true;
+            for (const iot of all_iot) {
+                IotImpact = await getIotImpact(iot);
+                if (!IotImpact || !IotImpact['verbose']) continue;
 
-            const componentsSet = new Set([
-                "ACTUATORS-1", "CASING-1", "CONNECTIVITY-1", "MEMORY-1", "OTHERS-1", "PCB-1",
-                "POWER_SUPPLY-1", "PROCESSING-1", "SECURITY-1", "SENSING-1", "USER_INTERFACE-1"
-            ]);
+                Object.keys(IotImpact['verbose']).forEach(component => {
+                    if (componentsSet.has(component)) {
+                        accumulateImpacts('adpe', component.toLowerCase(), extractImpactValues('adpe', component, IotImpact['verbose']));
+                        accumulateImpacts('gwp', component.toLowerCase(), extractImpactValues('gwp', component, IotImpact['verbose']));
+                    }
+                });
 
-            function extractImpactValues(impactType, component, verboseData) {
-                return verboseData[component]['impacts'][impactType]?.embedded?.value ?? 0;
-            }
-
-            verboseImpacts = {
-                adpe: { embedded: {}, use: { total: 0 }, unit: "" },
-                gwp: { embedded: {}, use: { total: 0 }, unit: "" }
-            };
-
-            Object.keys(IotImpact['verbose']).forEach(component => {
-                if (componentsSet.has(component)) {
-                    verboseImpacts.adpe.embedded[component.toLowerCase()] = extractImpactValues('adpe', component, IotImpact['verbose']);
-                    verboseImpacts.gwp.embedded[component.toLowerCase()] = extractImpactValues('gwp', component, IotImpact['verbose']);
+                verboseImpacts.adpe.use.total += IotImpact['impacts']['adpe'].use.value;
+                verboseImpacts.gwp.use.total += IotImpact['impacts']['gwp'].use.value;
+                if (isFirstInstance) {
+                    verboseImpacts.adpe.unit = IotImpact['impacts']['adpe'].unit;
+                    verboseImpacts.gwp.unit = IotImpact['impacts']['gwp'].unit;
+                    isFirstInstance = false;
                 }
-            });
-
-            const { unit: adpeUnit, use: { value: adpeUseTotal } } = IotImpact['impacts']['adpe'];
-            const { unit: gwpUnit, use: { value: gwpUseTotal } } = IotImpact['impacts']['gwp'];
-
-            verboseImpacts.adpe.unit = adpeUnit;
-            verboseImpacts.adpe.use.total = adpeUseTotal;
-            verboseImpacts.gwp.unit = gwpUnit;
-            verboseImpacts.gwp.use.total = gwpUseTotal;
-
+            }
         } catch (error) {
             console.error('Error in updateImpact:', error);
         }

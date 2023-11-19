@@ -1,13 +1,15 @@
 <script lang="ts">
+    import { get } from "$lib/api";
     import type { IoT } from "$lib/types/hardware";
+    import { onMount } from "svelte";
     import { _ } from "svelte-i18n";
-    import Select from "svelte-select"
-    import {onMount} from "svelte";
-    import {get} from "$lib/api";
+    import Select from "svelte-select";
 
     export let IoTConfig: IoT
 
     let iot_hsl = []
+    let selectedFunctionalBlockIndex = 0;
+
     function getitems(route) {
         return get(route).then((response) => response.json())
             .then((data) => {
@@ -27,22 +29,24 @@
     }
 
     onMount(async () => { 
-        IoTConfig.archetype.type = iot_archetypes[0].type;
-        IoTConfig.archetype.hsl_level = iot_archetypes[0].hsl_levels[0];
+        IoTConfig.functional_blocks[selectedFunctionalBlockIndex].type = iot_archetypes[0].type;
+        IoTConfig.functional_blocks[selectedFunctionalBlockIndex].hsl_level = iot_archetypes[0].hsl_levels[0];
         iot_hsl = iot_archetypes[0].hsl_levels;
-    })
+    });
 
-    async function archetype_type_select(event){
-        if(event.detail.index === undefined) return;
+    async function archetype_type_select(event) {
+        if (event.detail.index === undefined) return;
 
-        IoTConfig.archetype.type = iot_archetypes[event.detail.index].type;
-        IoTConfig.archetype.hsl_level = iot_archetypes[event.detail.index].hsl_levels[0];
+        IoTConfig.functional_blocks[selectedFunctionalBlockIndex].type = iot_archetypes[event.detail.index].type;
+        IoTConfig.functional_blocks[selectedFunctionalBlockIndex].hsl_level = iot_archetypes[event.detail.index].hsl_levels[0];
 
         iot_hsl = iot_archetypes[event.detail.index].hsl_levels;
     }
     
-    function archetype_hsl_select(event){
-        //IoTConfig.archetype = event;
+    function archetype_hsl_select(event) {
+        if (event.detail.value === undefined) return;
+
+        IoTConfig.functional_blocks[selectedFunctionalBlockIndex].hsl_level = event.detail.value;
     }
 
     const iot_archetypes = [
@@ -99,13 +103,13 @@
   <div class="relative min-w-[100px] w-full mb-2 group">
         <label class="block text-sm font-medium text-gray-900">{$_('iot-config.type')}</label>
         <div style="--borderRadius: 0.5em;">
-            <Select items={iot_archetypes.map(obj => obj.type)} on:select={archetype_type_select} value={IoTConfig.archetype.type}/>
+            <Select items={iot_archetypes.map(obj => obj.type)} on:select={archetype_type_select} value={IoTConfig.functional_blocks[selectedFunctionalBlockIndex].type}/>
         </div>
     </div>
     <div class="relative min-w-[100px] w-full mb-2 group">
         <label class="block text-sm font-medium text-gray-900">{$_('iot-config.hsl')}</label>
         <div style="--borderRadius: 0.5em;">
-            <Select items={iot_hsl} on:select={archetype_hsl_select}  value={IoTConfig.archetype.hsl_level}/>
+            <Select items={iot_hsl} on:select={archetype_hsl_select}  value={IoTConfig.functional_blocks[selectedFunctionalBlockIndex].hsl_level}/>
         </div>
     </div>
 
