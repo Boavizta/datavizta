@@ -1,14 +1,9 @@
 <script lang="ts">
-    import type {VerboseServerImpacts} from "$lib/types/impact";
-    import ResultGrid from "$lib/impact/server-cloud/ResultGrid.svelte";
+    import { getIotImpact } from "$lib/api";
     import IoTConfig from "$lib/impact/iot/IoTConfig.svelte";
     import type { IoT, Usage } from "$lib/types/hardware";
-    import UsageConfig from "$lib/impact/usageconfig/UsageConfig.svelte";
-    import type { Impacts } from "$lib/types/impact";
+    import type { Impacts, VerboseIotImpacts } from "$lib/types/impact";
     import { _ } from "svelte-i18n";
-    import { getServerImpact } from "$lib/api";
-    import DetailedUsageConfig from "$lib/impact/usageconfig/DetailedUsageConfig.svelte"
-    import * as Utils from "$lib/utils"
 
     let usageConfig: Usage = {
         avg_power: {
@@ -42,7 +37,7 @@
         }]
     }
     
-    let iot: IoT = {
+    let Iot_instance: IoT = {
         archetype: {
             type: '',
             hsl_level: '',
@@ -55,54 +50,10 @@
         }
     };
     
-    let serverImpact: Impacts;
-    let verboseImpacts:VerboseServerImpacts = {
-        "adp": {
-            "embedded": {
-                "hdd": 0,
-                "motherboard":0,
-                "power_supply":0,
-                "cpu":0,
-                "ram":0,
-                "ssd":0,
-                "case":0
-           },
-           "use":  {
-               "total": 0
-           },
-           "unit": "kgSbeq"
-        },
-        "pe": {
-            "embedded": {
-                "hdd": 0,
-                "motherboard":0,
-                "power_supply":0,
-                "cpu":0,
-                "ram":0,
-                "ssd":0,
-                "case":0
-           },
-           "use":  {
-               "total": 0
-           },
-           "unit": "MJ"
-        },
-        "gwp": {
-            "embedded": {
-                "hdd": 0,
-                "motherboard":0,
-                "power_supply":0,
-                "cpu":0,
-                "ram":0,
-                "ssd":0,
-                "case":0
-           },
-           "use":  {
-               "total": 0
-           },
-           "unit": "kgCO2e"
-        },
-    };
+    let IotImpact: Impacts;
+    let verboseImpacts: VerboseIotImpacts;
+
+    $: Iot_instance, updateImpact();
     
 
     let block_number = 1;
@@ -111,6 +62,49 @@
     }
     function remove_last(){
         block_number--;
+    }
+
+    async function updateImpact() {
+        try {
+            IotImpact = await getIotImpact(Iot_instance);
+            if (!IotImpact || !IotImpact['verbose']) {
+                console.error('Invalid IotImpact data');
+                return;
+            }
+
+            const componentsSet = new Set([
+                "ACTUATORS-1", "CASING-1", "CONNECTIVITY-1", "MEMORY-1", "OTHERS-1", "PCB-1",
+                "POWER_SUPPLY-1", "PROCESSING-1", "SECURITY-1", "SENSING-1", "USER_INTERFACE-1"
+            ]);
+
+            function extractImpactValues(impactType, component, verboseData) {
+                return verboseData[component]['impacts'][impactType]?.embedded?.value ?? 0;
+            }
+
+            verboseImpacts = {
+                adpe: { embedded: {}, use: { total: 0 }, unit: "" },
+                gwp: { embedded: {}, use: { total: 0 }, unit: "" }
+            };
+
+            Object.keys(IotImpact['verbose']).forEach(component => {
+                if (componentsSet.has(component)) {
+                    verboseImpacts.adpe.embedded[component.toLowerCase()] = extractImpactValues('adpe', component, IotImpact['verbose']);
+                    verboseImpacts.gwp.embedded[component.toLowerCase()] = extractImpactValues('gwp', component, IotImpact['verbose']);
+                }
+            });
+
+            const { unit: adpeUnit, use: { value: adpeUseTotal } } = IotImpact['impacts']['adpe'];
+            const { unit: gwpUnit, use: { value: gwpUseTotal } } = IotImpact['impacts']['gwp'];
+
+            verboseImpacts.adpe.unit = adpeUnit;
+            verboseImpacts.adpe.use.total = adpeUseTotal;
+            verboseImpacts.gwp.unit = gwpUnit;
+            verboseImpacts.gwp.use.total = gwpUseTotal;
+
+        } catch (error) {
+            console.error('Error in updateImpact:', error);
+        }
+        console.log('verboseImpacts:', verboseImpacts);
     }
 </script>
 
@@ -127,8 +121,8 @@
                 <div id="serverconfig-usage" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 flex flex-col">
                     {#each {length: block_number} as _, i}
                         <div class="flex gap-1">
-                            <IoTConfig bind:IoTConfig={iot}/>
-                            <p>{iot.archetype.type}</p>
+                            <IoTConfig bind:IoTConfig={Iot_instance}/>
+                            <p>{Iot_instance.archetype.type}</p>
                         </div>
                     {/each}
                 </div>
