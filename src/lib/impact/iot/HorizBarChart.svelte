@@ -48,11 +48,11 @@
             case "MJ":
                 nb_rounded = 0;
                 break;
-            case "kgSbeq":
+            case "kg SB eq.":
                 nb_rounded = 6;
                 break;
             default:
-                nb_rounded = 6;
+                nb_rounded = 2;
         }
     }
 
