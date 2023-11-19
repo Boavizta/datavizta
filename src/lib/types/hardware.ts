@@ -21,6 +21,7 @@ export interface UserDevice {
   usage: UsageRequest
 }
 export interface IoT {
+  archetype: string
   functional_blocks: Array<Archetype>
   usage: UsageRequest
 }

@@ -16,9 +16,6 @@
             <div class="px-1 w-full">
                 <BarChart result={loadedImpact.adpe} criteria="{$_('impacts.ADPE')}" description="{$_('impacts.ADPE desc')}"/>
             </div>
-            
-       
-
     {/if}
 {:catch error}
     <p style="color: red">{error.message}</p>

@@ -81,8 +81,7 @@ export async function getUserDeviceImpact(
 }
 
 export async function getIotImpact(instance: IoT): Promise<Impacts> {
-  const params =
-    "?archetype=drone_mini&verbose=true&duration=8760&criteria=gwp&criteria=adpe"
+  const params = `?archetype=${instance.archetype}&verbose=true&duration=8760&criteria=gwp&criteria=adpe`
   const res = await post("iot/iot_device" + params, instance)
   return res.text().then((json) => {
     return JSON.parse(json)
