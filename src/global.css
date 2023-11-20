@@ -257,19 +257,17 @@ input:checked + .slider:before {
   float: left;
 }
 
-.bar-3 {
-  background: rgb(24, 61, 93);
+.bar-1 {
+  background: rgb(202, 231, 227);
 }
-
 .bar-2 {
   background: #008a8c;
 }
-
+.bar-3 {
+  background: rgb(24, 61, 93);
+}
 .bar-4 {
   background: rgb(84, 182, 189);
-}
-.bar-1 {
-  background: rgb(202, 231, 227);
 }
 .bar-5 {
   background: rgb(247, 210, 72);
@@ -279,6 +277,24 @@ input:checked + .slider:before {
 }
 .bar-7 {
   background: rgb(157, 181, 183);
+}
+.bar-8 {
+  background: rgb(255, 99, 71);
+}
+.bar-9 {
+  background: rgb(144, 238, 144);
+}
+.bar-10 {
+  background: rgb(255, 165, 0);
+}
+.bar-11 {
+  background: rgb(186, 85, 211);
+}
+.bar-12 {
+  background: rgb(30, 144, 255);
+}
+.bar-13 {
+  background: rgb(249, 159, 174);
 }
 .bar-legend {
   width: 10px;

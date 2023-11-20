@@ -151,6 +151,22 @@
             console.error("Error in updateImpact:", error);
         }
     }
+
+    let expandedConfig = null;
+
+    function openConfig(config) {
+        if (expandedConfig !== config) {
+            expandedConfig = config;
+        }
+    }
+
+    function toggleExpand(config) {
+        if (expandedConfig === config) {
+            expandedConfig = null;
+        } else {
+            expandedConfig = config;
+        }
+    }
 </script>
 
 <div id="content" class="px-1">
@@ -172,12 +188,12 @@
                 <div id="serverconfig-usage" class="flex flex-col gap-2 mb-4">
                     {#each { length: block_number } as _, i}
                         <div class="flex gap-2">
-                            <IoTConfig bind:IoTConfig={all_iot[i]} />
-                            <img
-                                on:click={() => remove(all_iot[i])}
-                                src="./src/routes/iotimpact/trash-icon.svg"
-                                alt="delete icon"
-                                class="mt-2 cursor-pointer hover:opacity-70"
+                            <IoTConfig
+                                bind:IoTConfig={all_iot[i]}
+                                expanded={expandedConfig === all_iot[i]}
+                                {toggleExpand}
+                                {openConfig}
+                                {remove}
                             />
                         </div>
                     {/each}
