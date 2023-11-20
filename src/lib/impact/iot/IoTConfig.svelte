@@ -86,6 +86,28 @@
             .then((data) => (iot_archetype = data));
     }
 
+    function getClosestHslLevel(hsl_levels, currentHsl) {
+        if (hsl_levels.includes(currentHsl)) {
+            return currentHsl;
+        }
+        const currentHslIndex = parseInt(currentHsl.split("-")[1]);
+        let closest = hsl_levels[0];
+        let closestIndex = Math.abs(
+            parseInt(closest.split("-")[1]) - currentHslIndex
+        );
+
+        for (let hsl of hsl_levels) {
+            const index = parseInt(hsl.split("-")[1]);
+            const diff = Math.abs(index - currentHslIndex);
+            if (diff < closestIndex) {
+                closest = hsl;
+                closestIndex = diff;
+            }
+        }
+
+        return closest;
+    }
+
     function getHslLevelsForType(type) {
         console.log("getHslLevelsForType", type);
         const block = iot_functional_blocks.find(
@@ -95,18 +117,18 @@
     }
 
     function updateFunctionalBlock(type, hsl_level, index) {
-        const updatedBlock = {
-            type,
-            hsl_level: hsl_level || getHslLevelsForType(type)[0],
-        };
+        const hsl_levels = getHslLevelsForType(type);
+        const closestHsl = getClosestHslLevel(hsl_levels, hsl_level);
+
+        const updatedBlock = { type, hsl_level: closestHsl };
         IoTConfig.functional_blocks[index] = updatedBlock;
         IoTConfig.functional_blocks = [...IoTConfig.functional_blocks];
     }
 
     function functionalBlocksTypeSelect({ detail }, index) {
         const type = detail.value;
-        const hsl_levels = getHslLevelsForType(type);
-        updateFunctionalBlock(type, hsl_levels[0], index);
+        const currentHsl = IoTConfig.functional_blocks[index].hsl_level;
+        updateFunctionalBlock(type, currentHsl, index);
     }
 
     function addFunctionalBlock() {
@@ -179,9 +201,6 @@
                     alt="Add icon"
                     class="cursor-pointer hover:opacity-70 ml-4"
                 />
-                <button class="ml-2" on:click={toggleExpand}
-                    >{expanded ? "Collapse" : "Expand"}</button
-                >
             </div>
             {#each IoTConfig.functional_blocks as block, index (block)}
                 <div class="flex items-center mb-2 pt-2">
