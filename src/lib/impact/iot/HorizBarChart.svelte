@@ -14,8 +14,10 @@
     let component_pcts = {};
 
     function formatComponentName(component) {
+        let formattedComponent = component.replace(/_/g, " ");
         return (
-            component.charAt(0).toUpperCase() + component.slice(1).split("-")[0]
+            formattedComponent.charAt(0).toUpperCase() +
+            formattedComponent.slice(1).split("-")[0]
         );
     }
 

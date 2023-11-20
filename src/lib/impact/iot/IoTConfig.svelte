@@ -80,10 +80,20 @@
             });
     }
 
+    function transformArchetypeName(archetype) {
+        return archetype
+            .replace(/[_-]/g, " ")
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+    }
+
     function fetchArchetypes() {
         return get("iot/iot_device/archetypes")
             .then((response) => response.json())
-            .then((data) => (iot_archetype = data));
+            .then((data) => {
+                iot_archetype = data;
+            });
     }
 
     function getClosestHslLevel(hsl_levels, currentHsl) {
@@ -109,7 +119,6 @@
     }
 
     function getHslLevelsForType(type) {
-        console.log("getHslLevelsForType", type);
         const block = iot_functional_blocks.find(
             (block) => block.type === type
         );
@@ -146,7 +155,7 @@
     }
 
     function onExpandClick(event) {
-        event.stopPropagation(); // Empêche la propagation du clic au module entier
+        event.stopPropagation();
         toggleExpand(IoTConfig);
     }
 
@@ -157,19 +166,23 @@
     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
     on:click={() => openConfig(IoTConfig)}
 >
-    <div class="flex justify-center w-full mb-4">
+    <div class="flex justify-center w-full {expanded ? 'mb-4' : ''}">
         <div class="w-full">
             {#if !expanded}
-                <h3 class="text-xl my-1">{IoTConfig.archetype}</h3>
+                <h3 class="text-xl font-medium my-1">
+                    {transformArchetypeName(IoTConfig.archetype)}
+                </h3>
             {:else}
                 <label class="block text-sm font-medium text-gray-900"
                     >{$_("iot-config.archetype")}</label
                 >
                 <Select
-                    items={iot_archetype}
+                    items={iot_archetype.map((obj) =>
+                        transformArchetypeName(obj)
+                    )}
                     on:select={({ detail }) =>
-                        (IoTConfig.archetype = detail.value)}
-                    value={iot_archetype[0]}
+                        (IoTConfig.archetype = iot_archetype[detail.index])}
+                    value={transformArchetypeName(iot_archetype[0])}
                 />
             {/if}
         </div>
@@ -177,14 +190,16 @@
             on:click={() => remove(IoTConfig)}
             src="./src/routes/iotimpact/trash-icon.svg"
             alt="delete icon"
-            class="ml-2 mt-2 cursor-pointer hover:opacity-70"
+            class="ml-4 cursor-pointer hover:opacity-70 {expanded
+                ? 'mt-5'
+                : ''}"
         />
         <img
             on:click={onExpandClick}
             src="./src/routes/iotimpact/expand-icon.svg"
             alt="collapse icon"
-            class="ml-2 mt-2 cursor-pointer hover:opacity-70 {expanded
-                ? 'rotate-180'
+            class="ml-4 cursor-pointer hover:opacity-70 {expanded
+                ? 'rotate-180 mt-5'
                 : ''}"
         />
     </div>
