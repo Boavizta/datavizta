@@ -43,7 +43,7 @@
     function createIoT(): IoT {
         return {
             archetype: "occupancy_sensor",
-            functional_blocks: [{ hsl_level: "HSL-1", type: "security" }],
+            functional_blocks: [{ type: "Actuators", hsl_level: "HSL-1" }],
             usage: {
                 avg_power: 150,
                 use_time_ratio: 1,
