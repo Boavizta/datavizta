@@ -250,7 +250,7 @@
   },
   "iot-config": {
     "configuration": "Configuration des IoTs",
-    "fonctional_blocks": "Blocs fonctionnels",
+    "functional_blocks": "Blocs fonctionnels",
     "archetype": "Archétype",
     "type": "Type",
     "hsl": "Niveau d'HSL"
