@@ -8,10 +8,16 @@
     let iot_archetype = [];
 
     export let IoTConfig: IoT;
+    IoTConfig.archetype = "iot_device_default";
     export let expanded;
     export let toggleExpand;
     export let openConfig;
     export let remove;
+    
+    export let details = false;
+    let localisation_route = "utils/country_code";
+    let locations = [];
+    let selectedRegionLabel = "World";
 
     const iot_functional_blocks = [
         {
@@ -71,14 +77,14 @@
                 return elements;
             });
     }
-
+    /*
     function getfirstitem(route) {
         return get(route)
             .then((response) => response.json())
             .then((data) => {
                 return data[0];
             });
-    }
+    }*/
 
     function transformArchetypeName(archetype) {
         return archetype
@@ -88,11 +94,13 @@
             .join(" ");
     }
 
-    function fetchArchetypes() {
+    async function fetchArchetypes() {
+        locations = await getlocalisation(localisation_route);
         return get("iot/iot_device/archetypes")
             .then((response) => response.json())
             .then((data) => {
                 iot_archetype = data;
+                
             });
     }
 
@@ -146,6 +154,7 @@
             "HSL-1",
             IoTConfig.functional_blocks.length
         );
+        
     }
 
     function removeFunctionalBlock(index) {
@@ -159,7 +168,32 @@
         toggleExpand(IoTConfig);
     }
 
-    onMount(fetchArchetypes);
+    
+    function showDetailsClick() {
+        details = !details;
+    }
+
+    
+    function getlocalisation(route) {
+        return get(route)
+            .then((response) => response.json())
+            .then((data) => {
+                let elements = [];
+                let items = Object.keys(data);
+                for (let i = 0; i < items.length; i++) {
+                    elements.push({ value: data[items[i]], label: items[i] });
+                }
+                return elements;
+            });
+    }
+    
+    function region_select(event) {
+        IoTConfig.usage.usage_location = event.detail.value;
+    }
+
+    onMount(()=> {
+        fetchArchetypes();
+        });
 </script>
 
 <div
@@ -169,11 +203,11 @@
     <div class="flex justify-center w-full {expanded ? 'mb-4' : ''}">
         <div class="w-full">
             {#if !expanded}
-                <h3 class="text-xl font-medium my-1">
+                <h3 class="text-xl my-1">
                     {transformArchetypeName(IoTConfig.archetype)}
                 </h3>
             {:else}
-                <label class="block text-sm font-medium text-gray-900"
+                <label class="block text-xl my-1 text-gray-900"
                     >{$_("iot-config.archetype")}</label
                 >
                 <Select
@@ -182,30 +216,30 @@
                     )}
                     on:select={({ detail }) =>
                         (IoTConfig.archetype = iot_archetype[detail.index])}
-                    value={transformArchetypeName(iot_archetype[0])}
+                    value={transformArchetypeName(IoTConfig.archetype)}
                 />
             {/if}
         </div>
         <img
             on:click={() => remove(IoTConfig)}
-            src="./src/routes/iotimpact/trash-icon.svg"
+            src="./src/routes/iotimpact/delete-icon.svg"
             alt="delete icon"
-            class="ml-4 cursor-pointer hover:opacity-70 {expanded
-                ? 'mt-5'
+            class="cursor-pointer hover:opacity-70 ml-4 {expanded
+                ? 'mt-8'
                 : ''}"
         />
         <img
             on:click={onExpandClick}
             src="./src/routes/iotimpact/expand-icon.svg"
             alt="collapse icon"
-            class="ml-4 cursor-pointer hover:opacity-70 {expanded
-                ? 'rotate-180 mt-5'
+            class="cursor-pointer hover:opacity-70 ml-4 {expanded
+                ? 'rotate-180 mt-8'
                 : ''}"
         />
     </div>
 
     {#if expanded}
-        <div class="divide-y-2">
+        <div>
             <div class="flex justify-start mb-2">
                 <h3 class="text-xl my-1">
                     {$_("iot-config.functional_blocks")}
@@ -253,6 +287,57 @@
                     />
                 </div>
             {/each}
+            <div class="mb-2">
+                <div class="flex">
+                    <h3 class="text-xl my-1">{$_("usage-config.usage")} </h3>
+                    
+                    <img on:click={showDetailsClick}
+                        src="./src/routes/iotimpact/expand-icon.svg"
+                        alt="collapse icon"
+                        class="cursor-pointer hover:opacity-70 ml-2 mt-2 {details
+                            ? 'rotate-180'
+                            : ''}"
+                    />
+                </div>
+
+                {#if details}
+                    <div class="mt-3 grid grid-cols-2 grid-rows-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900">
+                                {$_("iot-usage.avg-power")}
+                            </label>
+                            <input
+                                bind:value={IoTConfig.usage.avg_power}
+                                type="number"
+                                min="1"
+                                class="border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900">
+                                {$_("iot-usage.usage-location")}
+                            </label>
+                            <Select
+                                id="select-region"
+                                items={locations}
+                                on:select={region_select}
+                                value={selectedRegionLabel}
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900">
+                                {$_("iot-usage.life-time")}
+                            </label>
+                            <input
+                                bind:value={IoTConfig.usage.hours_life_time}
+                                type="number"
+                                min="1"
+                                class="border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            />
+                        </div>
+                    </div>
+                {/if}
+            </div>
         </div>
     {/if}
 </div>

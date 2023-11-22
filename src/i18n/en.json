@@ -254,5 +254,11 @@
     "archetype": "Archetype",
     "type": "Type",
     "hsl": "HSL Level"
+  },
+  "iot-usage":{
+    "avg-power":"Average power",
+    "usage-location":"Usage Location",
+    "life-time":"Life time (hours)",
+    "time-ratio":"Use time ratio"
   }
 }

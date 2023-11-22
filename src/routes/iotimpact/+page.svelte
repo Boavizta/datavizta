@@ -178,12 +178,10 @@
                     <h2 class="mb-2 mx-2 text-2xl font-bold">
                         {$_("iot-config.configuration")}
                     </h2>
-                    <img
-                        on:click={add_block}
+                    <img on:click={add_block}
                         src="./src/routes/iotimpact/plus-icon.svg"
                         alt="delete icon"
-                        class="cursor-pointer hover:opacity-70"
-                    />
+                        class="cursor-pointer hover:opacity-70"/>
                 </div>
                 <div id="serverconfig-usage" class="flex flex-col gap-2 mb-4">
                     {#each { length: block_number } as _, i}
