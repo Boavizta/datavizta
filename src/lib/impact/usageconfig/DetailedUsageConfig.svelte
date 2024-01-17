@@ -12,7 +12,11 @@
 {:then loadedImpact}
     {#if loadedImpact != undefined}
     <div class="ml-4 px-1 w-full">
+        {#if "avg_power" in loadedImpact['verbose']}
+        {#if "value" in loadedImpact['verbose']["avg_power"]}
         <p><a class="text-xs">{$_('detailed-config.usage-conso')}{loadedImpact['verbose']["avg_power"]["value"]}{loadedImpact['verbose']["avg_power"]["unit"]}</a></p>
+        {/if}
+        {/if}
         <p><a class="text-xs">{$_('detailed-config.usage-title')}</a></p>
         {#if "adpe_factor" in loadedImpact['verbose']}
         {#if loadedImpact['verbose']["adpe_factor"]["value"]!= undefined}

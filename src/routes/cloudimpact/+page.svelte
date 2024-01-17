@@ -29,6 +29,9 @@
             value: "WOR",
             label: "World"
         },
+        extendLifetime: {
+            value: 0
+        },
         time_workload : [ {
             time_percentage : 30,
             load_percentage : 50
