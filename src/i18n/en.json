@@ -30,7 +30,7 @@
       "4": "As such, a database and open methodologies have been developed collectively by the working group and Datavizta aims to make the result of this work accessible in the form of easy to use tools.",
       "5": "We have opted to remove the access to the manufacturer impacts data due to concerns about its improper usage. Instead, we are offering a better alternative for assessing environmental impacts of end-user devices and servers. The raw data remains accessible on our GitHub repository; however, please note that it will no longer be subject to updates.",
       "6": "The impact assessment tool provides an understanding of the environmental impacts of servers, cloud instances and user terminals on several criteria (at least Global Warming Potential, Primary Energy and Abiotic Resource Depletion Potential), over two life cycle phases (use, manufacturing) based on their technical characteristics and context of use.",
-      "7": "Mulicriteria impacts"
+      "7": "Multicriteria impacts"
     }
   },
   "manufdata": {
