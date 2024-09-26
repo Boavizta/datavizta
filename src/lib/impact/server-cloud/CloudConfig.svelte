@@ -41,9 +41,12 @@
     })
 
     async function provider_select(event){
-        cloudConfig.provider=event.detail.value
+        cloudConfig = {
+            "instance_type": await getfirstitem(cloud_instances_route+"?provider="+event.detail.value),
+            "provider":event.detail.value
+        }
         cloud_instances = await getAllInstances(event.detail.value)
-        cloudConfig.instance_type = await getfirstitem(cloud_instances_route+"?provider="+cloudConfig.provider);
+        
     }
 
     function instance_select(event){
