@@ -43,7 +43,8 @@
     async function provider_select(event){
         cloudConfig = {
             "instance_type": await getfirstitem(cloud_instances_route+"?provider="+event.detail.value),
-            "provider":event.detail.value
+            "provider":event.detail.value,
+            "usage":cloudConfig.usage
         }
         cloud_instances = await getAllInstances(event.detail.value)
         
