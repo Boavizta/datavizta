@@ -7,6 +7,7 @@
   "without": "Sans",
   "cores": "coeurs",
   "density": "densité",
+  "not_available" : "N/A",
   "nav": {
     "home": "Accueil",
     "manufacturer": "Données Fabricants",

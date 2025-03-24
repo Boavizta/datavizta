@@ -10,7 +10,7 @@
 {:then loadedImpact}
     {#if loadedImpact != undefined}
     <div class="ml-4 px-1 w-full">
-        <p><span class="text-xs"> {loadedImpact['verbose']["CPU-1"]["units"]["value"]} {loadedImpact['verbose']["CPU-1"]["model_range"]["value"]} CPU {$_('with')} TDP {loadedImpact['verbose']["CPU-1"]["tdp"]["value"]}{loadedImpact['verbose']["CPU-1"]["tdp"]["unit"]} {$_('and')} {loadedImpact['verbose']["CPU-1"]["core_units"]["value"]} {$_('cores')} (die size: {loadedImpact['verbose']["CPU-1"]["die_size"]["value"]}{loadedImpact['verbose']["CPU-1"]["die_size"]["unit"]})</span></p>
+        <p><span class="text-xs"> {loadedImpact['verbose']["CPU-1"]["units"]["value"]} {loadedImpact['verbose']["CPU-1"]["model_range"]?.["value"] ?? $_('not_available')} CPU {$_('with')} TDP {loadedImpact['verbose']["CPU-1"]["tdp"]?.["value"] ?? $_('not_available')} {loadedImpact['verbose']["CPU-1"]["tdp"]?.["unit"] ?? $_('not_available')} {$_('and')} {loadedImpact['verbose']["CPU-1"]["core_units"]?.["value"] ?? $_('not_available')} {$_('cores')} (die size: {loadedImpact['verbose']["CPU-1"]["die_size"]["value"]}{loadedImpact['verbose']["CPU-1"]["die_size"]["unit"]})</span></p>
         <p><span class="text-xs"> {loadedImpact['verbose']["RAM-1"]["units"]["value"]} x {loadedImpact['verbose']["RAM-1"]["capacity"]["value"]}{loadedImpact['verbose']["RAM-1"]["capacity"]["unit"]} RAM {$_('with')} {$_('density')}: {loadedImpact['verbose']["RAM-1"]["density"]["value"]}{loadedImpact['verbose']["RAM-1"]["density"]["unit"]}</span></p>
         {#if (loadedImpact['verbose']["SSD-1"] != undefined)}
             {#if (loadedImpact['verbose']["SSD-1"]["units"]["value"] > 0)}
