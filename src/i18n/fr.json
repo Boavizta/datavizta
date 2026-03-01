@@ -186,7 +186,7 @@
     "psu_number" : "Nombre de PSU",
     "psu" : "unités d'alimentation",
     "others" : "Autres",
-    "usage" : "Utitilisation du serveur"
+    "usage" : "Utilisation du serveur"
   },
   "server-impact": {
     "title":"Impact multicritère des serveurs"
