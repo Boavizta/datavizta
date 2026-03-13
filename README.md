@@ -41,3 +41,22 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> 
+
+### Serving the website as an SPA on Apache
+
+You need to configure rewrite rules to serve the website as static application.
+
+Add the directives to an `.htaccess` file at the root of the site (see <https://svelte.dev/docs/kit/single-page-apps#Apache>)
+
+Example for Apache/Infomaniak:
+
+```
+# Added to support navigation for Dataviz as SPA
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+```
