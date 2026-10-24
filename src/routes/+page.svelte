@@ -26,17 +26,20 @@
 		<p class="text-sm mb-2">
 			{$_('index.explanation.6')}
 		</p>
-		<button
+		<a
+			href="/serversimpact"
 			class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded"
-			onclick="window.location.href='/serversimpact'">{$_('index.button.2')}</button
+			>{$_('index.button.2')}</a
 		>
-		<button
+		<a
+			href="/cloudimpact"
 			class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded"
-			onclick="window.location.href='/cloudimpact'">{$_('index.button.3')}</button
+			>{$_('index.button.3')}</a
 		>
-		<button
+		<a
+			href="/terminalimpact"
 			class="my-2 inline-block blue-button hover:bg-teal-800 disabled:opacity-20 text-white font-bold py-2 px-4 border rounded"
-			onclick="window.location.href='/terminalimpact'">{$_('index.button.4')}</button
+			>{$_('index.button.4')}</a
 		>
 		<h3 class="title-third mt-2">{$_('manufdata.title')}</h3>
 		<p class="text-sm mb-2">
