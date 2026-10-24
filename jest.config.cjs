@@ -1,8 +1,10 @@
+const tsJest = { tsconfig: { preserveValueImports: false } };
+
 module.exports = {
 	transform: {
 		'^.+\\.svelte$': ['svelte-jester', { preprocess: './svelte.config.test.cjs' }],
-		'^.+\\.ts$': 'ts-jest',
-		'^.+\\.js$': 'ts-jest'
+		'^.+\\.ts$': ['ts-jest', tsJest],
+		'^.+\\.js$': ['ts-jest', tsJest]
 	},
 	moduleFileExtensions: ['js', 'ts', 'svelte'],
 	moduleNameMapper: {
@@ -13,5 +15,6 @@ module.exports = {
 		]
 	},
 	setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
+	testPathIgnorePatterns: ['/node_modules/', '<rootDir>/tests/e2e/'],
 	collectCoverageFrom: ['src/**/*.{ts,tsx,svelte,js,jsx}']
 };
