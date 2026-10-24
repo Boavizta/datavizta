@@ -1,8 +1,8 @@
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 //https://playwright.dev/docs/api/class-testconfig
-const config= {
+const config = {
 	use: {
-		headless: true,
+		headless: true
 	},
 	webServer: {
 		command: 'npm run build && npm run preview',
