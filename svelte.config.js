@@ -17,7 +17,7 @@ const config = {
 			precompress: false
 		}),
 		prerender: { entries: [] }
-/* 		
+		/* 		
 https://github.com/sveltejs/kit/pull/6197
 prerender: {
 			default: true
