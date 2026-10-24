@@ -19,7 +19,7 @@ You can try it on https://dataviz.boavizta.org
 
 ### Developing
 
-It needs node 16. see [this url](https://github.com/nodesource/distributions/blob/master/README.md) for installing.
+It needs node 24 (current LTS; see `.nvmrc`). see [this url](https://github.com/nodesource/distributions/blob/master/README.md) for installing.
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
